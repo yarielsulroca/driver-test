@@ -1,181 +1,222 @@
-# Sistema de Gestión de Exámenes para Licencias de Conducir
+# API de Sistema de Gestión de Exámenes para Licencias de Conducir
 
 ## Descripción del Sistema
-Sistema web desarrollado en CodeIgniter 4 para la gestión de exámenes teóricos de licencias de conducir, que permite administrar diferentes categorías de licencias, escuelas de conducción, conductores y técnicos evaluadores.
+API REST desarrollada en CodeIgniter 4 para la gestión de exámenes teóricos de licencias de conducir. Proporciona endpoints para administrar diferentes categorías de licencias, escuelas de conducción, conductores y técnicos evaluadores.
 
-## Roles del Sistema
+## Endpoints de la API
+
+### Autenticación
+```
+POST /api/auth/login
+POST /api/auth/logout
+POST /api/auth/refresh-token
+```
+
+### Técnicos
+```
+GET    /api/tecnicos
+POST   /api/tecnicos
+GET    /api/tecnicos/{id}
+PUT    /api/tecnicos/{id}
+DELETE /api/tecnicos/{id}
+```
+
+### Conductores
+```
+GET    /api/conductores
+POST   /api/conductores/registro
+GET    /api/conductores/{id}
+PUT    /api/conductores/{id}
+DELETE /api/conductores/{id}
+GET    /api/conductores/{id}/examenes
+POST   /api/conductores/{id}/verificar-elegibilidad
+```
+
+### Categorías
+```
+GET    /api/categorias
+POST   /api/categorias
+GET    /api/categorias/{id}
+PUT    /api/categorias/{id}
+DELETE /api/categorias/{id}
+GET    /api/categorias/{id}/examenes
+GET    /api/categorias/{id}/preguntas
+```
+
+### Exámenes
+```
+GET    /api/examenes
+POST   /api/examenes
+GET    /api/examenes/{id}
+PUT    /api/examenes/{id}
+DELETE /api/examenes/{id}
+GET    /api/examenes/{id}/preguntas
+POST   /api/examenes/{id}/asignar
+```
+
+### Preguntas y Respuestas
+```
+GET    /api/preguntas
+POST   /api/preguntas
+GET    /api/preguntas/{id}
+PUT    /api/preguntas/{id}
+DELETE /api/preguntas/{id}
+GET    /api/preguntas/{id}/respuestas
+```
+
+### Resultados
+```
+GET    /api/resultados
+POST   /api/resultados
+GET    /api/resultados/{id}
+GET    /api/resultados/conductor/{id}
+GET    /api/resultados/examen/{id}
+```
+
+## Roles y Permisos
 
 ### 1. Técnico
-- Acceso al panel administrativo
-- Gestión de exámenes y categorías
-- Evaluación de solicitudes de conductores
+- Autenticación mediante JWT
+- CRUD completo de exámenes y categorías
+- Gestión de solicitudes de conductores
 - Asignación de exámenes
-- Revisión de resultados
-- Gestión de escuelas de conducción
+- Acceso a reportes y estadísticas
 
 ### 2. Conductor
+- Autenticación mediante JWT
 - Registro en el sistema
-- Selección de categoría de licencia
+- Consulta de categorías disponibles
 - Realización de exámenes asignados
-- Consulta de resultados y estado
+- Consulta de resultados propios
 
-## Funcionalidades Principales
+## Modelos de Datos
 
-### Gestión de Usuarios
-1. **Técnicos**
-   - Registro con datos personales
-   - Autenticación segura
-   - Gestión de perfiles
-   - Estado activo/inactivo
+### Respuestas de la API
+Todas las respuestas siguen el siguiente formato:
+```json
+{
+    "status": "success|error",
+    "message": "Mensaje descriptivo",
+    "data": {
+        // Datos de la respuesta
+    }
+}
+```
 
-2. **Conductores**
-   - Registro con validación de datos
-   - Selección de categoría de licencia
-   - Estado de registro (pendiente, aprobado, rechazado)
-   - Historial de exámenes
-   - Bloqueo temporal por reprobación
+### Estructura de Datos Principales
 
-### Gestión de Categorías
-- Clasificación por tipo de vehículo
-- Requisitos específicos por categoría
-- Edad mínima requerida
-- Experiencia previa necesaria
-- Documentación requerida
+1. **Usuario (Técnico)**
+```json
+{
+    "usuario_id": integer,
+    "nombre": string,
+    "apellido": string,
+    "email": string,
+    "rol": "tecnico",
+    "estado": "activo|inactivo"
+}
+```
 
-### Gestión de Exámenes
-1. **Configuración**
-   - Asignación por categoría
-   - Número de preguntas
-   - Tiempo límite
-   - Puntaje mínimo de aprobación
-   - Preguntas críticas
+2. **Conductor**
+```json
+{
+    "conductor_id": integer,
+    "nombre": string,
+    "apellido": string,
+    "dni": string,
+    "fecha_nacimiento": date,
+    "direccion": string,
+    "telefono": string,
+    "email": string,
+    "categoria_id": integer,
+    "estado_registro": "pendiente|aprobado|rechazado",
+    "fecha_registro": datetime
+}
+```
 
-2. **Tipos de Preguntas**
-   - Opción múltiple
-   - Verdadero/Falso
-   - Con/Sin imágenes
-   - Preguntas críticas
+3. **Examen**
+```json
+{
+    "examen_id": integer,
+    "categoria_id": integer,
+    "escuela_id": integer,
+    "nombre": string,
+    "descripcion": string,
+    "duracion_minutos": integer,
+    "puntaje_minimo": float,
+    "numero_preguntas": integer,
+    "fecha_inicio": datetime,
+    "fecha_fin": datetime
+}
+```
 
-3. **Evaluación**
-   - Registro de respuestas
-   - Control de tiempo
-   - Cálculo automático de puntaje
-   - Identificación de errores críticos
+4. **Resultado Examen**
+```json
+{
+    "resultado_id": integer,
+    "conductor_id": integer,
+    "examen_id": integer,
+    "puntaje_total": float,
+    "preguntas_correctas": integer,
+    "preguntas_incorrectas": integer,
+    "tiempo_empleado": integer,
+    "estado": "aprobado|reprobado",
+    "bloqueado": boolean,
+    "fecha_bloqueo": datetime,
+    "respuestas": [
+        {
+            "pregunta_id": integer,
+            "respuesta_id": integer,
+            "es_correcta": boolean,
+            "tiempo_respuesta": integer
+        }
+    ]
+}
+```
 
-### Sistema de Bloqueo
-- Bloqueo automático por reprobación
-- Período de espera de 7 días laborales
-- Desbloqueo automático al cumplir el período
-- Registro de fechas de bloqueo/desbloqueo
+## Seguridad
 
-## Estructura de la Base de Datos
+### Autenticación
+- Implementación de JWT (JSON Web Tokens)
+- Tokens de acceso y renovación
+- Expiración configurable de tokens
 
-### Tablas Principales
-1. **usuarios**
-   - usuario_id (PK)
-   - nombre, apellido
-   - email, password
-   - rol (técnico)
-   - estado
+### Autorización
+- Middleware de verificación de roles
+- Validación de permisos por endpoint
+- Protección contra CSRF en endpoints sensibles
 
-2. **conductores**
-   - conductor_id (PK)
-   - datos personales
-   - categoria_id (FK)
-   - estado_registro
-   - fecha_registro
-
-3. **categorias**
-   - categoria_id (PK)
-   - sigla, nombre
-   - descripción
-   - requisitos
-   - edad_mínima
-   - experiencia_requerida
-
-4. **examenes**
-   - examen_id (PK)
-   - categoria_id (FK)
-   - escuela_id (FK)
-   - configuración
-   - fechas
-   - requisitos
-
-5. **preguntas**
-   - pregunta_id (PK)
-   - examen_id (FK)
-   - categoria_id (FK)
-   - tipo, dificultad
-   - es_critica
-
-6. **respuestas**
-   - respuesta_id (PK)
-   - pregunta_id (FK)
-   - texto
-   - es_correcta
-
-7. **resultados_examenes**
-   - resultado_id (PK)
-   - conductor_id (FK)
-   - examen_id (FK)
-   - estadísticas
-   - estado
-   - bloqueo
-
-8. **respuestas_conductor**
-   - respuesta_conductor_id (PK)
-   - resultado_examen_id (FK)
-   - pregunta_id (FK)
-   - respuesta_id (FK)
-   - tiempo_respuesta
-   - es_correcta
-
-### Relaciones Principales
-- Conductor -> Categoría (N:1)
-- Conductor -> Resultados (1:N)
-- Examen -> Categoría (N:1)
-- Examen -> Preguntas (1:N)
-- Pregunta -> Respuestas (1:N)
-- ResultadoExamen -> RespuestasConductor (1:N)
-
-## Flujo del Sistema
-
-1. **Registro de Conductor**
-   - Ingreso de datos personales
-   - Selección de categoría
-   - Estado inicial: pendiente
-
-2. **Aprobación de Registro**
-   - Técnico revisa solicitud
-   - Verifica requisitos
-   - Aprueba/Rechaza registro
-
-3. **Asignación de Examen**
-   - Técnico asigna examen
-   - Sistema verifica elegibilidad
-   - Notificación al conductor
-
-4. **Realización del Examen**
-   - Verificación de identidad
-   - Control de tiempo
-   - Registro de respuestas
-   - Cálculo de resultado
-
-5. **Gestión de Resultados**
-   - Registro detallado de respuestas
-   - Cálculo de estadísticas
-   - Aplicación de bloqueos
-   - Generación de reportes
+### Validaciones
+- Sanitización de datos de entrada
+- Validación de tipos y formatos
+- Protección contra inyección SQL
+- Rate limiting en endpoints críticos
 
 ## Requisitos Técnicos
 - PHP 7.4 o superior
 - MySQL 5.7 o superior
 - CodeIgniter 4.x
-- Servidor web Apache/Nginx
+- Extensiones PHP requeridas:
+  - JSON
+  - MySQLi
+  - intl
+  - mbstring
 
 ## Instalación
 1. Clonar el repositorio
-2. Configurar el archivo .env
+2. Configurar el archivo .env:
+   ```env
+   CI_ENVIRONMENT = production
+   app.baseURL = 'http://tu-dominio.com/'
+   
+   database.default.hostname = localhost
+   database.default.database = nombre_db
+   database.default.username = usuario
+   database.default.password = contraseña
+   
+   jwt.secretKey = 'tu_clave_secreta'
+   jwt.timeToLive = 3600
+   ```
 3. Ejecutar migraciones:
    ```bash
    php spark migrate
@@ -187,12 +228,26 @@ Sistema web desarrollado en CodeIgniter 4 para la gestión de exámenes teórico
 
 ## Credenciales por Defecto
 ### Técnico Administrador
-- Email: admin@sistema.com
-- Contraseña: admin123
+```json
+{
+    "email": "admin@sistema.com",
+    "password": "admin123"
+}
+```
 
 ### Técnico Evaluador
-- Email: tecnico@sistema.com
-- Contraseña: tecnico123
+```json
+{
+    "email": "tecnico@sistema.com",
+    "password": "tecnico123"
+}
+```
+
+## Documentación Adicional
+La documentación completa de la API está disponible en:
+```
+/api/docs
+```
 
 # CodeIgniter 4 Framework
 
