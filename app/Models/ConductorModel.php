@@ -37,6 +37,6 @@ class ConductorModel extends Model
     // Relaciones
     public function resultados()
     {
-        return $this->hasMany('App\Models\ResultadoModel', 'conductor_id', 'conductor_id');
+        return $this->hasMany('App\Models\ResultadoExamenModel', 'conductor_id', 'conductor_id');
     }
 } 
