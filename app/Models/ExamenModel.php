@@ -14,12 +14,14 @@ class ExamenModel extends Model
     protected $protectFields = true;
     protected $allowedFields = [
         'escuela_id',
+        'categoria_id',
         'nombre',
         'descripcion',
         'fecha_inicio',
         'fecha_fin',
         'duracion_minutos',
-        'puntaje_minimo'
+        'puntaje_minimo',
+        'numero_preguntas'
     ];
 
     // Dates
@@ -30,7 +32,17 @@ class ExamenModel extends Model
     protected $deletedField = 'deleted_at';
 
     // Validation
-    protected $validationRules = [];
+    protected $validationRules = [
+        'escuela_id' => 'required|integer',
+        'categoria_id' => 'required|integer',
+        'nombre' => 'required|min_length[3]|max_length[100]',
+        'descripcion' => 'required|min_length[10]',
+        'fecha_inicio' => 'required|valid_date',
+        'fecha_fin' => 'required|valid_date',
+        'duracion_minutos' => 'required|integer|greater_than[0]',
+        'puntaje_minimo' => 'required|numeric|greater_than[0]',
+        'numero_preguntas' => 'required|integer|greater_than[0]'
+    ];
     protected $validationMessages = [];
     protected $skipValidation = false;
     protected $cleanValidationRules = true;
@@ -41,9 +53,14 @@ class ExamenModel extends Model
         return $this->belongsTo('App\Models\EscuelaModel', 'escuela_id', 'escuela_id');
     }
 
+    public function categoria()
+    {
+        return $this->belongsTo('App\Models\CategoriaModel', 'categoria_id', 'categoria_id');
+    }
+
     public function resultados()
     {
-        return $this->hasMany('App\Models\ResultadoModel', 'examen_id', 'examen_id');
+        return $this->hasMany('App\Models\ResultadoExamenModel', 'examen_id', 'examen_id');
     }
 
     public function preguntas()

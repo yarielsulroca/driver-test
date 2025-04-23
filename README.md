@@ -13,18 +13,54 @@ Este proyecto es un sistema de gestión de exámenes para conductores, desarroll
 - Creación y administración de exámenes
 - Configuración de duración y puntaje mínimo
 - Asignación a escuelas de manejo
+- Categorización por tipo de vehículo
+
+### Categorías de Exámenes
+El sistema maneja diferentes categorías de exámenes, identificadas por siglas que representan tipos específicos de vehículos:
+
+- **A**: Motocicletas y similares
+  - A1: Motocicletas hasta 125cc
+  - A2: Motocicletas hasta 35kW
+  - A: Motocicletas sin restricción de potencia
+
+- **B**: Automóviles
+  - B1: Automóviles particulares
+  - B2: Automóviles de servicio público
+
+- **C**: Vehículos de carga
+  - C1: Camiones ligeros
+  - C2: Camiones pesados
+  - C3: Camiones articulados
+
+- **D**: Vehículos de pasajeros
+  - D1: Microbuses
+  - D2: Buses
+  - D3: Buses articulados
+
+- **E**: Vehículos especiales
+  - E1: Maquinaria agrícola
+  - E2: Vehículos de emergencia
+  - E3: Vehículos de transporte especial
+
+Cada categoría tiene:
+- Sigla única identificadora
+- Descripción detallada del tipo de vehículo
+- Requisitos específicos para la licencia
+- Preguntas especializadas en el examen
 
 ### Sistema de Preguntas
 - Creación de preguntas con múltiples opciones
 - Cuatro respuestas por pregunta
 - Una única respuesta correcta por pregunta
 - Asignación de puntaje por pregunta
+- Preguntas específicas por categoría
 
 ### Resultados y Análisis
 - Registro detallado de resultados
 - Tiempo empleado en cada examen
 - Estadísticas de rendimiento
 - Historial de intentos
+- Seguimiento por categoría
 
 ## Estructura de la Base de Datos
 
@@ -34,27 +70,35 @@ Este proyecto es un sistema de gestión de exámenes para conductores, desarroll
    - Información personal de los conductores
    - Datos de contacto y documentación
 
-2. **examenes**
+2. **categorias**
+   - Sigla de la categoría
+   - Descripción del tipo de vehículo
+   - Requisitos específicos
+
+3. **examenes**
    - Configuración de exámenes
    - Duración y requisitos
    - Relación con escuelas
+   - Categoría asignada
 
-3. **preguntas**
+4. **preguntas**
    - Enunciados de preguntas
    - Tipo de pregunta
    - Puntaje asignado
    - Relación con exámenes
+   - Categoría asociada
 
-4. **respuestas**
+5. **respuestas**
    - Opciones de respuesta
    - Indicador de respuesta correcta
    - Relación con preguntas
 
-5. **resultados_examenes**
+6. **resultados_examenes**
    - Registro de intentos de examen
    - Puntaje obtenido
    - Tiempo empleado
    - Estado (aprobado/reprobado)
+   - Categoría del examen
 
 ## Relaciones entre Modelos
 
@@ -62,13 +106,19 @@ Este proyecto es un sistema de gestión de exámenes para conductores, desarroll
 - Tiene muchos `ResultadoExamenModel`
 - Almacena información personal del conductor
 
+### CategoriaModel
+- Tiene muchos `ExamenModel`
+- Define los tipos de vehículos y requisitos
+
 ### ExamenModel
 - Pertenece a una `EscuelaModel`
+- Pertenece a una `CategoriaModel`
 - Tiene muchos `PreguntaModel`
 - Tiene muchos `ResultadoExamenModel`
 
 ### PreguntaModel
 - Pertenece a un `ExamenModel`
+- Pertenece a una `CategoriaModel`
 - Tiene muchos `RespuestaModel`
 
 ### RespuestaModel
@@ -96,9 +146,9 @@ Este proyecto es un sistema de gestión de exámenes para conductores, desarroll
 ## Uso
 1. Acceder al sistema con credenciales de administrador
 2. Crear conductores y exámenes
-3. Configurar preguntas y respuestas
-4. Asignar exámenes a conductores
-5. Revisar resultados y estadísticas
+3. Configurar preguntas y respuestas por categoría
+4. Asignar exámenes a conductores según la categoría deseada
+5. Revisar resultados y estadísticas por categoría
 
 # CodeIgniter 4 Framework
 

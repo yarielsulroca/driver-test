@@ -14,9 +14,12 @@ class PreguntaModel extends Model
     protected $protectFields = true;
     protected $allowedFields = [
         'examen_id',
+        'categoria_id',
         'enunciado',
         'tipo_pregunta',
-        'puntaje'
+        'puntaje',
+        'dificultad',
+        'es_critica'
     ];
 
     // Dates
@@ -27,7 +30,15 @@ class PreguntaModel extends Model
     protected $deletedField = 'deleted_at';
 
     // Validation
-    protected $validationRules = [];
+    protected $validationRules = [
+        'examen_id' => 'required|integer',
+        'categoria_id' => 'required|integer',
+        'enunciado' => 'required|min_length[10]',
+        'tipo_pregunta' => 'required|in_list[multiple,verdadero_falso]',
+        'puntaje' => 'required|numeric|greater_than[0]',
+        'dificultad' => 'required|in_list[baja,media,alta]',
+        'es_critica' => 'required|in_list[0,1]'
+    ];
     protected $validationMessages = [];
     protected $skipValidation = false;
     protected $cleanValidationRules = true;
@@ -36,6 +47,11 @@ class PreguntaModel extends Model
     public function examen()
     {
         return $this->belongsTo('App\Models\ExamenModel', 'examen_id', 'examen_id');
+    }
+
+    public function categoria()
+    {
+        return $this->belongsTo('App\Models\CategoriaModel', 'categoria_id', 'categoria_id');
     }
 
     public function respuestas()
