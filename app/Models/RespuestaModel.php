@@ -4,19 +4,18 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class PreguntaModel extends Model
+class RespuestaModel extends Model
 {
-    protected $table = 'preguntas';
-    protected $primaryKey = 'pregunta_id';
+    protected $table = 'respuestas';
+    protected $primaryKey = 'respuesta_id';
     protected $useAutoIncrement = true;
     protected $returnType = 'array';
     protected $useSoftDeletes = false;
     protected $protectFields = true;
     protected $allowedFields = [
-        'examen_id',
-        'enunciado',
-        'tipo_pregunta',
-        'puntaje'
+        'pregunta_id',
+        'texto',
+        'es_correcta'
     ];
 
     // Dates
@@ -27,19 +26,18 @@ class PreguntaModel extends Model
     protected $deletedField = 'deleted_at';
 
     // Validation
-    protected $validationRules = [];
+    protected $validationRules = [
+        'pregunta_id' => 'required|integer',
+        'texto' => 'required|min_length[1]',
+        'es_correcta' => 'required|in_list[0,1]'
+    ];
     protected $validationMessages = [];
     protected $skipValidation = false;
     protected $cleanValidationRules = true;
 
     // Relaciones
-    public function examen()
+    public function pregunta()
     {
-        return $this->belongsTo('App\Models\ExamenModel', 'examen_id', 'examen_id');
-    }
-
-    public function respuestas()
-    {
-        return $this->hasMany('App\Models\RespuestaModel', 'pregunta_id', 'pregunta_id');
+        return $this->belongsTo('App\Models\PreguntaModel', 'pregunta_id', 'pregunta_id');
     }
 } 
