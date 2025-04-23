@@ -10,149 +10,83 @@ class PreguntasE1Seeder extends Seeder
 {
     public function run()
     {
+        $preguntaModel = new PreguntaModel();
+        $respuestaModel = new RespuestaModel();
+
         $preguntas = [
-            // Pregunta Crítica 1
             [
-                'enunciado' => '¿Qué debe hacer si el remolque comienza a hacer "serpenteo" (movimiento lateral incontrolado) durante la marcha?',
+                'categoria_id' => 1, // ID de la categoría E1
+                'enunciado' => '¿Cuál es la distancia mínima de seguridad que debe mantener con el vehículo de adelante al conducir un vehículo con remolque?',
                 'tipo_pregunta' => 'multiple',
-                'puntaje' => 4,
-                'dificultad' => 'alta',
-                'es_critica' => 1,
-                'respuestas' => [
-                    [
-                        'texto' => 'Acelerar para estabilizar el remolque',
-                        'es_correcta' => 0
-                    ],
-                    [
-                        'texto' => 'Frenar bruscamente',
-                        'es_correcta' => 0
-                    ],
-                    [
-                        'texto' => 'Soltar el volante y dejar que el vehículo se estabilice solo',
-                        'es_correcta' => 0
-                    ],
-                    [
-                        'texto' => 'Reducir suavemente la velocidad y mantener el volante firme',
-                        'es_correcta' => 1
-                    ]
-                ]
-            ],
-            // Pregunta Normal
-            [
-                'enunciado' => '¿Cuál es la distancia mínima de seguridad que debe mantener un vehículo con remolque en autopista?',
-                'tipo_pregunta' => 'multiple',
-                'puntaje' => 4,
+                'puntaje' => 10,
                 'dificultad' => 'media',
-                'es_critica' => 0,
                 'respuestas' => [
-                    [
-                        'texto' => '50 metros',
-                        'es_correcta' => 0
-                    ],
-                    [
-                        'texto' => '100 metros',
-                        'es_correcta' => 1
-                    ],
-                    [
-                        'texto' => '150 metros',
-                        'es_correcta' => 0
-                    ],
-                    [
-                        'texto' => '200 metros',
-                        'es_correcta' => 0
-                    ]
+                    ['texto' => '50 metros', 'es_correcta' => true],
+                    ['texto' => '30 metros', 'es_correcta' => false],
+                    ['texto' => '20 metros', 'es_correcta' => false],
+                    ['texto' => '10 metros', 'es_correcta' => false]
                 ]
             ],
-            // Pregunta Crítica 2
             [
-                'enunciado' => '¿Qué debe hacer si nota que el remolque se está desacoplando durante la marcha?',
+                'categoria_id' => 1,
+                'enunciado' => '¿Qué documentación adicional se requiere para conducir un vehículo con remolque?',
                 'tipo_pregunta' => 'multiple',
-                'puntaje' => 4,
-                'dificultad' => 'alta',
-                'es_critica' => 1,
+                'puntaje' => 10,
+                'dificultad' => 'media',
                 'respuestas' => [
-                    [
-                        'texto' => 'Continuar conduciendo hasta encontrar un lugar seguro',
-                        'es_correcta' => 0
-                    ],
-                    [
-                        'texto' => 'Detenerse inmediatamente en el lugar más seguro posible',
-                        'es_correcta' => 1
-                    ],
-                    [
-                        'texto' => 'Acelerar para llegar más rápido a destino',
-                        'es_correcta' => 0
-                    ],
-                    [
-                        'texto' => 'Intentar reacoplar el remolque mientras conduce',
-                        'es_correcta' => 0
-                    ]
+                    ['texto' => 'Permiso de circulación del remolque y seguro específico', 'es_correcta' => true],
+                    ['texto' => 'Solo el permiso de conducir E1', 'es_correcta' => false],
+                    ['texto' => 'No se requiere documentación adicional', 'es_correcta' => false],
+                    ['texto' => 'Solo el seguro del vehículo principal', 'es_correcta' => false]
                 ]
             ],
-            // Pregunta Normal
             [
-                'enunciado' => '¿Qué documentación específica debe portar un conductor de vehículo con remolque?',
+                'categoria_id' => 1,
+                'enunciado' => '¿Cuál es la velocidad máxima permitida para vehículos con remolque en autopista?',
                 'tipo_pregunta' => 'multiple',
-                'puntaje' => 4,
-                'dificultad' => 'alta',
-                'es_critica' => 0,
+                'puntaje' => 10,
+                'dificultad' => 'media',
                 'respuestas' => [
-                    [
-                        'texto' => 'Solo la licencia de conducir',
-                        'es_correcta' => 0
-                    ],
-                    [
-                        'texto' => 'Licencia de conducir y cédula verde del remolque',
-                        'es_correcta' => 1
-                    ],
-                    [
-                        'texto' => 'Solo la cédula verde del remolque',
-                        'es_correcta' => 0
-                    ],
-                    [
-                        'texto' => 'Ninguna documentación adicional',
-                        'es_correcta' => 0
-                    ]
+                    ['texto' => '80 km/h', 'es_correcta' => true],
+                    ['texto' => '100 km/h', 'es_correcta' => false],
+                    ['texto' => '120 km/h', 'es_correcta' => false],
+                    ['texto' => '90 km/h', 'es_correcta' => false]
                 ]
             ],
-            // Pregunta Crítica 3
             [
-                'enunciado' => '¿Qué debe hacer si el sistema de frenos del remolque falla durante la marcha?',
+                'categoria_id' => 1,
+                'enunciado' => '¿Qué precauciones especiales debe tomar al estacionar un vehículo con remolque?',
                 'tipo_pregunta' => 'multiple',
-                'puntaje' => 4,
+                'puntaje' => 10,
                 'dificultad' => 'alta',
-                'es_critica' => 1,
                 'respuestas' => [
-                    [
-                        'texto' => 'Usar solo el freno de mano del vehículo tractor',
-                        'es_correcta' => 0
-                    ],
-                    [
-                        'texto' => 'Reducir la velocidad gradualmente usando el freno motor y buscar un lugar seguro para detenerse',
-                        'es_correcta' => 1
-                    ],
-                    [
-                        'texto' => 'Frenar bruscamente para detener el vehículo lo antes posible',
-                        'es_correcta' => 0
-                    ],
-                    [
-                        'texto' => 'Continuar conduciendo hasta el próximo taller',
-                        'es_correcta' => 0
-                    ]
+                    ['texto' => 'Asegurar el remolque con calzos y activar el freno de mano del remolque', 'es_correcta' => true],
+                    ['texto' => 'Solo activar el freno de mano del vehículo', 'es_correcta' => false],
+                    ['texto' => 'Desconectar el remolque', 'es_correcta' => false],
+                    ['texto' => 'No se requieren precauciones especiales', 'es_correcta' => false]
+                ]
+            ],
+            [
+                'categoria_id' => 1,
+                'enunciado' => '¿Qué verificaciones debe realizar antes de iniciar un viaje con remolque?',
+                'tipo_pregunta' => 'multiple',
+                'puntaje' => 10,
+                'dificultad' => 'alta',
+                'respuestas' => [
+                    ['texto' => 'Estado de luces, neumáticos, conexiones y sistema de enganche', 'es_correcta' => true],
+                    ['texto' => 'Solo revisar el combustible', 'es_correcta' => false],
+                    ['texto' => 'Verificar únicamente las luces', 'es_correcta' => false],
+                    ['texto' => 'No es necesario realizar verificaciones especiales', 'es_correcta' => false]
                 ]
             ]
         ];
 
-        $preguntaModel = new PreguntaModel();
-        $respuestaModel = new RespuestaModel();
-
         foreach ($preguntas as $pregunta) {
             $respuestas = $pregunta['respuestas'];
             unset($pregunta['respuestas']);
-
-            $pregunta['categoria_id'] = 1; // ID de la categoría E1
+            
             $preguntaId = $preguntaModel->insert($pregunta);
-
+            
             foreach ($respuestas as $respuesta) {
                 $respuesta['pregunta_id'] = $preguntaId;
                 $respuestaModel->insert($respuesta);
