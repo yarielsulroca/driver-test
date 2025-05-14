@@ -3771,3 +3771,42 @@ Stack trace:
 #14 C:\laragon\www\examen\vendor\phpunit\phpunit\phpunit(104): PHPUnit\TextUI\Application->run(Array)
 #15 C:\laragon\www\examen\vendor\bin\phpunit(122): include('C:\\laragon\\www\\...')
 #16 {main}
+ERROR - 2025-05-14 18:58:27 --> mysqli_sql_exception: Unknown column 'fecha_nacimiento' in 'field list' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\laragon\www\examen\system\BaseModel.php(839): CodeIgniter\Model->doInsert(Array)
+#6 C:\laragon\www\examen\system\Model.php(800): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\laragon\www\examen\app\Controllers\AuthController.php(105): CodeIgniter\Model->insert(Array)
+#8 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\AuthController->registro()
+#9 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+#10 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\laragon\www\examen\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 C:\laragon\www\examen\system\rewrite.php(44): require_once('C:\\laragon\\www\\...')
+#15 {main}
+ERROR - 2025-05-14 18:58:57 --> mysqli_sql_exception: Unknown column 'direccion' in 'field list' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\laragon\www\examen\system\BaseModel.php(839): CodeIgniter\Model->doInsert(Array)
+#6 C:\laragon\www\examen\system\Model.php(800): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\laragon\www\examen\app\Controllers\AuthController.php(105): CodeIgniter\Model->insert(Array)
+#8 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\AuthController->registro()
+#9 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+#10 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\laragon\www\examen\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 C:\laragon\www\examen\system\rewrite.php(44): require_once('C:\\laragon\\www\\...')
+#15 {main}
+WARNING - 2025-05-14 18:59:17 --> Error al registrar sesión: No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión [tcp://localhost:6379]
+WARNING - 2025-05-14 19:00:59 --> Error al registrar sesión: No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión [tcp://localhost:6379]
+WARNING - 2025-05-14 19:01:42 --> Error al registrar sesión: No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión [tcp://localhost:6379]
