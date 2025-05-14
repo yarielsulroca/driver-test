@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="Tests\Models\ExamenModelTest" file="C:\laragon\www\examen\tests\Models\ExamenModelTest.php" tests="4" assertions="1" errors="3" failures="1" skipped="0" time="0.550279">
+    <testcase name="testFind" file="C:\laragon\www\examen\tests\Models\ExamenModelTest.php" line="38" class="Tests\Models\ExamenModelTest" classname="Tests.Models.ExamenModelTest" assertions="0" time="0.318574">
+      <error type="CodeIgniter\Database\Exceptions\DatabaseException">Tests\Models\ExamenModelTest::testFind&#13;
+CodeIgniter\Database\Exceptions\DatabaseException: Table 'ci4_test.examenes' doesn't exist
+&#13;
+C:\laragon\www\examen\system\Database\BaseConnection.php:692
+C:\laragon\www\examen\system\Database\BaseBuilder.php:1649
+C:\laragon\www\examen\system\Model.php:210
+C:\laragon\www\examen\system\BaseModel.php:609
+C:\laragon\www\examen\tests\Models\ExamenModelTest.php:40</error>
+    </testcase>
+    <testcase name="testInsert" file="C:\laragon\www\examen\tests\Models\ExamenModelTest.php" line="45" class="Tests\Models\ExamenModelTest" classname="Tests.Models.ExamenModelTest" assertions="1" time="0.076748">
+      <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Models\ExamenModelTest::testInsert&#13;
+Failed asserting that false is of type numeric.
+&#13;
+C:\laragon\www\examen\tests\Models\ExamenModelTest.php:54</failure>
+    </testcase>
+    <testcase name="testUpdate" file="C:\laragon\www\examen\tests\Models\ExamenModelTest.php" line="60" class="Tests\Models\ExamenModelTest" classname="Tests.Models.ExamenModelTest" assertions="0" time="0.078968">
+      <error type="CodeIgniter\Database\Exceptions\DataException">Tests\Models\ExamenModelTest::testUpdate&#13;
+CodeIgniter\Database\Exceptions\DataException: There is no data to update.
+&#13;
+C:\laragon\www\examen\system\BaseModel.php:1010
+C:\laragon\www\examen\system\Model.php:863
+C:\laragon\www\examen\tests\Models\ExamenModelTest.php:67</error>
+    </testcase>
+    <testcase name="testDelete" file="C:\laragon\www\examen\tests\Models\ExamenModelTest.php" line="75" class="Tests\Models\ExamenModelTest" classname="Tests.Models.ExamenModelTest" assertions="0" time="0.075990">
+      <error type="CodeIgniter\Database\Exceptions\DatabaseException">Tests\Models\ExamenModelTest::testDelete&#13;
+CodeIgniter\Database\Exceptions\DatabaseException: Table 'ci4_test.examenes' doesn't exist
+&#13;
+C:\laragon\www\examen\system\Database\BaseConnection.php:692
+C:\laragon\www\examen\system\Database\BaseBuilder.php:2848
+C:\laragon\www\examen\system\Model.php:521
+C:\laragon\www\examen\system\BaseModel.php:1157
+C:\laragon\www\examen\tests\Models\ExamenModelTest.php:77</error>
+    </testcase>
+  </testsuite>
+</testsuites>

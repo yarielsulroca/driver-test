@@ -1,98 +1,67 @@
-# API de Sistema de Gestión de Exámenes para Licencias de Conducir
+# Sistema de Exámenes para Conductores
 
-## Descripción del Sistema
-API REST desarrollada en CodeIgniter 4 para la gestión de exámenes teóricos de licencias de conducir. Proporciona endpoints para administrar diferentes categorías de licencias, escuelas de conducción, conductores y técnicos evaluadores.
+## Descripción
+Sistema de gestión de exámenes para conductores con autenticación JWT y roles diferenciados (conductores y técnicos).
 
-## Endpoints de la API
+## Estructura de Endpoints
 
-### Autenticación
-```
-POST /api/auth/login
-POST /api/auth/logout
-POST /api/auth/refresh-token
-```
+### 1. Endpoints Públicos (No requieren autenticación)
+- `POST /api/auth/registro`: Registro de nuevos conductores
+- `POST /api/auth/login`: Inicio de sesión de conductores
 
-### Técnicos
-```
-GET    /api/tecnicos
-POST   /api/tecnicos
-GET    /api/tecnicos/{id}
-PUT    /api/tecnicos/{id}
-DELETE /api/tecnicos/{id}
-```
+### 2. Endpoints para Conductores (Requieren autenticación de conductor)
+- `POST /api/auth/logout`: Cierre de sesión
+- `POST /api/auth/refresh-token`: Renovación de token JWT
+- `GET /api/resultados/verificar/:id`: Verificar estado de resultados
+- `GET /api/resultados/historial/:id`: Ver historial de resultados
+- `GET /api/resultados/ultimo/:id`: Ver último resultado
 
-### Conductores
-```
-GET    /api/conductores
-POST   /api/conductores/registro
-GET    /api/conductores/{id}
-PUT    /api/conductores/{id}
-DELETE /api/conductores/{id}
-GET    /api/conductores/{id}/examenes
-POST   /api/conductores/{id}/verificar-elegibilidad
-```
+### 3. Endpoints para Técnicos (Requieren autenticación de técnico)
 
-### Categorías
-```
-GET    /api/categorias
-POST   /api/categorias
-GET    /api/categorias/{id}
-PUT    /api/categorias/{id}
-DELETE /api/categorias/{id}
-GET    /api/categorias/{id}/examenes
-GET    /api/categorias/{id}/preguntas
-```
+#### Gestión de Exámenes
+- `GET /api/examenes`: Listar todos los exámenes
+- `GET /api/examenes/:id`: Ver examen específico
+- `POST /api/examenes`: Crear nuevo examen
+- `PUT /api/examenes/:id`: Actualizar examen
+- `DELETE /api/examenes/:id`: Eliminar examen
+- `GET /api/examenes/categoria/:id`: Exámenes por categoría
+- `GET /api/examenes/activos`: Exámenes activos
 
-### Exámenes
+#### Gestión de Preguntas
+- `GET /api/preguntas`: Listar todas las preguntas
+- `GET /api/preguntas/:id`: Ver pregunta específica
+- `POST /api/preguntas`: Crear nueva pregunta
+- `PUT /api/preguntas/:id`: Actualizar pregunta
+- `DELETE /api/preguntas/:id`: Eliminar pregunta
+- `GET /api/preguntas/examen/:id`: Preguntas por examen
+- `GET /api/preguntas/categoria/:id`: Preguntas por categoría
+- `GET /api/preguntas/criticas`: Preguntas críticas
+
+## Autenticación
+
+### JWT (JSON Web Tokens)
+El sistema utiliza JWT para la autenticación. Los tokens deben incluirse en el header:
 ```
-GET    /api/examenes
-POST   /api/examenes
-GET    /api/examenes/{id}
-PUT    /api/examenes/{id}
-DELETE /api/examenes/{id}
-GET    /api/examenes/{id}/preguntas
-POST   /api/examenes/{id}/asignar
+Authorization: Bearer <token>
 ```
 
-### Preguntas y Respuestas
-```
-GET    /api/preguntas
-POST   /api/preguntas
-GET    /api/preguntas/{id}
-PUT    /api/preguntas/{id}
-DELETE /api/preguntas/{id}
-GET    /api/preguntas/{id}/respuestas
-```
+### Estados de Conductor
+- **pendiente**: Estado inicial al registrarse
+- **activo**: Se actualiza automáticamente en el primer login
+- **rechazado**: No puede acceder al sistema
 
-### Resultados
-```
-GET    /api/resultados
-POST   /api/resultados
-GET    /api/resultados/{id}
-GET    /api/resultados/conductor/{id}
-GET    /api/resultados/examen/{id}
-```
+### Roles
+1. **conductor**: Acceso a gestión de su perfil y resultados
+2. **tecnico**: Acceso completo a gestión de exámenes y preguntas
 
-## Roles y Permisos
+## Seguridad
+- Validación de DNI y email únicos
+- Protección de rutas por rol
+- Manejo de sesiones con Redis (opcional)
+- Tokens JWT con expiración configurable
 
-### 1. Técnico
-- Autenticación mediante JWT
-- CRUD completo de exámenes y categorías
-- Gestión de solicitudes de conductores
-- Asignación de exámenes
-- Acceso a reportes y estadísticas
-
-### 2. Conductor
-- Autenticación mediante JWT
-- Registro en el sistema
-- Consulta de categorías disponibles
-- Realización de exámenes asignados
-- Consulta de resultados propios
-
-## Modelos de Datos
-
-### Respuestas de la API
-Todas las respuestas siguen el siguiente formato:
+## Respuestas API
+Todas las respuestas siguen el formato:
 ```json
 {
     "status": "success|error",
@@ -103,209 +72,35 @@ Todas las respuestas siguen el siguiente formato:
 }
 ```
 
-### Estructura de Datos Principales
+## Códigos de Estado HTTP
+- 200: Éxito
+- 201: Creado exitosamente
+- 400: Error de validación
+- 401: No autorizado
+- 403: Prohibido (rol incorrecto)
+- 404: No encontrado
+- 500: Error del servidor
 
-1. **Usuario (Técnico)**
-```json
-{
-    "usuario_id": integer,
-    "nombre": string,
-    "apellido": string,
-    "email": string,
-    "rol": "tecnico",
-    "estado": "activo|inactivo"
-}
-```
+## Configuración
+- JWT_SECRET_KEY: Clave para firmar tokens
+- JWT_TIME_TO_LIVE: Tiempo de vida del token (default: 3600s)
 
-2. **Conductor**
-```json
-{
-    "conductor_id": integer,
-    "nombre": string,
-    "apellido": string,
-    "dni": string,
-    "fecha_nacimiento": date,
-    "direccion": string,
-    "telefono": string,
-    "email": string,
-    "categoria_id": integer,
-    "estado_registro": "pendiente|aprobado|rechazado",
-    "fecha_registro": datetime
-}
-```
+## Validaciones
+### Conductor
+- Nombre: 3-50 caracteres
+- DNI: 8-20 caracteres, único
+- Email: Formato válido, único (opcional)
 
-3. **Examen**
-```json
-{
-    "examen_id": integer,
-    "categoria_id": integer,
-    "escuela_id": integer,
-    "nombre": string,
-    "descripcion": string,
-    "duracion_minutos": integer,
-    "puntaje_minimo": float,
-    "numero_preguntas": integer,
-    "fecha_inicio": datetime,
-    "fecha_fin": datetime
-}
-```
+### Examen
+- Nombre: 3-100 caracteres
+- Descripción: Mínimo 10 caracteres
+- Duración: Mayor a 0 minutos
+- Puntaje mínimo: Mayor a 0
+- Número de preguntas: Mayor a 0
 
-4. **Resultado Examen**
-```json
-{
-    "resultado_id": integer,
-    "conductor_id": integer,
-    "examen_id": integer,
-    "puntaje_total": float,
-    "preguntas_correctas": integer,
-    "preguntas_incorrectas": integer,
-    "tiempo_empleado": integer,
-    "estado": "aprobado|reprobado",
-    "bloqueado": boolean,
-    "fecha_bloqueo": datetime,
-    "respuestas": [
-        {
-            "pregunta_id": integer,
-            "respuesta_id": integer,
-            "es_correcta": boolean,
-            "tiempo_respuesta": integer
-        }
-    ]
-}
-```
-
-## Seguridad
-
-### Autenticación
-- Implementación de JWT (JSON Web Tokens)
-- Tokens de acceso y renovación
-- Expiración configurable de tokens
-
-### Autorización
-- Middleware de verificación de roles
-- Validación de permisos por endpoint
-- Protección contra CSRF en endpoints sensibles
-
-### Validaciones
-- Sanitización de datos de entrada
-- Validación de tipos y formatos
-- Protección contra inyección SQL
-- Rate limiting en endpoints críticos
-
-## Requisitos Técnicos
-- PHP 7.4 o superior
-- MySQL 5.7 o superior
-- CodeIgniter 4.x
-- Extensiones PHP requeridas:
-  - JSON
-  - MySQLi
-  - intl
-  - mbstring
-
-## Instalación
-1. Clonar el repositorio
-2. Configurar el archivo .env:
-   ```env
-   CI_ENVIRONMENT = production
-   app.baseURL = 'http://tu-dominio.com/'
-   
-   database.default.hostname = localhost
-   database.default.database = nombre_db
-   database.default.username = usuario
-   database.default.password = contraseña
-   
-   jwt.secretKey = 'tu_clave_secreta'
-   jwt.timeToLive = 3600
-   ```
-3. Ejecutar migraciones:
-   ```bash
-   php spark migrate
-   ```
-4. Ejecutar seeders:
-   ```bash
-   php spark db:seed DatabaseSeeder
-   ```
-
-## Credenciales por Defecto
-### Técnico Administrador
-```json
-{
-    "email": "admin@sistema.com",
-    "password": "admin123"
-}
-```
-
-### Técnico Evaluador
-```json
-{
-    "email": "tecnico@sistema.com",
-    "password": "tecnico123"
-}
-```
-
-## Documentación Adicional
-La documentación completa de la API está disponible en:
-```
-/api/docs
-```
-
-# CodeIgniter 4 Framework
-
-## What is CodeIgniter?
-
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
-
-This repository holds the distributable version of the framework.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
-
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
-
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
-
-## Important Change with index.php
-
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
-
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
-
-**Please** read the user guide for a better explanation of how CI4 works!
-
-## Repository Management
-
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
-
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
-
-## Contributing
-
-We welcome contributions from the community.
-
-Please read the [*Contributing to CodeIgniter*](https://github.com/codeigniter4/CodeIgniter4/blob/develop/CONTRIBUTING.md) section in the development repository.
-
-## Server Requirements
-
-PHP version 8.1 or higher is required, with the following extensions installed:
-
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> - The end of life date for PHP 8.1 will be December 31, 2025.
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+### Pregunta
+- Enunciado: Mínimo 10 caracteres
+- Tipo: multiple|verdadero_falso
+- Puntaje: Mayor a 0
+- Dificultad: baja|media|alta
+- Es crítica: 0|1

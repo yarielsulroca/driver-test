@@ -1,0 +1,6 @@
+Examen Model (Tests\Models\ExamenModel)
+ [ ] Find
+ [ ] Insert
+ [ ] Update
+ [ ] Delete
+

@@ -1,0 +1,54 @@
+ERROR - 2025-05-08 00:00:41 --> mysqli_sql_exception: Duplicate key name 'dni' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `c...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `c...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `c...')
+#3 C:\laragon\www\examen\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `c...')
+#4 C:\laragon\www\examen\app\Database\Migrations\2024-04-21-000003_CreateConductoresTable.php(78): CodeIgniter\Database\Forge->createTable('conductores')
+#5 C:\laragon\www\examen\system\Database\MigrationRunner.php(866): App\Database\Migrations\CreateConductoresTable->up()
+#6 C:\laragon\www\examen\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\laragon\www\examen\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\laragon\www\examen\system\CLI\BaseCommand.php(119): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\laragon\www\examen\system\Commands\Database\MigrateRefresh.php(87): CodeIgniter\CLI\BaseCommand->call('migrate', Array)
+#11 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\MigrateRefresh->run(Array)
+#12 C:\laragon\www\examen\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('migrate:refresh', Array)
+#13 C:\laragon\www\examen\system\Boot.php(360): CodeIgniter\CLI\Console->run()
+#14 C:\laragon\www\examen\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#15 C:\laragon\www\examen\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#16 {main}
+ERROR - 2025-05-08 00:03:40 --> mysqli_sql_exception: Duplicate key name 'dni' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `c...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `c...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `c...')
+#3 C:\laragon\www\examen\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `c...')
+#4 C:\laragon\www\examen\app\Database\Migrations\2024-04-21-000003_CreateConductoresTable.php(78): CodeIgniter\Database\Forge->createTable('conductores')
+#5 C:\laragon\www\examen\system\Database\MigrationRunner.php(866): App\Database\Migrations\CreateConductoresTable->up()
+#6 C:\laragon\www\examen\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\laragon\www\examen\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\laragon\www\examen\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\laragon\www\examen\system\Boot.php(360): CodeIgniter\CLI\Console->run()
+#11 C:\laragon\www\examen\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\laragon\www\examen\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-05-08 00:27:15 --> mysqli_sql_exception: Unknown column 're.resultado_examen_id' in 'field list' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `re`.`re...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `re`.`re...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `re`.`re...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `re`.`re...', Array, false)
+#4 C:\laragon\www\examen\app\Models\ConductorModel.php(120): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\examen\app\Controllers\AuthController.php(127): App\Models\ConductorModel->getExamenesInfo(2)
+#6 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\AuthController->registro()
+#7 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+#8 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\laragon\www\examen\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+WARNING - 2025-05-08 00:38:29 --> Error al registrar sesión: No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión [tcp://localhost:6379]
+WARNING - 2025-05-08 00:41:59 --> Error al registrar sesión: No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión [tcp://localhost:6379]
+WARNING - 2025-05-08 00:43:14 --> Error al registrar sesión: No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión [tcp://localhost:6379]
+WARNING - 2025-05-08 00:50:00 --> Error al registrar sesión: No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión [tcp://localhost:6379]

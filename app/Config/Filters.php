@@ -13,6 +13,8 @@ use CodeIgniter\Filters\PageCache;
 use CodeIgniter\Filters\PerformanceMetrics;
 use CodeIgniter\Filters\SecureHeaders;
 use App\Filters\Cors as AppCors;
+use App\Filters\AuthFilter;
+use App\Filters\AuthTecnicoFilter;
 
 class Filters extends BaseFilters
 {
@@ -35,6 +37,8 @@ class Filters extends BaseFilters
         'forcehttps'    => ForceHTTPS::class,
         'pagecache'     => PageCache::class,
         'performance'   => PerformanceMetrics::class,
+        'auth'          => AuthFilter::class,
+        'auth.tecnico'  => AuthTecnicoFilter::class,
     ];
 
     /**
@@ -106,5 +110,20 @@ class Filters extends BaseFilters
      *
      * @var array<string, array<string, list<string>>>
      */
-    public array $filters = [];
+    public array $filters = [
+        'auth' => [
+            'before' => [
+                'api/examenes/*',
+                'api/resultados/*',
+                'api/auth/logout',
+                'api/auth/refresh-token'
+            ]
+        ],
+        'auth.tecnico' => [
+            'before' => [
+                'api/examenes/*',
+                'api/preguntas/*'
+            ]
+        ]
+    ];
 }
