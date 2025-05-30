@@ -29,13 +29,43 @@ class ExamenControllerTest extends CIUnitTestCase
             'descripcion' => 'Categoría para vehículos pesados'
         ]);
         
-        // Crear exámenes
-        $this->examen->insert([
-            'titulo' => 'Examen E1 #1',
-            'categoria_id' => 1,
-            'tiempo_limite' => 30,
-            'activo' => 1
-        ]);
+        // Crear múltiples exámenes para probar paginación
+        for ($i = 1; $i <= 15; $i++) {
+            $this->examen->insert([
+                'titulo' => "Examen E1 #{$i}",
+                'categoria_id' => 1,
+                'tiempo_limite' => 30,
+                'activo' => 1
+            ]);
+        }
+    }
+
+    public function testIndexPagination()
+    {
+        // Probar primera página con 10 items por página
+        $result = $this->controller(ExamenController::class)
+                       ->execute('index');
+        
+        $response = json_decode($result->getBody(), true);
+        
+        $this->assertTrue($result->isOK());
+        $this->assertEquals('success', $response['status']);
+        $this->assertCount(10, $response['data']['examenes']);
+        $this->assertEquals(1, $response['data']['pagination']['current_page']);
+        $this->assertEquals(10, $response['data']['pagination']['per_page']);
+        $this->assertEquals(2, $response['data']['pagination']['total_pages']);
+        $this->assertEquals(15, $response['data']['pagination']['total_items']);
+
+        // Probar segunda página
+        $result = $this->controller(ExamenController::class)
+                       ->execute('index', ['page' => 2]);
+        
+        $response = json_decode($result->getBody(), true);
+        
+        $this->assertTrue($result->isOK());
+        $this->assertEquals('success', $response['status']);
+        $this->assertCount(5, $response['data']['examenes']);
+        $this->assertEquals(2, $response['data']['pagination']['current_page']);
     }
 
     public function testIndex()

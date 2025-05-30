@@ -13,12 +13,10 @@ class CategoriaModel extends Model
     protected $useSoftDeletes = false;
     protected $protectFields = true;
     protected $allowedFields = [
-        'sigla',
+        'codigo',
         'nombre',
         'descripcion',
-        'requisitos',
-        'edad_minima',
-        'experiencia_requerida'
+        'requisitos'
     ];
 
     // Dates
@@ -30,12 +28,10 @@ class CategoriaModel extends Model
 
     // Validation
     protected $validationRules = [
-        'sigla' => 'required|min_length[1]|max_length[2]|is_unique[categorias.sigla]',
-        'nombre' => 'required|min_length[3]|max_length[100]',
-        'descripcion' => 'required|min_length[10]',
-        'requisitos' => 'required|min_length[10]',
-        'edad_minima' => 'required|integer|greater_than[17]',
-        'experiencia_requerida' => 'required|integer|greater_than_equal_to[0]'
+        'codigo' => 'required|max_length[10]|is_unique[categorias.codigo,categoria_id,{categoria_id}]',
+        'nombre' => 'required|max_length[100]',
+        'descripcion' => 'required',
+        'requisitos' => 'required|valid_json'
     ];
     protected $validationMessages = [];
     protected $skipValidation = false;
@@ -44,11 +40,63 @@ class CategoriaModel extends Model
     // Relaciones
     public function examenes()
     {
-        return $this->hasMany('App\Models\ExamenModel', 'categoria_id', 'categoria_id');
+        return $this->belongsToMany('App\Models\ExamenModel', 'examen_categoria', 'categoria_id', 'examen_id');
     }
 
-    public function preguntas()
+    /**
+     * Obtener requisitos formateados
+     */
+    public function getRequisitos($categoria_id)
     {
-        return $this->hasMany('App\Models\PreguntaModel', 'categoria_id', 'categoria_id');
+        $categoria = $this->find($categoria_id);
+        return $categoria ? json_decode($categoria['requisitos'], true) : [];
+    }
+
+    /**
+     * Verificar si un conductor cumple con los requisitos
+     */
+    public function verificarRequisitos($categoria_id, $conductor_id)
+    {
+        $categoria = $this->find($categoria_id);
+        if (!$categoria) return false;
+
+        $requisitos = json_decode($categoria['requisitos'], true);
+        $conductor = model('ConductorModel')->find($conductor_id);
+        
+        if (!$conductor) return false;
+
+        foreach ($requisitos as $requisito) {
+            if (strpos($requisito, 'Edad mínima:') !== false) {
+                $edad_minima = (int) preg_replace('/[^0-9]/', '', $requisito);
+                if ($conductor['edad'] < $edad_minima) {
+                    return false;
+                }
+            }
+            // Aquí se pueden agregar más validaciones según los requisitos
+        }
+
+        return true;
+    }
+
+    /**
+     * Obtener categorías por nivel
+     */
+    public function getCategoriasPorNivel()
+    {
+        $categorias = $this->findAll();
+        $niveles = [
+            'básico' => ['A1', 'B'],
+            'intermedio' => ['A', 'C'],
+            'avanzado' => ['D', 'E']
+        ];
+
+        $resultado = [];
+        foreach ($niveles as $nivel => $codigos) {
+            $resultado[$nivel] = array_filter($categorias, function($cat) use ($codigos) {
+                return in_array($cat['codigo'], $codigos);
+            });
+        }
+
+        return $resultado;
     }
 } 

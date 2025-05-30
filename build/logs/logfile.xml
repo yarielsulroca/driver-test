@@ -1,8 +1,160 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="Tests\Models\ExamenModelTest" file="C:\laragon\www\examen\tests\Models\ExamenModelTest.php" tests="4" assertions="1" errors="3" failures="1" skipped="0" time="0.550279">
-    <testcase name="testFind" file="C:\laragon\www\examen\tests\Models\ExamenModelTest.php" line="38" class="Tests\Models\ExamenModelTest" classname="Tests.Models.ExamenModelTest" assertions="0" time="0.318574">
-      <error type="CodeIgniter\Database\Exceptions\DatabaseException">Tests\Models\ExamenModelTest::testFind&#13;
+  <testsuite name="C:\laragon\www\examen\phpunit.xml" tests="35" assertions="17" errors="20" failures="6" skipped="0" time="2.376258">
+    <testsuite name="App" tests="35" assertions="17" errors="20" failures="6" skipped="0" time="2.376258">
+      <testsuite name="Tests\BasicTest" file="C:\laragon\www\examen\tests\BasicTest.php" tests="2" assertions="2" errors="0" failures="0" skipped="0" time="0.054848">
+        <testcase name="testTrueIsTrue" file="C:\laragon\www\examen\tests\BasicTest.php" line="9" class="Tests\BasicTest" classname="Tests.BasicTest" assertions="1" time="0.050113"/>
+        <testcase name="testOneEqualsOne" file="C:\laragon\www\examen\tests\BasicTest.php" line="14" class="Tests\BasicTest" classname="Tests.BasicTest" assertions="1" time="0.004735"/>
+      </testsuite>
+      <testsuite name="Tests\Controllers\ConductorControllerTest" file="C:\laragon\www\examen\tests\Controllers\ConductorControllerTest.php" tests="1" assertions="0" errors="1" failures="0" skipped="0" time="0.000000">
+        <testcase name="testIndexPagination" file="C:\laragon\www\examen\tests\Controllers\ConductorControllerTest.php" line="35" class="Tests\Controllers\ConductorControllerTest" classname="Tests.Controllers.ConductorControllerTest" assertions="0" time="0.000000">
+          <error type="CodeIgniter\Database\Exceptions\DatabaseException">Tests\Controllers\ConductorControllerTest::testIndexPagination&#13;
+CodeIgniter\Database\Exceptions\DatabaseException: Table 'ci4_test.conductores' doesn't exist
+&#13;
+C:\laragon\www\examen\system\Database\BaseConnection.php:692
+C:\laragon\www\examen\system\Database\BaseBuilder.php:1649
+C:\laragon\www\examen\system\Validation\Rules.php:175
+C:\laragon\www\examen\system\Validation\StrictRules\Rules.php:187
+C:\laragon\www\examen\system\Validation\Validation.php:337
+C:\laragon\www\examen\system\Validation\Validation.php:202
+C:\laragon\www\examen\system\BaseModel.php:1576
+C:\laragon\www\examen\system\BaseModel.php:808
+C:\laragon\www\examen\system\Model.php:800
+C:\laragon\www\examen\tests\Controllers\ConductorControllerTest.php:25</error>
+        </testcase>
+      </testsuite>
+      <testsuite name="Tests\Controllers\ExamenControllerTest" file="C:\laragon\www\examen\tests\Controllers\ExamenControllerTest.php" tests="3" assertions="3" errors="0" failures="1" skipped="0" time="0.550004">
+        <testcase name="testIndexPagination" file="C:\laragon\www\examen\tests\Controllers\ExamenControllerTest.php" line="43" class="Tests\Controllers\ExamenControllerTest" classname="Tests.Controllers.ExamenControllerTest" assertions="1" time="0.246219">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Controllers\ExamenControllerTest::testIndexPagination&#13;
+Failed asserting that false is true.
+&#13;
+C:\laragon\www\examen\tests\Controllers\ExamenControllerTest.php:51</failure>
+        </testcase>
+        <testcase name="testIndex" file="C:\laragon\www\examen\tests\Controllers\ExamenControllerTest.php" line="71" class="Tests\Controllers\ExamenControllerTest" classname="Tests.Controllers.ExamenControllerTest" assertions="1" time="0.169832"/>
+        <testcase name="testShow" file="C:\laragon\www\examen\tests\Controllers\ExamenControllerTest.php" line="85" class="Tests\Controllers\ExamenControllerTest" classname="Tests.Controllers.ExamenControllerTest" assertions="1" time="0.133953"/>
+      </testsuite>
+      <testsuite name="Tests\Controllers\ResultadoControllerTest" file="C:\laragon\www\examen\tests\Controllers\ResultadoControllerTest.php" tests="2" assertions="0" errors="2" failures="0" skipped="0" time="0.000000">
+        <testcase name="testVerificarEstado" file="C:\laragon\www\examen\tests\Controllers\ResultadoControllerTest.php" line="57" class="Tests\Controllers\ResultadoControllerTest" classname="Tests.Controllers.ResultadoControllerTest" assertions="0" time="0.000000">
+          <error type="CodeIgniter\Database\Exceptions\DatabaseException">Tests\Controllers\ResultadoControllerTest::testVerificarEstado&#13;
+CodeIgniter\Database\Exceptions\DatabaseException: Table 'ci4_test.conductores' doesn't exist
+&#13;
+C:\laragon\www\examen\system\Database\BaseConnection.php:692
+C:\laragon\www\examen\system\Database\BaseBuilder.php:1649
+C:\laragon\www\examen\system\Validation\Rules.php:175
+C:\laragon\www\examen\system\Validation\StrictRules\Rules.php:187
+C:\laragon\www\examen\system\Validation\Validation.php:337
+C:\laragon\www\examen\system\Validation\Validation.php:202
+C:\laragon\www\examen\system\BaseModel.php:1576
+C:\laragon\www\examen\system\BaseModel.php:808
+C:\laragon\www\examen\system\Model.php:800
+C:\laragon\www\examen\tests\Controllers\ResultadoControllerTest.php:30</error>
+        </testcase>
+        <testcase name="testHistorial" file="C:\laragon\www\examen\tests\Controllers\ResultadoControllerTest.php" line="65" class="Tests\Controllers\ResultadoControllerTest" classname="Tests.Controllers.ResultadoControllerTest" assertions="0" time="0.000000">
+          <error type="CodeIgniter\Database\Exceptions\DatabaseException">Tests\Controllers\ResultadoControllerTest::testHistorial&#13;
+CodeIgniter\Database\Exceptions\DatabaseException: Table 'ci4_test.conductores' doesn't exist
+&#13;
+C:\laragon\www\examen\system\Database\BaseConnection.php:692
+C:\laragon\www\examen\system\Database\BaseBuilder.php:1649
+C:\laragon\www\examen\system\Validation\Rules.php:175
+C:\laragon\www\examen\system\Validation\StrictRules\Rules.php:187
+C:\laragon\www\examen\system\Validation\Validation.php:337
+C:\laragon\www\examen\system\Validation\Validation.php:202
+C:\laragon\www\examen\system\BaseModel.php:1576
+C:\laragon\www\examen\system\BaseModel.php:808
+C:\laragon\www\examen\system\Model.php:800
+C:\laragon\www\examen\tests\Controllers\ResultadoControllerTest.php:30</error>
+        </testcase>
+      </testsuite>
+      <testsuite name="Tests\Controllers\SupervisorControllerTest" file="C:\laragon\www\examen\tests\Controllers\SupervisorControllerTest.php" tests="1" assertions="0" errors="1" failures="0" skipped="0" time="0.000000">
+        <testcase name="testIndexPagination" file="C:\laragon\www\examen\tests\Controllers\SupervisorControllerTest.php" line="35" class="Tests\Controllers\SupervisorControllerTest" classname="Tests.Controllers.SupervisorControllerTest" assertions="0" time="0.000000">
+          <error type="Error">Tests\Controllers\SupervisorControllerTest::testIndexPagination&#13;
+Error: Class "App\Models\SupervisorModel" not found
+&#13;
+C:\laragon\www\examen\tests\Controllers\SupervisorControllerTest.php:21</error>
+        </testcase>
+      </testsuite>
+      <testsuite name="Tests\Feature\ExamenFlujoTest" file="C:\laragon\www\examen\tests\Feature\ExamenFlujoTest.php" tests="1" assertions="0" errors="1" failures="0" skipped="0" time="0.000000">
+        <testcase name="testApiExamenesEndpoint" file="C:\laragon\www\examen\tests\Feature\ExamenFlujoTest.php" line="92" class="Tests\Feature\ExamenFlujoTest" classname="Tests.Feature.ExamenFlujoTest" assertions="0" time="0.000000">
+          <error type="CodeIgniter\Database\Exceptions\DatabaseException">Tests\Feature\ExamenFlujoTest::testApiExamenesEndpoint&#13;
+CodeIgniter\Database\Exceptions\DatabaseException: Table 'ci4_test.conductores' doesn't exist
+&#13;
+C:\laragon\www\examen\system\Database\BaseConnection.php:692
+C:\laragon\www\examen\system\Database\BaseBuilder.php:1649
+C:\laragon\www\examen\system\Validation\Rules.php:175
+C:\laragon\www\examen\system\Validation\StrictRules\Rules.php:187
+C:\laragon\www\examen\system\Validation\Validation.php:337
+C:\laragon\www\examen\system\Validation\Validation.php:202
+C:\laragon\www\examen\system\BaseModel.php:1576
+C:\laragon\www\examen\system\BaseModel.php:808
+C:\laragon\www\examen\system\Model.php:800
+C:\laragon\www\examen\tests\Feature\ExamenFlujoTest.php:33</error>
+        </testcase>
+      </testsuite>
+      <testsuite name="Tests\Models\ConductorModelTest" file="C:\laragon\www\examen\tests\Models\ConductorModelTest.php" tests="4" assertions="0" errors="4" failures="0" skipped="0" time="0.000000">
+        <testcase name="testFind" file="C:\laragon\www\examen\tests\Models\ConductorModelTest.php" line="31" class="Tests\Models\ConductorModelTest" classname="Tests.Models.ConductorModelTest" assertions="0" time="0.000000">
+          <error type="CodeIgniter\Database\Exceptions\DatabaseException">Tests\Models\ConductorModelTest::testFind&#13;
+CodeIgniter\Database\Exceptions\DatabaseException: Table 'ci4_test.conductores' doesn't exist
+&#13;
+C:\laragon\www\examen\system\Database\BaseConnection.php:692
+C:\laragon\www\examen\system\Database\BaseBuilder.php:1649
+C:\laragon\www\examen\system\Validation\Rules.php:175
+C:\laragon\www\examen\system\Validation\StrictRules\Rules.php:187
+C:\laragon\www\examen\system\Validation\Validation.php:337
+C:\laragon\www\examen\system\Validation\Validation.php:202
+C:\laragon\www\examen\system\BaseModel.php:1576
+C:\laragon\www\examen\system\BaseModel.php:808
+C:\laragon\www\examen\system\Model.php:800
+C:\laragon\www\examen\tests\Models\ConductorModelTest.php:22</error>
+        </testcase>
+        <testcase name="testInsert" file="C:\laragon\www\examen\tests\Models\ConductorModelTest.php" line="38" class="Tests\Models\ConductorModelTest" classname="Tests.Models.ConductorModelTest" assertions="0" time="0.000000">
+          <error type="CodeIgniter\Database\Exceptions\DatabaseException">Tests\Models\ConductorModelTest::testInsert&#13;
+CodeIgniter\Database\Exceptions\DatabaseException: Table 'ci4_test.conductores' doesn't exist
+&#13;
+C:\laragon\www\examen\system\Database\BaseConnection.php:692
+C:\laragon\www\examen\system\Database\BaseBuilder.php:1649
+C:\laragon\www\examen\system\Validation\Rules.php:175
+C:\laragon\www\examen\system\Validation\StrictRules\Rules.php:187
+C:\laragon\www\examen\system\Validation\Validation.php:337
+C:\laragon\www\examen\system\Validation\Validation.php:202
+C:\laragon\www\examen\system\BaseModel.php:1576
+C:\laragon\www\examen\system\BaseModel.php:808
+C:\laragon\www\examen\system\Model.php:800
+C:\laragon\www\examen\tests\Models\ConductorModelTest.php:22</error>
+        </testcase>
+        <testcase name="testUpdate" file="C:\laragon\www\examen\tests\Models\ConductorModelTest.php" line="56" class="Tests\Models\ConductorModelTest" classname="Tests.Models.ConductorModelTest" assertions="0" time="0.000000">
+          <error type="CodeIgniter\Database\Exceptions\DatabaseException">Tests\Models\ConductorModelTest::testUpdate&#13;
+CodeIgniter\Database\Exceptions\DatabaseException: Table 'ci4_test.conductores' doesn't exist
+&#13;
+C:\laragon\www\examen\system\Database\BaseConnection.php:692
+C:\laragon\www\examen\system\Database\BaseBuilder.php:1649
+C:\laragon\www\examen\system\Validation\Rules.php:175
+C:\laragon\www\examen\system\Validation\StrictRules\Rules.php:187
+C:\laragon\www\examen\system\Validation\Validation.php:337
+C:\laragon\www\examen\system\Validation\Validation.php:202
+C:\laragon\www\examen\system\BaseModel.php:1576
+C:\laragon\www\examen\system\BaseModel.php:808
+C:\laragon\www\examen\system\Model.php:800
+C:\laragon\www\examen\tests\Models\ConductorModelTest.php:22</error>
+        </testcase>
+        <testcase name="testDelete" file="C:\laragon\www\examen\tests\Models\ConductorModelTest.php" line="69" class="Tests\Models\ConductorModelTest" classname="Tests.Models.ConductorModelTest" assertions="0" time="0.000000">
+          <error type="CodeIgniter\Database\Exceptions\DatabaseException">Tests\Models\ConductorModelTest::testDelete&#13;
+CodeIgniter\Database\Exceptions\DatabaseException: Table 'ci4_test.conductores' doesn't exist
+&#13;
+C:\laragon\www\examen\system\Database\BaseConnection.php:692
+C:\laragon\www\examen\system\Database\BaseBuilder.php:1649
+C:\laragon\www\examen\system\Validation\Rules.php:175
+C:\laragon\www\examen\system\Validation\StrictRules\Rules.php:187
+C:\laragon\www\examen\system\Validation\Validation.php:337
+C:\laragon\www\examen\system\Validation\Validation.php:202
+C:\laragon\www\examen\system\BaseModel.php:1576
+C:\laragon\www\examen\system\BaseModel.php:808
+C:\laragon\www\examen\system\Model.php:800
+C:\laragon\www\examen\tests\Models\ConductorModelTest.php:22</error>
+        </testcase>
+      </testsuite>
+      <testsuite name="Tests\Models\ExamenModelTest" file="C:\laragon\www\examen\tests\Models\ExamenModelTest.php" tests="4" assertions="1" errors="3" failures="1" skipped="0" time="0.515270">
+        <testcase name="testFind" file="C:\laragon\www\examen\tests\Models\ExamenModelTest.php" line="38" class="Tests\Models\ExamenModelTest" classname="Tests.Models.ExamenModelTest" assertions="0" time="0.132208">
+          <error type="CodeIgniter\Database\Exceptions\DatabaseException">Tests\Models\ExamenModelTest::testFind&#13;
 CodeIgniter\Database\Exceptions\DatabaseException: Table 'ci4_test.examenes' doesn't exist
 &#13;
 C:\laragon\www\examen\system\Database\BaseConnection.php:692
@@ -10,23 +162,23 @@ C:\laragon\www\examen\system\Database\BaseBuilder.php:1649
 C:\laragon\www\examen\system\Model.php:210
 C:\laragon\www\examen\system\BaseModel.php:609
 C:\laragon\www\examen\tests\Models\ExamenModelTest.php:40</error>
-    </testcase>
-    <testcase name="testInsert" file="C:\laragon\www\examen\tests\Models\ExamenModelTest.php" line="45" class="Tests\Models\ExamenModelTest" classname="Tests.Models.ExamenModelTest" assertions="1" time="0.076748">
-      <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Models\ExamenModelTest::testInsert&#13;
+        </testcase>
+        <testcase name="testInsert" file="C:\laragon\www\examen\tests\Models\ExamenModelTest.php" line="45" class="Tests\Models\ExamenModelTest" classname="Tests.Models.ExamenModelTest" assertions="1" time="0.110208">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Models\ExamenModelTest::testInsert&#13;
 Failed asserting that false is of type numeric.
 &#13;
 C:\laragon\www\examen\tests\Models\ExamenModelTest.php:54</failure>
-    </testcase>
-    <testcase name="testUpdate" file="C:\laragon\www\examen\tests\Models\ExamenModelTest.php" line="60" class="Tests\Models\ExamenModelTest" classname="Tests.Models.ExamenModelTest" assertions="0" time="0.078968">
-      <error type="CodeIgniter\Database\Exceptions\DataException">Tests\Models\ExamenModelTest::testUpdate&#13;
+        </testcase>
+        <testcase name="testUpdate" file="C:\laragon\www\examen\tests\Models\ExamenModelTest.php" line="60" class="Tests\Models\ExamenModelTest" classname="Tests.Models.ExamenModelTest" assertions="0" time="0.145384">
+          <error type="CodeIgniter\Database\Exceptions\DataException">Tests\Models\ExamenModelTest::testUpdate&#13;
 CodeIgniter\Database\Exceptions\DataException: There is no data to update.
 &#13;
 C:\laragon\www\examen\system\BaseModel.php:1010
 C:\laragon\www\examen\system\Model.php:863
 C:\laragon\www\examen\tests\Models\ExamenModelTest.php:67</error>
-    </testcase>
-    <testcase name="testDelete" file="C:\laragon\www\examen\tests\Models\ExamenModelTest.php" line="75" class="Tests\Models\ExamenModelTest" classname="Tests.Models.ExamenModelTest" assertions="0" time="0.075990">
-      <error type="CodeIgniter\Database\Exceptions\DatabaseException">Tests\Models\ExamenModelTest::testDelete&#13;
+        </testcase>
+        <testcase name="testDelete" file="C:\laragon\www\examen\tests\Models\ExamenModelTest.php" line="75" class="Tests\Models\ExamenModelTest" classname="Tests.Models.ExamenModelTest" assertions="0" time="0.127470">
+          <error type="CodeIgniter\Database\Exceptions\DatabaseException">Tests\Models\ExamenModelTest::testDelete&#13;
 CodeIgniter\Database\Exceptions\DatabaseException: Table 'ci4_test.examenes' doesn't exist
 &#13;
 C:\laragon\www\examen\system\Database\BaseConnection.php:692
@@ -34,6 +186,149 @@ C:\laragon\www\examen\system\Database\BaseBuilder.php:2848
 C:\laragon\www\examen\system\Model.php:521
 C:\laragon\www\examen\system\BaseModel.php:1157
 C:\laragon\www\examen\tests\Models\ExamenModelTest.php:77</error>
-    </testcase>
+        </testcase>
+      </testsuite>
+      <testsuite name="Tests\Models\PreguntaModelTest" file="C:\laragon\www\examen\tests\Models\PreguntaModelTest.php" tests="4" assertions="2" errors="2" failures="2" skipped="0" time="0.494908">
+        <testcase name="testFind" file="C:\laragon\www\examen\tests\Models\PreguntaModelTest.php" line="56" class="Tests\Models\PreguntaModelTest" classname="Tests.Models.PreguntaModelTest" assertions="0" time="0.136303">
+          <error type="CodeIgniter\Database\Exceptions\DatabaseException">Tests\Models\PreguntaModelTest::testFind&#13;
+CodeIgniter\Database\Exceptions\DatabaseException: Table 'ci4_test.preguntas' doesn't exist
+&#13;
+C:\laragon\www\examen\system\Database\BaseConnection.php:692
+C:\laragon\www\examen\system\Database\BaseBuilder.php:1649
+C:\laragon\www\examen\system\Model.php:210
+C:\laragon\www\examen\system\BaseModel.php:609
+C:\laragon\www\examen\tests\Models\PreguntaModelTest.php:58</error>
+        </testcase>
+        <testcase name="testInsert" file="C:\laragon\www\examen\tests\Models\PreguntaModelTest.php" line="63" class="Tests\Models\PreguntaModelTest" classname="Tests.Models.PreguntaModelTest" assertions="1" time="0.113354">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Models\PreguntaModelTest::testInsert&#13;
+Failed asserting that false is of type numeric.
+&#13;
+C:\laragon\www\examen\tests\Models\PreguntaModelTest.php:72</failure>
+        </testcase>
+        <testcase name="testUpdate" file="C:\laragon\www\examen\tests\Models\PreguntaModelTest.php" line="78" class="Tests\Models\PreguntaModelTest" classname="Tests.Models.PreguntaModelTest" assertions="1" time="0.118034">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Models\PreguntaModelTest::testUpdate&#13;
+Failed asserting that false is true.
+&#13;
+C:\laragon\www\examen\tests\Models\PreguntaModelTest.php:86</failure>
+        </testcase>
+        <testcase name="testDelete" file="C:\laragon\www\examen\tests\Models\PreguntaModelTest.php" line="93" class="Tests\Models\PreguntaModelTest" classname="Tests.Models.PreguntaModelTest" assertions="0" time="0.127216">
+          <error type="CodeIgniter\Database\Exceptions\DatabaseException">Tests\Models\PreguntaModelTest::testDelete&#13;
+CodeIgniter\Database\Exceptions\DatabaseException: Table 'ci4_test.preguntas' doesn't exist
+&#13;
+C:\laragon\www\examen\system\Database\BaseConnection.php:692
+C:\laragon\www\examen\system\Database\BaseBuilder.php:2848
+C:\laragon\www\examen\system\Model.php:521
+C:\laragon\www\examen\system\BaseModel.php:1157
+C:\laragon\www\examen\tests\Models\PreguntaModelTest.php:95</error>
+        </testcase>
+      </testsuite>
+      <testsuite name="Tests\Models\RespuestaModelTest" file="C:\laragon\www\examen\tests\Models\RespuestaModelTest.php" tests="4" assertions="2" errors="2" failures="2" skipped="0" time="0.473658">
+        <testcase name="testFind" file="C:\laragon\www\examen\tests\Models\RespuestaModelTest.php" line="46" class="Tests\Models\RespuestaModelTest" classname="Tests.Models.RespuestaModelTest" assertions="0" time="0.127017">
+          <error type="CodeIgniter\Database\Exceptions\DatabaseException">Tests\Models\RespuestaModelTest::testFind&#13;
+CodeIgniter\Database\Exceptions\DatabaseException: Table 'ci4_test.respuestas' doesn't exist
+&#13;
+C:\laragon\www\examen\system\Database\BaseConnection.php:692
+C:\laragon\www\examen\system\Database\BaseBuilder.php:1649
+C:\laragon\www\examen\system\Model.php:210
+C:\laragon\www\examen\system\BaseModel.php:609
+C:\laragon\www\examen\tests\Models\RespuestaModelTest.php:48</error>
+        </testcase>
+        <testcase name="testInsert" file="C:\laragon\www\examen\tests\Models\RespuestaModelTest.php" line="53" class="Tests\Models\RespuestaModelTest" classname="Tests.Models.RespuestaModelTest" assertions="1" time="0.110231">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Models\RespuestaModelTest::testInsert&#13;
+Failed asserting that false is of type numeric.
+&#13;
+C:\laragon\www\examen\tests\Models\RespuestaModelTest.php:62</failure>
+        </testcase>
+        <testcase name="testUpdate" file="C:\laragon\www\examen\tests\Models\RespuestaModelTest.php" line="68" class="Tests\Models\RespuestaModelTest" classname="Tests.Models.RespuestaModelTest" assertions="1" time="0.110330">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">Tests\Models\RespuestaModelTest::testUpdate&#13;
+Failed asserting that false is true.
+&#13;
+C:\laragon\www\examen\tests\Models\RespuestaModelTest.php:76</failure>
+        </testcase>
+        <testcase name="testDelete" file="C:\laragon\www\examen\tests\Models\RespuestaModelTest.php" line="83" class="Tests\Models\RespuestaModelTest" classname="Tests.Models.RespuestaModelTest" assertions="0" time="0.126080">
+          <error type="CodeIgniter\Database\Exceptions\DatabaseException">Tests\Models\RespuestaModelTest::testDelete&#13;
+CodeIgniter\Database\Exceptions\DatabaseException: Table 'ci4_test.respuestas' doesn't exist
+&#13;
+C:\laragon\www\examen\system\Database\BaseConnection.php:692
+C:\laragon\www\examen\system\Database\BaseBuilder.php:2848
+C:\laragon\www\examen\system\Model.php:521
+C:\laragon\www\examen\system\BaseModel.php:1157
+C:\laragon\www\examen\tests\Models\RespuestaModelTest.php:85</error>
+        </testcase>
+      </testsuite>
+      <testsuite name="Tests\Models\ResultadoExamenModelTest" file="C:\laragon\www\examen\tests\Models\ResultadoExamenModelTest.php" tests="4" assertions="0" errors="4" failures="0" skipped="0" time="0.000000">
+        <testcase name="testFind" file="C:\laragon\www\examen\tests\Models\ResultadoExamenModelTest.php" line="55" class="Tests\Models\ResultadoExamenModelTest" classname="Tests.Models.ResultadoExamenModelTest" assertions="0" time="0.000000">
+          <error type="CodeIgniter\Database\Exceptions\DatabaseException">Tests\Models\ResultadoExamenModelTest::testFind&#13;
+CodeIgniter\Database\Exceptions\DatabaseException: Table 'ci4_test.conductores' doesn't exist
+&#13;
+C:\laragon\www\examen\system\Database\BaseConnection.php:692
+C:\laragon\www\examen\system\Database\BaseBuilder.php:1649
+C:\laragon\www\examen\system\Validation\Rules.php:175
+C:\laragon\www\examen\system\Validation\StrictRules\Rules.php:187
+C:\laragon\www\examen\system\Validation\Validation.php:337
+C:\laragon\www\examen\system\Validation\Validation.php:202
+C:\laragon\www\examen\system\BaseModel.php:1576
+C:\laragon\www\examen\system\BaseModel.php:808
+C:\laragon\www\examen\system\Model.php:800
+C:\laragon\www\examen\tests\Models\ResultadoExamenModelTest.php:28</error>
+        </testcase>
+        <testcase name="testInsert" file="C:\laragon\www\examen\tests\Models\ResultadoExamenModelTest.php" line="64" class="Tests\Models\ResultadoExamenModelTest" classname="Tests.Models.ResultadoExamenModelTest" assertions="0" time="0.000000">
+          <error type="CodeIgniter\Database\Exceptions\DatabaseException">Tests\Models\ResultadoExamenModelTest::testInsert&#13;
+CodeIgniter\Database\Exceptions\DatabaseException: Table 'ci4_test.conductores' doesn't exist
+&#13;
+C:\laragon\www\examen\system\Database\BaseConnection.php:692
+C:\laragon\www\examen\system\Database\BaseBuilder.php:1649
+C:\laragon\www\examen\system\Validation\Rules.php:175
+C:\laragon\www\examen\system\Validation\StrictRules\Rules.php:187
+C:\laragon\www\examen\system\Validation\Validation.php:337
+C:\laragon\www\examen\system\Validation\Validation.php:202
+C:\laragon\www\examen\system\BaseModel.php:1576
+C:\laragon\www\examen\system\BaseModel.php:808
+C:\laragon\www\examen\system\Model.php:800
+C:\laragon\www\examen\tests\Models\ResultadoExamenModelTest.php:28</error>
+        </testcase>
+        <testcase name="testUpdate" file="C:\laragon\www\examen\tests\Models\ResultadoExamenModelTest.php" line="83" class="Tests\Models\ResultadoExamenModelTest" classname="Tests.Models.ResultadoExamenModelTest" assertions="0" time="0.000000">
+          <error type="CodeIgniter\Database\Exceptions\DatabaseException">Tests\Models\ResultadoExamenModelTest::testUpdate&#13;
+CodeIgniter\Database\Exceptions\DatabaseException: Table 'ci4_test.conductores' doesn't exist
+&#13;
+C:\laragon\www\examen\system\Database\BaseConnection.php:692
+C:\laragon\www\examen\system\Database\BaseBuilder.php:1649
+C:\laragon\www\examen\system\Validation\Rules.php:175
+C:\laragon\www\examen\system\Validation\StrictRules\Rules.php:187
+C:\laragon\www\examen\system\Validation\Validation.php:337
+C:\laragon\www\examen\system\Validation\Validation.php:202
+C:\laragon\www\examen\system\BaseModel.php:1576
+C:\laragon\www\examen\system\BaseModel.php:808
+C:\laragon\www\examen\system\Model.php:800
+C:\laragon\www\examen\tests\Models\ResultadoExamenModelTest.php:28</error>
+        </testcase>
+        <testcase name="testDelete" file="C:\laragon\www\examen\tests\Models\ResultadoExamenModelTest.php" line="99" class="Tests\Models\ResultadoExamenModelTest" classname="Tests.Models.ResultadoExamenModelTest" assertions="0" time="0.000000">
+          <error type="CodeIgniter\Database\Exceptions\DatabaseException">Tests\Models\ResultadoExamenModelTest::testDelete&#13;
+CodeIgniter\Database\Exceptions\DatabaseException: Table 'ci4_test.conductores' doesn't exist
+&#13;
+C:\laragon\www\examen\system\Database\BaseConnection.php:692
+C:\laragon\www\examen\system\Database\BaseBuilder.php:1649
+C:\laragon\www\examen\system\Validation\Rules.php:175
+C:\laragon\www\examen\system\Validation\StrictRules\Rules.php:187
+C:\laragon\www\examen\system\Validation\Validation.php:337
+C:\laragon\www\examen\system\Validation\Validation.php:202
+C:\laragon\www\examen\system\BaseModel.php:1576
+C:\laragon\www\examen\system\BaseModel.php:808
+C:\laragon\www\examen\system\Model.php:800
+C:\laragon\www\examen\tests\Models\ResultadoExamenModelTest.php:28</error>
+        </testcase>
+      </testsuite>
+      <testsuite name="ExampleDatabaseTest" file="C:\laragon\www\examen\tests\database\ExampleDatabaseTest.php" tests="2" assertions="3" errors="0" failures="0" skipped="0" time="0.272533">
+        <testcase name="testModelFindAll" file="C:\laragon\www\examen\tests\database\ExampleDatabaseTest.php" line="17" class="ExampleDatabaseTest" classname="ExampleDatabaseTest" assertions="1" time="0.140777"/>
+        <testcase name="testSoftDeleteLeavesRow" file="C:\laragon\www\examen\tests\database\ExampleDatabaseTest.php" line="28" class="ExampleDatabaseTest" classname="ExampleDatabaseTest" assertions="2" time="0.131756"/>
+      </testsuite>
+      <testsuite name="ExampleSessionTest" file="C:\laragon\www\examen\tests\session\ExampleSessionTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.005051">
+        <testcase name="testSessionSimple" file="C:\laragon\www\examen\tests\session\ExampleSessionTest.php" line="10" class="ExampleSessionTest" classname="ExampleSessionTest" assertions="1" time="0.005051"/>
+      </testsuite>
+      <testsuite name="HealthTest" file="C:\laragon\www\examen\tests\unit\HealthTest.php" tests="2" assertions="3" errors="0" failures="0" skipped="0" time="0.009985">
+        <testcase name="testIsDefinedAppPath" file="C:\laragon\www\examen\tests\unit\HealthTest.php" line="12" class="HealthTest" classname="HealthTest" assertions="1" time="0.002805"/>
+        <testcase name="testBaseUrlHasBeenSet" file="C:\laragon\www\examen\tests\unit\HealthTest.php" line="17" class="HealthTest" classname="HealthTest" assertions="2" time="0.007180"/>
+      </testsuite>
+    </testsuite>
   </testsuite>
 </testsuites>

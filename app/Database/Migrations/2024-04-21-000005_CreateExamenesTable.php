@@ -21,12 +21,6 @@ class CreateExamenesTable extends Migration
                 'unsigned'       => true,
                 'null'          => false,
             ],
-            'categoria_id' => [
-                'type'           => 'INT',
-                'constraint'     => 11,
-                'unsigned'       => true,
-                'null'          => false,
-            ],
             'nombre' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 100,
@@ -59,6 +53,11 @@ class CreateExamenesTable extends Migration
                 'constraint' => 11,
                 'null'      => false,
             ],
+            'paginas_preguntas' => [
+                'type'       => 'JSON',
+                'null'      => false,
+                'comment'   => 'Array JSON con las páginas de preguntas y respuestas'
+            ],
             'created_at' => [
                 'type' => 'DATETIME',
                 'null' => true,
@@ -75,7 +74,6 @@ class CreateExamenesTable extends Migration
 
         $this->forge->addKey('examen_id', true);
         $this->forge->addForeignKey('escuela_id', 'escuelas', 'escuela_id', 'CASCADE', 'CASCADE');
-        $this->forge->addForeignKey('categoria_id', 'categorias', 'categoria_id', 'CASCADE', 'CASCADE');
         
         $this->forge->createTable('examenes');
     }

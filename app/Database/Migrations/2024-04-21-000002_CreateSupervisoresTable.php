@@ -4,37 +4,42 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreateUsuariosTable extends Migration
+class CreateSupervisoresTable extends Migration
 {
     public function up()
     {
         $this->forge->addField([
-            'usuario_id' => [
+            'supervisor_id' => [
                 'type' => 'INT',
                 'constraint' => 11,
                 'unsigned' => true,
                 'auto_increment' => true
             ],
+            'usuario_id' => [
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => true
+            ],
             'nombre' => [
                 'type' => 'VARCHAR',
-                'constraint' => 50
+                'constraint' => 100,
+                'null' => false
             ],
             'apellido' => [
                 'type' => 'VARCHAR',
-                'constraint' => 50
+                'constraint' => 100,
+                'null' => false
             ],
             'email' => [
                 'type' => 'VARCHAR',
-                'constraint' => 100
+                'constraint' => 100,
+                'null' => false,
+                'unique' => true
             ],
-            'password' => [
+            'telefono' => [
                 'type' => 'VARCHAR',
-                'constraint' => 255
-            ],
-            'rol' => [
-                'type' => 'ENUM',
-                'constraint' => ['tecnico', 'admin'],
-                'default' => 'tecnico'
+                'constraint' => 20,
+                'null' => true
             ],
             'estado' => [
                 'type' => 'ENUM',
@@ -48,20 +53,16 @@ class CreateUsuariosTable extends Migration
             'updated_at' => [
                 'type' => 'DATETIME',
                 'null' => true
-            ],
-            'deleted_at' => [
-                'type' => 'DATETIME',
-                'null' => true
             ]
         ]);
 
-        $this->forge->addKey('usuario_id', true);
-        $this->forge->addUniqueKey('email');
-        $this->forge->createTable('usuarios');
+        $this->forge->addKey('supervisor_id', true);
+        $this->forge->addForeignKey('usuario_id', 'usuarios', 'usuario_id', 'CASCADE', 'CASCADE');
+        $this->forge->createTable('supervisores');
     }
 
     public function down()
     {
-        $this->forge->dropTable('usuarios');
+        $this->forge->dropTable('supervisores');
     }
 } 

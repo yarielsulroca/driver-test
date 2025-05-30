@@ -24,10 +24,23 @@ class PreguntaController extends ResourceController
     public function index()
     {
         try {
-            $preguntas = $this->model->findAll();
+            $page = $this->request->getGet('page') ?? 1;
+            $perPage = $this->request->getGet('per_page') ?? 10;
+            
+            $preguntas = $this->model->paginate($perPage, 'default', $page);
+            $pager = $this->model->pager;
+
             return $this->respond([
                 'status' => 'success',
-                'data' => $preguntas
+                'data' => [
+                    'preguntas' => $preguntas,
+                    'pagination' => [
+                        'current_page' => $pager->getCurrentPage(),
+                        'total_pages' => $pager->getPageCount(),
+                        'total_items' => $pager->getTotal(),
+                        'per_page' => $perPage
+                    ]
+                ]
             ]);
         } catch (\Exception $e) {
             return $this->failServerError($e->getMessage());

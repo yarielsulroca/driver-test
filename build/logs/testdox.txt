@@ -1,6 +1,63 @@
+Basic (Tests\Basic)
+ [x] True is true
+ [x] One equals one
+
+Conductor Controller (Tests\Controllers\ConductorController)
+ [ ] Index pagination
+
+Conductor Model (Tests\Models\ConductorModel)
+ [ ] Find
+ [ ] Insert
+ [ ] Update
+ [ ] Delete
+
+Examen Controller (Tests\Controllers\ExamenController)
+ [ ] Index pagination
+ [x] Index
+ [x] Show
+
+Examen Flujo (Tests\Feature\ExamenFlujo)
+ [ ] Api examenes endpoint
+
 Examen Model (Tests\Models\ExamenModel)
  [ ] Find
  [ ] Insert
  [ ] Update
  [ ] Delete
+
+Example Database
+ [x] Model find all
+ [x] Soft delete leaves row
+
+Example Session
+ [x] Session simple
+
+Health
+ [x] Is defined app path
+ [x] Base url has been set
+
+Pregunta Model (Tests\Models\PreguntaModel)
+ [ ] Find
+ [ ] Insert
+ [ ] Update
+ [ ] Delete
+
+Respuesta Model (Tests\Models\RespuestaModel)
+ [ ] Find
+ [ ] Insert
+ [ ] Update
+ [ ] Delete
+
+Resultado Controller (Tests\Controllers\ResultadoController)
+ [ ] Verificar estado
+ [ ] Historial
+
+Resultado Examen Model (Tests\Models\ResultadoExamenModel)
+ [ ] Find
+ [ ] Insert
+ [ ] Update
+ [ ] Delete
+
+Supervisor Controller (Tests\Controllers\SupervisorController)
+ [ ] Index pagination
 

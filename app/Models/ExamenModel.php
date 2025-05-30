@@ -14,14 +14,14 @@ class ExamenModel extends Model
     protected $protectFields = true;
     protected $allowedFields = [
         'escuela_id',
-        'categoria_id',
         'nombre',
         'descripcion',
         'fecha_inicio',
         'fecha_fin',
         'duracion_minutos',
         'puntaje_minimo',
-        'numero_preguntas'
+        'numero_preguntas',
+        'paginas_preguntas'
     ];
 
     // Dates
@@ -34,14 +34,14 @@ class ExamenModel extends Model
     // Validation
     protected $validationRules = [
         'escuela_id' => 'required|integer',
-        'categoria_id' => 'required|integer',
         'nombre' => 'required|min_length[3]|max_length[100]',
         'descripcion' => 'required|min_length[10]',
         'fecha_inicio' => 'required|valid_date',
         'fecha_fin' => 'required|valid_date',
         'duracion_minutos' => 'required|integer|greater_than[0]',
         'puntaje_minimo' => 'required|numeric|greater_than[0]',
-        'numero_preguntas' => 'required|integer|greater_than[0]'
+        'numero_preguntas' => 'required|integer|greater_than[0]',
+        'paginas_preguntas' => 'required|valid_json'
     ];
     protected $validationMessages = [];
     protected $skipValidation = false;
@@ -53,9 +53,14 @@ class ExamenModel extends Model
         return $this->belongsTo('App\Models\EscuelaModel', 'escuela_id', 'escuela_id');
     }
 
-    public function categoria()
+    public function categorias()
     {
-        return $this->belongsTo('App\Models\CategoriaModel', 'categoria_id', 'categoria_id');
+        return $this->belongsToMany(
+            'App\Models\CategoriaModel',
+            'examen_categoria',
+            'examen_id',
+            'categoria_id'
+        );
     }
 
     public function resultados()
@@ -66,5 +71,44 @@ class ExamenModel extends Model
     public function preguntas()
     {
         return $this->hasMany('App\Models\PreguntaModel', 'examen_id', 'examen_id');
+    }
+
+    /**
+     * Obtener todas las categorías de un examen
+     */
+    public function getCategorias($examen_id)
+    {
+        return $this->db->table('examen_categoria')
+            ->select('categorias.*')
+            ->join('categorias', 'categorias.categoria_id = examen_categoria.categoria_id')
+            ->where('examen_categoria.examen_id', $examen_id)
+            ->get()
+            ->getResultArray();
+    }
+
+    /**
+     * Asignar categorías a un examen
+     */
+    public function asignarCategorias($examen_id, $categorias)
+    {
+        // Primero eliminamos las categorías existentes
+        $this->db->table('examen_categoria')
+            ->where('examen_id', $examen_id)
+            ->delete();
+
+        // Insertamos las nuevas categorías
+        $data = [];
+        foreach ($categorias as $categoria_id) {
+            $data[] = [
+                'examen_id' => $examen_id,
+                'categoria_id' => $categoria_id
+            ];
+        }
+
+        if (!empty($data)) {
+            return $this->db->table('examen_categoria')->insertBatch($data);
+        }
+
+        return true;
     }
 } 

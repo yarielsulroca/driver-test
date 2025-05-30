@@ -250,6 +250,21 @@ class AuthController extends ResourceController
                 $conductor['estado_registro'] = 'activo';
             }
 
+            // Obtener historial de exámenes
+            $resultadoModel = new \App\Models\ResultadoModel();
+            $historialExamenes = $resultadoModel->where('usuario_id', $conductor['conductor_id'])
+                                              ->orderBy('fecha_realizacion', 'DESC')
+                                              ->findAll();
+
+            // Verificar si puede presentar nuevos exámenes
+            $puedePresentarExamen = $resultadoModel->puedePresentarExamen($conductor['conductor_id']);
+
+            // Obtener exámenes disponibles
+            $examenModel = new \App\Models\ExamenModel();
+            $examenesDisponibles = $examenModel->where('fecha_inicio <=', date('Y-m-d H:i:s'))
+                                             ->where('fecha_fin >=', date('Y-m-d H:i:s'))
+                                             ->findAll();
+
             // Generar token JWT
             $key = defined('JWT_SECRET_KEY') ? JWT_SECRET_KEY : null;
             if (empty($key)) {
@@ -275,19 +290,14 @@ class AuthController extends ResourceController
             try {
                 $token = JWT::encode($payload, $key, 'HS256');
                 
-                // Intentar registrar sesión, pero continuar incluso si falla
+                // Intentar registrar sesión
                 try {
                     $this->sessionService->registrarSesion($conductor['dni'], $token);
                 } catch (\Exception $e) {
                     log_message('warning', 'Error al registrar sesión: ' . $e->getMessage());
-                    // Continuar sin manejo de sesiones
                 }
 
-                // Obtener información de exámenes
-                $examenes = $this->model->getExamenesInfo($conductor['conductor_id']);
-                
-                // Preparar respuesta base
-                $response = [
+                return $this->respond([
                     'status' => 'success',
                     'message' => '¡Inicio de sesión exitoso!',
                     'data' => [
@@ -298,25 +308,17 @@ class AuthController extends ResourceController
                             'nombre' => $conductor['nombre'],
                             'apellido' => $conductor['apellido'] ?? '',
                             'dni' => $conductor['dni'],
-                            'estado_registro' => $conductor['estado_registro']
+                            'estado_registro' => $conductor['estado_registro'],
+                            'categoria_id' => $conductor['categoria_id'] ?? null
+                        ],
+                        'examenes' => [
+                            'historial' => $historialExamenes,
+                            'puede_presentar' => $puedePresentarExamen['puede_presentar'],
+                            'mensaje_estado' => $puedePresentarExamen['mensaje'],
+                            'disponibles' => $examenesDisponibles
                         ]
                     ]
-                ];
-
-                // Agregar información de exámenes si existen
-                if (!empty($examenes)) {
-                    $response['data']['examenes'] = [
-                        'estado' => 'Con exámenes asociados',
-                        'detalle' => $examenes
-                    ];
-                } else {
-                    $response['data']['examenes'] = [
-                        'estado' => 'Sin exámenes asociados',
-                        'detalle' => []
-                    ];
-                }
-
-                return $this->respond($response);
+                ]);
 
             } catch (\Exception $e) {
                 return $this->fail([
