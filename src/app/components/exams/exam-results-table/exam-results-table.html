@@ -1,0 +1,28 @@
+<div class="exam-results-table-container">
+  <h2>Tabla de Resultados de Exámenes</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>DNI</th>
+        <th>Usuario</th>
+        <th>Estado</th>
+        <th>Fecha realizado</th>
+        <th>Puntaje</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of resultados">
+        <td>{{ row.dni }}</td>
+        <td>{{ row.usuario }}</td>
+        <td>{{ row.estado }}</td>
+        <td>{{ row.fecha_realizado || '-' }}</td>
+        <td>{{ row.puntaje || '-' }}</td>
+        <td>
+          <button *ngIf="row.estado === 'pendiente'" mat-icon-button color="warn"><mat-icon>delete</mat-icon></button>
+          <button *ngIf="row.estado !== 'pendiente'" mat-icon-button color="primary"><mat-icon>visibility</mat-icon></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div> 

@@ -1,0 +1,201 @@
+/* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+:root {
+  /* Colores principales */
+  --primary-color: #1A73E8;
+  --primary-light: #4285F4;
+  --primary-dark: #0D47A1;
+  
+  /* Colores secundarios */
+  --secondary-color: #5F6368;
+  --secondary-light: #80868B;
+  --secondary-dark: #3C4043;
+  
+  /* Colores de estado */
+  --success-color: #34A853;
+  --warning-color: #FBBC04;
+  --error-color: #EA4335;
+  --info-color: #4285F4;
+  
+  /* Colores de fondo */
+  --background-color: #F8F9FA;
+  --surface-color: #FFFFFF;
+  --card-background: #FFFFFF;
+  
+  /* Colores de texto */
+  --text-primary: #202124;
+  --text-secondary: #5F6368;
+  --text-hint: #80868B;
+  --text-disabled: #9AA0A6;
+  
+  /* Sombras */
+  --shadow-1: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+  --shadow-2: 0 1px 3px 0 rgba(60, 64, 67, 0.3), 0 4px 8px 3px rgba(60, 64, 67, 0.15);
+  --shadow-3: 0 4px 4px 0 rgba(60, 64, 67, 0.3), 0 8px 12px 6px rgba(60, 64, 67, 0.15);
+  
+  /* Espaciado */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  
+  /* Bordes */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 16px;
+  
+  /* Tipografía */
+  --font-family: 'Google Sans', 'Roboto', sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 20px;
+  --font-size-xl: 24px;
+  --font-size-xxl: 32px;
+  
+  /* Pesos de fuente */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--background-color);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+/* Estilos de Material */
+.mat-mdc-card {
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-1) !important;
+  background-color: var(--card-background);
+}
+
+.mat-mdc-button {
+  border-radius: var(--border-radius-sm);
+  text-transform: none;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.25px;
+  
+  &.mat-primary {
+    background-color: var(--primary-color);
+    color: white;
+    
+    &:hover {
+      background-color: var(--primary-dark);
+    }
+  }
+}
+
+.mat-mdc-raised-button {
+  border-radius: var(--border-radius-sm);
+  text-transform: none;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.25px;
+  padding: 0 var(--spacing-lg);
+  height: 36px;
+  
+  &.mat-primary {
+    background-color: var(--primary-color);
+    color: white;
+    
+    &:hover {
+      background-color: var(--primary-dark);
+    }
+  }
+}
+
+.mat-mdc-form-field {
+  width: 100%;
+  
+  &.mat-focused {
+    .mat-mdc-form-field-focus-overlay {
+      opacity: 0.04;
+    }
+  }
+}
+
+.mat-mdc-input-element {
+  font-size: var(--font-size-md);
+  color: var(--text-primary);
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+  font-size: var(--font-size-xs);
+}
+
+/* Utilidades */
+.flex-spacer {
+  flex: 1 1 auto;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-primary {
+  color: var(--primary-color);
+}
+
+.text-secondary {
+  color: var(--secondary-color);
+}
+
+.text-success {
+  color: var(--success-color);
+}
+
+.text-warning {
+  color: var(--warning-color);
+}
+
+.text-error {
+  color: var(--error-color);
+}
+
+/* Espaciado */
+.mt-1 { margin-top: var(--spacing-xs); }
+.mt-2 { margin-top: var(--spacing-sm); }
+.mt-3 { margin-top: var(--spacing-md); }
+.mt-4 { margin-top: var(--spacing-lg); }
+.mt-5 { margin-top: var(--spacing-xl); }
+
+.mb-1 { margin-bottom: var(--spacing-xs); }
+.mb-2 { margin-bottom: var(--spacing-sm); }
+.mb-3 { margin-bottom: var(--spacing-md); }
+.mb-4 { margin-bottom: var(--spacing-lg); }
+.mb-5 { margin-bottom: var(--spacing-xl); }
+
+/* Animaciones */
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} 

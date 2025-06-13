@@ -1,0 +1,79 @@
+<div class="exam-list-container">
+  <mat-card class="exam-list-card">
+    <mat-card-header>
+      <div class="header-left">
+        <mat-card-title>Exámenes Disponibles</mat-card-title>
+        <mat-card-subtitle>Gestiona los exámenes teóricos de conducción</mat-card-subtitle>
+      </div>
+      <div class="header-actions">
+        <mat-form-field appearance="outline" class="search-field">
+          <mat-label>Buscar examen</mat-label>
+          <input matInput [(ngModel)]="searchQuery" (keyup)="onSearch()" placeholder="Buscar por nombre o categoría">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+        
+        <button mat-raised-button color="primary" (click)="onNewExam()">
+          <mat-icon>add</mat-icon>
+          Nuevo Examen
+        </button>
+      </div>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="exams-grid">
+        <mat-card *ngFor="let exam of exams" class="exam-card fade-in">
+          <mat-card-header>
+            <mat-card-title>{{exam.title}}</mat-card-title>
+            <mat-card-subtitle>{{exam.category}}</mat-card-subtitle>
+          </mat-card-header>
+          
+          <mat-card-content>
+            <div class="exam-info">
+              <div class="info-item">
+                <mat-icon>schedule</mat-icon>
+                <span>{{exam.duration}} minutos</span>
+              </div>
+              <div class="info-item">
+                <mat-icon>help_outline</mat-icon>
+                <span>{{exam.questions}} preguntas</span>
+              </div>
+              <div class="info-item">
+                <mat-icon>school</mat-icon>
+                <span>{{exam.passingScore}}% mínimo</span>
+              </div>
+              <div class="info-item">
+                <mat-icon>people</mat-icon>
+                <span>{{exam.attempts}} intentos</span>
+              </div>
+            </div>
+          </mat-card-content>
+
+          <mat-card-actions>
+            <button mat-button color="primary" (click)="onEditExam(exam)">
+              <mat-icon>edit</mat-icon>
+              Editar
+            </button>
+            <button mat-button color="warn" (click)="onDeleteExam(exam)">
+              <mat-icon>delete</mat-icon>
+              Eliminar
+            </button>
+            <button mat-button color="accent" (click)="onPreviewExam(exam)">
+              <mat-icon>visibility</mat-icon>
+              Vista Previa
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+
+      <div class="pagination-container">
+        <mat-paginator
+          [length]="totalExams"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="[5, 10, 25, 100]"
+          (page)="onPageChange($event)"
+          aria-label="Seleccionar página">
+        </mat-paginator>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div> 

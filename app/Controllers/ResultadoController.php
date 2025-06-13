@@ -26,19 +26,50 @@ class ResultadoController extends ResourceController
         try {
             $page = $this->request->getGet('page') ?? 1;
             $perPage = $this->request->getGet('per_page') ?? 10;
-            
-            $resultados = $this->model->paginate($perPage, 'default', $page);
-            $pager = $this->model->pager;
+            $search = $this->request->getGet('search');
+
+            $db = \Config\Database::connect();
+            $builder = $db->table('resultados_examenes re')
+                ->select('re.resultado_id, re.estado, re.fecha_realizacion, re.puntaje_total, c.dni, c.nombre, c.apellido')
+                ->join('conductores c', 'c.conductor_id = re.conductor_id');
+
+            if ($search) {
+                $builder->groupStart()
+                    ->like('c.dni', $search)
+                    ->orLike('c.nombre', $search)
+                    ->orLike('c.apellido', $search)
+                    ->groupEnd();
+            }
+
+            $total = $builder->countAllResults(false);
+            $resultados = $builder
+                ->orderBy('re.fecha_realizacion', 'DESC')
+                ->limit($perPage, ($page - 1) * $perPage)
+                ->get()->getResultArray();
+
+            // Formatear resultados
+            $rows = array_map(function($r) {
+                $estado = $r['estado'] === 'aprobado' ? 'aprobado' : ($r['estado'] === 'reprobado' ? 'desaprobado' : 'pendiente');
+                $fecha = $r['fecha_realizacion'] ? date('d/m/Y H:i', strtotime($r['fecha_realizacion'])) : null;
+                $puntaje = $r['puntaje_total'] !== null ? $r['puntaje_total'] . '/60' : null;
+                return [
+                    'dni' => $r['dni'],
+                    'usuario' => trim($r['nombre'] . ' ' . $r['apellido']),
+                    'estado' => $estado,
+                    'fecha_realizado' => $fecha,
+                    'puntaje' => $puntaje
+                ];
+            }, $resultados);
 
             return $this->respond([
                 'status' => 'success',
                 'data' => [
-                    'resultados' => $resultados,
+                    'resultados' => $rows,
                     'pagination' => [
-                        'current_page' => $pager->getCurrentPage(),
-                        'total_pages' => $pager->getPageCount(),
-                        'total_items' => $pager->getTotal(),
-                        'per_page' => $perPage
+                        'current_page' => (int)$page,
+                        'total_pages' => ceil($total / $perPage),
+                        'total_items' => $total,
+                        'per_page' => (int)$perPage
                     ]
                 ]
             ]);
