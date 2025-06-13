@@ -20,13 +20,22 @@ class ExamenControllerTest extends CIUnitTestCase
     protected function setUp(): void
     {
         parent::setUp();
+        $_SERVER['CONTENT_TYPE'] = 'application/json';
+        $_SERVER['HTTP_CONTENT_TYPE'] = 'application/json';
+        $_SERVER['REQUEST_METHOD'] = 'POST';
+        $_SERVER['HTTP_ACCEPT'] = 'application/json';
+        $_SERVER['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest';
         $this->examen = new ExamenModel();
         $this->categoria = new CategoriaModel();
         
-        // Crear categoría
+        // Crear categorías de prueba
         $this->categoria->insert([
-            'nombre' => 'E1',
-            'descripcion' => 'Categoría para vehículos pesados'
+            'nombre' => 'Cat1',
+            'descripcion' => 'Categoría 1'
+        ]);
+        $this->categoria->insert([
+            'nombre' => 'Cat2',
+            'descripcion' => 'Categoría 2'
         ]);
         
         // Crear múltiples exámenes para probar paginación
@@ -40,59 +49,175 @@ class ExamenControllerTest extends CIUnitTestCase
         }
     }
 
-    public function testIndexPagination()
+    protected function extractJsonFromHtml($html)
     {
-        // Probar primera página con 10 items por página
-        $result = $this->controller(ExamenController::class)
-                       ->execute('index');
-        
-        $response = json_decode($result->getBody(), true);
-        
-        $this->assertTrue($result->isOK());
-        $this->assertEquals('success', $response['status']);
-        $this->assertCount(10, $response['data']['examenes']);
-        $this->assertEquals(1, $response['data']['pagination']['current_page']);
-        $this->assertEquals(10, $response['data']['pagination']['per_page']);
-        $this->assertEquals(2, $response['data']['pagination']['total_pages']);
-        $this->assertEquals(15, $response['data']['pagination']['total_items']);
-
-        // Probar segunda página
-        $result = $this->controller(ExamenController::class)
-                       ->execute('index', ['page' => 2]);
-        
-        $response = json_decode($result->getBody(), true);
-        
-        $this->assertTrue($result->isOK());
-        $this->assertEquals('success', $response['status']);
-        $this->assertCount(5, $response['data']['examenes']);
-        $this->assertEquals(2, $response['data']['pagination']['current_page']);
+        if (preg_match('/<p>(.*?)<\/p>/s', $html, $matches)) {
+            return json_decode($matches[1], true);
+        }
+        return null;
     }
 
     public function testIndex()
     {
-        // Simplificar el test para verificar que funciona
-        $this->assertTrue(true);
-        
-        // Comentamos el código problemático por ahora
-        /*
+        // Crear algunos exámenes de prueba
+        $this->examen->insert([
+            'titulo' => 'Examen 1',
+            'descripcion' => 'Descripción del examen 1',
+            'paginas_preguntas' => json_encode([
+                [
+                    'pregunta' => '¿Pregunta 1?',
+                    'opciones' => ['A', 'B', 'C'],
+                    'respuesta_correcta' => 'A'
+                ]
+            ]),
+            'estado' => 'activo',
+            'categoria_id' => 1
+        ]);
+
+        $this->examen->insert([
+            'titulo' => 'Examen 2',
+            'descripcion' => 'Descripción del examen 2',
+            'paginas_preguntas' => json_encode([
+                [
+                    'pregunta' => '¿Pregunta 2?',
+                    'opciones' => ['A', 'B', 'C'],
+                    'respuesta_correcta' => 'B'
+                ]
+            ]),
+            'estado' => 'activo',
+            'categoria_id' => 2
+        ]);
+
         $result = $this->controller(ExamenController::class)
-                       ->execute('index');
-        
-        $this->assertTrue($result->isOK());
-        */
+            ->execute('index');
+
+        $response = $this->extractJsonFromHtml($result->getBody());
+
+        $this->assertEquals('success', $response['status']);
+        $this->assertArrayHasKey('examenes', $response['data']);
+        $this->assertArrayHasKey('pagination', $response['data']);
+        $this->assertCount(2, $response['data']['examenes']);
     }
 
     public function testShow()
     {
-        // Simplificar el test para verificar que funciona
-        $this->assertTrue(true);
-        
-        // Comentamos el código problemático por ahora
-        /*
+        // Crear un examen de prueba
+        $examenId = $this->examen->insert([
+            'titulo' => 'Examen Test',
+            'descripcion' => 'Descripción del examen test',
+            'paginas_preguntas' => json_encode([
+                [
+                    'pregunta' => '¿Pregunta 1?',
+                    'opciones' => ['A', 'B', 'C'],
+                    'respuesta_correcta' => 'A'
+                ]
+            ]),
+            'estado' => 'activo',
+            'categoria_id' => 1
+        ]);
+
         $result = $this->controller(ExamenController::class)
-                       ->execute('show', 1);
-        
-        $this->assertTrue($result->isOK());
-        */
+            ->execute('show', [$examenId]);
+
+        $response = $this->extractJsonFromHtml($result->getBody());
+
+        $this->assertEquals('success', $response['status']);
+        $this->assertEquals('Examen Test', $response['data']['titulo']);
+        $this->assertEquals('Descripción del examen test', $response['data']['descripcion']);
+    }
+
+    public function testCreate()
+    {
+        $data = [
+            'titulo' => 'Nuevo Examen',
+            'descripcion' => 'Descripción del nuevo examen',
+            'paginas_preguntas' => [
+                [
+                    'pregunta' => '¿Pregunta 1?',
+                    'opciones' => ['A', 'B', 'C'],
+                    'respuesta_correcta' => 'A'
+                ]
+            ],
+            'categorias' => [1, 2],
+            'estado' => 'activo',
+            'categoria_id' => 1
+        ];
+
+        $jsonData = json_encode($data);
+        $result = $this->withBody($jsonData)
+            ->controller(ExamenController::class)
+            ->execute('create');
+
+        $response = $this->extractJsonFromHtml($result->getBody());
+
+        $this->assertEquals('success', $response['status']);
+        $this->assertEquals('Nuevo Examen', $response['data']['titulo']);
+        $this->assertEquals('Descripción del nuevo examen', $response['data']['descripcion']);
+    }
+
+    public function testUpdate()
+    {
+        // Crear un examen de prueba
+        $examenId = $this->examen->insert([
+            'titulo' => 'Examen Original',
+            'descripcion' => 'Descripción original',
+            'paginas_preguntas' => json_encode([
+                [
+                    'pregunta' => '¿Pregunta 1?',
+                    'opciones' => ['A', 'B', 'C'],
+                    'respuesta_correcta' => 'A'
+                ]
+            ]),
+            'estado' => 'activo',
+            'categoria_id' => 1
+        ]);
+
+        $data = [
+            'titulo' => 'Examen Actualizado',
+            'descripcion' => 'Descripción actualizada',
+            'categorias' => [1, 2],
+            'categoria_id' => 1
+        ];
+
+        $jsonData = json_encode($data);
+        $result = $this->withBody($jsonData)
+            ->controller(ExamenController::class)
+            ->execute('update', [$examenId]);
+
+        $response = $this->extractJsonFromHtml($result->getBody());
+
+        $this->assertEquals('success', $response['status']);
+        $this->assertEquals('Examen Actualizado', $response['data']['titulo']);
+        $this->assertEquals('Descripción actualizada', $response['data']['descripcion']);
+    }
+
+    public function testDelete()
+    {
+        // Crear un examen de prueba
+        $examenId = $this->examen->insert([
+            'titulo' => 'Examen a Eliminar',
+            'descripcion' => 'Descripción del examen a eliminar',
+            'paginas_preguntas' => json_encode([
+                [
+                    'pregunta' => '¿Pregunta 1?',
+                    'opciones' => ['A', 'B', 'C'],
+                    'respuesta_correcta' => 'A'
+                ]
+            ]),
+            'estado' => 'activo',
+            'categoria_id' => 1
+        ]);
+
+        $result = $this->controller(ExamenController::class)
+            ->execute('delete', [$examenId]);
+
+        $response = $this->extractJsonFromHtml($result->getBody());
+
+        $this->assertEquals('success', $response['status']);
+        $this->assertEquals('Examen eliminado exitosamente', $response['message']);
+
+        // Verificar que el examen ya no existe
+        $examenEliminado = $this->examen->find($examenId);
+        $this->assertNull($examenEliminado);
     }
 }

@@ -10,18 +10,17 @@ class ExamenConductorModel extends Model
     protected $primaryKey = 'examen_conductor_id';
     protected $useAutoIncrement = true;
     protected $returnType = 'array';
-    protected $useSoftDeletes = false;
+    protected $useSoftDeletes = true;
     protected $protectFields = true;
     protected $allowedFields = [
         'examen_id',
         'conductor_id',
-        'supervisor_id',
-        'fecha_asignacion',
         'estado',
         'fecha_inicio',
         'fecha_fin',
-        'aprobado',
-        'puntuacion_final'
+        'puntaje_obtenido',
+        'tiempo_utilizado',
+        'intentos_restantes'
     ];
 
     // Dates
@@ -35,53 +34,75 @@ class ExamenConductorModel extends Model
     protected $validationRules = [
         'examen_id' => 'required|integer',
         'conductor_id' => 'required|integer',
-        'supervisor_id' => 'required|integer',
-        'fecha_asignacion' => 'required|valid_date',
-        'estado' => 'required|in_list[pendiente,en_progreso,completado,aprobado,reprobado]'
+        'estado' => 'required|in_list[pendiente,en_progreso,completado,aprobado,reprobado]',
+        'fecha_inicio' => 'permit_empty|valid_date',
+        'fecha_fin' => 'permit_empty|valid_date',
+        'puntaje_obtenido' => 'permit_empty|numeric',
+        'tiempo_utilizado' => 'permit_empty|integer',
+        'intentos_restantes' => 'permit_empty|integer'
     ];
 
     protected $validationMessages = [
         'examen_id' => [
-            'required' => 'El ID del examen es obligatorio',
+            'required' => 'El ID del examen es requerido',
             'integer' => 'El ID del examen debe ser un número entero'
         ],
         'conductor_id' => [
-            'required' => 'El ID del conductor es obligatorio',
+            'required' => 'El ID del conductor es requerido',
             'integer' => 'El ID del conductor debe ser un número entero'
         ],
-        'supervisor_id' => [
-            'required' => 'El ID del supervisor es obligatorio',
-            'integer' => 'El ID del supervisor debe ser un número entero'
-        ],
-        'fecha_asignacion' => [
-            'required' => 'La fecha de asignación es obligatoria',
-            'valid_date' => 'La fecha de asignación debe ser una fecha válida'
-        ],
         'estado' => [
-            'required' => 'El estado es obligatorio',
+            'required' => 'El estado es requerido',
             'in_list' => 'El estado debe ser uno de: pendiente, en_progreso, completado, aprobado, reprobado'
         ]
     ];
 
-    // Relaciones
+    protected $skipValidation = false;
+    protected $cleanValidationRules = true;
+
+    /**
+     * Obtiene el examen asociado
+     * @return \CodeIgniter\Database\BaseResult
+     */
     public function examen()
     {
         return $this->belongsTo('App\Models\ExamenModel', 'examen_id', 'examen_id');
     }
 
+    /**
+     * Obtiene el conductor asociado
+     * @return \CodeIgniter\Database\BaseResult
+     */
     public function conductor()
     {
         return $this->belongsTo('App\Models\ConductorModel', 'conductor_id', 'conductor_id');
     }
 
-    public function supervisor()
+    /**
+     * Obtiene el estado del examen
+     * @return \CodeIgniter\Database\BaseResult
+     */
+    public function estado()
     {
-        return $this->belongsTo('App\Models\SupervisorModel', 'supervisor_id', 'supervisor_id');
+        return $this->belongsTo('App\Models\EstadoExamenModel', 'estado_id', 'estado_id');
     }
 
-    public function paginas()
+    /**
+     * Obtiene todas las sesiones de este examen
+     * @return \CodeIgniter\Database\BaseResult
+     */
+    public function sesiones()
     {
-        return $this->hasMany('App\Models\PaginaConductorModel', 'examen_conductor_id', 'examen_conductor_id');
+        return $this->hasMany('App\Models\SesionExamenModel', 'examen_conductor_id', 'examen_conductor_id');
+    }
+
+    /**
+     * Obtiene todas las respuestas del conductor en este examen
+     * @return \CodeIgniter\Database\BaseResult
+     */
+    public function respuestas()
+    {
+        return $this->hasMany('App\Models\RespuestaConductorModel', 'examen_conductor_id', 'examen_conductor_id');
     }
 
     /**

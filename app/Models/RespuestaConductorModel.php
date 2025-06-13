@@ -13,11 +13,10 @@ class RespuestaConductorModel extends Model
     protected $useSoftDeletes = false;
     protected $protectFields = true;
     protected $allowedFields = [
-        'resultado_examen_id',
+        'examen_conductor_id',
         'pregunta_id',
         'respuesta_id',
-        'es_correcta',
-        'tiempo_respuesta'
+        'puntaje_obtenido'
     ];
 
     // Dates
@@ -29,24 +28,54 @@ class RespuestaConductorModel extends Model
 
     // Validation
     protected $validationRules = [
-        'resultado_examen_id' => 'required|integer',
-        'pregunta_id' => 'required|integer',
-        'respuesta_id' => 'required|integer',
-        'es_correcta' => 'required|in_list[0,1]',
-        'tiempo_respuesta' => 'required|integer'
+        'examen_conductor_id' => 'required|integer|is_not_unique[examen_conductor.examen_conductor_id]',
+        'pregunta_id' => 'required|integer|is_not_unique[preguntas.pregunta_id]',
+        'respuesta_id' => 'permit_empty|integer|is_not_unique[respuestas.respuesta_id]',
+        'puntaje_obtenido' => 'permit_empty|numeric'
     ];
 
-    // Relaciones
-    public function resultadoExamen()
+    protected $validationMessages = [
+        'examen_conductor_id' => [
+            'required' => 'El ID del examen-conductor es requerido',
+            'integer' => 'El ID debe ser un número entero',
+            'is_not_unique' => 'El examen-conductor especificado no existe'
+        ],
+        'pregunta_id' => [
+            'required' => 'El ID de la pregunta es requerido',
+            'integer' => 'El ID debe ser un número entero',
+            'is_not_unique' => 'La pregunta especificada no existe'
+        ],
+        'respuesta_id' => [
+            'integer' => 'El ID debe ser un número entero',
+            'is_not_unique' => 'La respuesta especificada no existe'
+        ]
+    ];
+
+    protected $skipValidation = false;
+    protected $cleanValidationRules = true;
+
+    /**
+     * Obtiene el examen-conductor asociado
+     * @return \CodeIgniter\Database\BaseResult
+     */
+    public function examenConductor()
     {
-        return $this->belongsTo('App\Models\ResultadoExamenModel', 'resultado_examen_id', 'resultado_id');
+        return $this->belongsTo('App\Models\ExamenConductorModel', 'examen_conductor_id', 'examen_conductor_id');
     }
 
+    /**
+     * Obtiene la pregunta asociada
+     * @return \CodeIgniter\Database\BaseResult
+     */
     public function pregunta()
     {
         return $this->belongsTo('App\Models\PreguntaModel', 'pregunta_id', 'pregunta_id');
     }
 
+    /**
+     * Obtiene la respuesta seleccionada
+     * @return \CodeIgniter\Database\BaseResult
+     */
     public function respuesta()
     {
         return $this->belongsTo('App\Models\RespuestaModel', 'respuesta_id', 'respuesta_id');

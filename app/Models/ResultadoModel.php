@@ -13,13 +13,12 @@ class ResultadoModel extends Model
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
+        'conductor_id',
         'examen_id',
-        'usuario_id',
         'puntuacion',
-        'fecha_realizacion',
         'estado',
-        'fecha_bloqueo',
-        'bloqueado'
+        'fecha_inicio',
+        'fecha_fin'
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -37,28 +36,28 @@ class ResultadoModel extends Model
 
     // Validation
     protected $validationRules = [
+        'conductor_id' => 'required|numeric',
         'examen_id' => 'required|numeric',
-        'usuario_id' => 'required|numeric',
         'puntuacion' => 'required|numeric',
-        'estado' => 'required|in_list[aprobado,reprobado]',
+        'estado' => 'required|in_list[aprobado,reprobado,pendiente]'
     ];
 
     protected $validationMessages = [
-        'examen_id' => [
-            'required' => 'El ID del examen es requerido',
-            'numeric' => 'El ID del examen debe ser numérico'
+        'conductor_id' => [
+            'required' => 'El ID del conductor es obligatorio',
+            'numeric' => 'El ID del conductor debe ser un número'
         ],
-        'usuario_id' => [
-            'required' => 'El ID del usuario es requerido',
-            'numeric' => 'El ID del usuario debe ser numérico'
+        'examen_id' => [
+            'required' => 'El ID del examen es obligatorio',
+            'numeric' => 'El ID del examen debe ser un número'
         ],
         'puntuacion' => [
-            'required' => 'La puntuación es requerida',
-            'numeric' => 'La puntuación debe ser numérica'
+            'required' => 'La puntuación es obligatoria',
+            'numeric' => 'La puntuación debe ser un número'
         ],
         'estado' => [
-            'required' => 'El estado es requerido',
-            'in_list' => 'El estado debe ser aprobado o reprobado'
+            'required' => 'El estado es obligatorio',
+            'in_list' => 'El estado debe ser aprobado, reprobado o pendiente'
         ]
     ];
 

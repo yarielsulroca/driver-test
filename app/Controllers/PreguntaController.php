@@ -59,6 +59,13 @@ class PreguntaController extends ResourceController
                 return $this->failNotFound('Pregunta no encontrada');
             }
 
+            // Obtener las respuestas asociadas a la pregunta
+            $respuestaModel = new \App\Models\RespuestaModel();
+            $respuestas = $respuestaModel->where('pregunta_id', $id)->findAll();
+
+            // Agregar las respuestas a la pregunta
+            $pregunta['respuestas'] = $respuestas;
+
             return $this->respond([
                 'status' => 'success',
                 'data' => $pregunta

@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\ConductorModel;
+use App\Models\UsuarioModel;
 use App\Services\SessionService;
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
@@ -14,12 +15,14 @@ class AuthController extends ResourceController
     use ResponseTrait;
 
     protected $model;
+    protected $usuarioModel;
     protected $sessionService;
     protected $format = 'json';
 
     public function __construct()
     {
         $this->model = new ConductorModel();
+        $this->usuarioModel = new UsuarioModel();
         $this->sessionService = new SessionService();
     }
 
@@ -29,9 +32,24 @@ class AuthController extends ResourceController
     public function registro()
     {
         try {
-            // Obtener datos JSON del body
-            $json = $this->request->getJSON(true);
+            // Obtener datos del body
+            $input = $this->request->getBody();
+            log_message('debug', 'Datos raw recibidos: ' . $input);
+            
+            // Intentar decodificar JSON
+            $json = json_decode($input, true);
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                log_message('error', 'Error al decodificar JSON: ' . json_last_error_msg());
+                return $this->fail([
+                    'status' => 'error',
+                    'message' => 'Error al decodificar JSON: ' . json_last_error_msg()
+                ], 400);
+            }
+            
+            log_message('debug', 'Datos decodificados: ' . json_encode($json));
+            
             if (empty($json)) {
+                log_message('error', 'No se recibieron datos JSON válidos');
                 return $this->fail([
                     'status' => 'error',
                     'message' => 'No se recibieron datos JSON válidos'
@@ -49,73 +67,98 @@ class AuthController extends ResourceController
                     ]
                 ],
                 'dni' => [
-                    'rules' => 'required|min_length[8]|max_length[20]|is_unique[conductores.dni]',
+                    'rules' => 'required|min_length[8]|max_length[20]|is_unique[usuarios.dni]',
                     'errors' => [
                         'required' => 'El DNI es obligatorio',
                         'min_length' => 'El DNI debe tener al menos 8 caracteres',
                         'max_length' => 'El DNI no puede exceder los 20 caracteres',
-                        'is_unique' => 'Ya existe un conductor registrado con este DNI'
+                        'is_unique' => 'Ya existe un usuario registrado con este DNI'
+                    ]
+                ],
+                'email' => [
+                    'rules' => 'required|valid_email|max_length[100]|is_unique[usuarios.email]',
+                    'errors' => [
+                        'required' => 'El email es obligatorio',
+                        'valid_email' => 'El formato del email no es válido',
+                        'max_length' => 'El email no puede exceder los 100 caracteres',
+                        'is_unique' => 'Ya existe un usuario registrado con este email'
+                    ]
+                ],
+                'escuela_id' => [
+                    'rules' => 'permit_empty|integer|is_not_unique[escuelas.escuela_id]',
+                    'errors' => [
+                        'integer' => 'El ID de la escuela debe ser un número entero',
+                        'is_not_unique' => 'La escuela especificada no existe'
                     ]
                 ]
             ];
 
-            // Si se proporciona email, agregar validación
-            if (isset($json['email'])) {
-                $rules['email'] = [
-                    'rules' => 'valid_email|max_length[100]|is_unique[conductores.email]',
-                    'errors' => [
-                        'valid_email' => 'El formato del email no es válido',
-                        'max_length' => 'El email no puede exceder los 100 caracteres',
-                        'is_unique' => 'Ya existe un conductor registrado con este email'
-                    ]
-                ];
-            }
+            // Validar los datos
+            $validation = \Config\Services::validation();
+            $validation->setRules($rules);
 
-            if (!$this->validate($rules)) {
+            if (!$validation->run($json)) {
+                $errors = $validation->getErrors();
+                log_message('debug', 'Errores de validación: ' . json_encode($errors));
                 return $this->fail([
                     'status' => 'error',
                     'message' => 'Error de validación',
-                    'errors' => $this->validator->getErrors()
+                    'errors' => $errors
                 ], 400);
             }
 
-            // Preparar datos para inserción
-            $data = [
-                'nombre' => $json['nombre'],
+            // Crear usuario primero
+            $usuarioData = [
+                'rol_id' => 3, // ID del rol conductor
                 'dni' => $json['dni'],
-                'estado_registro' => 'activo'
+                'nombre' => $json['nombre'],
+                'apellido' => $json['apellido'] ?? '',
+                'email' => $json['email'],
+                'password' => password_hash($json['dni'], PASSWORD_DEFAULT), // Usar DNI como contraseña inicial
+                'estado' => 'activo'
             ];
 
-            // Campos opcionales
-            $camposOpcionales = [
-                'apellido',
-                'fecha_nacimiento',
-                'direccion',
-                'telefono',
-                'email'
-            ];
-
-            foreach ($camposOpcionales as $campo) {
-                if (isset($json[$campo])) {
-                    $data[$campo] = $json[$campo];
-                }
-            }
-
-            // Intentar insertar el conductor
-            if (!$this->model->insert($data)) {
-                $errors = $this->model->errors();
-                $errorMessage = 'Error al registrar el conductor en la base de datos';
-                
-                // Personalizar mensaje según el tipo de error
-                if (isset($errors['dni'])) {
-                    $errorMessage = 'Ya existe un conductor registrado con este DNI';
-                } elseif (isset($errors['email'])) {
-                    $errorMessage = 'Ya existe un conductor registrado con este email';
-                }
-                
+            if (!$this->usuarioModel->insert($usuarioData)) {
+                $errors = $this->usuarioModel->errors();
+                log_message('error', 'Error al insertar usuario: ' . json_encode($errors));
                 return $this->fail([
                     'status' => 'error',
-                    'message' => $errorMessage,
+                    'message' => 'Error al registrar el usuario',
+                    'errors' => $errors
+                ], 400);
+            }
+
+            $usuario_id = $this->usuarioModel->getInsertID();
+
+            // Preparar datos para inserción del conductor
+            $conductorData = [
+                'usuario_id' => $usuario_id,
+                'nombre' => $json['nombre'],
+                'apellido' => $json['apellido'] ?? '',
+                'dni' => $json['dni'],
+                'email' => $json['email'],
+                'telefono' => $json['telefono'] ?? null,
+                'direccion' => $json['direccion'] ?? null,
+                'fecha_nacimiento' => $json['fecha_nacimiento'] ?? null,
+                'estado_registro' => 'pendiente'
+            ];
+
+            // Agregar escuela_id solo si se proporciona
+            if (!empty($json['escuela_id'])) {
+                $conductorData['escuela_id'] = $json['escuela_id'];
+            }
+
+            log_message('debug', 'Datos a insertar en conductor: ' . json_encode($conductorData));
+
+            // Intentar insertar el conductor
+            if (!$this->model->insert($conductorData)) {
+                // Si falla, eliminar el usuario creado
+                $this->usuarioModel->delete($usuario_id);
+                $errors = $this->model->errors();
+                log_message('error', 'Error al insertar conductor: ' . json_encode($errors));
+                return $this->fail([
+                    'status' => 'error',
+                    'message' => 'Error al registrar el conductor',
                     'errors' => $errors
                 ], 400);
             }
@@ -182,6 +225,7 @@ class AuthController extends ResourceController
                 ], 201);
 
             } catch (\Exception $e) {
+                log_message('error', 'Error al generar token: ' . $e->getMessage());
                 return $this->fail([
                     'status' => 'error',
                     'message' => 'Error al generar el token',
@@ -190,6 +234,7 @@ class AuthController extends ResourceController
             }
 
         } catch (\Exception $e) {
+            log_message('error', 'Error en registro: ' . $e->getMessage());
             return $this->failServerError($e->getMessage());
         }
     }
@@ -230,7 +275,8 @@ class AuthController extends ResourceController
 
             $dni = $json['dni'];
 
-            $conductor = $this->model->where('dni', $dni)
+            $conductor = $this->model->select('conductor_id, nombre, apellido, dni, estado_registro, categoria_id')
+                                   ->where('dni', $dni)
                                    ->where('estado_registro !=', 'rechazado')
                                    ->first();
 
@@ -242,27 +288,47 @@ class AuthController extends ResourceController
                 ], 404);
             }
 
+            // Log para depuración
+            log_message('debug', 'Estado del conductor antes de actualizar: ' . json_encode($conductor));
+
             // Actualizar estado si está pendiente
             if ($conductor['estado_registro'] === 'pendiente') {
                 $this->model->update($conductor['conductor_id'], [
-                    'estado_registro' => 'activo'
+                    'estado_registro' => 'aprobado'
                 ]);
-                $conductor['estado_registro'] = 'activo';
+                $conductor['estado_registro'] = 'aprobado';
             }
 
+            // Log para depuración
+            log_message('debug', 'Estado del conductor después de actualizar: ' . json_encode($conductor));
+
             // Obtener historial de exámenes
-            $resultadoModel = new \App\Models\ResultadoModel();
-            $historialExamenes = $resultadoModel->where('usuario_id', $conductor['conductor_id'])
-                                              ->orderBy('fecha_realizacion', 'DESC')
-                                              ->findAll();
+            $examenConductorModel = new \App\Models\ExamenConductorModel();
+            $historialExamenes = $examenConductorModel->select('examen_conductor.*, examenes.nombre, examenes.descripcion')
+                                                    ->join('examenes', 'examenes.examen_id = examen_conductor.examen_id')
+                                                    ->where('examen_conductor.conductor_id', $conductor['conductor_id'])
+                                                    ->orderBy('examen_conductor.fecha_inicio', 'DESC')
+                                                    ->findAll();
 
             // Verificar si puede presentar nuevos exámenes
-            $puedePresentarExamen = $resultadoModel->puedePresentarExamen($conductor['conductor_id']);
+            $examenesPendientes = $examenConductorModel->where('conductor_id', $conductor['conductor_id'])
+                                                     ->whereIn('estado', ['pendiente', 'en_progreso'])
+                                                     ->countAllResults();
+
+            $puedePresentarExamen = [
+                'puede_presentar' => $examenesPendientes === 0,
+                'mensaje' => $examenesPendientes > 0 ? 
+                    'Tienes exámenes pendientes o en progreso' : 
+                    'Puedes presentar nuevos exámenes'
+            ];
 
             // Obtener exámenes disponibles
             $examenModel = new \App\Models\ExamenModel();
-            $examenesDisponibles = $examenModel->where('fecha_inicio <=', date('Y-m-d H:i:s'))
-                                             ->where('fecha_fin >=', date('Y-m-d H:i:s'))
+            $examenesDisponibles = $examenModel->select('examenes.*, GROUP_CONCAT(examen_categoria.categoria_id) as categorias')
+                                             ->join('examen_categoria', 'examen_categoria.examen_id = examenes.examen_id', 'left')
+                                             ->where('examenes.fecha_inicio <=', date('Y-m-d H:i:s'))
+                                             ->where('examenes.fecha_fin >=', date('Y-m-d H:i:s'))
+                                             ->groupBy('examenes.examen_id')
                                              ->findAll();
 
             // Generar token JWT

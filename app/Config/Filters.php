@@ -111,12 +111,16 @@ class Filters extends BaseFilters
      * @var array<string, array<string, list<string>>>
      */
     public array $filters = [
+        // Protege todas las rutas de exámenes y resultados para conductores
         'auth' => [
             'before' => [
+                'api/examenes',
                 'api/examenes/*',
+                'api/resultados',
                 'api/resultados/*',
-                'api/auth/logout',
-                'api/auth/refresh-token'
+                'api/historial',
+                'api/historial/*',
+                // Agrega aquí cualquier otra ruta que requiera autenticación de conductor
             ]
         ],
         'auth.tecnico' => [

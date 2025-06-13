@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\ResultadoModel;
+use App\Models\ResultadoExamenModel;
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
 
@@ -15,7 +15,7 @@ class ResultadoController extends ResourceController
 
     public function __construct()
     {
-        $this->model = new ResultadoModel();
+        $this->model = new ResultadoExamenModel();
     }
 
     /**
@@ -114,7 +114,7 @@ class ResultadoController extends ResourceController
             $page = $this->request->getGet('page') ?? 1;
             $perPage = $this->request->getGet('per_page') ?? 10;
             
-            $resultados = $this->model->where('usuario_id', $usuario_id)
+            $resultados = $this->model->where('conductor_id', $usuario_id)
                                     ->orderBy('fecha_realizacion', 'DESC')
                                     ->paginate($perPage, 'default', $page);
             $pager = $this->model->pager;
@@ -142,7 +142,7 @@ class ResultadoController extends ResourceController
     public function ultimoResultado($usuario_id)
     {
         try {
-            $resultado = $this->model->where('usuario_id', $usuario_id)
+            $resultado = $this->model->where('conductor_id', $usuario_id)
                                    ->orderBy('fecha_realizacion', 'DESC')
                                    ->first();
 

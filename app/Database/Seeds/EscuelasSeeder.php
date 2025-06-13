@@ -41,5 +41,19 @@ class EscuelasSeeder extends Seeder
         foreach ($escuelas as $escuela) {
             $escuelaModel->insert($escuela);
         }
+
+        $data = [
+            [
+                'nombre' => 'Escuela de Manejo Central',
+                'direccion' => 'Av. Principal 123',
+                'telefono' => '123456789',
+                'email' => 'contacto@escuelacentral.com',
+                'estado' => 'activo',
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ]
+        ];
+
+        $this->db->table('escuelas')->insertBatch($data);
     }
 } 

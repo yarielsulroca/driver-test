@@ -28,11 +28,13 @@ class SessionService
         $this->invalidarSesionAnterior($dni);
 
         // Guardar nueva sesión
-        return $this->redis->setex(
+        $resultado = $this->redis->setex(
             $this->prefix . $dni,
             $this->ttl,
             $token
         );
+        
+        return $resultado === 'OK';
     }
 
     /**
@@ -65,10 +67,12 @@ class SessionService
      */
     public function actualizarToken(string $dni, string $nuevoToken): bool
     {
-        return $this->redis->setex(
+        $resultado = $this->redis->setex(
             $this->prefix . $dni,
             $this->ttl,
             $nuevoToken
         );
+        
+        return $resultado === 'OK';
     }
 } 

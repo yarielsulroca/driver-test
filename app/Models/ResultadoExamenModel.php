@@ -66,11 +66,12 @@ class ResultadoExamenModel extends Model
     /**
      * Verifica si un conductor puede presentar un examen
      */
-    public function puedePresentarExamen($conductor_id, $categoria_id)
+    public function puedePresentarExamen($conductor_id, $categoria_id = null)
     {
         $ultimoResultado = $this->where('conductor_id', $conductor_id)
                                ->join('examenes', 'examenes.examen_id = resultados_examenes.examen_id')
-                               ->where('examenes.categoria_id', $categoria_id)
+                               ->join('examen_categoria', 'examen_categoria.examen_id = examenes.examen_id')
+                               ->where('examen_categoria.categoria_id', $categoria_id)
                                ->orderBy('fecha_realizacion', 'DESC')
                                ->first();
 

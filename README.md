@@ -1,41 +1,232 @@
-# Sistema de Exámenes para Conductores
+# Sistema de Exámenes para Conductores - Lomas de Zamora
 
 ## Descripción
-Sistema de gestión de exámenes para conductores con autenticación JWT y roles diferenciados (conductores y técnicos).
+Sistema de gestión de exámenes para conductores de la Municipalidad de Lomas de Zamora, Buenos Aires. El sistema permite la gestión completa del proceso de evaluación de conductores, desde el registro hasta la obtención de la licencia.
+
+## Características Principales
+- Registro y autenticación de conductores
+- Gestión de exámenes teóricos
+- Administración de preguntas y respuestas
+- Control de resultados y certificaciones
+- Sistema de roles (conductores y técnicos)
+- Autenticación JWT
+- Validación de DNI y email únicos
+
+## Requisitos del Sistema
+- PHP 7.4 o superior
+- MySQL 5.7 o superior
+- Composer
+- Servidor web (Apache/Nginx)
+
+## Instalación
+
+1. Clonar el repositorio:
+```bash
+git clone [URL_DEL_REPOSITORIO]
+cd examen
+```
+
+2. Instalar dependencias:
+```bash
+composer install
+```
+
+3. Configurar el archivo .env:
+```bash
+cp env .env
+```
+Editar el archivo .env con los datos de conexión a la base de datos y otras configuraciones.
+
+4. Ejecutar migraciones:
+```bash
+php spark migrate
+```
+
+5. Ejecutar seeders (opcional):
+```bash
+php spark db:seed
+```
 
 ## Estructura de Endpoints
 
 ### 1. Endpoints Públicos (No requieren autenticación)
-- `POST /api/auth/registro`: Registro de nuevos conductores
-- `POST /api/auth/login`: Inicio de sesión de conductores
 
-### 2. Endpoints para Conductores (Requieren autenticación de conductor)
-- `POST /api/auth/logout`: Cierre de sesión
-- `POST /api/auth/refresh-token`: Renovación de token JWT
-- `GET /api/resultados/verificar/:id`: Verificar estado de resultados
-- `GET /api/resultados/historial/:id`: Ver historial de resultados
-- `GET /api/resultados/ultimo/:id`: Ver último resultado
+#### Registro de Conductores
+- **Endpoint:** `POST /api/auth/registro`
+- **Descripción:** Registro de nuevos conductores
+- **Body:**
+```json
+{
+    "nombre": "string",
+    "apellido": "string",
+    "dni": "string",
+    "email": "string",
+    "telefono": "string"
+}
+```
+- **Respuesta (201):**
+```json
+{
+    "status": "success",
+    "message": "¡Registro exitoso!",
+    "data": {
+        "token": "string",
+        "conductor": {
+            "id": "string",
+            "nombre": "string",
+            "apellido": "string",
+            "dni": "string",
+            "telefono": "string",
+            "email": "string",
+            "estado_registro": "string"
+        }
+    }
+}
+```
 
-### 3. Endpoints para Técnicos (Requieren autenticación de técnico)
+#### Inicio de Sesión
+- **Endpoint:** `POST /api/auth/login`
+- **Descripción:** Inicio de sesión de conductores
+- **Body:**
+```json
+{
+    "dni": "string"
+}
+```
+- **Respuesta (200):**
+```json
+{
+    "status": "success",
+    "message": "¡Inicio de sesión exitoso!",
+    "data": {
+        "token": "string",
+        "conductor": {
+            "id": "string",
+            "nombre": "string",
+            "apellido": "string",
+            "dni": "string",
+            "estado_registro": "string"
+        }
+    }
+}
+```
+
+### 2. Endpoints para Conductores (Requieren autenticación)
+
+#### Cierre de Sesión
+- **Endpoint:** `POST /api/auth/logout`
+- **Headers:** `Authorization: Bearer {token}`
+- **Descripción:** Cierre de sesión del conductor
+
+#### Renovación de Token
+- **Endpoint:** `POST /api/auth/refresh-token`
+- **Headers:** `Authorization: Bearer {token}`
+- **Descripción:** Renovación del token JWT
+
+#### Verificar Estado de Resultados
+- **Endpoint:** `GET /api/resultados/verificar/:id`
+- **Headers:** `Authorization: Bearer {token}`
+- **Descripción:** Verifica el estado de los resultados de un examen
+
+#### Ver Historial de Resultados
+- **Endpoint:** `GET /api/resultados/historial/:id`
+- **Headers:** `Authorization: Bearer {token}`
+- **Descripción:** Obtiene el historial completo de resultados
+
+#### Ver Último Resultado
+- **Endpoint:** `GET /api/resultados/ultimo/:id`
+- **Headers:** `Authorization: Bearer {token}`
+- **Descripción:** Obtiene el último resultado del conductor
+
+### 3. Endpoints para Técnicos (Requieren autenticación)
 
 #### Gestión de Exámenes
-- `GET /api/examenes`: Listar todos los exámenes
-- `GET /api/examenes/:id`: Ver examen específico
-- `POST /api/examenes`: Crear nuevo examen
-- `PUT /api/examenes/:id`: Actualizar examen
-- `DELETE /api/examenes/:id`: Eliminar examen
-- `GET /api/examenes/categoria/:id`: Exámenes por categoría
-- `GET /api/examenes/activos`: Exámenes activos
+
+##### Listar Exámenes
+- **Endpoint:** `GET /api/examenes`
+- **Headers:** `Authorization: Bearer {token}`
+- **Descripción:** Lista todos los exámenes disponibles
+
+##### Ver Examen Específico
+- **Endpoint:** `GET /api/examenes/:id`
+- **Headers:** `Authorization: Bearer {token}`
+- **Descripción:** Obtiene los detalles de un examen específico
+
+##### Crear Examen
+- **Endpoint:** `POST /api/examenes`
+- **Headers:** `Authorization: Bearer {token}`
+- **Body:**
+```json
+{
+    "nombre": "string",
+    "descripcion": "string",
+    "duracion": "integer",
+    "puntaje_minimo": "integer",
+    "numero_preguntas": "integer"
+}
+```
+
+##### Actualizar Examen
+- **Endpoint:** `PUT /api/examenes/:id`
+- **Headers:** `Authorization: Bearer {token}`
+- **Body:** Mismo formato que crear examen
+
+##### Eliminar Examen
+- **Endpoint:** `DELETE /api/examenes/:id`
+- **Headers:** `Authorization: Bearer {token}`
+
+##### Exámenes por Categoría
+- **Endpoint:** `GET /api/examenes/categoria/:id`
+- **Headers:** `Authorization: Bearer {token}`
+
+##### Exámenes Activos
+- **Endpoint:** `GET /api/examenes/activos`
+- **Headers:** `Authorization: Bearer {token}`
 
 #### Gestión de Preguntas
-- `GET /api/preguntas`: Listar todas las preguntas
-- `GET /api/preguntas/:id`: Ver pregunta específica
-- `POST /api/preguntas`: Crear nueva pregunta
-- `PUT /api/preguntas/:id`: Actualizar pregunta
-- `DELETE /api/preguntas/:id`: Eliminar pregunta
-- `GET /api/preguntas/examen/:id`: Preguntas por examen
-- `GET /api/preguntas/categoria/:id`: Preguntas por categoría
-- `GET /api/preguntas/criticas`: Preguntas críticas
+
+##### Listar Preguntas
+- **Endpoint:** `GET /api/preguntas`
+- **Headers:** `Authorization: Bearer {token}`
+
+##### Ver Pregunta Específica
+- **Endpoint:** `GET /api/preguntas/:id`
+- **Headers:** `Authorization: Bearer {token}`
+
+##### Crear Pregunta
+- **Endpoint:** `POST /api/preguntas`
+- **Headers:** `Authorization: Bearer {token}`
+- **Body:**
+```json
+{
+    "enunciado": "string",
+    "tipo": "multiple|verdadero_falso",
+    "puntaje": "integer",
+    "dificultad": "baja|media|alta",
+    "es_critica": "boolean"
+}
+```
+
+##### Actualizar Pregunta
+- **Endpoint:** `PUT /api/preguntas/:id`
+- **Headers:** `Authorization: Bearer {token}`
+- **Body:** Mismo formato que crear pregunta
+
+##### Eliminar Pregunta
+- **Endpoint:** `DELETE /api/preguntas/:id`
+- **Headers:** `Authorization: Bearer {token}`
+
+##### Preguntas por Examen
+- **Endpoint:** `GET /api/preguntas/examen/:id`
+- **Headers:** `Authorization: Bearer {token}`
+
+##### Preguntas por Categoría
+- **Endpoint:** `GET /api/preguntas/categoria/:id`
+- **Headers:** `Authorization: Bearer {token}`
+
+##### Preguntas Críticas
+- **Endpoint:** `GET /api/preguntas/criticas`
+- **Headers:** `Authorization: Bearer {token}`
 
 ## Autenticación
 
@@ -54,11 +245,26 @@ Authorization: Bearer <token>
 1. **conductor**: Acceso a gestión de su perfil y resultados
 2. **tecnico**: Acceso completo a gestión de exámenes y preguntas
 
-## Seguridad
-- Validación de DNI y email únicos
-- Protección de rutas por rol
-- Manejo de sesiones con Redis (opcional)
-- Tokens JWT con expiración configurable
+## Validaciones
+
+### Conductor
+- Nombre: 3-50 caracteres
+- DNI: 8-20 caracteres, único
+- Email: Formato válido, único (opcional)
+
+### Examen
+- Nombre: 3-100 caracteres
+- Descripción: Mínimo 10 caracteres
+- Duración: Mayor a 0 minutos
+- Puntaje mínimo: Mayor a 0
+- Número de preguntas: Mayor a 0
+
+### Pregunta
+- Enunciado: Mínimo 10 caracteres
+- Tipo: multiple|verdadero_falso
+- Puntaje: Mayor a 0
+- Dificultad: baja|media|alta
+- Es crítica: boolean
 
 ## Respuestas API
 Todas las respuestas siguen el formato:
@@ -85,26 +291,13 @@ Todas las respuestas siguen el formato:
 - JWT_SECRET_KEY: Clave para firmar tokens
 - JWT_TIME_TO_LIVE: Tiempo de vida del token (default: 3600s)
 
-## Validaciones
-### Conductor
-- Nombre: 3-50 caracteres
-- DNI: 8-20 caracteres, único
-- Email: Formato válido, único (opcional)
+## Soporte
+Para soporte técnico o consultas, contactar a:
+- Email: [EMAIL_SOPORTE]
+- Teléfono: [TELEFONO_SOPORTE]
 
-### Examen
-- Nombre: 3-100 caracteres
-- Descripción: Mínimo 10 caracteres
-- Duración: Mayor a 0 minutos
-- Puntaje mínimo: Mayor a 0
-- Número de preguntas: Mayor a 0
-
-### Pregunta
-- Enunciado: Mínimo 10 caracteres
-- Tipo: multiple|verdadero_falso
-- Puntaje: Mayor a 0
-- Dificultad: baja|media|alta
-- Es crítica: 0|1
-
+## Licencia
+Este proyecto es propiedad de la Municipalidad de Lomas de Zamora. Todos los derechos reservados.
 
 ----------------------------------------------------- PRUEBAS EN POSTMAN -----------------------------------
 # Sistema de Exámenes para Conductores - API Documentation
@@ -156,8 +349,6 @@ A continuación se muestran ejemplos de cómo interactuar con la API utilizando 
         "instrucciones": "Por favor, guarde este token de forma segura. Lo necesitará para futuras autenticaciones."
     }
 }
-```
-
 ### 2. Inicio de Sesión
 
 **Endpoint:** `POST /api/auth/login`
@@ -170,10 +361,9 @@ A continuación se muestran ejemplos de cómo interactuar con la API utilizando 
 {
 "dni": "123456780"
 }
-```
 
 **Respuesta esperada (200 OK):**
-```json
+json
 {
     "status": "success",
     "message": "¡Inicio de sesión exitoso!",
@@ -193,147 +383,23 @@ A continuación se muestran ejemplos de cómo interactuar con la API utilizando 
         }
     }
 }
-```
 
-### 3. Obtener Puntuación de un Examen
-
-Primero, necesitarás obtener la lista de exámenes asignados a un conductor:
-
-**Endpoint:** `GET /api/resultados/historial/1` (donde 1 es el ID del conductor)
-
-**Headers:**
-- Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI...
-
-**Respuesta esperada (200 OK):**
-```json
+categoria:POST https://examen.test/api/categorias
 {
-  "status": "success",
-  "data": [
-    {
-      "id": 1,
-      "examen_id": 1,
-      "conductor_id": 1,
-      "fecha_realizacion": "2023-05-14 15:30:22",
-      "puntuacion": 85,
-      "estado": "aprobado",
-      "aciertos": 17,
-      "errores": 3,
-      "comentario": "Examen completado satisfactoriamente",
-      "examen": {
-        "titulo": "Examen Categoría E1",
-        "categoria": "E1"
-      }
-    }
-  ]
+    "codigo": "B",
+    "nombre": "Automóviles",
+    "descripcion": "Licencia para conducir automóviles y camionetas",
+    "requisitos": "[\"Edad mínima: 17 años\", \"Examen teórico aprobado\", \"Examen práctico aprobado\"]",
+    "estado": "activo"
 }
-```
+escuela: lulgar_del examen. POST https://examen.test/api/escuelas
 
-Para obtener el último resultado de un conductor específico:
-
-**Endpoint:** `GET /api/resultados/ultimo/1` (donde 1 es el ID del conductor)
-
-**Headers:**
-- Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI...
-
-**Respuesta esperada (200 OK):**
-```json
 {
-  "status": "success",
-  "data": {
-    "id": 1,
-    "examen_id": 1,
-    "conductor_id": 1,
-    "fecha_realizacion": "2023-05-14 15:30:22",
-    "puntuacion": 85,
-    "estado": "aprobado",
-    "aciertos": 17,
-    "errores": 3,
-    "comentario": "Examen completado satisfactoriamente"
-  }
+    "codigo": "ESC002",
+    "nombre": "Centro de Formación Vial",
+    "direccion": "Calle Secundaria 456, Ciudad",
+    "telefono": "987-654-3210",
+    "email": "info@formacionvial.com",
+    "horario": "Lunes a Sábado 7:00 - 20:00",
+    "estado": "activo"
 }
-```
-
-### 4. Realizar un Examen y Registrar Respuestas
-
-**Endpoint:** `POST /api/resultados/registrar`
-
-**Headers:**
-- Content-Type: application/json
-- Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI...
-
-**Body (raw JSON):**
-```json
-{
-  "conductor_id": 1,
-  "examen_id": 1,
-  "respuestas": {
-    "1": 2,
-    "2": 1,
-    "3": 3,
-    "4": 1,
-    "5": 2
-  }
-}
-```
-
-> Donde las claves en "respuestas" son los IDs de las preguntas y los valores son los IDs de las respuestas seleccionadas.
-
-**Respuesta esperada (201 Created):**
-```json
-{
-  "status": "success",
-  "message": "Resultado registrado correctamente",
-  "data": {
-    "resultado_id": 2,
-    "puntuacion": 80,
-    "aciertos": 4,
-    "errores": 1,
-    "estado": "aprobado"
-  }
-}
-```
-
-### 5. Verificar si un Conductor Puede Presentar un Examen
-
-**Endpoint:** `GET /api/resultados/verificar/1` (donde 1 es el ID del conductor)
-
-**Headers:**
-- Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI...
-
-**Respuesta esperada (200 OK):**
-```json
-{
-  "status": "success",
-  "data": {
-    "puede_presentar": true,
-    "mensaje": "El conductor puede presentar el examen",
-    "examenes_disponibles": [
-      {
-        "examen_id": 2,
-        "titulo": "Examen Categoría E2",
-        "categoria": "E2",
-        "tiempo_limite": 30
-      }
-    ]
-  }
-}
-```
-
-## Notas importantes:
-
-1. Asegúrate de guardar el token JWT recibido en el registro o inicio de sesión, ya que lo necesitarás para todas las solicitudes autenticadas.
-
-2. El token tiene un tiempo de expiración (generalmente 1 hora). Si expira, debes obtener uno nuevo mediante el endpoint de inicio de sesión o refresh token.
-
-3. Para preguntas críticas, ten en cuenta que una respuesta incorrecta resultará en la suspensión automática del examen, independientemente de las otras respuestas.
-
-4. El sistema maneja diferentes estados para los conductores: "pendiente", "activo" y "rechazado".
-
-## Códigos de estado HTTP
-
-- 200: Operación exitosa
-- 201: Recurso creado correctamente
-- 400: Error de validación o datos incorrectos
-- 401: No autorizado (token inválido o expirado)
-- 404: Recurso no encontrado
-- 500: Error interno del servidor

@@ -3,6 +3,13 @@
 namespace App\Controllers;
 
 use App\Models\ExamenModel;
+use App\Models\PreguntaModel;
+use App\Models\ExamenPreguntaModel;
+use App\Models\ExamenCategoriaModel;
+use App\Models\RespuestaModel;
+use App\Models\ExamenConductorModel;
+use App\Models\RespuestaConductorModel;
+use App\Models\CategoriaAprobadaModel;
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
 use CodeIgniter\Database\BaseConnection;
@@ -11,13 +18,27 @@ class ExamenController extends ResourceController
 {
     use ResponseTrait;
 
-    protected $model;
+    protected $examenModel;
+    protected $preguntaModel;
+    protected $examenPreguntaModel;
+    protected $examenCategoriaModel;
+    protected $respuestaModel;
+    protected $examenConductorModel;
+    protected $respuestaConductorModel;
+    protected $categoriaAprobadaModel;
     protected $format = 'json';
     protected $db;
 
     public function __construct()
     {
-        $this->model = new ExamenModel();
+        $this->examenModel = new ExamenModel();
+        $this->preguntaModel = new PreguntaModel();
+        $this->examenPreguntaModel = new ExamenPreguntaModel();
+        $this->examenCategoriaModel = new ExamenCategoriaModel();
+        $this->respuestaModel = new RespuestaModel();
+        $this->examenConductorModel = new ExamenConductorModel();
+        $this->respuestaConductorModel = new RespuestaConductorModel();
+        $this->categoriaAprobadaModel = new CategoriaAprobadaModel();
         $this->db = \Config\Database::connect();
     }
 
@@ -30,8 +51,17 @@ class ExamenController extends ResourceController
             $page = $this->request->getGet('page') ?? 1;
             $perPage = $this->request->getGet('per_page') ?? 10;
             
-            $examenes = $this->model->paginate($perPage, 'default', $page);
-            $pager = $this->model->pager;
+            $examenes = $this->examenModel->paginate($perPage, 'default', $page);
+            $pager = $this->examenModel->pager;
+
+            // Obtener categorías para cada examen
+            foreach ($examenes as &$examen) {
+                $examen['categorias'] = $this->examenCategoriaModel
+                    ->select('categorias.*')
+                    ->join('categorias', 'categorias.categoria_id = examen_categoria.categoria_id')
+                    ->where('examen_categoria.examen_id', $examen['examen_id'])
+                    ->findAll();
+            }
 
             return $this->respond([
                 'status' => 'success',
@@ -51,22 +81,39 @@ class ExamenController extends ResourceController
     }
 
     /**
-     * Obtener un examen específico
+     * Obtener un examen específico con sus preguntas
      */
     public function show($id = null)
     {
         try {
-            $examen = $this->model->find($id);
+            $examen = $this->examenModel->find($id);
             
             if (!$examen) {
                 return $this->failNotFound('Examen no encontrado');
             }
 
-            // Convertir el JSON de paginas_preguntas a array
-            $examen['paginas_preguntas'] = json_decode($examen['paginas_preguntas'], true);
-            
-            // Obtener las categorías
-            $examen['categorias'] = $this->model->getCategorias($id);
+            // Obtener las categorías del examen
+            $examen['categorias'] = $this->examenCategoriaModel
+                ->select('categorias.*')
+                ->join('categorias', 'categorias.categoria_id = examen_categoria.categoria_id')
+                ->where('examen_categoria.examen_id', $id)
+                ->findAll();
+
+            // Obtener las preguntas del examen con sus respuestas
+            $preguntas = $this->examenPreguntaModel->select('examen_pregunta.*, preguntas.*')
+                                                 ->join('preguntas', 'preguntas.pregunta_id = examen_pregunta.pregunta_id')
+                                                 ->where('examen_pregunta.examen_id', $id)
+                                                 ->orderBy('examen_pregunta.orden', 'ASC')
+                                                 ->findAll();
+
+            // Obtener las respuestas para cada pregunta
+            foreach ($preguntas as &$pregunta) {
+                $pregunta['respuestas'] = $this->respuestaModel
+                    ->where('pregunta_id', $pregunta['pregunta_id'])
+                    ->findAll();
+            }
+
+            $examen['preguntas'] = $preguntas;
 
             return $this->respond([
                 'status' => 'success',
@@ -89,43 +136,53 @@ class ExamenController extends ResourceController
                 return $this->fail('No se recibieron datos', 400);
             }
 
-            // Validar la estructura de paginas_preguntas
-            if (!isset($data['paginas_preguntas']) || !is_array($data['paginas_preguntas'])) {
-                return $this->fail('El formato de páginas de preguntas es inválido', 400);
+            // Validar datos requeridos
+            if (!isset($data['nombre']) || !isset($data['categorias']) || !isset($data['preguntas'])) {
+                return $this->fail('Faltan datos requeridos', 400);
             }
 
-            // Validar que cada página tenga preguntas y una respuesta correcta
-            foreach ($data['paginas_preguntas'] as $index => $pagina) {
-                if (!is_array($pagina) || empty($pagina)) {
-                    return $this->fail("La página {$index} no tiene un formato válido", 400);
+            // Validar que existan las preguntas
+            foreach ($data['preguntas'] as $pregunta) {
+                if (!isset($pregunta['pregunta_id']) || !isset($pregunta['orden'])) {
+                    return $this->fail('Formato de preguntas inválido', 400);
                 }
             }
-
-            // Validar categorías
-            if (!isset($data['categorias']) || !is_array($data['categorias']) || empty($data['categorias'])) {
-                return $this->fail('Debe especificar al menos una categoría', 400);
-            }
-
-            // Convertir el array a JSON para almacenamiento
-            $data['paginas_preguntas'] = json_encode($data['paginas_preguntas']);
-
-            // Guardar las categorías temporalmente
-            $categorias = $data['categorias'];
-            unset($data['categorias']);
 
             // Iniciar transacción
             $this->db->transStart();
 
             // Insertar el examen
-            if (!$this->model->insert($data)) {
-                return $this->fail($this->model->errors());
+            $examenData = [
+                'nombre' => $data['nombre'],
+                'descripcion' => $data['descripcion'] ?? null,
+                'fecha_inicio' => $data['fecha_inicio'],
+                'fecha_fin' => $data['fecha_fin'],
+                'duracion_minutos' => $data['duracion_minutos'],
+                'puntaje_minimo' => $data['puntaje_minimo'] ?? 70.00,
+                'numero_preguntas' => count($data['preguntas'])
+            ];
+
+            if (!$this->examenModel->insert($examenData)) {
+                return $this->fail($this->examenModel->errors());
             }
 
-            $examen_id = $this->model->getInsertID();
+            $examen_id = $this->examenModel->getInsertID();
 
-            // Asignar categorías
-            if (!$this->model->asignarCategorias($examen_id, $categorias)) {
-                return $this->fail('Error al asignar categorías');
+            // Asignar categorías al examen
+            foreach ($data['categorias'] as $categoria_id) {
+                $this->examenCategoriaModel->insert([
+                    'examen_id' => $examen_id,
+                    'categoria_id' => $categoria_id
+                ]);
+            }
+
+            // Asignar preguntas al examen
+            foreach ($data['preguntas'] as $pregunta) {
+                $this->examenPreguntaModel->insert([
+                    'examen_id' => $examen_id,
+                    'pregunta_id' => $pregunta['pregunta_id'],
+                    'orden' => $pregunta['orden']
+                ]);
             }
 
             $this->db->transComplete();
@@ -134,14 +191,10 @@ class ExamenController extends ResourceController
                 return $this->fail('Error al crear el examen');
             }
 
-            $examen = $this->model->find($examen_id);
-            $examen['paginas_preguntas'] = json_decode($examen['paginas_preguntas'], true);
-            $examen['categorias'] = $this->model->getCategorias($examen_id);
-
             return $this->respondCreated([
                 'status' => 'success',
                 'message' => 'Examen creado exitosamente',
-                'data' => $examen
+                'data' => $this->show($examen_id)
             ]);
         } catch (\Exception $e) {
             return $this->failServerError($e->getMessage());
@@ -160,32 +213,60 @@ class ExamenController extends ResourceController
                 return $this->fail('Datos inválidos', 400);
             }
 
-            $examenExiste = $this->model->find($id);
+            $examenExiste = $this->examenModel->find($id);
             if (!$examenExiste) {
                 return $this->failNotFound('Examen no encontrado');
-            }
-
-            // Validar categorías si se proporcionan
-            if (isset($data['categorias'])) {
-                if (!is_array($data['categorias']) || empty($data['categorias'])) {
-                    return $this->fail('Debe especificar al menos una categoría', 400);
-                }
-                $categorias = $data['categorias'];
-                unset($data['categorias']);
             }
 
             // Iniciar transacción
             $this->db->transStart();
 
-            if (!$this->model->update($id, $data)) {
-                return $this->fail($this->model->errors());
+            // Actualizar datos básicos del examen
+            $examenData = [
+                'nombre' => $data['nombre'] ?? $examenExiste['nombre'],
+                'descripcion' => $data['descripcion'] ?? $examenExiste['descripcion'],
+                'fecha_inicio' => $data['fecha_inicio'] ?? $examenExiste['fecha_inicio'],
+                'fecha_fin' => $data['fecha_fin'] ?? $examenExiste['fecha_fin'],
+                'duracion_minutos' => $data['duracion_minutos'] ?? $examenExiste['duracion_minutos'],
+                'puntaje_minimo' => $data['puntaje_minimo'] ?? $examenExiste['puntaje_minimo']
+            ];
+
+            if (!$this->examenModel->update($id, $examenData)) {
+                return $this->fail($this->examenModel->errors());
             }
 
-            // Actualizar categorías si se proporcionaron
-            if (isset($categorias)) {
-                if (!$this->model->asignarCategorias($id, $categorias)) {
-                    return $this->fail('Error al actualizar categorías');
+            // Si se proporcionan nuevas categorías, actualizarlas
+            if (isset($data['categorias'])) {
+                // Eliminar categorías anteriores
+                $this->examenCategoriaModel->where('examen_id', $id)->delete();
+
+                // Insertar nuevas categorías
+                foreach ($data['categorias'] as $categoria_id) {
+                    $this->examenCategoriaModel->insert([
+                        'examen_id' => $id,
+                        'categoria_id' => $categoria_id
+                    ]);
                 }
+            }
+
+            // Si se proporcionan nuevas preguntas, actualizar el orden
+            if (isset($data['preguntas'])) {
+                // Eliminar asignaciones anteriores
+                $this->examenPreguntaModel->where('examen_id', $id)->delete();
+
+                // Insertar nuevas asignaciones
+                foreach ($data['preguntas'] as $pregunta) {
+                    $this->examenPreguntaModel->insert([
+                        'examen_id' => $id,
+                        'pregunta_id' => $pregunta['pregunta_id'],
+                        'orden' => $pregunta['orden']
+                    ]);
+                }
+
+                // Actualizar número de preguntas
+                $this->examenModel->update($id, [
+                    'numero_preguntas' => count($data['preguntas'])
+                ]);
             }
 
             $this->db->transComplete();
@@ -194,14 +275,10 @@ class ExamenController extends ResourceController
                 return $this->fail('Error al actualizar el examen');
             }
 
-            $examen = $this->model->find($id);
-            $examen['paginas_preguntas'] = json_decode($examen['paginas_preguntas'], true);
-            $examen['categorias'] = $this->model->getCategorias($id);
-
             return $this->respond([
                 'status' => 'success',
                 'message' => 'Examen actualizado exitosamente',
-                'data' => $examen
+                'data' => $this->show($id)
             ]);
         } catch (\Exception $e) {
             return $this->failServerError($e->getMessage());
@@ -214,17 +291,26 @@ class ExamenController extends ResourceController
     public function delete($id = null)
     {
         try {
-            if (!$id) {
-                return $this->fail('ID no proporcionado', 400);
-            }
-
-            $examenExiste = $this->model->find($id);
-            if (!$examenExiste) {
+            $examen = $this->examenModel->find($id);
+            
+            if (!$examen) {
                 return $this->failNotFound('Examen no encontrado');
             }
 
-            if (!$this->model->delete($id)) {
-                return $this->fail('No se pudo eliminar el examen');
+            // Iniciar transacción
+            $this->db->transStart();
+
+            // Eliminar relaciones
+            $this->examenCategoriaModel->where('examen_id', $id)->delete();
+            $this->examenPreguntaModel->where('examen_id', $id)->delete();
+            
+            // Eliminar el examen
+            $this->examenModel->delete($id);
+
+            $this->db->transComplete();
+
+            if ($this->db->transStatus() === false) {
+                return $this->fail('Error al eliminar el examen');
             }
 
             return $this->respondDeleted([
@@ -242,24 +328,15 @@ class ExamenController extends ResourceController
     public function porCategoria($categoria_id)
     {
         try {
-            $page = $this->request->getGet('page') ?? 1;
-            $perPage = $this->request->getGet('per_page') ?? 10;
-            
-            $examenes = $this->model->where('categoria_id', $categoria_id)
-                                  ->paginate($perPage, 'default', $page);
-            $pager = $this->model->pager;
-            
+            $examenes = $this->examenCategoriaModel
+                ->select('examenes.*')
+                ->join('examenes', 'examenes.examen_id = examen_categoria.examen_id')
+                ->where('examen_categoria.categoria_id', $categoria_id)
+                ->findAll();
+
             return $this->respond([
                 'status' => 'success',
-                'data' => [
-                    'examenes' => $examenes,
-                    'pagination' => [
-                        'current_page' => $pager->getCurrentPage(),
-                        'total_pages' => $pager->getPageCount(),
-                        'total_items' => $pager->getTotal(),
-                        'per_page' => $perPage
-                    ]
-                ]
+                'data' => $examenes
             ]);
         } catch (\Exception $e) {
             return $this->failServerError($e->getMessage());
@@ -272,26 +349,25 @@ class ExamenController extends ResourceController
     public function activos()
     {
         try {
-            $page = $this->request->getGet('page') ?? 1;
-            $perPage = $this->request->getGet('per_page') ?? 10;
-            
             $fechaActual = date('Y-m-d H:i:s');
-            $examenes = $this->model->where('fecha_inicio <=', $fechaActual)
-                                  ->where('fecha_fin >=', $fechaActual)
-                                  ->paginate($perPage, 'default', $page);
-            $pager = $this->model->pager;
             
+            $examenes = $this->examenModel
+                ->where('fecha_inicio <=', $fechaActual)
+                ->where('fecha_fin >=', $fechaActual)
+                ->findAll();
+
+            // Obtener categorías para cada examen
+            foreach ($examenes as &$examen) {
+                $examen['categorias'] = $this->examenCategoriaModel
+                    ->select('categorias.*')
+                    ->join('categorias', 'categorias.categoria_id = examen_categoria.categoria_id')
+                    ->where('examen_categoria.examen_id', $examen['examen_id'])
+                    ->findAll();
+            }
+
             return $this->respond([
                 'status' => 'success',
-                'data' => [
-                    'examenes' => $examenes,
-                    'pagination' => [
-                        'current_page' => $pager->getCurrentPage(),
-                        'total_pages' => $pager->getPageCount(),
-                        'total_items' => $pager->getTotal(),
-                        'per_page' => $perPage
-                    ]
-                ]
+                'data' => $examenes
             ]);
         } catch (\Exception $e) {
             return $this->failServerError($e->getMessage());

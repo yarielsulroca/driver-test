@@ -12,6 +12,8 @@ class ConductorModel extends Model
     protected $useSoftDeletes = false;
     protected $protectFields = true;
     protected $allowedFields = [
+        'usuario_id',
+        'escuela_id',
         'nombre',
         'apellido',
         'dni',
@@ -19,7 +21,6 @@ class ConductorModel extends Model
         'direccion',
         'telefono',
         'email',
-        'categoria_id',
         'estado_registro',
         'fecha_registro'
     ];
@@ -33,6 +34,8 @@ class ConductorModel extends Model
 
     // Validation
     protected $validationRules = [
+        'usuario_id' => 'required|integer|is_not_unique[usuarios.usuario_id]',
+        'escuela_id' => 'permit_empty|integer|is_not_unique[escuelas.escuela_id]',
         'nombre' => 'required|min_length[3]|max_length[50]',
         'apellido' => 'permit_empty|min_length[3]|max_length[50]',
         'dni' => 'required|min_length[8]|max_length[20]|is_unique[conductores.dni,conductor_id,{conductor_id}]',
@@ -40,11 +43,19 @@ class ConductorModel extends Model
         'direccion' => 'permit_empty|min_length[5]|max_length[200]',
         'telefono' => 'permit_empty|min_length[8]|max_length[20]',
         'email' => 'permit_empty|valid_email|is_unique[conductores.email,conductor_id,{conductor_id}]',
-        'categoria_id' => 'permit_empty|integer',
-        'estado_registro' => 'required|in_list[activo,inactivo,pendiente,rechazado]'
+        'estado_registro' => 'required|in_list[pendiente,aprobado,rechazado]'
     ];
 
     protected $validationMessages = [
+        'usuario_id' => [
+            'required' => 'El ID de usuario es requerido',
+            'integer' => 'El ID de usuario debe ser un número entero',
+            'is_not_unique' => 'El usuario especificado no existe'
+        ],
+        'escuela_id' => [
+            'integer' => 'El ID de la escuela debe ser un número entero',
+            'is_not_unique' => 'La escuela especificada no existe'
+        ],
         'nombre' => [
             'required' => 'El nombre es requerido',
             'min_length' => 'El nombre debe tener al menos 3 caracteres',
@@ -58,7 +69,7 @@ class ConductorModel extends Model
         ],
         'estado_registro' => [
             'required' => 'El estado de registro es requerido',
-            'in_list' => 'El estado de registro debe ser: activo, inactivo, pendiente o rechazado'
+            'in_list' => 'El estado de registro debe ser: pendiente, aprobado o rechazado'
         ]
     ];
 
@@ -70,20 +81,27 @@ class ConductorModel extends Model
 
     protected function setEstadoRegistro(array $data)
     {
-        $data['data']['estado_registro'] = 'pendiente';
+        if (empty($data['data']['estado_registro'])) {
+            $data['data']['estado_registro'] = 'pendiente';
+        }
         $data['data']['fecha_registro'] = date('Y-m-d H:i:s');
         return $data;
     }
 
     // Relaciones
+    public function usuario()
+    {
+        return $this->belongsTo('App\Models\UsuarioModel', 'usuario_id', 'usuario_id');
+    }
+
+    public function escuela()
+    {
+        return $this->belongsTo('App\Models\EscuelaModel', 'escuela_id', 'escuela_id');
+    }
+
     public function resultados()
     {
         return $this->hasMany('App\Models\ResultadoExamenModel', 'conductor_id', 'conductor_id');
-    }
-
-    public function categoria()
-    {
-        return $this->belongsTo('App\Models\CategoriaModel', 'categoria_id', 'categoria_id');
     }
 
     /**
@@ -121,7 +139,7 @@ class ConductorModel extends Model
             }
             
             $query = $db->table('resultados_examenes re')
-                ->select('re.resultado_examen_id, re.fecha_realizacion, re.puntuacion, 
+                ->select('re.resultado_id, re.fecha_realizacion, re.puntaje_total, 
                          e.examen_id, e.titulo as examen_titulo, e.descripcion as examen_descripcion,
                          c.categoria_id, c.nombre as categoria_nombre, c.descripcion as categoria_descripcion')
                 ->join('examenes e', 'e.examen_id = re.examen_id')

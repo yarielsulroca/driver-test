@@ -6,6 +6,7 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
+$routes->get('/docs', 'DocsController::index');
 
 // Rutas para la API de resultados
 $routes->group('api', function($routes) {
@@ -18,7 +19,9 @@ $routes->group('api', function($routes) {
 
     // Rutas de autenticación y gestión de usuarios
     $routes->post('auth/registro', 'AuthController::registro'); // Registra un nuevo usuario
+    $routes->post('registro', 'AuthController::registro'); // Alias para registro
     $routes->post('auth/login', 'AuthController::login'); // Inicia sesión de usuario
+    $routes->post('login', 'AuthController::login'); // Alias para login
     $routes->post('auth/logout', 'AuthController::logout'); // Cierra sesión de usuario
     $routes->post('auth/refresh-token', 'AuthController::refreshToken'); // Renueva el token de autenticación
 
@@ -40,6 +43,47 @@ $routes->group('api', function($routes) {
     $routes->get('preguntas/examen/(:num)', 'PreguntaController::porExamen/$1'); // Lista preguntas por examen
     $routes->get('preguntas/categoria/(:num)', 'PreguntaController::porCategoria/$1'); // Lista preguntas por categoría
     $routes->get('preguntas/criticas', 'PreguntaController::criticas'); // Lista preguntas críticas
+
+    // Rutas de categorías
+    $routes->group('categorias', ['namespace' => 'App\Controllers'], function($routes) {
+        $routes->get('/', 'CategoriaController::index');
+        $routes->get('(:num)', 'CategoriaController::show/$1');
+        $routes->post('/', 'CategoriaController::create');
+        $routes->put('(:num)', 'CategoriaController::update/$1');
+        $routes->delete('(:num)', 'CategoriaController::delete/$1');
+    });
+
+    // Rutas de escuelas
+    $routes->group('escuelas', ['namespace' => 'App\Controllers'], function($routes) {
+        $routes->get('/', 'EscuelaController::index');
+        $routes->get('(:num)', 'EscuelaController::show/$1');
+        $routes->post('/', 'EscuelaController::create');
+        $routes->put('(:num)', 'EscuelaController::update/$1');
+        $routes->delete('(:num)', 'EscuelaController::delete/$1');
+    });
+
+    // Rutas para las páginas
+    $routes->get('paginas', 'PaginasController::index');
+    $routes->get('paginas/(:num)', 'PaginasController::show/$1');
+
+    // Rutas para la gestión de imágenes
+    $routes->resource('imagenes');
+    $routes->get('imagenes/get/(:num)', 'ImagenesController::getImagen/$1');
+
+    // Rutas de autenticación
+    $routes->post('api/registro', 'AuthController::registro');
+    $routes->post('api/login', 'AuthController::login');
+    $routes->post('api/logout', 'AuthController::logout', ['filter' => 'auth']);
+    $routes->post('api/refresh-token', 'AuthController::refreshToken', ['filter' => 'auth']);
+
+    // Rutas del conductor
+    $routes->group('api/conductor', ['filter' => 'auth'], function($routes) {
+        $routes->get('perfil', 'ConductorController::perfil');
+        $routes->get('examenes', 'ConductorController::examenes');
+        $routes->get('examenes/(:num)', 'ConductorController::examen/$1');
+        $routes->get('categorias', 'ConductorController::categorias');
+        $routes->get('historial', 'ConductorController::historial');
+    });
 });
 
 // Rutas para imágenes

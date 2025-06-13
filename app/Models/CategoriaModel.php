@@ -16,7 +16,8 @@ class CategoriaModel extends Model
         'codigo',
         'nombre',
         'descripcion',
-        'requisitos'
+        'requisitos',
+        'estado'
     ];
 
     // Dates
@@ -29,11 +30,28 @@ class CategoriaModel extends Model
     // Validation
     protected $validationRules = [
         'codigo' => 'required|max_length[10]|is_unique[categorias.codigo,categoria_id,{categoria_id}]',
-        'nombre' => 'required|max_length[100]',
-        'descripcion' => 'required',
-        'requisitos' => 'required|valid_json'
+        'nombre' => 'required|min_length[1]|max_length[50]|is_unique[categorias.nombre,categoria_id,{categoria_id}]',
+        'descripcion' => 'required|min_length[1]|max_length[255]',
+        'requisitos' => 'required|valid_json',
+        'estado' => 'required|in_list[activo,inactivo]'
     ];
-    protected $validationMessages = [];
+    protected $validationMessages = [
+        'nombre' => [
+            'required' => 'El nombre es obligatorio',
+            'min_length' => 'El nombre debe tener al menos 1 carácter',
+            'max_length' => 'El nombre no puede tener más de 50 caracteres',
+            'is_unique' => 'Ya existe una categoría con este nombre'
+        ],
+        'descripcion' => [
+            'required' => 'La descripción es obligatoria',
+            'min_length' => 'La descripción debe tener al menos 1 carácter',
+            'max_length' => 'La descripción no puede tener más de 255 caracteres'
+        ],
+        'estado' => [
+            'required' => 'El estado es obligatorio',
+            'in_list' => 'El estado debe ser activo o inactivo'
+        ]
+    ];
     protected $skipValidation = false;
     protected $cleanValidationRules = true;
 

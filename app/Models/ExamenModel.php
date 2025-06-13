@@ -13,15 +13,14 @@ class ExamenModel extends Model
     protected $useSoftDeletes = false;
     protected $protectFields = true;
     protected $allowedFields = [
-        'escuela_id',
+        'categoria_id',
         'nombre',
         'descripcion',
         'fecha_inicio',
         'fecha_fin',
         'duracion_minutos',
         'puntaje_minimo',
-        'numero_preguntas',
-        'paginas_preguntas'
+        'numero_preguntas'
     ];
 
     // Dates
@@ -33,48 +32,103 @@ class ExamenModel extends Model
 
     // Validation
     protected $validationRules = [
-        'escuela_id' => 'required|integer',
-        'nombre' => 'required|min_length[3]|max_length[100]',
-        'descripcion' => 'required|min_length[10]',
+        'categoria_id' => 'required|integer',
+        'nombre' => 'required|min_length[3]|max_length[255]',
+        'descripcion' => 'permit_empty|max_length[1000]',
         'fecha_inicio' => 'required|valid_date',
         'fecha_fin' => 'required|valid_date',
         'duracion_minutos' => 'required|integer|greater_than[0]',
-        'puntaje_minimo' => 'required|numeric|greater_than[0]',
-        'numero_preguntas' => 'required|integer|greater_than[0]',
-        'paginas_preguntas' => 'required|valid_json'
+        'puntaje_minimo' => 'required|numeric|greater_than[0]|less_than_equal_to[100]',
+        'numero_preguntas' => 'required|integer|greater_than[0]'
     ];
-    protected $validationMessages = [];
+    protected $validationMessages = [
+        'categoria_id' => [
+            'required' => 'La categoría es requerida',
+            'integer' => 'La categoría debe ser un número entero'
+        ],
+        'nombre' => [
+            'required' => 'El nombre es requerido',
+            'min_length' => 'El nombre debe tener al menos 3 caracteres',
+            'max_length' => 'El nombre no puede exceder los 255 caracteres'
+        ],
+        'fecha_inicio' => [
+            'required' => 'La fecha de inicio es requerida',
+            'valid_date' => 'La fecha de inicio debe ser una fecha válida'
+        ],
+        'fecha_fin' => [
+            'required' => 'La fecha de fin es requerida',
+            'valid_date' => 'La fecha de fin debe ser una fecha válida'
+        ],
+        'duracion_minutos' => [
+            'required' => 'La duración es requerida',
+            'integer' => 'La duración debe ser un número entero',
+            'greater_than' => 'La duración debe ser mayor a 0'
+        ],
+        'puntaje_minimo' => [
+            'required' => 'El puntaje mínimo es requerido',
+            'numeric' => 'El puntaje mínimo debe ser un número',
+            'greater_than' => 'El puntaje mínimo debe ser mayor a 0',
+            'less_than_equal_to' => 'El puntaje mínimo no puede ser mayor a 100'
+        ],
+        'numero_preguntas' => [
+            'required' => 'El número de preguntas es requerido',
+            'integer' => 'El número de preguntas debe ser un número entero',
+            'greater_than' => 'El número de preguntas debe ser mayor a 0'
+        ]
+    ];
     protected $skipValidation = false;
     protected $cleanValidationRules = true;
 
-    // Relaciones
-    public function escuela()
+    /**
+     * Obtiene la categoría a la que pertenece el examen
+     * @return \CodeIgniter\Database\BaseResult
+     */
+    public function categoria()
     {
-        return $this->belongsTo('App\Models\EscuelaModel', 'escuela_id', 'escuela_id');
-    }
-
-    public function categorias()
-    {
-        return $this->belongsToMany(
-            'App\Models\CategoriaModel',
-            'examen_categoria',
-            'examen_id',
-            'categoria_id'
-        );
-    }
-
-    public function resultados()
-    {
-        return $this->hasMany('App\Models\ResultadoExamenModel', 'examen_id', 'examen_id');
-    }
-
-    public function preguntas()
-    {
-        return $this->hasMany('App\Models\PreguntaModel', 'examen_id', 'examen_id');
+        return $this->belongsTo('App\Models\CategoriaModel', 'categoria_id', 'categoria_id');
     }
 
     /**
-     * Obtener todas las categorías de un examen
+     * Obtiene todas las preguntas asociadas al examen
+     * @return \CodeIgniter\Database\BaseResult
+     */
+    public function preguntas()
+    {
+        return $this->belongsToMany(
+            'App\Models\PreguntaModel',
+            'examen_pregunta',
+            'examen_id',
+            'pregunta_id'
+        );
+    }
+
+    /**
+     * Obtiene todos los conductores que han presentado el examen
+     * @return \CodeIgniter\Database\BaseResult
+     */
+    public function conductores()
+    {
+        return $this->belongsToMany(
+            'App\Models\ConductorModel',
+            'examen_conductor',
+            'examen_id',
+            'conductor_id'
+        );
+    }
+
+    /**
+     * Obtiene todas las categorías aprobadas relacionadas con este examen
+     * @return \CodeIgniter\Database\BaseResult
+     */
+    public function categoriasAprobadas()
+    {
+        return $this->hasMany('App\Models\CategoriaAprobadaModel', 'examen_id', 'examen_id');
+    }
+
+    /**
+     * Obtiene todas las categorías asociadas a un examen específico
+     * @param int $examen_id ID del examen
+     * @return array Lista de categorías
      */
     public function getCategorias($examen_id)
     {
@@ -87,7 +141,10 @@ class ExamenModel extends Model
     }
 
     /**
-     * Asignar categorías a un examen
+     * Asigna categorías a un examen específico
+     * @param int $examen_id ID del examen
+     * @param array $categorias Array de IDs de categorías
+     * @return bool True si la operación fue exitosa
      */
     public function asignarCategorias($examen_id, $categorias)
     {

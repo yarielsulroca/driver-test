@@ -17,39 +17,48 @@ class AuthFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        $response = Services::response();
-        $token = $request->getHeaderLine('Authorization');
-
-        if (empty($token)) {
-            return $response->setJSON([
-                'status' => 'error',
-                'message' => 'Token no proporcionado'
-            ])->setStatusCode(401);
+        $authHeader = $request->getHeaderLine('Authorization');
+        if (!$authHeader || !preg_match('/Bearer\s(.*)/', $authHeader, $matches)) {
+            return service('response')
+                ->setStatusCode(401)
+                ->setJSON([
+                    'status' => 'error',
+                    'message' => 'No autorizado. Token no proporcionado.'
+                ]);
         }
 
+        $token = $matches[1];
+        $key = getenv('JWT_SECRET') ?: 'supersecretkey'; // Cambia esto por tu clave real
+
         try {
-            $token = str_replace('Bearer ', '', $token);
-            $key = getenv('JWT_SECRET_KEY');
             $decoded = JWT::decode($token, new Key($key, 'HS256'));
+            // Puedes guardar los datos del usuario en el request para usarlos en el controlador
+
+            // Ejemplo: $request->user = $decoded;
+            // Pero en CodeIgniter, lo ideal es usar el servicio de usuario o session
 
             // Verificar si la sesión es válida en Redis
             $sessionService = new SessionService();
             if (!$sessionService->verificarSesion($decoded->dni, $token)) {
-                return $response->setJSON([
-                    'status' => 'error',
-                    'message' => 'Sesión inválida o expirada'
-                ])->setStatusCode(401);
+                return service('response')
+                    ->setStatusCode(401)
+                    ->setJSON([
+                        'status' => 'error',
+                        'message' => 'Sesión inválida o expirada'
+                    ]);
             }
 
             // Agregar información del conductor al request
             $request->conductor = $decoded;
             return $request;
-
         } catch (\Exception $e) {
-            return $response->setJSON([
-                'status' => 'error',
-                'message' => 'Token inválido: ' . $e->getMessage()
-            ])->setStatusCode(401);
+            return service('response')
+                ->setStatusCode(401)
+                ->setJSON([
+                    'status' => 'error',
+                    'message' => 'Token inválido o expirado',
+                    'detail' => $e->getMessage()
+                ]);
         }
     }
 

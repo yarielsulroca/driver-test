@@ -1,0 +1,734 @@
+ERROR - 2025-05-31 05:46:38 --> mysqli_sql_exception: Failed to open the referenced table 'preguntas' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `e...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `e...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `e...')
+#3 C:\laragon\www\examen\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `e...')
+#4 C:\laragon\www\examen\app\Database\Migrations\2024-04-21-000000_CreateAllTables.php(321): CodeIgniter\Database\Forge->createTable('examen_pregunta', true)
+#5 C:\laragon\www\examen\system\Database\MigrationRunner.php(866): App\Database\Migrations\CreateAllTables->up()
+#6 C:\laragon\www\examen\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\laragon\www\examen\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\laragon\www\examen\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\laragon\www\examen\system\Boot.php(360): CodeIgniter\CLI\Console->run()
+#11 C:\laragon\www\examen\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\laragon\www\examen\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-05-31 05:51:43 --> mysqli_sql_exception: Table 'usuarios' already exists in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `u...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `u...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `u...')
+#3 C:\laragon\www\examen\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `u...')
+#4 C:\laragon\www\examen\app\Database\Migrations\2024-04-21-000000_CreateAllTables.php(85): CodeIgniter\Database\Forge->createTable('usuarios')
+#5 C:\laragon\www\examen\system\Database\MigrationRunner.php(866): App\Database\Migrations\CreateAllTables->up()
+#6 C:\laragon\www\examen\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\laragon\www\examen\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\laragon\www\examen\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\laragon\www\examen\system\Boot.php(360): CodeIgniter\CLI\Console->run()
+#11 C:\laragon\www\examen\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\laragon\www\examen\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+DEBUG - 2025-05-31 05:54:49 --> Datos raw recibidos: {
+  "nombre": "Juan",
+  "apellido": "Pérez",
+  "dni": "123456780",
+  "email": "juan.perez@example.com",
+  "telefono": "600123456"
+
+}
+DEBUG - 2025-05-31 05:54:49 --> Datos decodificados: {"nombre":"Juan","apellido":"P\u00e9rez","dni":"123456780","email":"juan.perez@example.com","telefono":"600123456"}
+ERROR - 2025-05-31 05:54:49 --> mysqli_sql_exception: Unknown column 'dni' in 'where clause' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT 1\nFROM `...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT 1\nFROM `...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT 1\nFROM `...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT 1\nFROM `...', Array, false)
+#4 C:\laragon\www\examen\system\Validation\Rules.php(175): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\examen\system\Validation\StrictRules\Rules.php(187): CodeIgniter\Validation\Rules->is_unique('123456780', 'conductores.dni', Array)
+#6 C:\laragon\www\examen\system\Validation\Validation.php(337): CodeIgniter\Validation\StrictRules\Rules->is_unique('123456780', 'conductores.dni', Array, NULL, 'dni')
+#7 C:\laragon\www\examen\system\Validation\Validation.php(202): CodeIgniter\Validation\Validation->processRules('dni', 'dni', '123456780', Array, Array, 'dni')
+#8 C:\laragon\www\examen\app\Controllers\AuthController.php(89): CodeIgniter\Validation\Validation->run(Array)
+#9 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\AuthController->registro()
+#10 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+#11 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#13 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\laragon\www\examen\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+ERROR - 2025-05-31 05:54:49 --> Error en registro: Unknown column 'dni' in 'where clause'
+DEBUG - 2025-05-31 05:57:45 --> Datos raw recibidos: {
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "dni": "12345678",
+    "email": "juan.perez@example.com",
+    "telefono": "600123456",
+    "rol_id": 3  
+}
+
+}
+ERROR - 2025-05-31 05:57:45 --> Error al decodificar JSON: Syntax error
+DEBUG - 2025-05-31 05:58:10 --> Datos raw recibidos: {
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "dni": "12345678",
+    "email": "juan.perez@example.com",
+    "telefono": "600123456",
+    "rol_id": 3  
+}
+
+}
+ERROR - 2025-05-31 05:58:10 --> Error al decodificar JSON: Syntax error
+DEBUG - 2025-05-31 05:58:27 --> Datos raw recibidos: {
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "dni": "12345678",
+    "email": "juan.perez@example.com",
+    "telefono": "600123456",
+    "rol_id": 3  
+}
+
+}
+ERROR - 2025-05-31 05:58:27 --> Error al decodificar JSON: Syntax error
+DEBUG - 2025-05-31 05:58:30 --> Datos raw recibidos: {
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "dni": "12345678",
+    "email": "juan.perez@example.com",
+    "telefono": "600123456",
+    "rol_id": 3  
+}
+
+}
+ERROR - 2025-05-31 05:58:30 --> Error al decodificar JSON: Syntax error
+DEBUG - 2025-05-31 05:58:45 --> Datos raw recibidos: {
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "dni": "12345678",
+    "email": "juan.perez@example.com",
+    "telefono": "600123456",
+    "rol_id": 3  
+}
+DEBUG - 2025-05-31 05:58:45 --> Datos decodificados: {"nombre":"Juan","apellido":"P\u00e9rez","dni":"12345678","email":"juan.perez@example.com","telefono":"600123456","rol_id":3}
+ERROR - 2025-05-31 05:58:45 --> mysqli_sql_exception: Unknown column 'dni' in 'where clause' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT 1\nFROM `...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT 1\nFROM `...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT 1\nFROM `...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT 1\nFROM `...', Array, false)
+#4 C:\laragon\www\examen\system\Validation\Rules.php(175): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\examen\system\Validation\StrictRules\Rules.php(187): CodeIgniter\Validation\Rules->is_unique('12345678', 'conductores.dni', Array)
+#6 C:\laragon\www\examen\system\Validation\Validation.php(337): CodeIgniter\Validation\StrictRules\Rules->is_unique('12345678', 'conductores.dni', Array, NULL, 'dni')
+#7 C:\laragon\www\examen\system\Validation\Validation.php(202): CodeIgniter\Validation\Validation->processRules('dni', 'dni', '12345678', Array, Array, 'dni')
+#8 C:\laragon\www\examen\app\Controllers\AuthController.php(89): CodeIgniter\Validation\Validation->run(Array)
+#9 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\AuthController->registro()
+#10 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+#11 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#13 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\laragon\www\examen\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+ERROR - 2025-05-31 05:58:45 --> Error en registro: Unknown column 'dni' in 'where clause'
+DEBUG - 2025-05-31 05:59:10 --> Datos raw recibidos: {
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "dni": "12345678",
+    "email": "juan.perez@example.com",
+    "telefono": "600123456",
+    "rol_id": 3  
+}
+DEBUG - 2025-05-31 05:59:10 --> Datos decodificados: {"nombre":"Juan","apellido":"P\u00e9rez","dni":"12345678","email":"juan.perez@example.com","telefono":"600123456","rol_id":3}
+ERROR - 2025-05-31 05:59:10 --> mysqli_sql_exception: Unknown column 'dni' in 'where clause' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT 1\nFROM `...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT 1\nFROM `...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT 1\nFROM `...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT 1\nFROM `...', Array, false)
+#4 C:\laragon\www\examen\system\Validation\Rules.php(175): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\examen\system\Validation\StrictRules\Rules.php(187): CodeIgniter\Validation\Rules->is_unique('12345678', 'conductores.dni', Array)
+#6 C:\laragon\www\examen\system\Validation\Validation.php(337): CodeIgniter\Validation\StrictRules\Rules->is_unique('12345678', 'conductores.dni', Array, NULL, 'dni')
+#7 C:\laragon\www\examen\system\Validation\Validation.php(202): CodeIgniter\Validation\Validation->processRules('dni', 'dni', '12345678', Array, Array, 'dni')
+#8 C:\laragon\www\examen\app\Controllers\AuthController.php(89): CodeIgniter\Validation\Validation->run(Array)
+#9 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\AuthController->registro()
+#10 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+#11 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#13 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\laragon\www\examen\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+ERROR - 2025-05-31 05:59:10 --> Error en registro: Unknown column 'dni' in 'where clause'
+ERROR - 2025-05-31 06:00:00 --> mysqli_sql_exception: Duplicate column name 'dni' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('ALTER TABLE `us...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE `us...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE `us...')
+#3 C:\laragon\www\examen\system\Database\Forge.php(772): CodeIgniter\Database\BaseConnection->query('ALTER TABLE `us...')
+#4 C:\laragon\www\examen\app\Database\Migrations\2024-04-21-000011_AddDniToUsuarios.php(11): CodeIgniter\Database\Forge->addColumn('usuarios', Array)
+#5 C:\laragon\www\examen\system\Database\MigrationRunner.php(866): App\Database\Migrations\AddDniToUsuarios->up()
+#6 C:\laragon\www\examen\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\laragon\www\examen\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\laragon\www\examen\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\laragon\www\examen\system\Boot.php(360): CodeIgniter\CLI\Console->run()
+#11 C:\laragon\www\examen\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\laragon\www\examen\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-05-31 06:00:14 --> mysqli_sql_exception: Duplicate column name 'dni' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('ALTER TABLE `us...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE `us...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE `us...')
+#3 C:\laragon\www\examen\system\Database\Forge.php(772): CodeIgniter\Database\BaseConnection->query('ALTER TABLE `us...')
+#4 C:\laragon\www\examen\app\Database\Migrations\2024-04-21-000011_AddDniToUsuarios.php(11): CodeIgniter\Database\Forge->addColumn('usuarios', Array)
+#5 C:\laragon\www\examen\system\Database\MigrationRunner.php(866): App\Database\Migrations\AddDniToUsuarios->up()
+#6 C:\laragon\www\examen\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\laragon\www\examen\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\laragon\www\examen\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\laragon\www\examen\system\Boot.php(360): CodeIgniter\CLI\Console->run()
+#11 C:\laragon\www\examen\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\laragon\www\examen\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-05-31 06:00:50 --> mysqli_sql_exception: Duplicate column name 'dni' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('ALTER TABLE `us...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE `us...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE `us...')
+#3 C:\laragon\www\examen\system\Database\Forge.php(772): CodeIgniter\Database\BaseConnection->query('ALTER TABLE `us...')
+#4 C:\laragon\www\examen\app\Database\Migrations\2024-04-21-000011_AddDniToUsuarios.php(11): CodeIgniter\Database\Forge->addColumn('usuarios', Array)
+#5 C:\laragon\www\examen\system\Database\MigrationRunner.php(866): App\Database\Migrations\AddDniToUsuarios->up()
+#6 C:\laragon\www\examen\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\laragon\www\examen\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\laragon\www\examen\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\laragon\www\examen\system\Boot.php(360): CodeIgniter\CLI\Console->run()
+#11 C:\laragon\www\examen\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\laragon\www\examen\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+DEBUG - 2025-05-31 06:08:23 --> Datos raw recibidos: {
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "dni": "12345678",
+    "email": "juan.perez@example.com",
+    "telefono": "987654321",
+    "direccion": "Av. Principal 123",
+    "fecha_nacimiento": "1990-01-01"
+}
+DEBUG - 2025-05-31 06:08:23 --> Datos decodificados: {"nombre":"Juan","apellido":"P\u00e9rez","dni":"12345678","email":"juan.perez@example.com","telefono":"987654321","direccion":"Av. Principal 123","fecha_nacimiento":"1990-01-01"}
+ERROR - 2025-05-31 06:08:23 --> mysqli_sql_exception: Unknown column 'dni' in 'where clause' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT 1\nFROM `...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT 1\nFROM `...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT 1\nFROM `...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT 1\nFROM `...', Array, false)
+#4 C:\laragon\www\examen\system\Validation\Rules.php(175): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\examen\system\Validation\StrictRules\Rules.php(187): CodeIgniter\Validation\Rules->is_unique('12345678', 'conductores.dni', Array)
+#6 C:\laragon\www\examen\system\Validation\Validation.php(337): CodeIgniter\Validation\StrictRules\Rules->is_unique('12345678', 'conductores.dni', Array, NULL, 'dni')
+#7 C:\laragon\www\examen\system\Validation\Validation.php(202): CodeIgniter\Validation\Validation->processRules('dni', 'dni', '12345678', Array, Array, 'dni')
+#8 C:\laragon\www\examen\app\Controllers\AuthController.php(89): CodeIgniter\Validation\Validation->run(Array)
+#9 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\AuthController->registro()
+#10 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+#11 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#13 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\laragon\www\examen\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+ERROR - 2025-05-31 06:08:23 --> Error en registro: Unknown column 'dni' in 'where clause'
+ERROR - 2025-05-31 06:08:47 --> mysqli_sql_exception: Duplicate column name 'dni' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('ALTER TABLE `us...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE `us...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE `us...')
+#3 C:\laragon\www\examen\system\Database\Forge.php(772): CodeIgniter\Database\BaseConnection->query('ALTER TABLE `us...')
+#4 C:\laragon\www\examen\app\Database\Migrations\2024-04-21-000011_AddDniToUsuarios.php(11): CodeIgniter\Database\Forge->addColumn('usuarios', Array)
+#5 C:\laragon\www\examen\system\Database\MigrationRunner.php(866): App\Database\Migrations\AddDniToUsuarios->up()
+#6 C:\laragon\www\examen\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\laragon\www\examen\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\laragon\www\examen\system\CLI\BaseCommand.php(119): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\laragon\www\examen\system\Commands\Database\MigrateRefresh.php(87): CodeIgniter\CLI\BaseCommand->call('migrate', Array)
+#11 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\MigrateRefresh->run(Array)
+#12 C:\laragon\www\examen\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('migrate:refresh', Array)
+#13 C:\laragon\www\examen\system\Boot.php(360): CodeIgniter\CLI\Console->run()
+#14 C:\laragon\www\examen\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#15 C:\laragon\www\examen\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#16 {main}
+DEBUG - 2025-05-31 06:10:05 --> Datos raw recibidos: {
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "dni": "12345678",
+    "email": "juan.perez@example.com",
+    "telefono": "987654321",
+    "direccion": "Av. Principal 123",
+    "fecha_nacimiento": "1990-01-01"
+}
+DEBUG - 2025-05-31 06:10:05 --> Datos decodificados: {"nombre":"Juan","apellido":"P\u00e9rez","dni":"12345678","email":"juan.perez@example.com","telefono":"987654321","direccion":"Av. Principal 123","fecha_nacimiento":"1990-01-01"}
+DEBUG - 2025-05-31 06:10:05 --> Datos a insertar: {"nombre":"Juan","dni":"12345678","estado_registro":"pendiente","apellido":"P\u00e9rez","fecha_nacimiento":"1990-01-01","direccion":"Av. Principal 123","telefono":"987654321","email":"juan.perez@example.com"}
+ERROR - 2025-05-31 06:10:05 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`examen`.`conductores`, CONSTRAINT `conductores_usuario_id_foreign` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE) in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\laragon\www\examen\system\BaseModel.php(839): CodeIgniter\Model->doInsert(Array)
+#6 C:\laragon\www\examen\system\Model.php(800): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\laragon\www\examen\app\Controllers\AuthController.php(124): CodeIgniter\Model->insert(Array)
+#8 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\AuthController->registro()
+#9 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+#10 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\laragon\www\examen\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-05-31 06:10:05 --> Error en registro: Cannot add or update a child row: a foreign key constraint fails (`examen`.`conductores`, CONSTRAINT `conductores_usuario_id_foreign` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`usuario_id`) ON DELETE CASCADE ON UPDATE CASCADE)
+DEBUG - 2025-05-31 06:15:39 --> Datos raw recibidos: {
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "dni": "12345678",
+    "email": "juan@ejemplo.com",
+    "telefono": "987654321",
+    "direccion": "Av. Principal 123",
+    "fecha_nacimiento": "1990-01-01"
+}
+DEBUG - 2025-05-31 06:15:39 --> Datos decodificados: {"nombre":"Juan","apellido":"P\u00e9rez","dni":"12345678","email":"juan@ejemplo.com","telefono":"987654321","direccion":"Av. Principal 123","fecha_nacimiento":"1990-01-01"}
+ERROR - 2025-05-31 06:15:39 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`examen`.`usuarios`, CONSTRAINT `usuarios_rol_id_foreign` FOREIGN KEY (`rol_id`) REFERENCES `roles` (`rol_id`) ON DELETE CASCADE ON UPDATE CASCADE) in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `us...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `us...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `us...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `us...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\laragon\www\examen\system\BaseModel.php(839): CodeIgniter\Model->doInsert(Array)
+#6 C:\laragon\www\examen\system\Model.php(800): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\laragon\www\examen\app\Controllers\AuthController.php(114): CodeIgniter\Model->insert(Array)
+#8 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\AuthController->registro()
+#9 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+#10 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\laragon\www\examen\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-05-31 06:15:39 --> Error en registro: Cannot add or update a child row: a foreign key constraint fails (`examen`.`usuarios`, CONSTRAINT `usuarios_rol_id_foreign` FOREIGN KEY (`rol_id`) REFERENCES `roles` (`rol_id`) ON DELETE CASCADE ON UPDATE CASCADE)
+DEBUG - 2025-05-31 06:16:32 --> Datos raw recibidos: {
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "dni": "12345678",
+    "email": "juan@ejemplo.com",
+    "telefono": "987654321",
+    "direccion": "Av. Principal 123",
+    "fecha_nacimiento": "1990-01-01"
+}
+DEBUG - 2025-05-31 06:16:32 --> Datos decodificados: {"nombre":"Juan","apellido":"P\u00e9rez","dni":"12345678","email":"juan@ejemplo.com","telefono":"987654321","direccion":"Av. Principal 123","fecha_nacimiento":"1990-01-01"}
+ERROR - 2025-05-31 06:16:32 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`examen`.`usuarios`, CONSTRAINT `usuarios_rol_id_foreign` FOREIGN KEY (`rol_id`) REFERENCES `roles` (`rol_id`) ON DELETE CASCADE ON UPDATE CASCADE) in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `us...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `us...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `us...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `us...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\laragon\www\examen\system\BaseModel.php(839): CodeIgniter\Model->doInsert(Array)
+#6 C:\laragon\www\examen\system\Model.php(800): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\laragon\www\examen\app\Controllers\AuthController.php(114): CodeIgniter\Model->insert(Array)
+#8 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\AuthController->registro()
+#9 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+#10 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\laragon\www\examen\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-05-31 06:16:32 --> Error en registro: Cannot add or update a child row: a foreign key constraint fails (`examen`.`usuarios`, CONSTRAINT `usuarios_rol_id_foreign` FOREIGN KEY (`rol_id`) REFERENCES `roles` (`rol_id`) ON DELETE CASCADE ON UPDATE CASCADE)
+DEBUG - 2025-05-31 06:17:02 --> Datos raw recibidos: {
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "dni": "12345678",
+    "email": "juan@ejemplo.com",
+    "telefono": "987654321",
+    "direccion": "Av. Principal 123",
+    "fecha_nacimiento": "1990-01-01"
+}
+DEBUG - 2025-05-31 06:17:02 --> Datos decodificados: {"nombre":"Juan","apellido":"P\u00e9rez","dni":"12345678","email":"juan@ejemplo.com","telefono":"987654321","direccion":"Av. Principal 123","fecha_nacimiento":"1990-01-01"}
+ERROR - 2025-05-31 06:17:02 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`examen`.`usuarios`, CONSTRAINT `usuarios_rol_id_foreign` FOREIGN KEY (`rol_id`) REFERENCES `roles` (`rol_id`) ON DELETE CASCADE ON UPDATE CASCADE) in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `us...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `us...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `us...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `us...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\laragon\www\examen\system\BaseModel.php(839): CodeIgniter\Model->doInsert(Array)
+#6 C:\laragon\www\examen\system\Model.php(800): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\laragon\www\examen\app\Controllers\AuthController.php(114): CodeIgniter\Model->insert(Array)
+#8 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\AuthController->registro()
+#9 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+#10 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\laragon\www\examen\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-05-31 06:17:02 --> Error en registro: Cannot add or update a child row: a foreign key constraint fails (`examen`.`usuarios`, CONSTRAINT `usuarios_rol_id_foreign` FOREIGN KEY (`rol_id`) REFERENCES `roles` (`rol_id`) ON DELETE CASCADE ON UPDATE CASCADE)
+DEBUG - 2025-05-31 06:17:43 --> Datos raw recibidos: {
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "dni": "12345678",
+    "email": "juan@ejemplo.com",
+    "telefono": "987654321",
+    "direccion": "Av. Principal 123",
+    "fecha_nacimiento": "1990-01-01"
+}
+DEBUG - 2025-05-31 06:17:43 --> Datos decodificados: {"nombre":"Juan","apellido":"P\u00e9rez","dni":"12345678","email":"juan@ejemplo.com","telefono":"987654321","direccion":"Av. Principal 123","fecha_nacimiento":"1990-01-01"}
+ERROR - 2025-05-31 06:17:43 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`examen`.`usuarios`, CONSTRAINT `usuarios_rol_id_foreign` FOREIGN KEY (`rol_id`) REFERENCES `roles` (`rol_id`) ON DELETE CASCADE ON UPDATE CASCADE) in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `us...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `us...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `us...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `us...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\laragon\www\examen\system\BaseModel.php(839): CodeIgniter\Model->doInsert(Array)
+#6 C:\laragon\www\examen\system\Model.php(800): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\laragon\www\examen\app\Controllers\AuthController.php(114): CodeIgniter\Model->insert(Array)
+#8 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\AuthController->registro()
+#9 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+#10 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\laragon\www\examen\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-05-31 06:17:43 --> Error en registro: Cannot add or update a child row: a foreign key constraint fails (`examen`.`usuarios`, CONSTRAINT `usuarios_rol_id_foreign` FOREIGN KEY (`rol_id`) REFERENCES `roles` (`rol_id`) ON DELETE CASCADE ON UPDATE CASCADE)
+DEBUG - 2025-05-31 06:20:31 --> Datos raw recibidos: {
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "dni": "12345678",
+    "email": "juan@ejemplo.com",
+    "telefono": "987654321",
+    "direccion": "Av. Principal 123",
+    "fecha_nacimiento": "1990-01-01"
+}
+DEBUG - 2025-05-31 06:20:31 --> Datos decodificados: {"nombre":"Juan","apellido":"P\u00e9rez","dni":"12345678","email":"juan@ejemplo.com","telefono":"987654321","direccion":"Av. Principal 123","fecha_nacimiento":"1990-01-01"}
+DEBUG - 2025-05-31 06:20:31 --> Datos a insertar en conductor: {"usuario_id":5,"nombre":"Juan","apellido":"P\u00e9rez","dni":"12345678","email":"juan@ejemplo.com","telefono":"987654321","direccion":"Av. Principal 123","fecha_nacimiento":"1990-01-01","estado_registro":"pendiente"}
+ERROR - 2025-05-31 06:20:31 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`examen`.`conductores`, CONSTRAINT `conductores_escuela_id_foreign` FOREIGN KEY (`escuela_id`) REFERENCES `escuelas` (`escuela_id`) ON DELETE CASCADE ON UPDATE CASCADE) in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\laragon\www\examen\system\BaseModel.php(839): CodeIgniter\Model->doInsert(Array)
+#6 C:\laragon\www\examen\system\Model.php(800): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\laragon\www\examen\app\Controllers\AuthController.php(142): CodeIgniter\Model->insert(Array)
+#8 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\AuthController->registro()
+#9 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+#10 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\laragon\www\examen\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-05-31 06:20:31 --> Error en registro: Cannot add or update a child row: a foreign key constraint fails (`examen`.`conductores`, CONSTRAINT `conductores_escuela_id_foreign` FOREIGN KEY (`escuela_id`) REFERENCES `escuelas` (`escuela_id`) ON DELETE CASCADE ON UPDATE CASCADE)
+DEBUG - 2025-05-31 06:23:43 --> Datos raw recibidos: {
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "dni": "12345678",
+    "email": "juan@ejemplo.com",
+    "telefono": "987654321",
+    "direccion": "Av. Principal 123",
+    "fecha_nacimiento": "1990-01-01"
+}
+DEBUG - 2025-05-31 06:23:43 --> Datos decodificados: {"nombre":"Juan","apellido":"P\u00e9rez","dni":"12345678","email":"juan@ejemplo.com","telefono":"987654321","direccion":"Av. Principal 123","fecha_nacimiento":"1990-01-01"}
+ERROR - 2025-05-31 06:23:43 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`examen`.`usuarios`, CONSTRAINT `usuarios_rol_id_foreign` FOREIGN KEY (`rol_id`) REFERENCES `roles` (`rol_id`) ON DELETE CASCADE ON UPDATE CASCADE) in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `us...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `us...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `us...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `us...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\laragon\www\examen\system\BaseModel.php(839): CodeIgniter\Model->doInsert(Array)
+#6 C:\laragon\www\examen\system\Model.php(800): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\laragon\www\examen\app\Controllers\AuthController.php(121): CodeIgniter\Model->insert(Array)
+#8 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\AuthController->registro()
+#9 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+#10 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\laragon\www\examen\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-05-31 06:23:43 --> Error en registro: Cannot add or update a child row: a foreign key constraint fails (`examen`.`usuarios`, CONSTRAINT `usuarios_rol_id_foreign` FOREIGN KEY (`rol_id`) REFERENCES `roles` (`rol_id`) ON DELETE CASCADE ON UPDATE CASCADE)
+DEBUG - 2025-05-31 06:25:01 --> Datos raw recibidos: {
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "dni": "12345678",
+    "email": "juan@ejemplo.com",
+    "telefono": "987654321",
+    "direccion": "Av. Principal 123",
+    "fecha_nacimiento": "1990-01-01"
+}
+DEBUG - 2025-05-31 06:25:01 --> Datos decodificados: {"nombre":"Juan","apellido":"P\u00e9rez","dni":"12345678","email":"juan@ejemplo.com","telefono":"987654321","direccion":"Av. Principal 123","fecha_nacimiento":"1990-01-01"}
+DEBUG - 2025-05-31 06:25:01 --> Datos a insertar en conductor: {"usuario_id":2,"nombre":"Juan","apellido":"P\u00e9rez","dni":"12345678","email":"juan@ejemplo.com","telefono":"987654321","direccion":"Av. Principal 123","fecha_nacimiento":"1990-01-01","estado_registro":"pendiente"}
+ERROR - 2025-05-31 06:25:01 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`examen`.`conductores`, CONSTRAINT `conductores_escuela_id_foreign` FOREIGN KEY (`escuela_id`) REFERENCES `escuelas` (`escuela_id`) ON DELETE CASCADE ON UPDATE CASCADE) in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\laragon\www\examen\system\BaseModel.php(839): CodeIgniter\Model->doInsert(Array)
+#6 C:\laragon\www\examen\system\Model.php(800): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\laragon\www\examen\app\Controllers\AuthController.php(154): CodeIgniter\Model->insert(Array)
+#8 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\AuthController->registro()
+#9 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+#10 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\laragon\www\examen\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-05-31 06:25:01 --> Error en registro: Cannot add or update a child row: a foreign key constraint fails (`examen`.`conductores`, CONSTRAINT `conductores_escuela_id_foreign` FOREIGN KEY (`escuela_id`) REFERENCES `escuelas` (`escuela_id`) ON DELETE CASCADE ON UPDATE CASCADE)
+DEBUG - 2025-05-31 06:25:13 --> Datos raw recibidos: {
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "dni": "12345678",
+    "email": "juan@ejemplo.com",
+    "telefono": "987654321",
+    "direccion": "Av. Principal 123",
+    "fecha_nacimiento": "1990-01-01"
+}
+DEBUG - 2025-05-31 06:25:13 --> Datos decodificados: {"nombre":"Juan","apellido":"P\u00e9rez","dni":"12345678","email":"juan@ejemplo.com","telefono":"987654321","direccion":"Av. Principal 123","fecha_nacimiento":"1990-01-01"}
+DEBUG - 2025-05-31 06:25:13 --> Errores de validación: {"dni":"Ya existe un usuario registrado con este DNI","email":"Ya existe un usuario registrado con este email"}
+DEBUG - 2025-05-31 06:25:22 --> Datos raw recibidos: {
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "dni": "12345678",
+    "email": "juan@ejemplo.com",
+    "telefono": "987654321",
+    "direccion": "Av. Principal 123",
+    "fecha_nacimiento": "1990-01-01"
+}
+DEBUG - 2025-05-31 06:25:22 --> Datos decodificados: {"nombre":"Juan","apellido":"P\u00e9rez","dni":"12345678","email":"juan@ejemplo.com","telefono":"987654321","direccion":"Av. Principal 123","fecha_nacimiento":"1990-01-01"}
+DEBUG - 2025-05-31 06:25:22 --> Errores de validación: {"dni":"Ya existe un usuario registrado con este DNI","email":"Ya existe un usuario registrado con este email"}
+DEBUG - 2025-05-31 06:25:48 --> Datos raw recibidos: {
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "dni": "12345678",
+    "email": "juan@ejemplo.com",
+    "telefono": "987654321",
+    "direccion": "Av. Principal 123",
+    "fecha_nacimiento": "1990-01-01"
+}
+DEBUG - 2025-05-31 06:25:48 --> Datos decodificados: {"nombre":"Juan","apellido":"P\u00e9rez","dni":"12345678","email":"juan@ejemplo.com","telefono":"987654321","direccion":"Av. Principal 123","fecha_nacimiento":"1990-01-01"}
+DEBUG - 2025-05-31 06:25:48 --> Datos a insertar en conductor: {"usuario_id":3,"nombre":"Juan","apellido":"P\u00e9rez","dni":"12345678","email":"juan@ejemplo.com","telefono":"987654321","direccion":"Av. Principal 123","fecha_nacimiento":"1990-01-01","estado_registro":"pendiente"}
+ERROR - 2025-05-31 06:25:48 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`examen`.`conductores`, CONSTRAINT `conductores_escuela_id_foreign` FOREIGN KEY (`escuela_id`) REFERENCES `escuelas` (`escuela_id`) ON DELETE CASCADE ON UPDATE CASCADE) in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\laragon\www\examen\system\BaseModel.php(839): CodeIgniter\Model->doInsert(Array)
+#6 C:\laragon\www\examen\system\Model.php(800): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\laragon\www\examen\app\Controllers\AuthController.php(154): CodeIgniter\Model->insert(Array)
+#8 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\AuthController->registro()
+#9 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+#10 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\laragon\www\examen\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-05-31 06:25:48 --> Error en registro: Cannot add or update a child row: a foreign key constraint fails (`examen`.`conductores`, CONSTRAINT `conductores_escuela_id_foreign` FOREIGN KEY (`escuela_id`) REFERENCES `escuelas` (`escuela_id`) ON DELETE CASCADE ON UPDATE CASCADE)
+DEBUG - 2025-05-31 06:37:09 --> Datos raw recibidos: {
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "dni": "12345678",
+    "email": "juan@ejemplo.com",
+    "telefono": "987654321",
+    "direccion": "Av. Principal 123",
+    "fecha_nacimiento": "1990-01-01"
+}
+DEBUG - 2025-05-31 06:37:09 --> Datos decodificados: {"nombre":"Juan","apellido":"P\u00e9rez","dni":"12345678","email":"juan@ejemplo.com","telefono":"987654321","direccion":"Av. Principal 123","fecha_nacimiento":"1990-01-01"}
+DEBUG - 2025-05-31 06:37:09 --> Errores de validación: {"dni":"Ya existe un usuario registrado con este DNI","email":"Ya existe un usuario registrado con este email"}
+DEBUG - 2025-05-31 06:37:33 --> Datos raw recibidos: {
+    "nombre": "Juan",
+    "apellido": "Pérez",
+    "dni": "12345678",
+    "email": "juan@ejemplo.com",
+    "telefono": "987654321",
+    "direccion": "Av. Principal 123",
+    "fecha_nacimiento": "1990-01-01"
+}
+DEBUG - 2025-05-31 06:37:33 --> Datos decodificados: {"nombre":"Juan","apellido":"P\u00e9rez","dni":"12345678","email":"juan@ejemplo.com","telefono":"987654321","direccion":"Av. Principal 123","fecha_nacimiento":"1990-01-01"}
+DEBUG - 2025-05-31 06:37:34 --> Datos a insertar en conductor: {"usuario_id":4,"nombre":"Juan","apellido":"P\u00e9rez","dni":"12345678","email":"juan@ejemplo.com","telefono":"987654321","direccion":"Av. Principal 123","fecha_nacimiento":"1990-01-01","estado_registro":"pendiente"}
+ERROR - 2025-05-31 06:37:34 --> mysqli_sql_exception: Table 'examen.resultados_examenes' doesn't exist in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT COUNT(*)...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*)...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*)...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#4 C:\laragon\www\examen\app\Models\ConductorModel.php(135): CodeIgniter\Database\BaseBuilder->countAllResults()
+#5 C:\laragon\www\examen\app\Controllers\AuthController.php(170): App\Models\ConductorModel->getExamenesInfo(3)
+#6 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\AuthController->registro()
+#7 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+#8 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#10 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#11 C:\laragon\www\examen\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-05-31 06:37:34 --> Error al obtener información de exámenes: Table 'examen.resultados_examenes' doesn't exist
+ERROR - 2025-05-31 06:43:13 --> mysqli_sql_exception: Table 'examen_conductor' already exists in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `e...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `e...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `e...')
+#3 C:\laragon\www\examen\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `e...')
+#4 C:\laragon\www\examen\app\Database\Migrations\2024-04-21-000014_CreateExamenConductorTable.php(74): CodeIgniter\Database\Forge->createTable('examen_conducto...')
+#5 C:\laragon\www\examen\system\Database\MigrationRunner.php(866): App\Database\Migrations\CreateExamenConductorTable->up()
+#6 C:\laragon\www\examen\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\laragon\www\examen\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\laragon\www\examen\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\laragon\www\examen\system\Boot.php(360): CodeIgniter\CLI\Console->run()
+#11 C:\laragon\www\examen\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\laragon\www\examen\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-05-31 06:43:43 --> mysqli_sql_exception: Table 'examen_conductor' already exists in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `e...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `e...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `e...')
+#3 C:\laragon\www\examen\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `e...')
+#4 C:\laragon\www\examen\app\Database\Migrations\2024-04-21-000014_CreateExamenConductorTable.php(74): CodeIgniter\Database\Forge->createTable('examen_conducto...')
+#5 C:\laragon\www\examen\system\Database\MigrationRunner.php(866): App\Database\Migrations\CreateExamenConductorTable->up()
+#6 C:\laragon\www\examen\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\laragon\www\examen\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\laragon\www\examen\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\laragon\www\examen\system\Boot.php(360): CodeIgniter\CLI\Console->run()
+#11 C:\laragon\www\examen\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\laragon\www\examen\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-05-31 06:43:53 --> mysqli_sql_exception: Can't DROP 'conductores_escuela_id_foreign'; check that column/key exists in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('ALTER TABLE `co...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE `co...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE `co...')
+#3 C:\laragon\www\examen\system\Database\Forge.php(539): CodeIgniter\Database\BaseConnection->query('ALTER TABLE `co...')
+#4 C:\laragon\www\examen\app\Database\Migrations\2024-04-21-000013_UpdateConductoresEscuelaId.php(31): CodeIgniter\Database\Forge->dropForeignKey('conductores', 'conductores_esc...')
+#5 C:\laragon\www\examen\system\Database\MigrationRunner.php(866): App\Database\Migrations\UpdateConductoresEscuelaId->down()
+#6 C:\laragon\www\examen\system\Database\MigrationRunner.php(289): CodeIgniter\Database\MigrationRunner->migrate('down', Object(stdClass))
+#7 C:\laragon\www\examen\system\Commands\Database\MigrateRollback.php(101): CodeIgniter\Database\MigrationRunner->regress(0)
+#8 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\MigrateRollback->run(Array)
+#9 C:\laragon\www\examen\system\CLI\BaseCommand.php(119): CodeIgniter\CLI\Commands->run('migrate:rollbac...', Array)
+#10 C:\laragon\www\examen\system\Commands\Database\MigrateRefresh.php(86): CodeIgniter\CLI\BaseCommand->call('migrate:rollbac...', Array)
+#11 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\MigrateRefresh->run(Array)
+#12 C:\laragon\www\examen\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('migrate:refresh', Array)
+#13 C:\laragon\www\examen\system\Boot.php(360): CodeIgniter\CLI\Console->run()
+#14 C:\laragon\www\examen\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#15 C:\laragon\www\examen\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#16 {main}
+ERROR - 2025-05-31 06:43:53 --> mysqli_sql_exception: Table 'examen_conductor' already exists in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `e...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `e...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `e...')
+#3 C:\laragon\www\examen\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `e...')
+#4 C:\laragon\www\examen\app\Database\Migrations\2024-04-21-000014_CreateExamenConductorTable.php(74): CodeIgniter\Database\Forge->createTable('examen_conducto...')
+#5 C:\laragon\www\examen\system\Database\MigrationRunner.php(866): App\Database\Migrations\CreateExamenConductorTable->up()
+#6 C:\laragon\www\examen\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\laragon\www\examen\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\laragon\www\examen\system\CLI\BaseCommand.php(119): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\laragon\www\examen\system\Commands\Database\MigrateRefresh.php(87): CodeIgniter\CLI\BaseCommand->call('migrate', Array)
+#11 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\MigrateRefresh->run(Array)
+#12 C:\laragon\www\examen\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('migrate:refresh', Array)
+#13 C:\laragon\www\examen\system\Boot.php(360): CodeIgniter\CLI\Console->run()
+#14 C:\laragon\www\examen\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#15 C:\laragon\www\examen\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#16 {main}
+ERROR - 2025-05-31 06:45:06 --> mysqli_sql_exception: Can't DROP 'conductores_escuela_id_foreign'; check that column/key exists in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('ALTER TABLE `co...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE `co...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE `co...')
+#3 C:\laragon\www\examen\system\Database\Forge.php(539): CodeIgniter\Database\BaseConnection->query('ALTER TABLE `co...')
+#4 C:\laragon\www\examen\app\Database\Migrations\2024-04-21-000013_UpdateConductoresEscuelaId.php(31): CodeIgniter\Database\Forge->dropForeignKey('conductores', 'conductores_esc...')
+#5 C:\laragon\www\examen\system\Database\MigrationRunner.php(866): App\Database\Migrations\UpdateConductoresEscuelaId->down()
+#6 C:\laragon\www\examen\system\Database\MigrationRunner.php(289): CodeIgniter\Database\MigrationRunner->migrate('down', Object(stdClass))
+#7 C:\laragon\www\examen\system\Commands\Database\MigrateRollback.php(101): CodeIgniter\Database\MigrationRunner->regress(0)
+#8 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\MigrateRollback->run(Array)
+#9 C:\laragon\www\examen\system\CLI\BaseCommand.php(119): CodeIgniter\CLI\Commands->run('migrate:rollbac...', Array)
+#10 C:\laragon\www\examen\system\Commands\Database\MigrateRefresh.php(86): CodeIgniter\CLI\BaseCommand->call('migrate:rollbac...', Array)
+#11 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\MigrateRefresh->run(Array)
+#12 C:\laragon\www\examen\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('migrate:refresh', Array)
+#13 C:\laragon\www\examen\system\Boot.php(360): CodeIgniter\CLI\Console->run()
+#14 C:\laragon\www\examen\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#15 C:\laragon\www\examen\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#16 {main}
+ERROR - 2025-05-31 06:45:06 --> mysqli_sql_exception: Table 'examen_conductor' already exists in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `e...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `e...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `e...')
+#3 C:\laragon\www\examen\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `e...')
+#4 C:\laragon\www\examen\app\Database\Migrations\2024-04-21-000014_CreateExamenConductorTable.php(74): CodeIgniter\Database\Forge->createTable('examen_conducto...')
+#5 C:\laragon\www\examen\system\Database\MigrationRunner.php(866): App\Database\Migrations\CreateExamenConductorTable->up()
+#6 C:\laragon\www\examen\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\laragon\www\examen\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\laragon\www\examen\system\CLI\BaseCommand.php(119): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\laragon\www\examen\system\Commands\Database\MigrateRefresh.php(87): CodeIgniter\CLI\BaseCommand->call('migrate', Array)
+#11 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\MigrateRefresh->run(Array)
+#12 C:\laragon\www\examen\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('migrate:refresh', Array)
+#13 C:\laragon\www\examen\system\Boot.php(360): CodeIgniter\CLI\Console->run()
+#14 C:\laragon\www\examen\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#15 C:\laragon\www\examen\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#16 {main}
+ERROR - 2025-05-31 06:46:18 --> mysqli_sql_exception: Can't DROP 'conductores_escuela_id_foreign'; check that column/key exists in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('ALTER TABLE `co...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE `co...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE `co...')
+#3 C:\laragon\www\examen\system\Database\Forge.php(539): CodeIgniter\Database\BaseConnection->query('ALTER TABLE `co...')
+#4 C:\laragon\www\examen\app\Database\Migrations\2024-04-21-000013_UpdateConductoresEscuelaId.php(31): CodeIgniter\Database\Forge->dropForeignKey('conductores', 'conductores_esc...')
+#5 C:\laragon\www\examen\system\Database\MigrationRunner.php(866): App\Database\Migrations\UpdateConductoresEscuelaId->down()
+#6 C:\laragon\www\examen\system\Database\MigrationRunner.php(289): CodeIgniter\Database\MigrationRunner->migrate('down', Object(stdClass))
+#7 C:\laragon\www\examen\system\Commands\Database\MigrateRollback.php(101): CodeIgniter\Database\MigrationRunner->regress(1)
+#8 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\MigrateRollback->run(Array)
+#9 C:\laragon\www\examen\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('migrate:rollbac...', Array)
+#10 C:\laragon\www\examen\system\Boot.php(360): CodeIgniter\CLI\Console->run()
+#11 C:\laragon\www\examen\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\laragon\www\examen\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-05-31 06:46:33 --> mysqli_sql_exception: Can't DROP 'conductores_escuela_id_foreign'; check that column/key exists in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('ALTER TABLE `co...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('ALTER TABLE `co...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('ALTER TABLE `co...')
+#3 C:\laragon\www\examen\system\Database\Forge.php(539): CodeIgniter\Database\BaseConnection->query('ALTER TABLE `co...')
+#4 C:\laragon\www\examen\app\Database\Migrations\2024-04-21-000013_UpdateConductoresEscuelaId.php(31): CodeIgniter\Database\Forge->dropForeignKey('conductores', 'conductores_esc...')
+#5 C:\laragon\www\examen\system\Database\MigrationRunner.php(866): App\Database\Migrations\UpdateConductoresEscuelaId->down()
+#6 C:\laragon\www\examen\system\Database\MigrationRunner.php(289): CodeIgniter\Database\MigrationRunner->migrate('down', Object(stdClass))
+#7 C:\laragon\www\examen\system\Commands\Database\MigrateRollback.php(101): CodeIgniter\Database\MigrationRunner->regress(0)
+#8 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\MigrateRollback->run(Array)
+#9 C:\laragon\www\examen\system\CLI\BaseCommand.php(119): CodeIgniter\CLI\Commands->run('migrate:rollbac...', Array)
+#10 C:\laragon\www\examen\system\Commands\Database\MigrateRefresh.php(86): CodeIgniter\CLI\BaseCommand->call('migrate:rollbac...', Array)
+#11 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\MigrateRefresh->run(Array)
+#12 C:\laragon\www\examen\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('migrate:refresh', Array)
+#13 C:\laragon\www\examen\system\Boot.php(360): CodeIgniter\CLI\Console->run()
+#14 C:\laragon\www\examen\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#15 C:\laragon\www\examen\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#16 {main}
+ERROR - 2025-05-31 06:46:33 --> mysqli_sql_exception: Table 'examen_conductor' already exists in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `e...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `e...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `e...')
+#3 C:\laragon\www\examen\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `e...')
+#4 C:\laragon\www\examen\app\Database\Migrations\2024-04-21-000014_CreateExamenConductorTable.php(74): CodeIgniter\Database\Forge->createTable('examen_conducto...')
+#5 C:\laragon\www\examen\system\Database\MigrationRunner.php(866): App\Database\Migrations\CreateExamenConductorTable->up()
+#6 C:\laragon\www\examen\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\laragon\www\examen\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\laragon\www\examen\system\CLI\BaseCommand.php(119): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\laragon\www\examen\system\Commands\Database\MigrateRefresh.php(87): CodeIgniter\CLI\BaseCommand->call('migrate', Array)
+#11 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\MigrateRefresh->run(Array)
+#12 C:\laragon\www\examen\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('migrate:refresh', Array)
+#13 C:\laragon\www\examen\system\Boot.php(360): CodeIgniter\CLI\Console->run()
+#14 C:\laragon\www\examen\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#15 C:\laragon\www\examen\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#16 {main}
