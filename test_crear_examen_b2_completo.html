@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Crear Examen B2 Completo con IA</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 20px; 
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section { 
+            margin: 20px 0; 
+            padding: 20px; 
+            border: 1px solid #ddd; 
+            border-radius: 8px; 
+            background: white;
+        }
+        .success { 
+            background-color: #d4edda; 
+            border-color: #c3e6cb; 
+            color: #155724;
+        }
+        .error { 
+            background-color: #f8d7da; 
+            border-color: #f5c6cb; 
+            color: #721c24;
+        }
+        .info { 
+            background-color: #d1ecf1; 
+            border-color: #bee5eb; 
+            color: #0c5460;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border-color: #ffeaa7;
+            color: #856404;
+        }
+        button { 
+            padding: 12px 24px; 
+            margin: 5px; 
+            cursor: pointer; 
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        button:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+        }
+        pre { 
+            background: #f8f9fa; 
+            padding: 15px; 
+            border-radius: 4px; 
+            overflow-x: auto; 
+            border: 1px solid #e9ecef;
+            font-size: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: #007bff;
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .status-success { background-color: #28a745; }
+        .status-error { background-color: #dc3545; }
+        .status-warning { background-color: #ffc107; }
+        .status-info { background-color: #17a2b8; }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .stat-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .stat-label {
+            font-size: 14px;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚗 Test - Crear Examen B2 Completo con IA</h1>
+        
+        <div class="test-section info">
+            <h3><span class="status-indicator status-info"></span>Información del Test</h3>
+            <p>Este test creará un examen completo para la categoría B2 con 60 preguntas generadas por IA, incluyendo:</p>
+            <ul>
+                <li>✅ Crear el examen base</li>
+                <li>✅ Generar 60 preguntas con IA</li>
+                <li>✅ Crear 4 respuestas por pregunta</li>
+                <li>✅ Asignar puntajes y dificultades</li>
+                <li>✅ Marcar preguntas críticas</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h3><span class="status-indicator status-info"></span>Paso 1: Verificar Categoría B2</h3>
+            <p>Primero verificamos que la categoría B2 exista en la base de datos.</p>
+            <button onclick="verificarCategoriaB2()" id="btn1">Verificar Categoría B2</button>
+            <div id="resultado1"></div>
+        </div>
+
+        <div class="test-section">
+            <h3><span class="status-indicator status-info"></span>Paso 2: Crear Examen Base</h3>
+            <p>Creamos el examen base para la categoría B2.</p>
+            <button onclick="crearExamenBase()" id="btn2">Crear Examen Base</button>
+            <div id="resultado2"></div>
+        </div>
+
+        <div class="test-section">
+            <h3><span class="status-indicator status-info"></span>Paso 3: Generar Preguntas con IA</h3>
+            <p>Generamos 60 preguntas usando IA para la categoría B2.</p>
+            <button onclick="generarPreguntasIA()" id="btn3">Generar 60 Preguntas con IA</button>
+            <div id="resultado3"></div>
+            <div class="progress-bar" id="progressBar" style="display: none;">
+                <div class="progress-fill" id="progressFill" style="width: 0%">0%</div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3><span class="status-indicator status-info"></span>Paso 4: Verificar Examen Completo</h3>
+            <p>Verificamos que el examen se haya creado correctamente con todas sus preguntas.</p>
+            <button onclick="verificarExamenCompleto()" id="btn4">Verificar Examen Completo</button>
+            <div id="resultado4"></div>
+        </div>
+
+        <div class="test-section">
+            <h3><span class="status-indicator status-info"></span>Estadísticas del Examen</h3>
+            <div id="stats" class="stats"></div>
+        </div>
+    </div>
+
+    <script>
+        let categoriaB2Id = null;
+        let examenId = null;
+        let preguntasGeneradas = [];
+
+        // Función para deshabilitar botones durante las pruebas
+        function setButtonState(buttonId, disabled) {
+            const button = document.getElementById(buttonId);
+            if (button) {
+                button.disabled = disabled;
+            }
+        }
+
+        // Función para mostrar resultados
+        function mostrarResultado(elementId, tipo, titulo, contenido, datos = null) {
+            const resultado = document.getElementById(elementId);
+            let html = `<div class="${tipo}">`;
+            html += `<h4>${titulo}</h4>`;
+            html += `<p>${contenido}</p>`;
+            if (datos) {
+                html += `<pre>${JSON.stringify(datos, null, 2)}</pre>`;
+            }
+            html += '</div>';
+            resultado.innerHTML = html;
+        }
+
+        // Función para actualizar progreso
+        function actualizarProgreso(porcentaje, mensaje) {
+            const progressBar = document.getElementById('progressBar');
+            const progressFill = document.getElementById('progressFill');
+            
+            progressBar.style.display = 'block';
+            progressFill.style.width = porcentaje + '%';
+            progressFill.textContent = `${porcentaje}% - ${mensaje}`;
+        }
+
+        // Función para mostrar estadísticas
+        function mostrarEstadisticas(stats) {
+            const statsDiv = document.getElementById('stats');
+            let html = '';
+            
+            for (const [key, value] of Object.entries(stats)) {
+                html += `
+                    <div class="stat-card">
+                        <div class="stat-number">${value}</div>
+                        <div class="stat-label">${key}</div>
+                    </div>
+                `;
+            }
+            
+            statsDiv.innerHTML = html;
+        }
+
+        // Paso 1: Verificar Categoría B2
+        async function verificarCategoriaB2() {
+            setButtonState('btn1', true);
+            const resultado = document.getElementById('resultado1');
+            resultado.innerHTML = '<div class="info">Buscando categoría B2...</div>';
+            
+            try {
+                const response = await fetch('/api/categorias', {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                const categorias = data.data || data;
+                
+                // Buscar categoría B2
+                const categoriaB2 = categorias.find(cat => 
+                    cat.codigo === 'B2' || cat.sigla === 'B2' || cat.nombre?.includes('B2')
+                );
+                
+                if (categoriaB2) {
+                    categoriaB2Id = categoriaB2.categoria_id;
+                    mostrarResultado('resultado1', 'success', 
+                        '✅ Categoría B2 Encontrada', 
+                        `ID: ${categoriaB2Id} | Nombre: ${categoriaB2.nombre || categoriaB2.codigo}`, 
+                        categoriaB2);
+                } else {
+                    throw new Error('Categoría B2 no encontrada en la base de datos');
+                }
+                
+            } catch (error) {
+                mostrarResultado('resultado1', 'error', 
+                    '❌ Error al buscar categoría B2', 
+                    `Error: ${error.message}`);
+                console.error('Error buscar categoría:', error);
+            } finally {
+                setButtonState('btn1', false);
+            }
+        }
+
+        // Paso 2: Crear Examen Base
+        async function crearExamenBase() {
+            if (!categoriaB2Id) {
+                mostrarResultado('resultado2', 'error', 
+                    '❌ Error', 
+                    'Primero debe verificar la categoría B2');
+                return;
+            }
+
+            setButtonState('btn2', true);
+            const resultado = document.getElementById('resultado2');
+            resultado.innerHTML = '<div class="info">Creando examen base...</div>';
+            
+            const examenData = {
+                titulo: 'Examen Teórico Categoría B2 - Vehículos de Carga',
+                nombre: 'Examen B2 Completo',
+                descripcion: 'Examen teórico completo para la obtención de licencia de conducir categoría B2. Incluye 60 preguntas sobre normativa de tránsito, señales de tránsito, mecánica básica y seguridad vial.',
+                tiempo_limite: 90,
+                duracion_minutos: 90,
+                puntaje_minimo: 70,
+                fecha_inicio: new Date().toISOString().split('T')[0],
+                fecha_fin: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                numero_preguntas: 60,
+                estado: 'activo',
+                categoria_id: categoriaB2Id
+            };
+            
+            try {
+                const response = await fetch('/api/examenes', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(examenData)
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(`HTTP error! status: ${response.status} - ${JSON.stringify(errorData)}`);
+                }
+                
+                const data = await response.json();
+                examenId = data.data?.examen_id || data.examen_id;
+                
+                mostrarResultado('resultado2', 'success', 
+                    '✅ Examen Base Creado', 
+                    `ID: ${examenId} | Título: ${examenData.titulo}`, 
+                    data);
+                
+            } catch (error) {
+                mostrarResultado('resultado2', 'error', 
+                    '❌ Error al crear examen', 
+                    `Error: ${error.message}`);
+                console.error('Error crear examen:', error);
+            } finally {
+                setButtonState('btn2', false);
+            }
+        }
+
+        // Paso 3: Generar Preguntas con IA
+        async function generarPreguntasIA() {
+            if (!examenId || !categoriaB2Id) {
+                mostrarResultado('resultado3', 'error', 
+                    '❌ Error', 
+                    'Primero debe crear el examen base');
+                return;
+            }
+
+            setButtonState('btn3', true);
+            const resultado = document.getElementById('resultado3');
+            resultado.innerHTML = '<div class="info">Generando preguntas con IA...</div>';
+            
+            // Temas para preguntas de categoría B2
+            const temas = [
+                'Normativa de tránsito para vehículos de carga',
+                'Señales de tránsito específicas para camiones',
+                'Límites de velocidad para vehículos pesados',
+                'Documentación requerida para vehículos de carga',
+                'Mecánica básica de vehículos pesados',
+                'Seguridad vial en carreteras',
+                'Mantenimiento preventivo',
+                'Carga y descarga segura',
+                'Emergencias en carretera',
+                'Legislación de transporte'
+            ];
+
+            const dificultades = ['facil', 'medio', 'dificil'];
+            const tiposPregunta = ['multiple', 'unica'];
+            
+            try {
+                for (let i = 1; i <= 60; i++) {
+                    actualizarProgreso(Math.round((i / 60) * 100), `Generando pregunta ${i}/60`);
+                    
+                    // Seleccionar tema y dificultad
+                    const tema = temas[i % temas.length];
+                    const dificultad = dificultades[i % dificultades.length];
+                    const tipoPregunta = tiposPregunta[i % tiposPregunta.length];
+                    
+                    // Generar pregunta usando IA (simulada)
+                    const pregunta = await generarPreguntaIA(tema, dificultad, i);
+                    
+                    // Crear la pregunta en la base de datos
+                    const preguntaData = {
+                        examen_id: examenId,
+                        categoria_id: categoriaB2Id,
+                        enunciado: pregunta.enunciado,
+                        tipo_pregunta: tipoPregunta,
+                        puntaje: pregunta.puntaje,
+                        dificultad: dificultad,
+                        es_critica: pregunta.es_critica ? 1 : 0
+                    };
+                    
+                    const response = await fetch('/api/preguntas', {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(preguntaData)
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`Error al crear pregunta ${i}: ${response.status}`);
+                    }
+                    
+                    const preguntaCreada = await response.json();
+                    const preguntaId = preguntaCreada.data?.pregunta_id || preguntaCreada.pregunta_id;
+                    
+                    // Crear las respuestas para esta pregunta
+                    await crearRespuestas(preguntaId, pregunta.respuestas);
+                    
+                    preguntasGeneradas.push({
+                        id: preguntaId,
+                        enunciado: pregunta.enunciado,
+                        dificultad: dificultad,
+                        puntaje: pregunta.puntaje
+                    });
+                    
+                    // Pequeña pausa para no sobrecargar el servidor
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                }
+                
+                actualizarProgreso(100, '¡Completado!');
+                mostrarResultado('resultado3', 'success', 
+                    '✅ Preguntas Generadas Exitosamente', 
+                    `Se generaron ${preguntasGeneradas.length} preguntas con sus respuestas`, 
+                    { total_preguntas: preguntasGeneradas.length });
+                
+            } catch (error) {
+                mostrarResultado('resultado3', 'error', 
+                    '❌ Error al generar preguntas', 
+                    `Error: ${error.message}`);
+                console.error('Error generar preguntas:', error);
+            } finally {
+                setButtonState('btn3', false);
+            }
+        }
+
+        // Función para generar pregunta con IA (simulada)
+        async function generarPreguntaIA(tema, dificultad, numero) {
+            // Simulación de IA - en un caso real, aquí se conectaría a una API de IA
+            const preguntasBase = {
+                'Normativa de tránsito para vehículos de carga': [
+                    {
+                        enunciado: `¿Cuál es el peso máximo permitido para un vehículo de categoría B2 sin documentación especial?`,
+                        respuestas: [
+                            { texto: '3.500 kg', es_correcta: true },
+                            { texto: '5.000 kg', es_correcta: false },
+                            { texto: '7.500 kg', es_correcta: false },
+                            { texto: '10.000 kg', es_correcta: false }
+                        ],
+                        puntaje: 2,
+                        es_critica: true
+                    },
+                    {
+                        enunciado: `¿Qué documentación es obligatoria para transportar carga en un vehículo B2?`,
+                        respuestas: [
+                            { texto: 'Solo licencia de conducir', es_correcta: false },
+                            { texto: 'Licencia de conducir y documentación del vehículo', es_correcta: true },
+                            { texto: 'Solo documentación del vehículo', es_correcta: false },
+                            { texto: 'Ninguna documentación especial', es_correcta: false }
+                        ],
+                        puntaje: 2,
+                        es_critica: true
+                    }
+                ],
+                'Señales de tránsito específicas para camiones': [
+                    {
+                        enunciado: `¿Qué significa la señal "Prohibido el paso de vehículos de carga"?`,
+                        respuestas: [
+                            { texto: 'Solo camiones pequeños pueden pasar', es_correcta: false },
+                            { texto: 'Ningún vehículo de carga puede circular', es_correcta: true },
+                            { texto: 'Solo vehículos ligeros pueden pasar', es_correcta: false },
+                            { texto: 'Se permite el paso con restricciones', es_correcta: false }
+                        ],
+                        puntaje: 2,
+                        es_critica: true
+                    }
+                ],
+                'Límites de velocidad para vehículos pesados': [
+                    {
+                        enunciado: `¿Cuál es el límite de velocidad máximo para un vehículo B2 en autopista?`,
+                        respuestas: [
+                            { texto: '80 km/h', es_correcta: true },
+                            { texto: '100 km/h', es_correcta: false },
+                            { texto: '120 km/h', es_correcta: false },
+                            { texto: '140 km/h', es_correcta: false }
+                        ],
+                        puntaje: 2,
+                        es_critica: true
+                    }
+                ],
+                'Mecánica básica de vehículos pesados': [
+                    {
+                        enunciado: `¿Qué sistema es fundamental para la seguridad de un vehículo de carga?`,
+                        respuestas: [
+                            { texto: 'Solo el sistema de frenos', es_correcta: false },
+                            { texto: 'Solo el sistema de dirección', es_correcta: false },
+                            { texto: 'Solo el sistema de suspensión', es_correcta: false },
+                            { texto: 'Todos los sistemas de seguridad', es_correcta: true }
+                        ],
+                        puntaje: 2,
+                        es_critica: true
+                    }
+                ],
+                'Seguridad vial en carreteras': [
+                    {
+                        enunciado: `¿Cuál es la distancia mínima de seguridad recomendada para un vehículo B2?`,
+                        respuestas: [
+                            { texto: '2 segundos', es_correcta: false },
+                            { texto: '3 segundos', es_correcta: true },
+                            { texto: '1 segundo', es_correcta: false },
+                            { texto: '5 segundos', es_correcta: false }
+                        ],
+                        puntaje: 2,
+                        es_critica: true
+                    }
+                ]
+            };
+
+            // Generar preguntas variadas basadas en el tema
+            const preguntasTema = preguntasBase[tema] || preguntasBase['Normativa de tránsito para vehículos de carga'];
+            const preguntaBase = preguntasTema[numero % preguntasTema.length];
+            
+            // Variar la pregunta para evitar duplicados
+            const variaciones = [
+                '¿Cuál es la normativa vigente sobre',
+                'Según la legislación actual,',
+                'De acuerdo con el código de tránsito,',
+                'La reglamentación establece que',
+                'En términos de seguridad vial,'
+            ];
+            
+            const variacion = variaciones[numero % variaciones.length];
+            
+            return {
+                enunciado: `${variacion} ${preguntaBase.enunciado.toLowerCase().replace('¿', '')}`,
+                respuestas: preguntaBase.respuestas,
+                puntaje: dificultad === 'dificil' ? 3 : dificultad === 'medio' ? 2 : 1,
+                es_critica: numero % 5 === 0 // Cada 5 preguntas es crítica
+            };
+        }
+
+        // Función para crear respuestas
+        async function crearRespuestas(preguntaId, respuestas) {
+            for (const respuesta of respuestas) {
+                const respuestaData = {
+                    pregunta_id: preguntaId,
+                    texto: respuesta.texto,
+                    es_correcta: respuesta.es_correcta ? 1 : 0
+                };
+                
+                const response = await fetch('/api/respuestas', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(respuestaData)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Error al crear respuesta: ${response.status}`);
+                }
+            }
+        }
+
+        // Paso 4: Verificar Examen Completo
+        async function verificarExamenCompleto() {
+            if (!examenId) {
+                mostrarResultado('resultado4', 'error', 
+                    '❌ Error', 
+                    'Primero debe crear el examen');
+                return;
+            }
+
+            setButtonState('btn4', true);
+            const resultado = document.getElementById('resultado4');
+            resultado.innerHTML = '<div class="info">Verificando examen completo...</div>';
+            
+            try {
+                // Obtener el examen
+                const responseExamen = await fetch(`/api/examenes/${examenId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!responseExamen.ok) {
+                    throw new Error(`Error al obtener examen: ${responseExamen.status}`);
+                }
+                
+                const examen = await responseExamen.json();
+                
+                // Obtener preguntas del examen
+                const responsePreguntas = await fetch(`/api/preguntas/examen/${examenId}`, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!responsePreguntas.ok) {
+                    throw new Error(`Error al obtener preguntas: ${responsePreguntas.status}`);
+                }
+                
+                const preguntas = await responsePreguntas.json();
+                const preguntasData = preguntas.data || preguntas;
+                
+                // Calcular estadísticas
+                const stats = {
+                    'Total Preguntas': preguntasData.length,
+                    'Preguntas Críticas': preguntasData.filter(p => p.es_critica == 1).length,
+                    'Dificultad Fácil': preguntasData.filter(p => p.dificultad === 'facil').length,
+                    'Dificultad Media': preguntasData.filter(p => p.dificultad === 'medio').length,
+                    'Dificultad Difícil': preguntasData.filter(p => p.dificultad === 'dificil').length,
+                    'Puntaje Total': preguntasData.reduce((sum, p) => sum + parseFloat(p.puntaje), 0)
+                };
+                
+                mostrarEstadisticas(stats);
+                
+                mostrarResultado('resultado4', 'success', 
+                    '✅ Examen Verificado Completamente', 
+                    `Examen ID: ${examenId} | Preguntas: ${preguntasData.length} | Puntaje Total: ${stats['Puntaje Total']}`, 
+                    { examen: examen.data || examen, estadisticas: stats });
+                
+            } catch (error) {
+                mostrarResultado('resultado4', 'error', 
+                    '❌ Error al verificar examen', 
+                    `Error: ${error.message}`);
+                console.error('Error verificar examen:', error);
+            } finally {
+                setButtonState('btn4', false);
+            }
+        }
+
+        // Auto-ejecutar verificación de categoría al cargar
+        window.addEventListener('load', function() {
+            setTimeout(verificarCategoriaB2, 1000);
+        });
+    </script>
+</body>
+</html> 

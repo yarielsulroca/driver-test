@@ -1,7 +1,3 @@
 Examen Controller (Tests\Controllers\ExamenController)
- [ ] Index
- [ ] Show
- [ ] Create
- [ ] Update
- [ ] Delete
+ [x] Create examen
 

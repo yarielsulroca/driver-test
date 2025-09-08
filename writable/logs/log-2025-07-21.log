@@ -1,0 +1,108 @@
+ERROR - 2025-07-21 00:40:47 --> mysqli_sql_exception: Table 'examen.conductor_escuela' doesn't exist in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `escuela...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `escuela...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `escuela...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `escuela...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\examen\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\examen\app\Models\ConductorEscuelaModel.php(81): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\examen\app\Models\ConductorModel.php(107): App\Models\ConductorEscuelaModel->getEscuelasConductor('3')
+#8 C:\laragon\www\examen\app\Controllers\Conductores.php(31): App\Models\ConductorModel->getEscuelas('3')
+#9 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\Conductores->index()
+#10 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Conductores))
+#11 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#13 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+ERROR - 2025-07-21 00:41:24 --> mysqli_sql_exception: Table 'examen.conductor_escuela' doesn't exist in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `escuela...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `escuela...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `escuela...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `escuela...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\examen\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\examen\app\Models\ConductorEscuelaModel.php(81): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\examen\app\Models\ConductorModel.php(107): App\Models\ConductorEscuelaModel->getEscuelasConductor('3')
+#8 C:\laragon\www\examen\app\Controllers\Conductores.php(31): App\Models\ConductorModel->getEscuelas('3')
+#9 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\Conductores->index()
+#10 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Conductores))
+#11 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#13 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+ERROR - 2025-07-21 00:44:41 --> mysqli_sql_exception: Table 'examen_conductor' already exists in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `e...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `e...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `e...')
+#3 C:\laragon\www\examen\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `e...')
+#4 C:\laragon\www\examen\app\Database\Migrations\2024-04-21-000014_CreateExamenConductorTable.php(74): CodeIgniter\Database\Forge->createTable('examen_conducto...')
+#5 C:\laragon\www\examen\system\Database\MigrationRunner.php(866): App\Database\Migrations\CreateExamenConductorTable->up()
+#6 C:\laragon\www\examen\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\laragon\www\examen\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\laragon\www\examen\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\laragon\www\examen\system\Boot.php(360): CodeIgniter\CLI\Console->run()
+#11 C:\laragon\www\examen\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\laragon\www\examen\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-07-21 00:51:12 --> mysqli_sql_exception: Table 'examen.conductor_escuela' doesn't exist in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `escuela...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `escuela...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `escuela...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `escuela...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\examen\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\examen\app\Models\ConductorEscuelaModel.php(81): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\examen\app\Models\ConductorModel.php(108): App\Models\ConductorEscuelaModel->getEscuelasConductor('3')
+#8 C:\laragon\www\examen\app\Controllers\Conductores.php(31): App\Models\ConductorModel->getEscuelas('3')
+#9 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\Conductores->index()
+#10 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Conductores))
+#11 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#13 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#14 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#15 {main}
+ERROR - 2025-07-21 00:52:01 --> mysqli_sql_exception: Table 'examen_conductor' already exists in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `e...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `e...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `e...')
+#3 C:\laragon\www\examen\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `e...')
+#4 C:\laragon\www\examen\app\Database\Migrations\2024-04-21-000014_CreateExamenConductorTable.php(74): CodeIgniter\Database\Forge->createTable('examen_conducto...')
+#5 C:\laragon\www\examen\system\Database\MigrationRunner.php(866): App\Database\Migrations\CreateExamenConductorTable->up()
+#6 C:\laragon\www\examen\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\laragon\www\examen\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\laragon\www\examen\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\laragon\www\examen\system\Boot.php(360): CodeIgniter\CLI\Console->run()
+#11 C:\laragon\www\examen\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\laragon\www\examen\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+DEBUG - 2025-07-21 11:30:22 --> Datos raw recibidos: {
+    "nombre":  "María",
+    "telefono":  "123456789",
+    "dni":  "87654321",
+    "fecha_nacimiento":  "1985-05-15",
+    "email":  "maria@ejemplo.com",
+    "apellido":  "García",
+    "direccion":  "Calle 123"
+}
+ERROR - 2025-07-21 11:30:22 --> Error al decodificar JSON: Malformed UTF-8 characters, possibly incorrectly encoded
+CRITICAL - 2025-07-21 11:30:22 --> TypeError: CodeIgniter\Debug\Toolbar::run(): Return value must be of type string, false returned
+[Method: POST, Route: api/auth/registro]
+in SYSTEMPATH\Debug\Toolbar.php on line 188.
+ 1 SYSTEMPATH\Debug\Toolbar.php(390): CodeIgniter\Debug\Toolbar->run(1753097421.803883, 0.6767, Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response))
+ 2 SYSTEMPATH\Filters\DebugToolbar.php(44): CodeIgniter\Debug\Toolbar->prepare(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response))
+ 3 SYSTEMPATH\Filters\Filters.php(278): CodeIgniter\Filters\DebugToolbar->after(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), null)
+ 4 SYSTEMPATH\Filters\Filters.php(364): CodeIgniter\Filters\Filters->runAfter([...])
+ 5 SYSTEMPATH\CodeIgniter.php(407): CodeIgniter\Filters\Filters->runRequired('after')
+ 6 SYSTEMPATH\CodeIgniter.php(368): CodeIgniter\CodeIgniter->runRequiredAfterFilters(Object(CodeIgniter\Filters\Filters))
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

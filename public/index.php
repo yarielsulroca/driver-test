@@ -1,5 +1,8 @@
 <?php
 
+// Log temporal para verificar si las peticiones llegan a index.php
+file_put_contents(__DIR__.'/../writable/index_test.log', 'Index.php ejecutado: ' . date('c') . ' - URI: ' . $_SERVER['REQUEST_URI'] . PHP_EOL, FILE_APPEND);
+
 /*
  *---------------------------------------------------------------
  * CHECK PHP VERSION

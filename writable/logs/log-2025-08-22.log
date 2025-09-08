@@ -1,0 +1,18 @@
+INFO - 2025-08-22 21:52:58 --> Datos recibidos en update pregunta: {"pregunta_id":"68","categoria_id":"2","enunciado":"\u00bfCu\u00e1l es la velocidad m\u00e1xima permitida para veh\u00edculos con remolque en autopista?","tipo_pregunta":"multiple","dificultad":"medio","puntaje":"10.00","es_critica":false,"created_at":"2025-08-11 16:11:47","updated_at":"2025-08-11 16:11:47","respuestas":[{"respuesta_id":"254","pregunta_id":"68","texto":"80 km\/h","imagen":null,"es_correcta":false,"created_at":"2025-08-11 16:11:47","updated_at":"2025-08-11 16:11:47"},{"respuesta_id":"255","pregunta_id":"68","texto":"100 km\/h","imagen":null,"es_correcta":true,"created_at":"2025-08-11 16:11:47","updated_at":"2025-08-11 16:11:47"},{"respuesta_id":"256","pregunta_id":"68","texto":"120 km\/h","imagen":null,"es_correcta":false,"created_at":"2025-08-11 16:11:47","updated_at":"2025-08-11 16:11:47"},{"respuesta_id":"257","pregunta_id":"68","texto":"90 km\/h","imagen":null,"es_correcta":false,"created_at":"2025-08-11 16:11:47","updated_at":"2025-08-11 16:11:47"}],"categoria":{"categoria_id":"2","codigo":"A1","nombre":"Motos hasta 150cc","descripcion":"Licencia para conducir motocicletas y motoveh\u00edculos de hasta 150 cent\u00edmetros c\u00fabicos de cilindrada.","requisitos":"Edad m\u00ednima 16 a\u00f1os. Examen te\u00f3rico y pr\u00e1ctico. Certificado m\u00e9dico. No requiere experiencia previa.","estado":"activo","created_at":"2025-08-11 08:48:41","updated_at":"2025-08-11 17:46:33"},"examenes":[]}
+INFO - 2025-08-22 21:52:58 --> Datos mapeados para actualizar pregunta: {"categoria_id":"2","enunciado":"\u00bfCu\u00e1l es la velocidad m\u00e1xima permitida para veh\u00edculos con remolque en autopista?","tipo_pregunta":"multiple","puntaje":"10.00","dificultad":"medio","es_critica":0}
+ERROR - 2025-08-22 21:54:06 --> mysqli_sql_exception: Unknown column 'nombre' in 'field list' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `conduct...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `conduct...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `conduct...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `conduct...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\examen\system\BaseModel.php(713): CodeIgniter\Model->doFirst()
+#6 C:\laragon\www\examen\app\Controllers\AuthController.php(292): CodeIgniter\BaseModel->first()
+#7 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\AuthController->login()
+#8 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AuthController))
+#9 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}

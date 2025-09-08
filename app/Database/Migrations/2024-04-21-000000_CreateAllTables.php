@@ -436,16 +436,6 @@ class CreateAllTables extends Migration
                     'unsigned' => true,
                     'auto_increment' => true,
                 ],
-                'usuario_id' => [
-                    'type' => 'INT',
-                    'constraint' => 11,
-                    'unsigned' => true,
-                ],
-                'escuela_id' => [
-                    'type' => 'INT',
-                    'constraint' => 11,
-                    'unsigned' => true,
-                ],
                 'licencia' => [
                     'type' => 'VARCHAR',
                     'constraint' => 20,
@@ -468,8 +458,6 @@ class CreateAllTables extends Migration
                 ],
             ]);
             $this->forge->addKey('conductor_id', true);
-            $this->forge->addForeignKey('usuario_id', 'usuarios', 'usuario_id', 'CASCADE', 'CASCADE');
-            $this->forge->addForeignKey('escuela_id', 'escuelas', 'escuela_id', 'CASCADE', 'CASCADE');
             $this->forge->createTable('conductores');
         }
 

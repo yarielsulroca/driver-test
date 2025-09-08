@@ -1,0 +1,15 @@
+<div class="inicio-container">
+  <div class="left">
+    <img src="assets/images/logo-villarino.png" alt="Municipio de Villarino" class="logo" />
+    <img src="assets/images/exam-illustration.svg" alt="Ilustración Examen" class="illustration" />
+  </div>
+  <div class="right">
+    <h2 class="subtitle">EXAMEN TEÓRICO</h2>
+    <h1 class="title">Licencia<br>de Conducir</h1>
+    <form [formGroup]="dniForm" (ngSubmit)="onSubmit()" class="dni-form">
+      <label for="dni">Por favor, ingresá tus datos</label>
+      <input id="dni" formControlName="dni" type="text" placeholder="DNI" />
+      <button type="submit" [disabled]="dniForm.invalid">Ingresar</button>
+    </form>
+  </div>
+</div> 

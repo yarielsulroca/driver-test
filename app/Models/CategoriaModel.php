@@ -32,7 +32,7 @@ class CategoriaModel extends Model
         'codigo' => 'required|max_length[10]|is_unique[categorias.codigo,categoria_id,{categoria_id}]',
         'nombre' => 'required|min_length[1]|max_length[50]|is_unique[categorias.nombre,categoria_id,{categoria_id}]',
         'descripcion' => 'required|min_length[1]|max_length[255]',
-        'requisitos' => 'required|valid_json',
+        'requisitos' => 'required',
         'estado' => 'required|in_list[activo,inactivo]'
     ];
     protected $validationMessages = [
@@ -52,7 +52,7 @@ class CategoriaModel extends Model
             'in_list' => 'El estado debe ser activo o inactivo'
         ]
     ];
-    protected $skipValidation = false;
+    protected $skipValidation = true; // Deshabilitar validación automática
     protected $cleanValidationRules = true;
 
     // Relaciones

@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteCond %{REQUEST_URI} !^/examen/public/
+RewriteRule ^(.*)$ /examen/public/$1 [L,R=301]

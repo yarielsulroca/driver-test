@@ -1,5 +1,33 @@
+<div class="exam-results-header">
+  <div class="breadcrumb">
+    <span>Inicio / Trámites / <span class="breadcrumb-active">Gestión</span></span>
+  </div>
+  <div class="header-row">
+    <div class="title-row">
+      <mat-icon class="icon-title">qr_code_2</mat-icon>
+      <h1>Examenes Licencia de Conducir</h1>
+    </div>
+    <button class="new-exam-btn">
+      <mat-icon>add</mat-icon>
+      Habilitar nuevo examen
+    </button>
+  </div>
+</div>
+
 <div class="exam-results-table-container">
-  <h2>Tabla de Resultados de Exámenes</h2>
+  <div class="search-row">
+    <div class="search-box">
+      <mat-icon>search</mat-icon>
+      <input placeholder="Buscar" [(ngModel)]="search" (keyup.enter)="buscar()" />
+    </div>
+    <div class="order-box">
+      <button class="order-btn">
+        Ordenar por
+        <mat-icon>expand_more</mat-icon>
+      </button>
+    </div>
+  </div>
+
   <table>
     <thead>
       <tr>
@@ -15,9 +43,21 @@
       <tr *ngFor="let row of resultados">
         <td>{{ row.dni }}</td>
         <td>{{ row.usuario }}</td>
-        <td>{{ row.estado }}</td>
+        <td>
+          <span class="badge" [ngClass]="row.estado">
+            <mat-icon class="dot">fiber_manual_record</mat-icon>
+            {{ row.estado | titlecase }}
+          </span>
+        </td>
         <td>{{ row.fecha_realizado || '-' }}</td>
-        <td>{{ row.puntaje || '-' }}</td>
+        <td>
+          <span [ngClass]="{
+            'puntaje-aprobado': row.estado === 'aprobado',
+            'puntaje-desaprobado': row.estado === 'desaprobado'
+          }">
+            {{ row.puntaje || '-' }}
+          </span>
+        </td>
         <td>
           <button *ngIf="row.estado === 'pendiente'" mat-icon-button color="warn"><mat-icon>delete</mat-icon></button>
           <button *ngIf="row.estado !== 'pendiente'" mat-icon-button color="primary"><mat-icon>visibility</mat-icon></button>
@@ -25,4 +65,19 @@
       </tr>
     </tbody>
   </table>
+
+  <div class="pagination-row">
+    <button class="page-btn" [disabled]="pagina === 1" (click)="cambiarPagina(pagina-1)">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    <ng-container *ngFor="let p of paginas">
+      <button class="page-btn" [class.active]="p === pagina" (click)="cambiarPagina(p)">{{ p }}</button>
+    </ng-container>
+    <button class="page-btn" [disabled]="pagina === totalPaginas" (click)="cambiarPagina(pagina+1)">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+    <span class="result-count">
+      Resultados {{inicio}} - {{fin}} de {{total}}
+    </span>
+  </div>
 </div> 

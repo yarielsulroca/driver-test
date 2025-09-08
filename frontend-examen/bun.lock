@@ -5,14 +5,14 @@
       "name": "frontend-examen",
       "dependencies": {
         "@angular/cdk": "^20.0.3",
-        "@angular/common": "^20.0.0",
+        "@angular/common": "^20.0.3",
         "@angular/compiler": "^20.0.0",
-        "@angular/core": "^20.0.0",
+        "@angular/core": "^20.0.3",
         "@angular/flex-layout": "^15.0.0-beta.42",
-        "@angular/forms": "^20.0.0",
+        "@angular/forms": "^20.0.3",
         "@angular/material": "^20.0.3",
-        "@angular/platform-browser": "^20.0.0",
-        "@angular/router": "^20.0.0",
+        "@angular/platform-browser": "^20.0.3",
+        "@angular/router": "^20.0.3",
         "@auth0/angular-jwt": "^5.2.0",
         "@ngrx/effects": "^19.2.1",
         "@ngrx/entity": "^19.2.1",
@@ -26,6 +26,7 @@
         "@angular/build": "^20.0.2",
         "@angular/cli": "^20.0.2",
         "@angular/compiler-cli": "^20.0.0",
+        "@types/axios": "^0.14.4",
         "@types/jasmine": "~5.1.0",
         "jasmine-core": "~5.7.0",
         "karma": "~6.4.0",
@@ -379,6 +380,8 @@
     "@tufjs/canonical-json": ["@tufjs/canonical-json@2.0.0", "", {}, "sha512-yVtV8zsdo8qFHe+/3kw81dSLyF7D576A5cCFCi4X7B39tWT7SekaEFUnvnWJHz+9qO7qJTah1JbrDjWKqFtdWA=="],
 
     "@tufjs/models": ["@tufjs/models@3.0.1", "", { "dependencies": { "@tufjs/canonical-json": "2.0.0", "minimatch": "^9.0.5" } }, "sha512-UUYHISyhCU3ZgN8yaear3cGATHb3SMuKHsQ/nVbHXcmnBf+LzQ/cQfhNG+rfaSHgqGKNEm2cOCLVLELStUQ1JA=="],
+
+    "@types/axios": ["@types/axios@0.14.4", "", { "dependencies": { "axios": "*" } }, "sha512-9JgOaunvQdsQ/qW2OPmE5+hCeUB52lQSolecrFrthct55QekhmXEwT203s20RL+UHtCQc15y3VXpby9E7Kkh/g=="],
 
     "@types/cors": ["@types/cors@2.8.19", "", { "dependencies": { "@types/node": "*" } }, "sha512-mFNylyeyqN93lfe/9CSxOGREz8cpzAhH+E93xJ4xWQf62V8sQ/24reV2nyzUWM6H6Xji+GGHpkbLe7pVoUEskg=="],
 

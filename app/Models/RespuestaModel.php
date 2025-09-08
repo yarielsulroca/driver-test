@@ -15,8 +15,10 @@ class RespuestaModel extends Model
     protected $allowedFields = [
         'pregunta_id',
         'texto',
-        'valor',
-        'es_correcta'
+        'imagen',
+        'es_correcta',
+        'orden',
+        'explicacion'
     ];
 
     // Dates
@@ -29,8 +31,8 @@ class RespuestaModel extends Model
     // Validation
     protected $validationRules = [
         'pregunta_id' => 'required|integer',
-        'texto' => 'required|min_length[1]|max_length[500]',
-        'valor' => 'required|numeric',
+        'texto' => 'permit_empty|min_length[1]|max_length[500]',
+        'imagen' => 'permit_empty|max_length[255]',
         'es_correcta' => 'required|in_list[0,1]'
     ];
     protected $validationMessages = [
@@ -39,13 +41,11 @@ class RespuestaModel extends Model
             'integer' => 'La pregunta debe ser un número entero'
         ],
         'texto' => [
-            'required' => 'El texto de la respuesta es requerido',
             'min_length' => 'El texto debe tener al menos 1 carácter',
             'max_length' => 'El texto no puede exceder los 500 caracteres'
         ],
-        'valor' => [
-            'required' => 'El valor es requerido',
-            'numeric' => 'El valor debe ser un número'
+        'imagen' => [
+            'max_length' => 'El nombre de la imagen no puede exceder los 255 caracteres'
         ],
         'es_correcta' => [
             'required' => 'El campo es_correcta es requerido',

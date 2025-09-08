@@ -1,0 +1,116 @@
+ERROR - 2025-08-11 13:39:22 --> mysqli_sql_exception: Table 'examen.escuelas' doesn't exist in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\examen\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\examen\app\Controllers\EscuelaController.php(27): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\EscuelaController->index()
+#8 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EscuelaController))
+#9 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-08-11 13:40:39 --> mysqli_sql_exception: Table 'examen.escuelas' doesn't exist in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\examen\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\examen\app\Controllers\EscuelaController.php(27): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\EscuelaController->index()
+#8 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EscuelaController))
+#9 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-08-11 13:49:47 --> mysqli_sql_exception: Table 'examen.escuelas' doesn't exist in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\examen\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\examen\app\Controllers\EscuelaController.php(27): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\EscuelaController->index()
+#8 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EscuelaController))
+#9 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-08-11 13:54:38 --> mysqli_sql_exception: Table 'examen.escuelas' doesn't exist in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\examen\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\examen\app\Controllers\EscuelaController.php(27): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\EscuelaController->index()
+#8 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EscuelaController))
+#9 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-08-11 13:56:59 --> mysqli_sql_exception: Table 'examen.escuelas' doesn't exist in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\examen\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\examen\app\Controllers\EscuelaController.php(27): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\EscuelaController->index()
+#8 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\EscuelaController))
+#9 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+DEBUG - 2025-08-11 14:31:56 --> Raw input: {"nombre":"Oficina de Transito  Cntral (B)","direccion":"Pedro Carrión  1080","ciudad":"Buenos Aires","telefono":"230 15-435-1043","email":"ofcina1@gmail.com","estado":"activo"}
+DEBUG - 2025-08-11 14:31:56 --> JSON decoded: {"nombre":"Oficina de Transito  Cntral (B)","direccion":"Pedro Carri\u00f3n  1080","ciudad":"Buenos Aires","telefono":"230 15-435-1043","email":"ofcina1@gmail.com","estado":"activo"}
+INFO - 2025-08-11 14:33:19 --> JSON recibido en update categoría: {"nombre":"Motos hasta 150cc","descripcion":"Licencia para conducir motocicletas y motoveh\u00edculos de hasta 150 cent\u00edmetros c\u00fabicos de cilindrada.","estado":"activo"}
+INFO - 2025-08-11 17:46:33 --> JSON recibido en update categoría: {"nombre":"Motos hasta 150cc","descripcion":"Licencia para conducir motocicletas y motoveh\u00edculos de hasta 150 cent\u00edmetros c\u00fabicos de cilindrada.","estado":"activo"}
+ERROR - 2025-08-11 19:04:47 --> mysqli_sql_exception: Duplicate entry 'A1' for key 'categorias.unique_codigo' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `ca...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `ca...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `ca...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ca...', Array, false)
+#4 C:\laragon\www\examen\app\Database\Seeds\CategoriasSeeder.php(160): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\laragon\www\examen\system\Database\Seeder.php(147): App\Database\Seeds\CategoriasSeeder->run()
+#6 C:\laragon\www\examen\system\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#7 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Seed->run(Array)
+#8 C:\laragon\www\examen\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#9 C:\laragon\www\examen\system\Boot.php(360): CodeIgniter\CLI\Console->run()
+#10 C:\laragon\www\examen\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#11 C:\laragon\www\examen\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#12 {main}
+ERROR - 2025-08-11 19:04:58 --> mysqli_sql_exception: Unknown column 'pregunta' in 'field list' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `pr...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `pr...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `pr...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `pr...', Array, false)
+#4 C:\laragon\www\examen\app\Database\Seeds\PreguntasExamenSeeder.php(356): CodeIgniter\Database\BaseBuilder->insert(Array, true)
+#5 C:\laragon\www\examen\app\Database\Seeds\PreguntasExamenSeeder.php(101): App\Database\Seeds\PreguntasExamenSeeder->insertarPreguntas(Array)
+#6 C:\laragon\www\examen\app\Database\Seeds\PreguntasExamenSeeder.php(15): App\Database\Seeds\PreguntasExamenSeeder->crearPreguntasNormas()
+#7 C:\laragon\www\examen\system\Database\Seeder.php(147): App\Database\Seeds\PreguntasExamenSeeder->run()
+#8 C:\laragon\www\examen\system\Commands\Database\Seed.php(79): CodeIgniter\Database\Seeder->call('App\\Database\\Se...')
+#9 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Seed->run(Array)
+#10 C:\laragon\www\examen\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('db:seed', Array)
+#11 C:\laragon\www\examen\system\Boot.php(360): CodeIgniter\CLI\Console->run()
+#12 C:\laragon\www\examen\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#13 C:\laragon\www\examen\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#14 {main}

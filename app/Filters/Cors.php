@@ -25,14 +25,19 @@ class Cors implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
+        // Log simple para verificar si el filtro se ejecuta
+        file_put_contents(__DIR__.'/../../writable/cors_simple.log', 'CORS SIMPLE ejecutado: ' . date('c') . ' - URI: ' . $request->getUri()->getPath() . ' - Method: ' . $request->getMethod() . PHP_EOL, FILE_APPEND);
+        
+        // Enviar headers CORS directamente
         header('Access-Control-Allow-Origin: *');
-        header('Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method, Authorization');
-        header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE');
+        header('Access-Control-Allow-Headers: X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method, Access-Control-Request-Headers, Authorization');
+        header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE, PATCH');
+        header('Access-Control-Max-Age: 86400');
         
-        $method = $_SERVER['REQUEST_METHOD'];
-        
-        if ($method == "OPTIONS") {
-            die();
+        // Si es una petición OPTIONS (preflight), terminar aquí
+        if ($request->getMethod() === 'OPTIONS') {
+            http_response_code(200);
+            exit();
         }
     }
 
@@ -50,6 +55,12 @@ class Cors implements FilterInterface
      */
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
-        // No es necesario hacer nada después de la petición
+        // Asegurar que los headers CORS estén en la respuesta final
+        $response->setHeader('Access-Control-Allow-Origin', '*');
+        $response->setHeader('Access-Control-Allow-Headers', 'X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Request-Method, Access-Control-Request-Headers, Authorization');
+        $response->setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE, PATCH');
+        $response->setHeader('Access-Control-Max-Age', '86400');
+        
+        return $response;
     }
 }

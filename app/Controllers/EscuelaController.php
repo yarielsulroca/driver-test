@@ -2,315 +2,357 @@
 
 namespace App\Controllers;
 
-use CodeIgniter\RESTful\ResourceController;
 use App\Models\EscuelaModel;
+use CodeIgniter\RESTful\ResourceController;
+use CodeIgniter\API\ResponseTrait;
 
 class EscuelaController extends ResourceController
 {
-    protected $escuelaModel;
+    use ResponseTrait;
+
+    protected $model;
+    protected $format = 'json';
 
     public function __construct()
     {
-        $this->escuelaModel = new EscuelaModel();
+        $this->model = new EscuelaModel();
     }
 
+    /**
+     * Listar todas las escuelas
+     */
     public function index()
     {
-        $escuelas = $this->escuelaModel->findAll();
-        return $this->respond($escuelas);
+        try {
+            $escuelas = $this->model->where('estado', 'activo')->findAll();
+
+            return $this->respond([
+                'status' => 'success',
+                'data' => $escuelas
+            ]);
+        } catch (\Exception $e) {
+            return $this->failServerError($e->getMessage());
+        }
     }
 
+    /**
+     * Mostrar una escuela específica
+     */
     public function show($id = null)
     {
-        $escuela = $this->escuelaModel->find($id);
-        if (!$escuela) {
-            return $this->failNotFound('Escuela no encontrada');
+        try {
+            $escuela = $this->model->find($id);
+
+            if (!$escuela) {
+                return $this->failNotFound('Escuela no encontrada');
+            }
+
+            return $this->respond([
+                'status' => 'success',
+                'data' => $escuela
+            ]);
+        } catch (\Exception $e) {
+            return $this->failServerError($e->getMessage());
         }
-        return $this->respond($escuela);
     }
 
+    /**
+     * Crear una nueva escuela
+     */
     public function create()
     {
-        $rules = [
-            'codigo' => [
-                'rules' => 'required|min_length[1]|max_length[10]|is_unique[escuelas.codigo]',
-                'errors' => [
-                    'required' => 'El código es obligatorio',
-                    'min_length' => 'El código debe tener al menos 1 carácter',
-                    'max_length' => 'El código no puede tener más de 10 caracteres',
-                    'is_unique' => 'Ya existe una escuela con este código'
-                ]
-            ],
-            'nombre' => [
-                'rules' => 'required|min_length[1]|max_length[100]|is_unique[escuelas.nombre]',
-                'errors' => [
-                    'required' => 'El nombre es obligatorio',
-                    'min_length' => 'El nombre debe tener al menos 1 carácter',
-                    'max_length' => 'El nombre no puede tener más de 100 caracteres',
-                    'is_unique' => 'Ya existe una escuela con este nombre'
-                ]
-            ],
-            'direccion' => [
-                'rules' => 'required|min_length[1]|max_length[255]',
-                'errors' => [
-                    'required' => 'La dirección es obligatoria',
-                    'min_length' => 'La dirección debe tener al menos 1 carácter',
-                    'max_length' => 'La dirección no puede tener más de 255 caracteres'
-                ]
-            ],
-            'telefono' => [
-                'rules' => 'required|min_length[1]|max_length[20]',
-                'errors' => [
-                    'required' => 'El teléfono es obligatorio',
-                    'min_length' => 'El teléfono debe tener al menos 1 carácter',
-                    'max_length' => 'El teléfono no puede tener más de 20 caracteres'
-                ]
-            ],
-            'email' => [
-                'rules' => 'required|valid_email|max_length[100]',
-                'errors' => [
-                    'required' => 'El email es obligatorio',
-                    'valid_email' => 'El email debe ser válido',
-                    'max_length' => 'El email no puede tener más de 100 caracteres'
-                ]
-            ],
-            'horario' => [
-                'rules' => 'required|min_length[1]|max_length[100]',
-                'errors' => [
-                    'required' => 'El horario es obligatorio',
-                    'min_length' => 'El horario debe tener al menos 1 carácter',
-                    'max_length' => 'El horario no puede tener más de 100 caracteres'
-                ]
-            ],
-            'estado' => [
-                'rules' => 'required|in_list[activo,inactivo]',
-                'errors' => [
-                    'required' => 'El estado es obligatorio',
-                    'in_list' => 'El estado debe ser activo o inactivo'
-                ]
-            ]
-        ];
-
-        if (!$this->validate($rules)) {
-            $errors = $this->validator->getErrors();
-            $response = [
-                'status' => 400,
-                'error' => true,
-                'messages' => $errors
-            ];
-            return $this->fail($response);
-        }
-
-        $data = [
-            'codigo' => $this->request->getVar('codigo'),
-            'nombre' => $this->request->getVar('nombre'),
-            'direccion' => $this->request->getVar('direccion'),
-            'telefono' => $this->request->getVar('telefono'),
-            'email' => $this->request->getVar('email'),
-            'horario' => $this->request->getVar('horario'),
-            'estado' => $this->request->getVar('estado')
-        ];
-
         try {
-            $this->escuelaModel->insert($data);
-            $response = [
-                'status' => 201,
-                'error' => null,
-                'messages' => [
-                    'success' => 'Escuela creada exitosamente'
+            // Log del raw input para debugging
+            $rawInput = $this->request->getBody();
+            log_message('debug', 'Raw input: ' . $rawInput);
+            
+            $json = $this->request->getJSON(true);
+            
+            // Log del JSON decodificado
+            log_message('debug', 'JSON decoded: ' . json_encode($json));
+            
+            if (empty($json)) {
+                log_message('error', 'JSON vacío o inválido');
+                return $this->fail([
+                    'status' => 'error',
+                    'message' => 'No se recibieron datos JSON válidos'
+                ], 400);
+            }
+
+            // Limpiar espacios extra de los campos
+            $json = array_map(function($value) {
+                return is_string($value) ? trim($value) : $value;
+            }, $json);
+
+            // Validar campos requeridos
+            $rules = [
+                'nombre' => [
+                    'rules' => 'required|min_length[3]|max_length[100]',
+                    'errors' => [
+                        'required' => 'El nombre es obligatorio',
+                        'min_length' => 'El nombre debe tener al menos 3 caracteres',
+                        'max_length' => 'El nombre no puede exceder los 100 caracteres'
+                    ]
+                ],
+                'direccion' => [
+                    'rules' => 'required|min_length[5]|max_length[255]',
+                    'errors' => [
+                        'required' => 'La dirección es obligatoria',
+                        'min_length' => 'La dirección debe tener al menos 5 caracteres',
+                        'max_length' => 'La dirección no puede exceder los 255 caracteres'
+                    ]
+                ],
+                'ciudad' => [
+                    'rules' => 'required|min_length[2]|max_length[100]',
+                    'errors' => [
+                        'required' => 'La ciudad es obligatoria',
+                        'min_length' => 'La ciudad debe tener al menos 2 caracteres',
+                        'max_length' => 'La ciudad no puede exceder los 100 caracteres'
+                    ]
+                ],
+                'telefono' => [
+                    'rules' => 'required|min_length[8]|max_length[15]',
+                    'errors' => [
+                        'required' => 'El teléfono es obligatorio',
+                        'min_length' => 'El teléfono debe tener al menos 8 caracteres',
+                        'max_length' => 'El teléfono no puede exceder los 15 caracteres'
+                    ]
+                ],
+                'email' => [
+                    'rules' => 'required|valid_email|max_length[100]|is_unique[escuelas.email]',
+                    'errors' => [
+                        'required' => 'El email es obligatorio',
+                        'valid_email' => 'El formato del email no es válido',
+                        'max_length' => 'El email no puede exceder los 100 caracteres',
+                        'is_unique' => 'Ya existe una escuela registrada con este email'
+                    ]
                 ]
             ];
-            return $this->respondCreated($response);
+
+            // Validar los datos
+            $validation = \Config\Services::validation();
+            $validation->setRules($rules);
+
+            if (!$validation->run($json)) {
+                return $this->fail([
+                    'status' => 'error',
+                    'message' => 'Error de validación',
+                    'errors' => $validation->getErrors()
+                ], 400);
+            }
+
+            // Preparar datos para inserción
+            $escuelaData = [
+                'nombre' => $json['nombre'],
+                'direccion' => $json['direccion'],
+                'ciudad' => $json['ciudad'],
+                'telefono' => $json['telefono'],
+                'email' => $json['email'],
+                'estado' => isset($json['estado']) ? $json['estado'] : 'activo'
+            ];
+
+            if (!$this->model->insert($escuelaData)) {
+                return $this->fail([
+                    'status' => 'error',
+                    'message' => 'Error al crear la escuela',
+                    'errors' => $this->model->errors()
+                ], 400);
+            }
+
+            $escuela_id = $this->model->getInsertID();
+            $escuela = $this->model->find($escuela_id);
+
+            return $this->respondCreated([
+                'status' => 'success',
+                'message' => 'Escuela creada exitosamente',
+                'data' => $escuela
+            ]);
+
         } catch (\Exception $e) {
-            $response = [
-                'status' => 500,
-                'error' => true,
-                'messages' => [
-                    'error' => 'Error al crear la escuela: ' . $e->getMessage()
-                ]
-            ];
-            return $this->fail($response);
+            return $this->failServerError($e->getMessage());
         }
     }
 
+    /**
+     * Actualizar una escuela existente
+     */
     public function update($id = null)
     {
-        $escuela = $this->escuelaModel->find($id);
-        if (!$escuela) {
-            return $this->failNotFound('Escuela no encontrada');
-        }
-
-        // Obtener los datos actuales de la escuela
-        $currentData = $this->escuelaModel->find($id);
-        
-        // Obtener los datos del request
-        $requestData = [
-            'nombre' => $this->request->getVar('nombre'),
-            'direccion' => $this->request->getVar('direccion'),
-            'telefono' => $this->request->getVar('telefono'),
-            'email' => $this->request->getVar('email'),
-            'horario' => $this->request->getVar('horario'),
-            'estado' => $this->request->getVar('estado')
-        ];
-
-        // Si se proporciona un código, agregarlo a los datos
-        if ($this->request->getVar('codigo')) {
-            $requestData['codigo'] = $this->request->getVar('codigo');
-        }
-
-        // Verificar si los campos han cambiado
-        $codigoChanged = isset($requestData['codigo']) && $requestData['codigo'] !== $currentData['codigo'];
-        $nombreChanged = $requestData['nombre'] !== $currentData['nombre'];
-        $emailChanged = $requestData['email'] !== $currentData['email'];
-
-        // Si el nombre no ha cambiado, mantener el actual
-        if (!$nombreChanged) {
-            $requestData['nombre'] = $currentData['nombre'];
-        }
-
-        // Si el email no ha cambiado, mantener el actual
-        if (!$emailChanged) {
-            $requestData['email'] = $currentData['email'];
-        }
-
-        $rules = [
-            'nombre' => [
-                'rules' => 'required|min_length[1]|max_length[100]' . ($nombreChanged ? "|is_unique[escuelas.nombre,escuela_id,$id]" : ''),
-                'errors' => [
-                    'required' => 'El nombre es obligatorio',
-                    'min_length' => 'El nombre debe tener al menos 1 carácter',
-                    'max_length' => 'El nombre no puede tener más de 100 caracteres',
-                    'is_unique' => 'Ya existe una escuela con este nombre'
-                ]
-            ],
-            'direccion' => [
-                'rules' => 'required|min_length[1]|max_length[200]',
-                'errors' => [
-                    'required' => 'La dirección es obligatoria',
-                    'min_length' => 'La dirección debe tener al menos 1 carácter',
-                    'max_length' => 'La dirección no puede tener más de 200 caracteres'
-                ]
-            ],
-            'telefono' => [
-                'rules' => 'required|min_length[1]|max_length[20]',
-                'errors' => [
-                    'required' => 'El teléfono es obligatorio',
-                    'min_length' => 'El teléfono debe tener al menos 1 carácter',
-                    'max_length' => 'El teléfono no puede tener más de 20 caracteres'
-                ]
-            ],
-            'email' => [
-                'rules' => 'required|valid_email|max_length[100]' . ($emailChanged ? "|is_unique[escuelas.email,escuela_id,$id]" : ''),
-                'errors' => [
-                    'required' => 'El email es obligatorio',
-                    'valid_email' => 'El email debe ser válido',
-                    'max_length' => 'El email no puede tener más de 100 caracteres',
-                    'is_unique' => 'Ya existe una escuela con este email'
-                ]
-            ],
-            'horario' => [
-                'rules' => 'required|min_length[1]|max_length[100]',
-                'errors' => [
-                    'required' => 'El horario es obligatorio',
-                    'min_length' => 'El horario debe tener al menos 1 carácter',
-                    'max_length' => 'El horario no puede tener más de 100 caracteres'
-                ]
-            ],
-            'estado' => [
-                'rules' => 'required|in_list[activo,inactivo]',
-                'errors' => [
-                    'required' => 'El estado es obligatorio',
-                    'in_list' => 'El estado debe ser activo o inactivo'
-                ]
-            ]
-        ];
-
-        // Agregar reglas para el código solo si se proporciona
-        if (isset($requestData['codigo'])) {
-            $rules['codigo'] = [
-                'rules' => 'min_length[1]|max_length[10]' . ($codigoChanged ? "|is_unique[escuelas.codigo,escuela_id,$id]" : ''),
-                'errors' => [
-                    'min_length' => 'El código debe tener al menos 1 carácter',
-                    'max_length' => 'El código no puede tener más de 10 caracteres',
-                    'is_unique' => 'Ya existe una escuela con este código'
-                ]
-            ];
-        }
-
-        if (!$this->validate($rules)) {
-            $errors = $this->validator->getErrors();
-            return $this->fail($errors);
-        }
-
         try {
-            // Intentar actualizar
-            if ($this->escuelaModel->update($id, $requestData)) {
-                $updatedEscuela = $this->escuelaModel->find($id);
-                return $this->respond([
-                    'status' => 200,
-                    'error' => null,
-                    'messages' => [
-                        'success' => 'Escuela actualizada exitosamente'
-                    ],
-                    'data' => $updatedEscuela
-                ]);
+            $escuela = $this->model->find($id);
+            if (!$escuela) {
+                return $this->failNotFound('Escuela no encontrada');
             }
 
-            // Si la actualización falla, verificar errores
-            $dbError = $this->escuelaModel->errors();
-            if (!empty($dbError)) {
+            $json = $this->request->getJSON(true);
+            
+            if (empty($json)) {
                 return $this->fail([
-                    'status' => 400,
-                    'error' => true,
-                    'messages' => $dbError
-                ]);
+                    'status' => 'error',
+                    'message' => 'No se recibieron datos JSON válidos'
+                ], 400);
             }
 
-            return $this->fail([
-                'status' => 500,
-                'error' => true,
-                'messages' => [
-                    'error' => 'Error al actualizar la escuela'
-                ]
+            // Limpiar espacios extra de los campos
+            $json = array_map(function($value) {
+                return is_string($value) ? trim($value) : $value;
+            }, $json);
+
+            // Determinar si es una actualización completa (PUT) o parcial (PATCH)
+            $isCompleteUpdate = $this->request->getMethod() === 'PUT';
+            
+            // Para actualizaciones parciales (PATCH), solo validar los campos enviados
+            // Para actualizaciones completas (PUT), validar todos los campos requeridos
+            $rules = [];
+            $escuelaData = [];
+            
+            // Campos que pueden ser actualizados
+            $updatableFields = ['nombre', 'direccion', 'ciudad', 'telefono', 'email', 'estado'];
+            
+            foreach ($updatableFields as $field) {
+                if (isset($json[$field])) {
+                    $escuelaData[$field] = $json[$field];
+                    
+                    // Definir reglas de validación según el campo
+                    switch ($field) {
+                        case 'nombre':
+                            $rules['nombre'] = [
+                                'rules' => 'required|min_length[3]|max_length[100]',
+                                'errors' => [
+                                    'required' => 'El nombre es obligatorio',
+                                    'min_length' => 'El nombre debe tener al menos 3 caracteres',
+                                    'max_length' => 'El nombre no puede exceder los 100 caracteres'
+                                ]
+                            ];
+                            break;
+                        case 'direccion':
+                            $rules['direccion'] = [
+                                'rules' => 'required|min_length[5]|max_length[255]',
+                                'errors' => [
+                                    'required' => 'La dirección es obligatoria',
+                                    'min_length' => 'La dirección debe tener al menos 5 caracteres',
+                                    'max_length' => 'La dirección no puede exceder los 255 caracteres'
+                                ]
+                            ];
+                            break;
+                        case 'ciudad':
+                            $rules['ciudad'] = [
+                                'rules' => 'required|min_length[2]|max_length[100]',
+                                'errors' => [
+                                    'required' => 'La ciudad es obligatoria',
+                                    'min_length' => 'La ciudad debe tener al menos 2 caracteres',
+                                    'max_length' => 'La ciudad no puede exceder los 100 caracteres'
+                                ]
+                            ];
+                            break;
+                        case 'telefono':
+                            $rules['telefono'] = [
+                                'rules' => 'required|min_length[8]|max_length[15]',
+                                'errors' => [
+                                    'required' => 'El teléfono es obligatorio',
+                                    'min_length' => 'El teléfono debe tener al menos 8 caracteres',
+                                    'max_length' => 'El teléfono no puede exceder los 15 caracteres'
+                                ]
+                            ];
+                            break;
+                        case 'email':
+                            $rules['email'] = [
+                                'rules' => "required|valid_email|max_length[100]|is_unique[escuelas.email,escuela_id,{$id}]",
+                                'errors' => [
+                                    'required' => 'El email es obligatorio',
+                                    'valid_email' => 'El formato del email no es válido',
+                                    'max_length' => 'El email no puede exceder los 100 caracteres',
+                                    'is_unique' => 'Ya existe otra escuela registrada con este email'
+                                ]
+                            ];
+                            break;
+                        case 'estado':
+                            $rules['estado'] = [
+                                'rules' => 'required|in_list[activo,inactivo]',
+                                'errors' => [
+                                    'required' => 'El estado es obligatorio',
+                                    'in_list' => 'El estado debe ser activo o inactivo'
+                                ]
+                            ];
+                            break;
+                    }
+                } elseif ($isCompleteUpdate) {
+                    // Para PUT, todos los campos son requeridos
+                    return $this->fail([
+                        'status' => 'error',
+                        'message' => 'Para actualización completa (PUT), todos los campos son requeridos',
+                        'missing_fields' => array_diff($updatableFields, array_keys($json))
+                    ], 400);
+                }
+            }
+
+            // Si no hay campos para actualizar
+            if (empty($escuelaData)) {
+                return $this->fail([
+                    'status' => 'error',
+                    'message' => 'No se proporcionaron campos válidos para actualizar'
+                ], 400);
+            }
+
+            // Validar los datos
+            $validation = \Config\Services::validation();
+            $validation->setRules($rules);
+
+            if (!$validation->run($escuelaData)) {
+                return $this->fail([
+                    'status' => 'error',
+                    'message' => 'Error de validación',
+                    'errors' => $validation->getErrors()
+                ], 400);
+            }
+
+            if (!$this->model->update($id, $escuelaData)) {
+                return $this->fail([
+                    'status' => 'error',
+                    'message' => 'Error al actualizar la escuela',
+                    'errors' => $this->model->errors()
+                ], 400);
+            }
+
+            $escuelaActualizada = $this->model->find($id);
+
+            return $this->respond([
+                'status' => 'success',
+                'message' => 'Escuela actualizada exitosamente',
+                'data' => $escuelaActualizada
             ]);
 
         } catch (\Exception $e) {
-            return $this->fail([
-                'status' => 500,
-                'error' => true,
-                'messages' => [
-                    'error' => 'Error al actualizar la escuela: ' . $e->getMessage()
-                ]
-            ]);
+            return $this->failServerError($e->getMessage());
         }
     }
 
+    /**
+     * Eliminar una escuela
+     */
     public function delete($id = null)
     {
-        $escuela = $this->escuelaModel->find($id);
-        if (!$escuela) {
-            return $this->failNotFound('Escuela no encontrada');
-        }
-
         try {
-            $this->escuelaModel->delete($id);
-            $response = [
-                'status' => 200,
-                'error' => null,
-                'messages' => [
-                    'success' => 'Escuela eliminada exitosamente'
-                ]
-            ];
-            return $this->respond($response);
+            $escuela = $this->model->find($id);
+            if (!$escuela) {
+                return $this->failNotFound('Escuela no encontrada');
+            }
+
+            // En lugar de eliminar, cambiar el estado a inactivo
+            if (!$this->model->update($id, ['estado' => 'inactivo'])) {
+                return $this->fail([
+                    'status' => 'error',
+                    'message' => 'Error al desactivar la escuela'
+                ], 400);
+            }
+
+            return $this->respond([
+                'status' => 'success',
+                'message' => 'Escuela desactivada exitosamente'
+            ]);
+
         } catch (\Exception $e) {
-            $response = [
-                'status' => 500,
-                'error' => true,
-                'messages' => [
-                    'error' => 'Error al eliminar la escuela: ' . $e->getMessage()
-                ]
-            ];
-            return $this->fail($response);
+            return $this->failServerError($e->getMessage());
         }
     }
 } 

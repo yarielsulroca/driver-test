@@ -1,0 +1,299 @@
+<div class="pregunta-editor-container">
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <button class="btn-back" (click)="cancelar()">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        Volver
+      </button>
+      <h1>{{ preguntaId ? 'Editar' : 'Crear' }} Pregunta</h1>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-state">
+    <div class="loading-spinner"></div>
+    <p>Cargando pregunta...</p>
+  </div>
+
+  <!-- Debug Info -->
+  <div class="debug-info" style="background: #f0f0f0; padding: 10px; margin: 10px; border: 1px solid #ccc;">
+    <strong>Debug:</strong> Loading: {{ loading }} | Pregunta ID: {{ preguntaId }} | Respuestas: {{ pregunta.respuestas?.length || 0 }}
+  </div>
+
+  <!-- Form -->
+  <div *ngIf="!loading" class="form-container">
+    <form (ngSubmit)="guardarPregunta()" #preguntaForm="ngForm">
+      
+      <!-- Información Básica -->
+      <div class="form-section">
+        <h3>Información Básica</h3>
+        
+        <div class="form-group">
+          <label for="enunciado">Enunciado de la Pregunta *</label>
+          <textarea 
+            id="enunciado" 
+            name="enunciado"
+            [(ngModel)]="pregunta.enunciado" 
+            required
+            rows="4"
+            class="form-textarea"
+            placeholder="Escribe aquí la pregunta..."
+          ></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="tipo_pregunta">Tipo de Pregunta *</label>
+            <select 
+              id="tipo_pregunta" 
+              name="tipo_pregunta"
+              [(ngModel)]="pregunta.tipo_pregunta" 
+              (change)="onTipoPreguntaChange()"
+              required
+              class="form-select"
+            >
+              <option *ngFor="let tipo of tiposPregunta" [value]="tipo.value">
+                {{ tipo.label }}
+              </option>
+            </select>
+            <small class="form-help">{{ getTipoDescripcion() }}</small>
+          </div>
+
+          <div class="form-group">
+            <label for="categoria_id">Categoría *</label>
+            <select 
+              id="categoria_id" 
+              name="categoria_id"
+              [(ngModel)]="pregunta.categoria_id" 
+              required
+              class="form-select"
+            >
+              <option value="">Seleccionar categoría</option>
+              <option *ngFor="let categoria of categorias" [value]="categoria.categoria_id">
+                {{ categoria.codigo }} - {{ categoria.nombre }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="puntaje">Puntaje *</label>
+            <input 
+              type="number" 
+              id="puntaje" 
+              name="puntaje"
+              [(ngModel)]="pregunta.puntaje" 
+              required
+              min="0.5"
+              step="0.5"
+              class="form-input"
+              placeholder="1.0"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="dificultad">Dificultad *</label>
+            <select 
+              id="dificultad" 
+              name="dificultad"
+              [(ngModel)]="pregunta.dificultad" 
+              required
+              class="form-select"
+            >
+              <option *ngFor="let diff of dificultades" [value]="diff.value">
+                {{ diff.label }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group checkbox-group">
+            <label class="checkbox-label">
+              <input 
+                type="checkbox" 
+                name="es_critica"
+                [(ngModel)]="pregunta.es_critica"
+                class="form-checkbox"
+              >
+              <span class="checkmark"></span>
+              Pregunta Crítica
+            </label>
+            <small class="form-help">Las preguntas críticas son obligatorias para aprobar</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Respuestas -->
+      <div class="form-section">
+        <h3>Respuestas</h3>
+        
+        <div class="respuestas-container">
+          <div *ngFor="let respuesta of pregunta.respuestas; let i = index" class="respuesta-item">
+            <div class="respuesta-header">
+              <h4>Respuesta {{ i + 1 }}</h4>
+              <div class="respuesta-actions">
+                <label class="checkbox-label">
+                  <input 
+                    type="checkbox" 
+                    [name]="'correcta_' + i"
+                    [(ngModel)]="respuesta.es_correcta"
+                    class="form-checkbox"
+                  >
+                  <span class="checkmark"></span>
+                  Correcta
+                </label>
+                
+                <button 
+                  *ngIf="pregunta.respuestas && pregunta.respuestas.length > 2"
+                  type="button" 
+                  class="btn-icon btn-danger"
+                  (click)="eliminarRespuesta(i)"
+                  title="Eliminar respuesta"
+                >
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <div class="respuesta-content">
+              <div class="form-group">
+                <label [for]="'texto_' + i">Texto de la Respuesta</label>
+                <input 
+                  type="text" 
+                  [id]="'texto_' + i"
+                  [name]="'texto_' + i"
+                  [(ngModel)]="respuesta.texto" 
+                  class="form-input"
+                  [placeholder]="'Respuesta ' + (i + 1)"
+                  title="Texto de la respuesta"
+                  aria-label="Texto de la respuesta"
+                >
+              </div>
+
+              <!-- Imagen de la respuesta -->
+              <div class="form-group">
+                <label [for]="'imagen_' + i">Imagen (opcional)</label>
+                <div class="image-upload-container">
+                  <!-- Input de archivo -->
+                  <div class="file-input-wrapper">
+                    <input 
+                      type="file" 
+                      [id]="'imagen_' + i"
+                      [name]="'imagen_' + i"
+                      (change)="subirImagen($event, i)"
+                      accept="image/*"
+                      class="image-input"
+                      [title]="'Subir imagen para respuesta ' + (i + 1)"
+                      aria-label="Seleccionar imagen para respuesta"
+                    >
+                    <label [for]="'imagen_' + i" class="file-input-label">
+                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" class="upload-icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                      </svg>
+                      <span>Seleccionar imagen</span>
+                    </label>
+                  </div>
+                  
+                  <!-- Vista previa de imagen con marco estándar -->
+                  <div class="image-preview-container" *ngIf="respuesta.imagen">
+                    <div class="image-frame">
+                      <img 
+                        [src]="getImagenUrl(respuesta.imagen)" 
+                        [alt]="'Imagen respuesta ' + (i + 1)" 
+                        title="Imagen respuesta" 
+                        aria-label="Imagen respuesta"
+                        class="preview-image"
+                        (load)="onImageLoad($event)"
+                        (error)="onImageError($event)"
+                      >
+                      <div class="image-overlay">
+                        <button 
+                          type="button" 
+                          class="btn-icon btn-danger btn-remove-image"
+                          (click)="eliminarImagen(i)"
+                          title="Eliminar imagen"
+                        >
+                          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="image-info">
+                      <span class="image-name">{{ respuesta.imagen }}</span>
+                    </div>
+                  </div>
+                  
+                  <!-- Estado de carga -->
+                  <div class="image-loading" *ngIf="respuesta.uploading">
+                    <div class="loading-spinner-small"></div>
+                    <span>Subiendo imagen...</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Campos adicionales según el tipo -->
+              <div *ngIf="pregunta.tipo_pregunta === 'completar_espacios'" class="form-group">
+                <label [for]="'explicacion_' + i">Explicación</label>
+                <textarea 
+                  [id]="'explicacion_' + i"
+                  [name]="'explicacion_' + i"
+                  [(ngModel)]="respuesta.explicacion" 
+                  rows="2"
+                  class="form-textarea"
+                  placeholder="Explicación de la respuesta correcta..."
+                  [title]="'Explicación de la respuesta ' + (i + 1)"
+                ></textarea>
+              </div>
+
+              <div *ngIf="pregunta.tipo_pregunta === 'ordenar'" class="form-group">
+                <label [for]="'orden_' + i">Orden</label>
+                <input 
+                  type="number" 
+                  [id]="'orden_' + i"
+                  [name]="'orden_' + i"
+                  [(ngModel)]="respuesta.orden" 
+                  min="1"
+                  class="form-input"
+                  placeholder="1"
+                  [title]="'Orden de la respuesta ' + (i + 1)"
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Botón para agregar más respuestas -->
+          <div *ngIf="pregunta.tipo_pregunta === 'multiple' || pregunta.tipo_pregunta === 'unica'" class="add-respuesta">
+            <button 
+              type="button" 
+              class="btn-secondary"
+              (click)="agregarRespuesta()"
+            >
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+              </svg>
+              Agregar Respuesta
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Acciones del formulario -->
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="cancelar()" [disabled]="saving">
+          Cancelar
+        </button>
+        <button type="submit" class="btn-primary" [disabled]="saving || !preguntaForm.form.valid">
+          <div *ngIf="saving" class="loading-spinner-small"></div>
+          <span *ngIf="!saving">{{ preguntaId ? 'Actualizar' : 'Crear' }} Pregunta</span>
+          <span *ngIf="saving">Guardando...</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div> 

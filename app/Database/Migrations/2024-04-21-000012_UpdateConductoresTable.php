@@ -12,7 +12,7 @@ class UpdateConductoresTable extends Migration
             'nombre' => [
                 'type' => 'VARCHAR',
                 'constraint' => 100,
-                'after' => 'usuario_id'
+                'after' => 'conductor_id'
             ],
             'apellido' => [
                 'type' => 'VARCHAR',

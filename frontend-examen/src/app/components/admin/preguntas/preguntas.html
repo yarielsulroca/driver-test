@@ -1,0 +1,533 @@
+<div class="preguntas-container">
+  <!-- Header -->
+  <div class="header">
+    <div class="header-content">
+      <div class="logo">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+        </svg>
+      </div>
+      <div class="title">
+        <h1>Gestión de Preguntas</h1>
+        <p>Administra las preguntas del sistema de exámenes</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Actions Bar -->
+  <div class="actions-bar">
+    <div class="search-container">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+      </svg>
+      <input 
+        type="text" 
+        [(ngModel)]="searchTerm" 
+        (keyup.enter)="buscar()"
+        placeholder="Buscar por enunciado..."
+        class="search-input"
+      >
+    </div>
+
+    <div class="filters-container">
+      <select [(ngModel)]="selectedCategory" (change)="filtrar()" class="filter-select" title="Filtrar por categoría">
+        <option value="">Todas las categorías</option>
+        <option *ngFor="let categoria of categorias" [value]="categoria.categoria_id">
+          {{ categoria.codigo }} - {{ categoria.nombre }}
+        </option>
+      </select>
+
+      <select [(ngModel)]="selectedType" (change)="filtrar()" class="filter-select" title="Filtrar por tipo">
+        <option value="">Todos los tipos</option>
+        <option value="multiple">Múltiple</option>
+        <option value="unica">Única</option>
+        <option value="verdadero_falso">Verdadero/Falso</option>
+      </select>
+
+      <select [(ngModel)]="selectedDifficulty" (change)="filtrar()" class="filter-select" title="Filtrar por dificultad">
+        <option value="">Todas las dificultades</option>
+        <option value="facil">Fácil</option>
+        <option value="medio">Medio</option>
+        <option value="dificil">Difícil</option>
+      </select>
+
+      <select [(ngModel)]="selectedCritical" (change)="filtrar()" class="filter-select" title="Filtrar por tipo crítico">
+        <option value="">Todas las preguntas</option>
+        <option value="true">Solo críticas</option>
+        <option value="false">No críticas</option>
+      </select>
+    </div>
+
+    <button class="btn-primary" (click)="crearPregunta()">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+      </svg>
+      Crear Pregunta
+    </button>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="content-card">
+      <!-- Loading State -->
+      <div *ngIf="loading" class="loading-state">
+        <div class="loading-spinner"></div>
+        <p>Cargando preguntas...</p>
+      </div>
+
+      <!-- Error State -->
+      <div *ngIf="error && !loading" class="error-state">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <h3>Error</h3>
+        <p>{{ error }}</p>
+        <button class="btn-secondary" (click)="cargarPreguntas()">Reintentar</button>
+      </div>
+
+      <!-- Empty State -->
+      <div *ngIf="!loading && !error && preguntas.length === 0" class="empty-state">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+        </svg>
+        <h3>No hay preguntas</h3>
+        <p>Comienza creando tu primera pregunta</p>
+        <button class="btn-primary" (click)="crearPregunta()">Crear Primera Pregunta</button>
+      </div>
+
+      <!-- Questions Table -->
+      <div *ngIf="!loading && !error && preguntas.length > 0" class="table-container">
+        <table class="questions-table">
+          <thead>
+            <tr>
+              <th>Pregunta</th>
+              <th>Categoría</th>
+              <th>Tipo</th>
+              <th>Dificultad</th>
+              <th>Puntaje</th>
+              <th>Crítica</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pregunta of preguntas; let i = index" class="question-row" [class.expanded]="pregunta.expanded">
+              <td class="question-cell">
+                <div class="question-content">
+                  <div class="question-header" (click)="toggleExpansion(pregunta)">
+                    <button class="expand-button" [class.expanded]="pregunta.expanded" title="Expandir/Contraer">
+                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                      </svg>
+                    </button>
+                    <p class="question-text">{{ pregunta.enunciado }}</p>
+                  </div>
+                  <div class="question-meta">
+                    <span class="meta-item">
+                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                      </svg>
+                      {{ pregunta.respuestas?.length || 0 }} respuestas
+                    </span>
+                  </div>
+                </div>
+              </td>
+              <td class="category-cell">
+                <span class="category-badge">
+                  {{ getCategoriaNombre(pregunta.categoria_id) }}
+                </span>
+              </td>
+              <td class="type-cell">
+                <span class="badge" [class]="getTipoClass(pregunta.tipo_pregunta || pregunta.tipo)">
+                  {{ getTipoText(pregunta.tipo_pregunta || pregunta.tipo) }}
+                </span>
+              </td>
+              <td class="difficulty-cell">
+                <span class="badge" [class]="getDificultadClass(pregunta.dificultad)">
+                  {{ getDificultadText(pregunta.dificultad) }}
+                </span>
+              </td>
+              <td class="score-cell">
+                <div class="score-display">
+                  <span class="score-value">{{ pregunta.puntaje }}</span>
+                  <span class="score-label">puntos</span>
+                </div>
+              </td>
+              <td class="critical-cell">
+                <span *ngIf="toBoolean(pregunta.es_critica)" class="badge badge-danger">
+                  Crítica
+                </span>
+                <span *ngIf="!toBoolean(pregunta.es_critica)" class="badge badge-secondary">
+                  Normal
+                </span>
+              </td>
+              <td class="actions-cell">
+                <div class="action-buttons">
+                  <button class="btn-icon" (click)="editarPregunta(pregunta)" title="Editar">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                    </svg>
+                  </button>
+                  <button class="btn-icon btn-danger" (click)="eliminarPregunta(pregunta)" title="Eliminar">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            
+            <!-- Fila expandible para mostrar respuestas -->
+            <tr *ngIf="pregunta.expanded" class="expansion-row">
+              <td colspan="7" class="expansion-cell">
+                <div class="expansion-content">
+                  <h4>Respuestas de la Pregunta</h4>
+                  
+                  <!-- Loading de respuestas -->
+                  <div *ngIf="pregunta.loadingRespuestas" class="loading-respuestas">
+                    <div class="loading-spinner-small"></div>
+                    <span>Cargando respuestas...</span>
+                  </div>
+                  
+                  <!-- Lista de respuestas -->
+                  <div *ngIf="!pregunta.loadingRespuestas && pregunta.respuestas && pregunta.respuestas.length > 0" class="respuestas-list">
+                    <div *ngFor="let respuesta of pregunta.respuestas; let j = index" class="respuesta-item">
+                      <div class="respuesta-content">
+                        <div class="respuesta-texto">
+                          <span class="respuesta-label">{{ j + 1 }}.</span>
+                          <span class="respuesta-texto-content">{{ respuesta.texto || 'Sin texto' }}</span>
+                          <span *ngIf="respuesta.es_correcta" class="respuesta-correcta">
+                            <svg fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                            </svg>
+                            Correcta
+                          </span>
+                        </div>
+                        
+                        <!-- Imagen de la respuesta -->
+                        <div *ngIf="respuesta.imagen" class="respuesta-imagen">
+                          <div class="image-frame-small">
+                            <img 
+                              [src]="getImagenUrl(respuesta.imagen)" 
+                              [alt]="'Imagen respuesta ' + (j + 1)"
+                              class="preview-image-small"
+                              (click)="verImagenCompleta(respuesta.imagen)"
+                              title="Hacer clic para ver imagen completa"
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Sin respuestas -->
+                  <div *ngIf="!pregunta.loadingRespuestas && (!pregunta.respuestas || pregunta.respuestas.length === 0)" class="no-respuestas">
+                    <p>Esta pregunta no tiene respuestas definidas.</p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <div *ngIf="totalPages > 1" class="pagination">
+          <button 
+            class="btn-page" 
+            [disabled]="currentPage === 1"
+            (click)="cambiarPagina(currentPage - 1)"
+          >
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+            Anterior
+          </button>
+
+          <div class="page-numbers">
+            <span class="page-info">
+              Página {{ currentPage }} de {{ totalPages }}
+            </span>
+          </div>
+
+          <button 
+            class="btn-page" 
+            [disabled]="currentPage === totalPages"
+            (click)="cambiarPagina(currentPage + 1)"
+          >
+            Siguiente
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Create/Edit Question -->
+  <div *ngIf="showModal" class="modal-overlay" (click)="cerrarModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>{{ editingPregunta ? 'Editar Pregunta' : 'Nueva Pregunta' }}</h2>
+        <button class="btn-close" (click)="cerrarModal()" title="Cerrar modal">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+          <div class="progress-step" [class.active]="currentStep >= 1" [class.completed]="currentStep > 1">
+            <span class="step-number">1</span>
+            <span class="step-label">Información Básica</span>
+          </div>
+          <div class="progress-line" [class.completed]="currentStep > 1"></div>
+          <div class="progress-step" [class.active]="currentStep >= 2">
+            <span class="step-number">2</span>
+            <span class="step-label">Respuestas</span>
+          </div>
+        </div>
+
+        <form (ngSubmit)="guardarPregunta()" #preguntaForm="ngForm">
+          <!-- Error Display -->
+          <div *ngIf="error" class="form-error">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            {{ error }}
+          </div>
+
+          <!-- Step 1: Basic Information Section -->
+          <div class="form-section" *ngIf="currentStep === 1">
+            <h3>Paso 1: Información Básica</h3>
+            
+            <div class="form-group">
+              <label for="enunciado">Enunciado de la pregunta *</label>
+              <textarea 
+                id="enunciado"
+                [(ngModel)]="formData.enunciado" 
+                name="enunciado"
+                rows="4"
+                placeholder="Escribe el enunciado de la pregunta..."
+                required
+                class="form-control"
+              ></textarea>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="categoria">Categoría *</label>
+                <select 
+                  id="categoria"
+                  [(ngModel)]="formData.categoria_id" 
+                  name="categoria_id"
+                  required
+                  class="form-control"
+                >
+                  <option value="">Seleccionar categoría</option>
+                  <option *ngFor="let categoria of categorias" [value]="categoria.categoria_id">
+                    {{ categoria.codigo }} - {{ categoria.nombre }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="tipo">Tipo de pregunta *</label>
+                <select 
+                  id="tipo"
+                  [(ngModel)]="formData.tipo" 
+                  name="tipo"
+                  required
+                  class="form-control"
+                >
+                  <option value="multiple">Múltiple</option>
+                  <option value="unica">Única</option>
+                  <option value="verdadero_falso">Verdadero/Falso</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="dificultad">Dificultad *</label>
+                <select 
+                  id="dificultad"
+                  [(ngModel)]="formData.dificultad" 
+                  name="dificultad"
+                  required
+                  class="form-control"
+                >
+                  <option value="facil">Fácil</option>
+                  <option value="medio">Medio</option>
+                  <option value="dificil">Difícil</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="puntaje">Puntaje *</label>
+                <input 
+                  type="number" 
+                  id="puntaje"
+                  [(ngModel)]="formData.puntaje" 
+                  name="puntaje"
+                  min="1"
+                  max="10"
+                  required
+                  class="form-control"
+                >
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="checkbox-label">
+                <input 
+                  type="checkbox" 
+                  [(ngModel)]="formData.es_critica" 
+                  name="es_critica"
+                  class="checkbox-input"
+                >
+                <span class="checkbox-custom"></span>
+                Pregunta crítica (fallo automático si se responde incorrectamente)
+              </label>
+            </div>
+
+            <!-- Step 1 Actions -->
+            <div class="form-actions">
+              <button type="button" class="btn-primary" (click)="nextStep()" [disabled]="!canProceedToStep2()">
+                Siguiente: Respuestas
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 2: Answers Section -->
+          <div class="form-section" *ngIf="currentStep === 2">
+            <h3>Paso 2: Respuestas</h3>
+            
+            <div class="form-info">
+              <p><strong>Enunciado:</strong> {{ formData.enunciado }}</p>
+              <p><strong>Categoría:</strong> {{ getCategoriaNombre(formData.categoria_id) }}</p>
+              <p><strong>Tipo:</strong> {{ getTipoText(formData.tipo) }}</p>
+            </div>
+
+            <div class="section-header">
+              <h4>Agregar Respuestas</h4>
+              <button type="button" class="btn-secondary" (click)="agregarRespuesta()">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
+                Agregar Respuesta
+              </button>
+            </div>
+
+            <div class="answers-container">
+              <div *ngFor="let respuesta of formData.respuestas; let i = index" class="answer-item">
+                <div class="answer-content">
+                  <div class="answer-input">
+                    <label>Texto de la respuesta (opcional si hay imagen)</label>
+                    <textarea 
+                      [(ngModel)]="respuesta.texto" 
+                      [name]="'respuesta_' + i"
+                      placeholder="Escribe la respuesta..."
+                      rows="2"
+                      class="form-control"
+                    ></textarea>
+                  </div>
+                  
+                  <div class="answer-image">
+                    <label>Imagen de la respuesta (opcional)</label>
+                    <div class="image-upload">
+                      <input 
+                        type="file" 
+                        [id]="'image_' + i"
+                        accept="image/*"
+                        (change)="onImageChange($event, i)"
+                        class="file-input"
+                        title="Seleccionar imagen para la respuesta"
+                      >
+                      <label [for]="'image_' + i" class="file-label">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                        </svg>
+                        <span>{{ respuesta.imagen ? 'Cambiar imagen' : 'Subir imagen' }}</span>
+                      </label>
+                    </div>
+                    <div *ngIf="respuesta.imagen" class="image-preview">
+                      <img [src]="respuesta.imagen" alt="Preview" class="preview-image">
+                      <button type="button" class="btn-icon btn-danger" (click)="removeImage(i)" title="Eliminar imagen">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div class="answer-controls">
+                    <button 
+                      type="button" 
+                      class="btn-checkbox" 
+                      [class.active]="respuesta.es_correcta"
+                      (click)="toggleRespuestaCorrecta(i)"
+                    >
+                      <svg *ngIf="respuesta.es_correcta" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                      </svg>
+                      <span>{{ respuesta.es_correcta ? 'Correcta' : 'Marcar como correcta' }}</span>
+                    </button>
+                    <button 
+                      type="button" 
+                      class="btn-icon btn-danger" 
+                      (click)="eliminarRespuesta(i)"
+                      [disabled]="formData.respuestas && formData.respuestas.length <= 2"
+                      title="Eliminar respuesta"
+                    >
+                      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="!formData.respuestas || formData.respuestas.length === 0" class="empty-answers">
+              <p>No hay respuestas agregadas. Haz clic en "Agregar Respuesta" para comenzar.</p>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" (click)="cerrarModal()">
+          Cancelar
+        </button>
+        <button type="button" class="btn-primary" (click)="guardarPregunta()">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          {{ editingPregunta ? 'Actualizar' : 'Crear' }} Pregunta
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal para ver imagen completa -->
+  <div *ngIf="showImageModal" class="modal-overlay image-modal-overlay" (click)="cerrarImagenModal()">
+    <div class="image-modal-content" (click)="$event.stopPropagation()">
+      <div class="image-modal-header">
+        <h3>Vista de Imagen</h3>
+        <button class="btn-close" (click)="cerrarImagenModal()" title="Cerrar">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="image-modal-body">
+        <img [src]="selectedImageUrl" alt="Imagen completa" class="full-size-image">
+      </div>
+    </div>
+  </div>
+</div> 

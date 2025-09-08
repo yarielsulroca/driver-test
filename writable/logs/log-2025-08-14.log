@@ -1,0 +1,161 @@
+ERROR - 2025-08-14 16:13:45 --> mysqli_sql_exception: Table 'examen_escuela' already exists in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `e...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `e...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `e...')
+#3 C:\laragon\www\examen\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `e...')
+#4 C:\laragon\www\examen\app\Database\Migrations\2024-01-01-000004_CreateExamenEscuelaTable.php(48): CodeIgniter\Database\Forge->createTable('examen_escuela')
+#5 C:\laragon\www\examen\system\Database\MigrationRunner.php(866): App\Database\Migrations\CreateExamenEscuelaTable->up()
+#6 C:\laragon\www\examen\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\laragon\www\examen\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\laragon\www\examen\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\laragon\www\examen\system\Boot.php(360): CodeIgniter\CLI\Console->run()
+#11 C:\laragon\www\examen\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\laragon\www\examen\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-08-14 16:13:51 --> mysqli_sql_exception: Table 'examen_escuela' already exists in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `e...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `e...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `e...')
+#3 C:\laragon\www\examen\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `e...')
+#4 C:\laragon\www\examen\app\Database\Migrations\2024-01-01-000004_CreateExamenEscuelaTable.php(48): CodeIgniter\Database\Forge->createTable('examen_escuela')
+#5 C:\laragon\www\examen\system\Database\MigrationRunner.php(866): App\Database\Migrations\CreateExamenEscuelaTable->up()
+#6 C:\laragon\www\examen\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\laragon\www\examen\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\laragon\www\examen\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\laragon\www\examen\system\Boot.php(360): CodeIgniter\CLI\Console->run()
+#11 C:\laragon\www\examen\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\laragon\www\examen\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+INFO - 2025-08-14 16:20:55 --> Datos recibidos en create examen: {"nombre":"Test Examen Frontend","categorias":[1],"preguntas":[]}
+INFO - 2025-08-14 16:21:40 --> Datos recibidos en create examen: {"nombre":"Test Examen Frontend","categorias":[1],"preguntas":[]}
+ERROR - 2025-08-14 16:21:40 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`examen`.`examen_categoria`, CONSTRAINT `examen_categoria_categoria_id_foreign` FOREIGN KEY (`categoria_id`) REFERENCES `categorias` (`categoria_id`) ON DELETE CASCADE ON UPDATE CASCADE) in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `ex...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `ex...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `ex...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ex...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\laragon\www\examen\system\BaseModel.php(839): CodeIgniter\Model->doInsert(Array)
+#6 C:\laragon\www\examen\system\Model.php(800): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\laragon\www\examen\app\Controllers\ExamenController.php(155): CodeIgniter\Model->insert(Array)
+#8 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\ExamenController->create()
+#9 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ExamenController))
+#10 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+INFO - 2025-08-14 16:22:40 --> Datos recibidos en create examen: {"nombre":"Test Examen Frontend","categorias":[1],"preguntas":[]}
+ERROR - 2025-08-14 16:22:40 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`examen`.`examen_categoria`, CONSTRAINT `examen_categoria_categoria_id_foreign` FOREIGN KEY (`categoria_id`) REFERENCES `categorias` (`categoria_id`) ON DELETE CASCADE ON UPDATE CASCADE) in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `ex...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `ex...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `ex...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ex...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\laragon\www\examen\system\BaseModel.php(839): CodeIgniter\Model->doInsert(Array)
+#6 C:\laragon\www\examen\system\Model.php(800): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\laragon\www\examen\app\Controllers\ExamenController.php(155): CodeIgniter\Model->insert(Array)
+#8 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\ExamenController->create()
+#9 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ExamenController))
+#10 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+INFO - 2025-08-14 16:49:16 --> Datos recibidos en create examen: {"nombre":"Test Examen Frontend","categorias":[1],"preguntas":[]}
+ERROR - 2025-08-14 16:49:16 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`examen`.`examen_categoria`, CONSTRAINT `examen_categoria_categoria_id_foreign` FOREIGN KEY (`categoria_id`) REFERENCES `categorias` (`categoria_id`) ON DELETE CASCADE ON UPDATE CASCADE) in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `ex...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `ex...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `ex...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ex...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\laragon\www\examen\system\BaseModel.php(839): CodeIgniter\Model->doInsert(Array)
+#6 C:\laragon\www\examen\system\Model.php(800): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\laragon\www\examen\app\Controllers\ExamenController.php(155): CodeIgniter\Model->insert(Array)
+#8 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\ExamenController->create()
+#9 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ExamenController))
+#10 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-08-14 16:53:49 --> mysqli_sql_exception: Cannot add or update a child row: a foreign key constraint fails (`examen`.`examen_categoria`, CONSTRAINT `examen_categoria_categoria_id_foreign` FOREIGN KEY (`categoria_id`) REFERENCES `categorias` (`categoria_id`) ON DELETE CASCADE ON UPDATE CASCADE) in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `ex...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `ex...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `ex...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `ex...', Array, false)
+#4 C:\laragon\www\examen\app\Controllers\TestController.php(74): CodeIgniter\Database\BaseBuilder->insert(Array)
+#5 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\TestController->testExamen()
+#6 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\TestController))
+#7 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#9 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#10 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#11 {main}
+INFO - 2025-08-14 17:02:32 --> Datos recibidos en create examen: {"nombre":"Test Examen Frontend","categorias":[5],"preguntas":[]}
+INFO - 2025-08-14 17:50:47 --> Datos recibidos en create examen: {"titulo":"Examen para cat D2","nombre":"Examen para cat D2","descripcion":"b2","tiempo_limite":60,"duracion_minutos":60,"puntaje_minimo":70,"numero_preguntas":10,"estado":"activo","fecha_inicio":"2025-08-14T14:49","fecha_fin":"2025-08-20T14:49","categorias":["6","5"],"preguntas":[]}
+INFO - 2025-08-14 20:17:16 --> Iniciando subida de imagen
+INFO - 2025-08-14 20:17:16 --> FILES: Array
+(
+)
+
+INFO - 2025-08-14 20:17:16 --> Archivo recibido: NO
+ERROR - 2025-08-14 20:17:16 --> Archivo no válido o no recibido
+INFO - 2025-08-14 20:20:14 --> Iniciando subida de imagen
+INFO - 2025-08-14 20:20:14 --> FILES: Array
+(
+    [imagen] => Array
+        (
+            [name] => Mouse_ptico_para_Juegos.avif
+            [full_path] => Mouse_ptico_para_Juegos.avif
+            [type] => image/avif
+            [tmp_name] => C:\Users\ysulroca\AppData\Local\Temp\phpD27E.tmp
+            [error] => 0
+            [size] => 18920
+        )
+
+)
+
+INFO - 2025-08-14 20:20:14 --> Archivo recibido: SÍ
+INFO - 2025-08-14 20:20:19 --> Iniciando subida de imagen
+INFO - 2025-08-14 20:20:19 --> FILES: Array
+(
+    [imagen] => Array
+        (
+            [name] => product2.jpg
+            [full_path] => product2.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\Users\ysulroca\AppData\Local\Temp\phpE674.tmp
+            [error] => 0
+            [size] => 200837
+        )
+
+)
+
+INFO - 2025-08-14 20:20:19 --> Archivo recibido: SÍ
+ERROR - 2025-08-14 20:20:19 --> Error subiendo imagen: finfo_file(C:\Users\ysulroca\AppData\Local\Temp\phpE674.tmp): Failed to open stream: No such file or directory
+INFO - 2025-08-14 20:20:40 --> Datos recibidos en create pregunta: {"enunciado":"Pregunta 2","tipo_pregunta":"multiple","categoria_id":"6","puntaje":10,"dificultad":"medio","es_critica":false,"respuestas":[{"texto":"A- Comando","es_correcta":false},{"texto":"B- Terminando","es_correcta":true}]}
+INFO - 2025-08-14 20:20:40 --> Datos mapeados para pregunta: {"categoria_id":"6","enunciado":"Pregunta 2","tipo_pregunta":"multiple","puntaje":10,"dificultad":"medio","es_critica":0,"examen_id":null}
+INFO - 2025-08-14 20:33:52 --> Iniciando subida de imagen
+INFO - 2025-08-14 20:33:52 --> FILES: Array
+(
+    [imagen] => Array
+        (
+            [name] => Mouse_ptico_para_Juegos.avif
+            [full_path] => Mouse_ptico_para_Juegos.avif
+            [type] => image/avif
+            [tmp_name] => C:\Users\ysulroca\AppData\Local\Temp\php4F66.tmp
+            [error] => 0
+            [size] => 18920
+        )
+
+)
+
+INFO - 2025-08-14 20:33:52 --> Archivo recibido: SÍ

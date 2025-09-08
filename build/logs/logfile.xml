@@ -1,80 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="Tests\Controllers\ExamenControllerTest" file="C:\laragon\www\examen\tests\Controllers\ExamenControllerTest.php" tests="5" assertions="0" errors="5" failures="0" skipped="0" time="0.000000">
-    <testcase name="testIndex" file="C:\laragon\www\examen\tests\Controllers\ExamenControllerTest.php" line="60" class="Tests\Controllers\ExamenControllerTest" classname="Tests.Controllers.ExamenControllerTest" assertions="0" time="0.000000">
-      <error type="CodeIgniter\Database\Exceptions\DatabaseException">Tests\Controllers\ExamenControllerTest::testIndex&#13;
-CodeIgniter\Database\Exceptions\DatabaseException: Table 'resultados' already exists
-&#13;
-C:\laragon\www\examen\system\Database\BaseConnection.php:692
-C:\laragon\www\examen\system\Database\Forge.php:570
-C:\laragon\www\examen\tests\_support\Database\Migrations\2024-04-21-000012_CreateResultadosTable.php:58
-C:\laragon\www\examen\system\Database\MigrationRunner.php:866
-C:\laragon\www\examen\system\Database\MigrationRunner.php:182
-C:\laragon\www\examen\system\Test\DatabaseTestTrait.php:175
-C:\laragon\www\examen\system\Test\DatabaseTestTrait.php:120
-C:\laragon\www\examen\system\Test\DatabaseTestTrait.php:60
-C:\laragon\www\examen\system\Test\CIUnitTestCase.php:251
-C:\laragon\www\examen\tests\Controllers\ExamenControllerTest.php:22</error>
-    </testcase>
-    <testcase name="testShow" file="C:\laragon\www\examen\tests\Controllers\ExamenControllerTest.php" line="102" class="Tests\Controllers\ExamenControllerTest" classname="Tests.Controllers.ExamenControllerTest" assertions="0" time="0.000000">
-      <error type="CodeIgniter\Database\Exceptions\DatabaseException">Tests\Controllers\ExamenControllerTest::testShow&#13;
-CodeIgniter\Database\Exceptions\DatabaseException: Table 'resultados' already exists
-&#13;
-C:\laragon\www\examen\system\Database\BaseConnection.php:692
-C:\laragon\www\examen\system\Database\Forge.php:570
-C:\laragon\www\examen\tests\_support\Database\Migrations\2024-04-21-000012_CreateResultadosTable.php:58
-C:\laragon\www\examen\system\Database\MigrationRunner.php:866
-C:\laragon\www\examen\system\Database\MigrationRunner.php:182
-C:\laragon\www\examen\system\Test\DatabaseTestTrait.php:175
-C:\laragon\www\examen\system\Test\DatabaseTestTrait.php:120
-C:\laragon\www\examen\system\Test\DatabaseTestTrait.php:60
-C:\laragon\www\examen\system\Test\CIUnitTestCase.php:251
-C:\laragon\www\examen\tests\Controllers\ExamenControllerTest.php:22</error>
-    </testcase>
-    <testcase name="testCreate" file="C:\laragon\www\examen\tests\Controllers\ExamenControllerTest.php" line="129" class="Tests\Controllers\ExamenControllerTest" classname="Tests.Controllers.ExamenControllerTest" assertions="0" time="0.000000">
-      <error type="CodeIgniter\Database\Exceptions\DatabaseException">Tests\Controllers\ExamenControllerTest::testCreate&#13;
-CodeIgniter\Database\Exceptions\DatabaseException: Table 'resultados' already exists
-&#13;
-C:\laragon\www\examen\system\Database\BaseConnection.php:692
-C:\laragon\www\examen\system\Database\Forge.php:570
-C:\laragon\www\examen\tests\_support\Database\Migrations\2024-04-21-000012_CreateResultadosTable.php:58
-C:\laragon\www\examen\system\Database\MigrationRunner.php:866
-C:\laragon\www\examen\system\Database\MigrationRunner.php:182
-C:\laragon\www\examen\system\Test\DatabaseTestTrait.php:175
-C:\laragon\www\examen\system\Test\DatabaseTestTrait.php:120
-C:\laragon\www\examen\system\Test\DatabaseTestTrait.php:60
-C:\laragon\www\examen\system\Test\CIUnitTestCase.php:251
-C:\laragon\www\examen\tests\Controllers\ExamenControllerTest.php:22</error>
-    </testcase>
-    <testcase name="testUpdate" file="C:\laragon\www\examen\tests\Controllers\ExamenControllerTest.php" line="158" class="Tests\Controllers\ExamenControllerTest" classname="Tests.Controllers.ExamenControllerTest" assertions="0" time="0.000000">
-      <error type="CodeIgniter\Database\Exceptions\DatabaseException">Tests\Controllers\ExamenControllerTest::testUpdate&#13;
-CodeIgniter\Database\Exceptions\DatabaseException: Table 'resultados' already exists
-&#13;
-C:\laragon\www\examen\system\Database\BaseConnection.php:692
-C:\laragon\www\examen\system\Database\Forge.php:570
-C:\laragon\www\examen\tests\_support\Database\Migrations\2024-04-21-000012_CreateResultadosTable.php:58
-C:\laragon\www\examen\system\Database\MigrationRunner.php:866
-C:\laragon\www\examen\system\Database\MigrationRunner.php:182
-C:\laragon\www\examen\system\Test\DatabaseTestTrait.php:175
-C:\laragon\www\examen\system\Test\DatabaseTestTrait.php:120
-C:\laragon\www\examen\system\Test\DatabaseTestTrait.php:60
-C:\laragon\www\examen\system\Test\CIUnitTestCase.php:251
-C:\laragon\www\examen\tests\Controllers\ExamenControllerTest.php:22</error>
-    </testcase>
-    <testcase name="testDelete" file="C:\laragon\www\examen\tests\Controllers\ExamenControllerTest.php" line="194" class="Tests\Controllers\ExamenControllerTest" classname="Tests.Controllers.ExamenControllerTest" assertions="0" time="0.000000">
-      <error type="CodeIgniter\Database\Exceptions\DatabaseException">Tests\Controllers\ExamenControllerTest::testDelete&#13;
-CodeIgniter\Database\Exceptions\DatabaseException: Table 'resultados' already exists
-&#13;
-C:\laragon\www\examen\system\Database\BaseConnection.php:692
-C:\laragon\www\examen\system\Database\Forge.php:570
-C:\laragon\www\examen\tests\_support\Database\Migrations\2024-04-21-000012_CreateResultadosTable.php:58
-C:\laragon\www\examen\system\Database\MigrationRunner.php:866
-C:\laragon\www\examen\system\Database\MigrationRunner.php:182
-C:\laragon\www\examen\system\Test\DatabaseTestTrait.php:175
-C:\laragon\www\examen\system\Test\DatabaseTestTrait.php:120
-C:\laragon\www\examen\system\Test\DatabaseTestTrait.php:60
-C:\laragon\www\examen\system\Test\CIUnitTestCase.php:251
-C:\laragon\www\examen\tests\Controllers\ExamenControllerTest.php:22</error>
+  <testsuite name="Tests\Controllers\ExamenControllerTest" file="C:\laragon\www\examen\tests\Controllers\ExamenControllerTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.325819">
+    <testcase name="testCreateExamen" file="C:\laragon\www\examen\tests\Controllers\ExamenControllerTest.php" line="31" class="Tests\Controllers\ExamenControllerTest" classname="Tests.Controllers.ExamenControllerTest" assertions="1" time="0.325819">
+      <system-out>Status Code: 
+Response Body: &lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"&gt;
+&lt;html&gt;&lt;body&gt;&lt;p&gt;{
+    "status": 400,
+    "error": 400,
+    "messages": {
+        "CodeIgniter\\Database\\MySQLi\\Connection": "Table 'ci4_test.examenes' doesn't exist"
+    }
+}&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+
+Parsed Response: {
+    "status": 400,
+    "error": 400,
+    "messages": {
+        "CodeIgniter\\Database\\MySQLi\\Connection": "Table 'ci4_test.examenes' doesn't exist"
+    }
+}
+</system-out>
     </testcase>
   </testsuite>
 </testsuites>

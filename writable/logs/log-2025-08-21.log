@@ -1,0 +1,1779 @@
+INFO - 2025-08-21 15:20:58 --> Iniciando subida de imagen
+INFO - 2025-08-21 15:20:58 --> FILES: Array
+(
+)
+
+INFO - 2025-08-21 15:20:58 --> Archivo recibido: NO
+ERROR - 2025-08-21 15:20:58 --> Archivo no válido o no recibido
+INFO - 2025-08-21 15:38:17 --> Iniciando subida de imagen
+INFO - 2025-08-21 15:38:17 --> FILES: Array
+(
+    [imagen] => Array
+        (
+            [name] => product1.jpg
+            [full_path] => product1.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\Users\ysulroca\AppData\Local\Temp\php4F57.tmp
+            [error] => 0
+            [size] => 8288
+        )
+
+)
+
+INFO - 2025-08-21 15:38:17 --> Archivo recibido: SÍ
+INFO - 2025-08-21 15:44:00 --> === INICIO SUBIDA DE IMAGEN ===
+INFO - 2025-08-21 15:44:00 --> Método HTTP: POST
+INFO - 2025-08-21 15:44:00 --> Headers: Array
+(
+    [Content-Type] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Content-Type
+            [value:protected] => multipart/form-data; boundary=----WebKitFormBoundarybSIWzc8xOUYhrwl5
+        )
+
+    [Host] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Host
+            [value:protected] => examen.test
+        )
+
+    [Connection] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Connection
+            [value:protected] => close
+        )
+
+    [Sec-Ch-Ua-Platform] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua-Platform
+            [value:protected] => "Windows"
+        )
+
+    [User-Agent] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => User-Agent
+            [value:protected] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
+        )
+
+    [Accept] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept
+            [value:protected] => application/json
+        )
+
+    [Sec-Ch-Ua] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua
+            [value:protected] => "Not;A=Brand";v="99", "Google Chrome";v="139", "Chromium";v="139"
+        )
+
+    [Sec-Ch-Ua-Mobile] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua-Mobile
+            [value:protected] => ?0
+        )
+
+    [Origin] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Origin
+            [value:protected] => http://localhost:4200
+        )
+
+    [Sec-Fetch-Site] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Site
+            [value:protected] => same-origin
+        )
+
+    [Sec-Fetch-Mode] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Mode
+            [value:protected] => cors
+        )
+
+    [Sec-Fetch-Dest] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Dest
+            [value:protected] => empty
+        )
+
+    [Referer] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Referer
+            [value:protected] => http://localhost:4200/admin/preguntas/editar/64
+        )
+
+    [Accept-Encoding] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept-Encoding
+            [value:protected] => gzip, deflate, br, zstd
+        )
+
+    [Accept-Language] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept-Language
+            [value:protected] => es-AR,es-US;q=0.9,es-419;q=0.8,es;q=0.7
+        )
+
+    [Cookie] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Cookie
+            [value:protected] => __next_hmr_refresh_hash__=64296463a474f93733113720ec11246c633457081244afec
+        )
+
+)
+
+INFO - 2025-08-21 15:44:00 --> FILES: Array
+(
+    [imagen] => Array
+        (
+            [name] => product1.jpg
+            [full_path] => product1.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\Users\ysulroca\AppData\Local\Temp\php87D5.tmp
+            [error] => 0
+            [size] => 8288
+        )
+
+)
+
+INFO - 2025-08-21 15:44:00 --> POST: Array
+(
+)
+
+INFO - 2025-08-21 15:44:00 --> Archivo recibido: SÍ
+INFO - 2025-08-21 15:46:24 --> === INICIO SUBIDA DE IMAGEN ===
+INFO - 2025-08-21 15:46:24 --> Método HTTP: POST
+INFO - 2025-08-21 15:46:24 --> Headers: Array
+(
+    [Content-Type] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Content-Type
+            [value:protected] => multipart/form-data; boundary=----WebKitFormBoundaryunHOmQVSqsPxP8VA
+        )
+
+    [Host] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Host
+            [value:protected] => examen.test
+        )
+
+    [Connection] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Connection
+            [value:protected] => close
+        )
+
+    [Sec-Ch-Ua-Platform] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua-Platform
+            [value:protected] => "Windows"
+        )
+
+    [User-Agent] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => User-Agent
+            [value:protected] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
+        )
+
+    [Accept] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept
+            [value:protected] => application/json
+        )
+
+    [Sec-Ch-Ua] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua
+            [value:protected] => "Not;A=Brand";v="99", "Google Chrome";v="139", "Chromium";v="139"
+        )
+
+    [Sec-Ch-Ua-Mobile] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua-Mobile
+            [value:protected] => ?0
+        )
+
+    [Origin] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Origin
+            [value:protected] => http://localhost:4200
+        )
+
+    [Sec-Fetch-Site] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Site
+            [value:protected] => same-origin
+        )
+
+    [Sec-Fetch-Mode] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Mode
+            [value:protected] => cors
+        )
+
+    [Sec-Fetch-Dest] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Dest
+            [value:protected] => empty
+        )
+
+    [Referer] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Referer
+            [value:protected] => http://localhost:4200/admin/preguntas/editar/64
+        )
+
+    [Accept-Encoding] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept-Encoding
+            [value:protected] => gzip, deflate, br, zstd
+        )
+
+    [Accept-Language] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept-Language
+            [value:protected] => es-AR,es-US;q=0.9,es-419;q=0.8,es;q=0.7
+        )
+
+    [Cookie] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Cookie
+            [value:protected] => __next_hmr_refresh_hash__=64296463a474f93733113720ec11246c633457081244afec
+        )
+
+)
+
+INFO - 2025-08-21 15:46:24 --> FILES: Array
+(
+    [imagen] => Array
+        (
+            [name] => Mouse_ptico_para_Juegos.avif
+            [full_path] => Mouse_ptico_para_Juegos.avif
+            [type] => image/avif
+            [tmp_name] => C:\Users\ysulroca\AppData\Local\Temp\phpBDC1.tmp
+            [error] => 0
+            [size] => 18920
+        )
+
+)
+
+INFO - 2025-08-21 15:46:24 --> POST: Array
+(
+)
+
+INFO - 2025-08-21 15:46:25 --> Archivo recibido: SÍ
+INFO - 2025-08-21 15:49:37 --> === INICIO SUBIDA DE IMAGEN ===
+INFO - 2025-08-21 15:49:37 --> Método HTTP: POST
+INFO - 2025-08-21 15:49:37 --> Headers: Array
+(
+    [Content-Type] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Content-Type
+            [value:protected] => multipart/form-data; boundary=----WebKitFormBoundarynw8o4cFHU0pRiVIV
+        )
+
+    [Host] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Host
+            [value:protected] => examen.test
+        )
+
+    [Connection] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Connection
+            [value:protected] => close
+        )
+
+    [Sec-Ch-Ua-Platform] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua-Platform
+            [value:protected] => "Windows"
+        )
+
+    [User-Agent] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => User-Agent
+            [value:protected] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
+        )
+
+    [Accept] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept
+            [value:protected] => application/json
+        )
+
+    [Sec-Ch-Ua] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua
+            [value:protected] => "Not;A=Brand";v="99", "Google Chrome";v="139", "Chromium";v="139"
+        )
+
+    [Sec-Ch-Ua-Mobile] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua-Mobile
+            [value:protected] => ?0
+        )
+
+    [Origin] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Origin
+            [value:protected] => http://localhost:4200
+        )
+
+    [Sec-Fetch-Site] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Site
+            [value:protected] => same-origin
+        )
+
+    [Sec-Fetch-Mode] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Mode
+            [value:protected] => cors
+        )
+
+    [Sec-Fetch-Dest] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Dest
+            [value:protected] => empty
+        )
+
+    [Referer] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Referer
+            [value:protected] => http://localhost:4200/admin/preguntas/editar/64
+        )
+
+    [Accept-Encoding] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept-Encoding
+            [value:protected] => gzip, deflate, br, zstd
+        )
+
+    [Accept-Language] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept-Language
+            [value:protected] => es-AR,es-US;q=0.9,es-419;q=0.8,es;q=0.7
+        )
+
+    [Cookie] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Cookie
+            [value:protected] => __next_hmr_refresh_hash__=64296463a474f93733113720ec11246c633457081244afec
+        )
+
+)
+
+INFO - 2025-08-21 15:49:37 --> FILES: Array
+(
+    [imagen] => Array
+        (
+            [name] => Mouse_ptico_para_Juegos.avif
+            [full_path] => Mouse_ptico_para_Juegos.avif
+            [type] => image/avif
+            [tmp_name] => C:\Users\ysulroca\AppData\Local\Temp\phpAFB9.tmp
+            [error] => 0
+            [size] => 18920
+        )
+
+)
+
+INFO - 2025-08-21 15:49:37 --> POST: Array
+(
+)
+
+INFO - 2025-08-21 15:49:37 --> Archivo recibido: SÍ
+INFO - 2025-08-21 16:04:03 --> === INICIO SUBIDA DE IMAGEN ===
+INFO - 2025-08-21 16:04:03 --> Método HTTP: POST
+INFO - 2025-08-21 16:04:03 --> Headers: Array
+(
+    [Content-Type] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Content-Type
+            [value:protected] => multipart/form-data; boundary=----WebKitFormBoundaryD0uw30bdPEuVuq26
+        )
+
+    [Host] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Host
+            [value:protected] => examen.test
+        )
+
+    [Connection] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Connection
+            [value:protected] => close
+        )
+
+    [Sec-Ch-Ua-Platform] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua-Platform
+            [value:protected] => "Windows"
+        )
+
+    [User-Agent] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => User-Agent
+            [value:protected] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
+        )
+
+    [Accept] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept
+            [value:protected] => application/json
+        )
+
+    [Sec-Ch-Ua] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua
+            [value:protected] => "Not;A=Brand";v="99", "Google Chrome";v="139", "Chromium";v="139"
+        )
+
+    [Sec-Ch-Ua-Mobile] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua-Mobile
+            [value:protected] => ?0
+        )
+
+    [Origin] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Origin
+            [value:protected] => http://localhost:4200
+        )
+
+    [Sec-Fetch-Site] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Site
+            [value:protected] => same-origin
+        )
+
+    [Sec-Fetch-Mode] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Mode
+            [value:protected] => cors
+        )
+
+    [Sec-Fetch-Dest] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Dest
+            [value:protected] => empty
+        )
+
+    [Referer] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Referer
+            [value:protected] => http://localhost:4200/admin/preguntas/editar/64
+        )
+
+    [Accept-Encoding] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept-Encoding
+            [value:protected] => gzip, deflate, br, zstd
+        )
+
+    [Accept-Language] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept-Language
+            [value:protected] => es-AR,es-US;q=0.9,es-419;q=0.8,es;q=0.7
+        )
+
+    [Cookie] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Cookie
+            [value:protected] => __next_hmr_refresh_hash__=64296463a474f93733113720ec11246c633457081244afec
+        )
+
+)
+
+INFO - 2025-08-21 16:04:03 --> FILES: Array
+(
+    [imagen] => Array
+        (
+            [name] => examen_carro.jpg
+            [full_path] => examen_carro.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\Users\ysulroca\AppData\Local\Temp\phpE13C.tmp
+            [error] => 0
+            [size] => 18178
+        )
+
+)
+
+INFO - 2025-08-21 16:04:03 --> POST: Array
+(
+)
+
+INFO - 2025-08-21 16:04:03 --> Archivo recibido: SÍ
+INFO - 2025-08-21 16:04:03 --> Archivo subido exitosamente: 1755792243_2f3a2b383cd6ed53a66c.jpg
+INFO - 2025-08-21 16:04:03 --> Tamaño: 18178 bytes
+ERROR - 2025-08-21 16:04:03 --> Error subiendo imagen: finfo_file(C:\Users\ysulroca\AppData\Local\Temp\phpE13C.tmp): Failed to open stream: No such file or directory
+INFO - 2025-08-21 16:08:33 --> === INICIO SUBIDA DE IMAGEN ===
+INFO - 2025-08-21 16:08:33 --> Método HTTP: POST
+INFO - 2025-08-21 16:08:33 --> Headers: Array
+(
+    [Content-Type] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Content-Type
+            [value:protected] => multipart/form-data; boundary=----WebKitFormBoundaryzV9Y8BljeQifqySo
+        )
+
+    [Host] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Host
+            [value:protected] => examen.test
+        )
+
+    [Connection] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Connection
+            [value:protected] => close
+        )
+
+    [Sec-Ch-Ua-Platform] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua-Platform
+            [value:protected] => "Windows"
+        )
+
+    [User-Agent] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => User-Agent
+            [value:protected] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
+        )
+
+    [Accept] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept
+            [value:protected] => application/json
+        )
+
+    [Sec-Ch-Ua] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua
+            [value:protected] => "Not;A=Brand";v="99", "Google Chrome";v="139", "Chromium";v="139"
+        )
+
+    [Sec-Ch-Ua-Mobile] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua-Mobile
+            [value:protected] => ?0
+        )
+
+    [Origin] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Origin
+            [value:protected] => http://localhost:4200
+        )
+
+    [Sec-Fetch-Site] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Site
+            [value:protected] => same-origin
+        )
+
+    [Sec-Fetch-Mode] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Mode
+            [value:protected] => cors
+        )
+
+    [Sec-Fetch-Dest] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Dest
+            [value:protected] => empty
+        )
+
+    [Referer] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Referer
+            [value:protected] => http://localhost:4200/admin/preguntas/editar/64
+        )
+
+    [Accept-Encoding] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept-Encoding
+            [value:protected] => gzip, deflate, br, zstd
+        )
+
+    [Accept-Language] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept-Language
+            [value:protected] => es-AR,es-US;q=0.9,es-419;q=0.8,es;q=0.7
+        )
+
+    [Cookie] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Cookie
+            [value:protected] => __next_hmr_refresh_hash__=64296463a474f93733113720ec11246c633457081244afec
+        )
+
+)
+
+INFO - 2025-08-21 16:08:33 --> FILES: Array
+(
+    [imagen] => Array
+        (
+            [name] => product1.jpg
+            [full_path] => product1.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\Users\ysulroca\AppData\Local\Temp\php4CF.tmp
+            [error] => 0
+            [size] => 8288
+        )
+
+)
+
+INFO - 2025-08-21 16:08:33 --> POST: Array
+(
+)
+
+INFO - 2025-08-21 16:08:33 --> Archivo recibido: SÍ
+INFO - 2025-08-21 16:08:33 --> Archivo subido exitosamente: 1755792513_4352a23f8ebf0b9df8cf.jpg
+INFO - 2025-08-21 16:08:33 --> Tamaño: 8288 bytes
+ERROR - 2025-08-21 16:08:33 --> Error subiendo imagen: finfo_file(C:\Users\ysulroca\AppData\Local\Temp\php4CF.tmp): Failed to open stream: No such file or directory
+INFO - 2025-08-21 16:12:39 --> === INICIO SUBIDA DE IMAGEN ===
+INFO - 2025-08-21 16:12:39 --> Método HTTP: POST
+INFO - 2025-08-21 16:12:39 --> Headers: Array
+(
+    [Content-Type] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Content-Type
+            [value:protected] => multipart/form-data; boundary=----WebKitFormBoundaryFuA3iflFym44sR4z
+        )
+
+    [Host] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Host
+            [value:protected] => examen.test
+        )
+
+    [Connection] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Connection
+            [value:protected] => close
+        )
+
+    [Sec-Ch-Ua-Platform] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua-Platform
+            [value:protected] => "Windows"
+        )
+
+    [User-Agent] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => User-Agent
+            [value:protected] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
+        )
+
+    [Accept] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept
+            [value:protected] => application/json
+        )
+
+    [Sec-Ch-Ua] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua
+            [value:protected] => "Not;A=Brand";v="99", "Google Chrome";v="139", "Chromium";v="139"
+        )
+
+    [Sec-Ch-Ua-Mobile] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua-Mobile
+            [value:protected] => ?0
+        )
+
+    [Origin] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Origin
+            [value:protected] => http://localhost:4200
+        )
+
+    [Sec-Fetch-Site] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Site
+            [value:protected] => same-origin
+        )
+
+    [Sec-Fetch-Mode] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Mode
+            [value:protected] => cors
+        )
+
+    [Sec-Fetch-Dest] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Dest
+            [value:protected] => empty
+        )
+
+    [Referer] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Referer
+            [value:protected] => http://localhost:4200/admin/preguntas/editar/64
+        )
+
+    [Accept-Encoding] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept-Encoding
+            [value:protected] => gzip, deflate, br, zstd
+        )
+
+    [Accept-Language] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept-Language
+            [value:protected] => es-AR,es-US;q=0.9,es-419;q=0.8,es;q=0.7
+        )
+
+    [Cookie] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Cookie
+            [value:protected] => __next_hmr_refresh_hash__=64296463a474f93733113720ec11246c633457081244afec
+        )
+
+)
+
+INFO - 2025-08-21 16:12:39 --> FILES: Array
+(
+    [imagen] => Array
+        (
+            [name] => product1.jpg
+            [full_path] => product1.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\Users\ysulroca\AppData\Local\Temp\phpC2C2.tmp
+            [error] => 0
+            [size] => 8288
+        )
+
+)
+
+INFO - 2025-08-21 16:12:39 --> POST: Array
+(
+)
+
+INFO - 2025-08-21 16:12:39 --> Archivo recibido: SÍ
+INFO - 2025-08-21 16:12:39 --> Archivo subido exitosamente: 1755792759_e157a7637e9a419a369e.jpg
+INFO - 2025-08-21 16:12:39 --> Tamaño: 8288 bytes
+INFO - 2025-08-21 16:12:39 --> Tipo MIME: image/avif
+INFO - 2025-08-21 16:12:39 --> === FIN SUBIDA DE IMAGEN ===
+INFO - 2025-08-21 16:13:18 --> === INICIO SUBIDA DE IMAGEN ===
+INFO - 2025-08-21 16:13:18 --> Método HTTP: POST
+INFO - 2025-08-21 16:13:18 --> Headers: Array
+(
+    [Content-Type] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Content-Type
+            [value:protected] => multipart/form-data; boundary=----WebKitFormBoundarykOCg8OcESMeJAzOA
+        )
+
+    [Host] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Host
+            [value:protected] => examen.test
+        )
+
+    [Connection] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Connection
+            [value:protected] => close
+        )
+
+    [Sec-Ch-Ua-Platform] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua-Platform
+            [value:protected] => "Windows"
+        )
+
+    [User-Agent] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => User-Agent
+            [value:protected] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
+        )
+
+    [Accept] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept
+            [value:protected] => application/json
+        )
+
+    [Sec-Ch-Ua] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua
+            [value:protected] => "Not;A=Brand";v="99", "Google Chrome";v="139", "Chromium";v="139"
+        )
+
+    [Sec-Ch-Ua-Mobile] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua-Mobile
+            [value:protected] => ?0
+        )
+
+    [Origin] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Origin
+            [value:protected] => http://localhost:4200
+        )
+
+    [Sec-Fetch-Site] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Site
+            [value:protected] => same-origin
+        )
+
+    [Sec-Fetch-Mode] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Mode
+            [value:protected] => cors
+        )
+
+    [Sec-Fetch-Dest] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Dest
+            [value:protected] => empty
+        )
+
+    [Referer] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Referer
+            [value:protected] => http://localhost:4200/admin/preguntas/editar/64
+        )
+
+    [Accept-Encoding] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept-Encoding
+            [value:protected] => gzip, deflate, br, zstd
+        )
+
+    [Accept-Language] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept-Language
+            [value:protected] => es-AR,es-US;q=0.9,es-419;q=0.8,es;q=0.7
+        )
+
+    [Cookie] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Cookie
+            [value:protected] => __next_hmr_refresh_hash__=64296463a474f93733113720ec11246c633457081244afec
+        )
+
+)
+
+INFO - 2025-08-21 16:13:18 --> FILES: Array
+(
+    [imagen] => Array
+        (
+            [name] => product2.jpg
+            [full_path] => product2.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\Users\ysulroca\AppData\Local\Temp\php5EA6.tmp
+            [error] => 0
+            [size] => 200837
+        )
+
+)
+
+INFO - 2025-08-21 16:13:18 --> POST: Array
+(
+)
+
+INFO - 2025-08-21 16:13:19 --> Archivo recibido: SÍ
+INFO - 2025-08-21 16:13:19 --> Archivo subido exitosamente: 1755792799_cfd4fca62e58998945c4.jpg
+INFO - 2025-08-21 16:13:19 --> Tamaño: 200837 bytes
+INFO - 2025-08-21 16:13:19 --> Tipo MIME: image/jpeg
+INFO - 2025-08-21 16:13:19 --> === FIN SUBIDA DE IMAGEN ===
+INFO - 2025-08-21 16:13:28 --> Datos recibidos en update pregunta: {"pregunta_id":"64","categoria_id":"2","enunciado":"\u00bfCu\u00e1l es la velocidad m\u00e1xima permitida en calles de la Ciudad de Buenos Aires?","tipo_pregunta":"unica","dificultad":"facil","puntaje":10,"es_critica":false,"created_at":"2025-08-11 12:42:15","updated_at":"2025-08-11 12:42:15","respuestas":[{"texto":"A- Comando","es_correcta":true,"imagen":"1755792759_e157a7637e9a419a369e.jpg"},{"texto":"B- Terminando","es_correcta":false,"imagen":"1755792799_cfd4fca62e58998945c4.jpg"}],"categoria":{"categoria_id":"2","codigo":"A1","nombre":"Motos hasta 150cc","descripcion":"Licencia para conducir motocicletas y motoveh\u00edculos de hasta 150 cent\u00edmetros c\u00fabicos de cilindrada.","requisitos":"Edad m\u00ednima 16 a\u00f1os. Examen te\u00f3rico y pr\u00e1ctico. Certificado m\u00e9dico. No requiere experiencia previa.","estado":"activo","created_at":"2025-08-11 08:48:41","updated_at":"2025-08-11 17:46:33"},"examenes":[]}
+INFO - 2025-08-21 16:13:28 --> Datos mapeados para actualizar pregunta: {"categoria_id":"2","enunciado":"\u00bfCu\u00e1l es la velocidad m\u00e1xima permitida en calles de la Ciudad de Buenos Aires?","tipo_pregunta":"multiple","puntaje":10,"dificultad":"facil","es_critica":0}
+INFO - 2025-08-21 17:07:45 --> Datos recibidos en update pregunta: {"pregunta_id":"64","categoria_id":"2","enunciado":"\u00bfCu\u00e1l es la velocidad m\u00e1xima permitida en calles de la Ciudad de Buenos Aires?","tipo_pregunta":"multiple","dificultad":"facil","puntaje":"10.00","es_critica":false,"created_at":"2025-08-11 12:42:15","updated_at":"2025-08-21 16:13:29","respuestas":[{"respuesta_id":"260","pregunta_id":"64","texto":"A- Comando","imagen":"1755792759_e157a7637e9a419a369e.jpg","es_correcta":true,"created_at":"2025-08-21 16:13:29","updated_at":"2025-08-21 16:13:29"},{"respuesta_id":"261","pregunta_id":"64","texto":"B- Terminando","imagen":"1755792799_cfd4fca62e58998945c4.jpg","es_correcta":false,"created_at":"2025-08-21 16:13:29","updated_at":"2025-08-21 16:13:29"}],"categoria":{"categoria_id":"2","codigo":"A1","nombre":"Motos hasta 150cc","descripcion":"Licencia para conducir motocicletas y motoveh\u00edculos de hasta 150 cent\u00edmetros c\u00fabicos de cilindrada.","requisitos":"Edad m\u00ednima 16 a\u00f1os. Examen te\u00f3rico y pr\u00e1ctico. Certificado m\u00e9dico. No requiere experiencia previa.","estado":"activo","created_at":"2025-08-11 08:48:41","updated_at":"2025-08-11 17:46:33"},"examenes":[]}
+INFO - 2025-08-21 17:07:45 --> Datos mapeados para actualizar pregunta: {"categoria_id":"2","enunciado":"\u00bfCu\u00e1l es la velocidad m\u00e1xima permitida en calles de la Ciudad de Buenos Aires?","tipo_pregunta":"multiple","puntaje":"10.00","dificultad":"facil","es_critica":0}
+INFO - 2025-08-21 17:08:09 --> Datos recibidos en update pregunta: {"pregunta_id":"64","categoria_id":"2","enunciado":"\u00bfCu\u00e1l es la velocidad m\u00e1xima permitida en calles de la Ciudad de Buenos Aires?.","tipo_pregunta":"multiple","dificultad":"medio","puntaje":"10.00","es_critica":false,"created_at":"2025-08-11 12:42:15","updated_at":"2025-08-21 16:13:29","respuestas":[{"respuesta_id":"260","pregunta_id":"64","texto":"A- Comando","imagen":"1755792759_e157a7637e9a419a369e.jpg","es_correcta":true,"created_at":"2025-08-21 16:13:29","updated_at":"2025-08-21 16:13:29"},{"respuesta_id":"261","pregunta_id":"64","texto":"B- Terminando","imagen":"1755792799_cfd4fca62e58998945c4.jpg","es_correcta":false,"created_at":"2025-08-21 16:13:29","updated_at":"2025-08-21 16:13:29"}],"categoria":{"categoria_id":"2","codigo":"A1","nombre":"Motos hasta 150cc","descripcion":"Licencia para conducir motocicletas y motoveh\u00edculos de hasta 150 cent\u00edmetros c\u00fabicos de cilindrada.","requisitos":"Edad m\u00ednima 16 a\u00f1os. Examen te\u00f3rico y pr\u00e1ctico. Certificado m\u00e9dico. No requiere experiencia previa.","estado":"activo","created_at":"2025-08-11 08:48:41","updated_at":"2025-08-11 17:46:33"},"examenes":[]}
+INFO - 2025-08-21 17:08:09 --> Datos mapeados para actualizar pregunta: {"categoria_id":"2","enunciado":"\u00bfCu\u00e1l es la velocidad m\u00e1xima permitida en calles de la Ciudad de Buenos Aires?.","tipo_pregunta":"multiple","puntaje":"10.00","dificultad":"medio","es_critica":0}
+INFO - 2025-08-21 17:28:00 --> Datos recibidos en update pregunta: {"pregunta_id":"64","categoria_id":"6","enunciado":"\u00bfCu\u00e1l es la velocidad m\u00e1xima permitida en calles de la Ciudad de Buenos Aires?.","tipo_pregunta":"multiple","dificultad":"medio","puntaje":"10.00","es_critica":false,"created_at":"2025-08-11 12:42:15","updated_at":"2025-08-21 17:08:09","respuestas":[{"respuesta_id":"264","pregunta_id":"64","texto":"A- Comando","imagen":"1755792759_e157a7637e9a419a369e.jpg","es_correcta":true,"created_at":"2025-08-21 17:08:09","updated_at":"2025-08-21 17:08:09"},{"respuesta_id":"265","pregunta_id":"64","texto":"B- Terminando","imagen":"1755792799_cfd4fca62e58998945c4.jpg","es_correcta":false,"created_at":"2025-08-21 17:08:09","updated_at":"2025-08-21 17:08:09"}],"categoria":{"categoria_id":"2","codigo":"A1","nombre":"Motos hasta 150cc","descripcion":"Licencia para conducir motocicletas y motoveh\u00edculos de hasta 150 cent\u00edmetros c\u00fabicos de cilindrada.","requisitos":"Edad m\u00ednima 16 a\u00f1os. Examen te\u00f3rico y pr\u00e1ctico. Certificado m\u00e9dico. No requiere experiencia previa.","estado":"activo","created_at":"2025-08-11 08:48:41","updated_at":"2025-08-11 17:46:33"},"examenes":[]}
+INFO - 2025-08-21 17:28:00 --> Datos mapeados para actualizar pregunta: {"categoria_id":"6","enunciado":"\u00bfCu\u00e1l es la velocidad m\u00e1xima permitida en calles de la Ciudad de Buenos Aires?.","tipo_pregunta":"multiple","puntaje":"10.00","dificultad":"medio","es_critica":0}
+INFO - 2025-08-21 17:28:44 --> Datos recibidos en update pregunta: {"pregunta_id":"64","categoria_id":"6","enunciado":"\u00bfCu\u00e1l es la velocidad m\u00e1xima permitida en calles de la Ciudad de Buenos Aires?.","tipo_pregunta":"multiple","dificultad":"dificil","puntaje":"10.00","es_critica":true,"created_at":"2025-08-11 12:42:15","updated_at":"2025-08-21 17:28:00","respuestas":[{"respuesta_id":"266","pregunta_id":"64","texto":"A- Comando","imagen":"1755792759_e157a7637e9a419a369e.jpg","es_correcta":true,"created_at":"2025-08-21 17:28:00","updated_at":"2025-08-21 17:28:00"},{"respuesta_id":"267","pregunta_id":"64","texto":"B- Terminando","imagen":"1755792799_cfd4fca62e58998945c4.jpg","es_correcta":false,"created_at":"2025-08-21 17:28:00","updated_at":"2025-08-21 17:28:00"}],"categoria":{"categoria_id":"6","codigo":"B2","nombre":"Autom\u00f3viles y camiones livianos","descripcion":"Licencia para conducir autom\u00f3viles particulares y camiones de hasta 3500 kg de peso total","requisitos":"Edad m\u00ednima 18 a\u00f1os. Examen te\u00f3rico y pr\u00e1ctico. Certificado m\u00e9dico. Licencia B1 por al menos 1 a\u00f1o.","estado":"activo","created_at":"2025-08-11 08:48:41","updated_at":"2025-08-11 08:48:41"},"examenes":[]}
+INFO - 2025-08-21 17:28:44 --> Datos mapeados para actualizar pregunta: {"categoria_id":"6","enunciado":"\u00bfCu\u00e1l es la velocidad m\u00e1xima permitida en calles de la Ciudad de Buenos Aires?.","tipo_pregunta":"multiple","puntaje":"10.00","dificultad":"dificil","es_critica":1}
+INFO - 2025-08-21 17:57:57 --> Datos recibidos en update pregunta: {"pregunta_id":"64","categoria_id":"6","enunciado":"\u00bfCu\u00e1l es la velocidad m\u00e1xima permitida en calles de la Ciudad de Buenos Aires?.","tipo_pregunta":"multiple","dificultad":"dificil","puntaje":"10.00","es_critica":true,"created_at":"2025-08-11 12:42:15","updated_at":"2025-08-21 17:28:44","respuestas":[{"respuesta_id":"268","pregunta_id":"64","texto":"A- Comando","imagen":"1755792759_e157a7637e9a419a369e.jpg","es_correcta":true,"created_at":"2025-08-21 17:28:44","updated_at":"2025-08-21 17:28:44"},{"respuesta_id":"269","pregunta_id":"64","texto":"B- Terminando","imagen":"1755792799_cfd4fca62e58998945c4.jpg","es_correcta":false,"created_at":"2025-08-21 17:28:44","updated_at":"2025-08-21 17:28:44"}],"categoria":{"categoria_id":"6","codigo":"B2","nombre":"Autom\u00f3viles y camiones livianos","descripcion":"Licencia para conducir autom\u00f3viles particulares y camiones de hasta 3500 kg de peso total","requisitos":"Edad m\u00ednima 18 a\u00f1os. Examen te\u00f3rico y pr\u00e1ctico. Certificado m\u00e9dico. Licencia B1 por al menos 1 a\u00f1o.","estado":"activo","created_at":"2025-08-11 08:48:41","updated_at":"2025-08-11 08:48:41"},"examenes":[]}
+INFO - 2025-08-21 17:57:57 --> Datos mapeados para actualizar pregunta: {"categoria_id":"6","enunciado":"\u00bfCu\u00e1l es la velocidad m\u00e1xima permitida en calles de la Ciudad de Buenos Aires?.","tipo_pregunta":"multiple","puntaje":"10.00","dificultad":"dificil","es_critica":1}
+INFO - 2025-08-21 17:58:59 --> === INICIO SUBIDA DE IMAGEN ===
+INFO - 2025-08-21 17:58:59 --> Método HTTP: POST
+INFO - 2025-08-21 17:58:59 --> Headers: Array
+(
+    [Content-Type] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Content-Type
+            [value:protected] => multipart/form-data; boundary=----WebKitFormBoundarySjt9AdyThi8hLcvN
+        )
+
+    [Host] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Host
+            [value:protected] => examen.test
+        )
+
+    [Connection] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Connection
+            [value:protected] => close
+        )
+
+    [Sec-Ch-Ua-Platform] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua-Platform
+            [value:protected] => "Windows"
+        )
+
+    [User-Agent] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => User-Agent
+            [value:protected] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
+        )
+
+    [Accept] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept
+            [value:protected] => application/json
+        )
+
+    [Sec-Ch-Ua] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua
+            [value:protected] => "Not;A=Brand";v="99", "Google Chrome";v="139", "Chromium";v="139"
+        )
+
+    [Sec-Ch-Ua-Mobile] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua-Mobile
+            [value:protected] => ?0
+        )
+
+    [Origin] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Origin
+            [value:protected] => http://localhost:4200
+        )
+
+    [Sec-Fetch-Site] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Site
+            [value:protected] => same-origin
+        )
+
+    [Sec-Fetch-Mode] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Mode
+            [value:protected] => cors
+        )
+
+    [Sec-Fetch-Dest] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Dest
+            [value:protected] => empty
+        )
+
+    [Referer] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Referer
+            [value:protected] => http://localhost:4200/admin/preguntas/editar/65
+        )
+
+    [Accept-Encoding] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept-Encoding
+            [value:protected] => gzip, deflate, br, zstd
+        )
+
+    [Accept-Language] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept-Language
+            [value:protected] => es-AR,es-US;q=0.9,es-419;q=0.8,es;q=0.7
+        )
+
+    [Cookie] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Cookie
+            [value:protected] => __next_hmr_refresh_hash__=64296463a474f93733113720ec11246c633457081244afec
+        )
+
+)
+
+INFO - 2025-08-21 17:58:59 --> FILES: Array
+(
+    [imagen] => Array
+        (
+            [name] => tutueur_fondo_llamada.jpeg
+            [full_path] => tutueur_fondo_llamada.jpeg
+            [type] => image/jpeg
+            [tmp_name] => C:\Users\ysulroca\AppData\Local\Temp\php1EA8.tmp
+            [error] => 0
+            [size] => 215698
+        )
+
+)
+
+INFO - 2025-08-21 17:58:59 --> POST: Array
+(
+)
+
+INFO - 2025-08-21 17:58:59 --> Archivo recibido: SÍ
+INFO - 2025-08-21 17:58:59 --> Archivo subido exitosamente: 1755799139_bad106cb88e4449d20f0.jpeg
+INFO - 2025-08-21 17:58:59 --> Tamaño: 215698 bytes
+INFO - 2025-08-21 17:58:59 --> Tipo MIME: image/jpeg
+INFO - 2025-08-21 17:58:59 --> === FIN SUBIDA DE IMAGEN ===
+INFO - 2025-08-21 17:59:18 --> === INICIO SUBIDA DE IMAGEN ===
+INFO - 2025-08-21 17:59:18 --> Método HTTP: POST
+INFO - 2025-08-21 17:59:18 --> Headers: Array
+(
+    [Content-Type] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Content-Type
+            [value:protected] => multipart/form-data; boundary=----WebKitFormBoundarySxfF6csecsANXtfQ
+        )
+
+    [Host] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Host
+            [value:protected] => examen.test
+        )
+
+    [Connection] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Connection
+            [value:protected] => close
+        )
+
+    [Sec-Ch-Ua-Platform] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua-Platform
+            [value:protected] => "Windows"
+        )
+
+    [User-Agent] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => User-Agent
+            [value:protected] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
+        )
+
+    [Accept] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept
+            [value:protected] => application/json
+        )
+
+    [Sec-Ch-Ua] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua
+            [value:protected] => "Not;A=Brand";v="99", "Google Chrome";v="139", "Chromium";v="139"
+        )
+
+    [Sec-Ch-Ua-Mobile] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua-Mobile
+            [value:protected] => ?0
+        )
+
+    [Origin] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Origin
+            [value:protected] => http://localhost:4200
+        )
+
+    [Sec-Fetch-Site] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Site
+            [value:protected] => same-origin
+        )
+
+    [Sec-Fetch-Mode] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Mode
+            [value:protected] => cors
+        )
+
+    [Sec-Fetch-Dest] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Dest
+            [value:protected] => empty
+        )
+
+    [Referer] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Referer
+            [value:protected] => http://localhost:4200/admin/preguntas/editar/65
+        )
+
+    [Accept-Encoding] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept-Encoding
+            [value:protected] => gzip, deflate, br, zstd
+        )
+
+    [Accept-Language] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept-Language
+            [value:protected] => es-AR,es-US;q=0.9,es-419;q=0.8,es;q=0.7
+        )
+
+    [Cookie] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Cookie
+            [value:protected] => __next_hmr_refresh_hash__=64296463a474f93733113720ec11246c633457081244afec
+        )
+
+)
+
+INFO - 2025-08-21 17:59:18 --> FILES: Array
+(
+    [imagen] => Array
+        (
+            [name] => examen_carro.jpg
+            [full_path] => examen_carro.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\Users\ysulroca\AppData\Local\Temp\php695E.tmp
+            [error] => 0
+            [size] => 18178
+        )
+
+)
+
+INFO - 2025-08-21 17:59:18 --> POST: Array
+(
+)
+
+INFO - 2025-08-21 17:59:18 --> Archivo recibido: SÍ
+INFO - 2025-08-21 17:59:18 --> Archivo subido exitosamente: 1755799158_0ec9981f915f5fbd1c32.jpg
+INFO - 2025-08-21 17:59:18 --> Tamaño: 18178 bytes
+INFO - 2025-08-21 17:59:18 --> Tipo MIME: image/jpeg
+INFO - 2025-08-21 17:59:18 --> === FIN SUBIDA DE IMAGEN ===
+INFO - 2025-08-21 17:59:27 --> Datos recibidos en update pregunta: {"pregunta_id":"65","categoria_id":"2","enunciado":"\u00bfCu\u00e1l es la velocidad m\u00e1xima permitida en calles de la Ciudad de Buenos Aires?","tipo_pregunta":"unica","dificultad":"facil","puntaje":"1.00","es_critica":false,"created_at":"2025-08-11 13:48:02","updated_at":"2025-08-11 13:48:02","respuestas":[{"texto":"A- Comando","es_correcta":true,"uploading":false,"imagen":"1755799139_bad106cb88e4449d20f0.jpeg"},{"texto":"B-Segunda ","es_correcta":false,"uploading":false,"imagen":"1755799158_0ec9981f915f5fbd1c32.jpg"}],"categoria":{"categoria_id":"2","codigo":"A1","nombre":"Motos hasta 150cc","descripcion":"Licencia para conducir motocicletas y motoveh\u00edculos de hasta 150 cent\u00edmetros c\u00fabicos de cilindrada.","requisitos":"Edad m\u00ednima 16 a\u00f1os. Examen te\u00f3rico y pr\u00e1ctico. Certificado m\u00e9dico. No requiere experiencia previa.","estado":"activo","created_at":"2025-08-11 08:48:41","updated_at":"2025-08-11 17:46:33"},"examenes":[]}
+INFO - 2025-08-21 17:59:27 --> Datos mapeados para actualizar pregunta: {"categoria_id":"2","enunciado":"\u00bfCu\u00e1l es la velocidad m\u00e1xima permitida en calles de la Ciudad de Buenos Aires?","tipo_pregunta":"multiple","puntaje":"1.00","dificultad":"facil","es_critica":0}
+INFO - 2025-08-21 18:23:47 --> === INICIO SUBIDA DE IMAGEN ===
+INFO - 2025-08-21 18:23:47 --> Método HTTP: POST
+INFO - 2025-08-21 18:23:47 --> Headers: Array
+(
+    [Content-Type] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Content-Type
+            [value:protected] => multipart/form-data; boundary=----WebKitFormBoundaryRwGiRZspBVHyCxX4
+        )
+
+    [Host] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Host
+            [value:protected] => examen.test
+        )
+
+    [Connection] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Connection
+            [value:protected] => close
+        )
+
+    [Sec-Ch-Ua-Platform] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua-Platform
+            [value:protected] => "Windows"
+        )
+
+    [User-Agent] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => User-Agent
+            [value:protected] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
+        )
+
+    [Accept] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept
+            [value:protected] => application/json
+        )
+
+    [Sec-Ch-Ua] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua
+            [value:protected] => "Not;A=Brand";v="99", "Google Chrome";v="139", "Chromium";v="139"
+        )
+
+    [Sec-Ch-Ua-Mobile] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua-Mobile
+            [value:protected] => ?0
+        )
+
+    [Origin] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Origin
+            [value:protected] => http://localhost:4200
+        )
+
+    [Sec-Fetch-Site] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Site
+            [value:protected] => same-origin
+        )
+
+    [Sec-Fetch-Mode] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Mode
+            [value:protected] => cors
+        )
+
+    [Sec-Fetch-Dest] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Dest
+            [value:protected] => empty
+        )
+
+    [Referer] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Referer
+            [value:protected] => http://localhost:4200/admin/preguntas/crear
+        )
+
+    [Accept-Encoding] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept-Encoding
+            [value:protected] => gzip, deflate, br, zstd
+        )
+
+    [Accept-Language] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept-Language
+            [value:protected] => es-AR,es-US;q=0.9,es-419;q=0.8,es;q=0.7
+        )
+
+    [Cookie] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Cookie
+            [value:protected] => __next_hmr_refresh_hash__=64296463a474f93733113720ec11246c633457081244afec
+        )
+
+)
+
+INFO - 2025-08-21 18:23:47 --> FILES: Array
+(
+    [imagen] => Array
+        (
+            [name] => Mouse_ptico_para_Juegos.avif
+            [full_path] => Mouse_ptico_para_Juegos.avif
+            [type] => image/avif
+            [tmp_name] => C:\Users\ysulroca\AppData\Local\Temp\phpD126.tmp
+            [error] => 0
+            [size] => 18920
+        )
+
+)
+
+INFO - 2025-08-21 18:23:47 --> POST: Array
+(
+)
+
+INFO - 2025-08-21 18:23:47 --> Archivo recibido: SÍ
+INFO - 2025-08-21 18:23:47 --> Archivo subido exitosamente: 1755800627_44d50029342818ce4921.avif
+INFO - 2025-08-21 18:23:47 --> Tamaño: 18920 bytes
+INFO - 2025-08-21 18:23:47 --> Tipo MIME: image/avif
+INFO - 2025-08-21 18:23:47 --> === FIN SUBIDA DE IMAGEN ===
+INFO - 2025-08-21 18:24:16 --> === INICIO SUBIDA DE IMAGEN ===
+INFO - 2025-08-21 18:24:16 --> Método HTTP: POST
+INFO - 2025-08-21 18:24:16 --> Headers: Array
+(
+    [Content-Type] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Content-Type
+            [value:protected] => multipart/form-data; boundary=----WebKitFormBoundaryzG4SV9Ymkyu0orgW
+        )
+
+    [Host] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Host
+            [value:protected] => examen.test
+        )
+
+    [Connection] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Connection
+            [value:protected] => close
+        )
+
+    [Sec-Ch-Ua-Platform] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua-Platform
+            [value:protected] => "Windows"
+        )
+
+    [User-Agent] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => User-Agent
+            [value:protected] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
+        )
+
+    [Accept] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept
+            [value:protected] => application/json
+        )
+
+    [Sec-Ch-Ua] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua
+            [value:protected] => "Not;A=Brand";v="99", "Google Chrome";v="139", "Chromium";v="139"
+        )
+
+    [Sec-Ch-Ua-Mobile] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua-Mobile
+            [value:protected] => ?0
+        )
+
+    [Origin] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Origin
+            [value:protected] => http://localhost:4200
+        )
+
+    [Sec-Fetch-Site] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Site
+            [value:protected] => same-origin
+        )
+
+    [Sec-Fetch-Mode] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Mode
+            [value:protected] => cors
+        )
+
+    [Sec-Fetch-Dest] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Dest
+            [value:protected] => empty
+        )
+
+    [Referer] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Referer
+            [value:protected] => http://localhost:4200/admin/preguntas/crear
+        )
+
+    [Accept-Encoding] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept-Encoding
+            [value:protected] => gzip, deflate, br, zstd
+        )
+
+    [Accept-Language] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept-Language
+            [value:protected] => es-AR,es-US;q=0.9,es-419;q=0.8,es;q=0.7
+        )
+
+    [Cookie] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Cookie
+            [value:protected] => __next_hmr_refresh_hash__=64296463a474f93733113720ec11246c633457081244afec
+        )
+
+)
+
+INFO - 2025-08-21 18:24:16 --> FILES: Array
+(
+    [imagen] => Array
+        (
+            [name] => product3.jpg
+            [full_path] => product3.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\Users\ysulroca\AppData\Local\Temp\php4369.tmp
+            [error] => 0
+            [size] => 19798
+        )
+
+)
+
+INFO - 2025-08-21 18:24:16 --> POST: Array
+(
+)
+
+INFO - 2025-08-21 18:24:16 --> Archivo recibido: SÍ
+INFO - 2025-08-21 18:24:16 --> Archivo subido exitosamente: 1755800656_c202fc2e2c65ea0ea3dc.webp
+INFO - 2025-08-21 18:24:16 --> Tamaño: 19798 bytes
+INFO - 2025-08-21 18:24:16 --> Tipo MIME: image/webp
+INFO - 2025-08-21 18:24:16 --> === FIN SUBIDA DE IMAGEN ===
+INFO - 2025-08-21 18:24:55 --> === INICIO SUBIDA DE IMAGEN ===
+INFO - 2025-08-21 18:24:55 --> Método HTTP: POST
+INFO - 2025-08-21 18:24:55 --> Headers: Array
+(
+    [Content-Type] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Content-Type
+            [value:protected] => multipart/form-data; boundary=----WebKitFormBoundaryNgHQJ40A0mp99OAm
+        )
+
+    [Host] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Host
+            [value:protected] => examen.test
+        )
+
+    [Connection] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Connection
+            [value:protected] => close
+        )
+
+    [Sec-Ch-Ua-Platform] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua-Platform
+            [value:protected] => "Windows"
+        )
+
+    [User-Agent] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => User-Agent
+            [value:protected] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
+        )
+
+    [Accept] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept
+            [value:protected] => application/json
+        )
+
+    [Sec-Ch-Ua] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua
+            [value:protected] => "Not;A=Brand";v="99", "Google Chrome";v="139", "Chromium";v="139"
+        )
+
+    [Sec-Ch-Ua-Mobile] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua-Mobile
+            [value:protected] => ?0
+        )
+
+    [Origin] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Origin
+            [value:protected] => http://localhost:4200
+        )
+
+    [Sec-Fetch-Site] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Site
+            [value:protected] => same-origin
+        )
+
+    [Sec-Fetch-Mode] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Mode
+            [value:protected] => cors
+        )
+
+    [Sec-Fetch-Dest] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Dest
+            [value:protected] => empty
+        )
+
+    [Referer] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Referer
+            [value:protected] => http://localhost:4200/admin/preguntas/crear
+        )
+
+    [Accept-Encoding] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept-Encoding
+            [value:protected] => gzip, deflate, br, zstd
+        )
+
+    [Accept-Language] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept-Language
+            [value:protected] => es-AR,es-US;q=0.9,es-419;q=0.8,es;q=0.7
+        )
+
+    [Cookie] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Cookie
+            [value:protected] => __next_hmr_refresh_hash__=64296463a474f93733113720ec11246c633457081244afec
+        )
+
+)
+
+INFO - 2025-08-21 18:24:55 --> FILES: Array
+(
+    [imagen] => Array
+        (
+            [name] => examen_carro.jpg
+            [full_path] => examen_carro.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\Users\ysulroca\AppData\Local\Temp\phpDAA9.tmp
+            [error] => 0
+            [size] => 18178
+        )
+
+)
+
+INFO - 2025-08-21 18:24:55 --> POST: Array
+(
+)
+
+INFO - 2025-08-21 18:24:55 --> Archivo recibido: SÍ
+INFO - 2025-08-21 18:24:55 --> Archivo subido exitosamente: 1755800695_9e562010c802bdae7950.jpg
+INFO - 2025-08-21 18:24:55 --> Tamaño: 18178 bytes
+INFO - 2025-08-21 18:24:55 --> Tipo MIME: image/jpeg
+INFO - 2025-08-21 18:24:55 --> === FIN SUBIDA DE IMAGEN ===
+INFO - 2025-08-21 18:25:04 --> Datos recibidos en create pregunta: {"enunciado":"Pregunta n\u00famero 3 para probar?","tipo_pregunta":"unica","categoria_id":"6","puntaje":10,"dificultad":"facil","es_critica":false,"respuestas":[{"texto":"A- Comando q q ","es_correcta":false,"uploading":false,"imagen":"1755800627_44d50029342818ce4921.avif"},{"texto":"B-Segunda  e rrrr t","es_correcta":true,"uploading":false,"imagen":"1755800656_c202fc2e2c65ea0ea3dc.webp"},{"texto":"F- Colapzo dddd ","es_correcta":false,"uploading":false,"imagen":"1755800695_9e562010c802bdae7950.jpg"}]}
+INFO - 2025-08-21 18:25:04 --> Datos mapeados para pregunta: {"categoria_id":"6","enunciado":"Pregunta n\u00famero 3 para probar?","tipo_pregunta":"multiple","puntaje":10,"dificultad":"facil","es_critica":0}
+INFO - 2025-08-21 19:31:00 --> === INICIO SUBIDA DE IMAGEN ===
+INFO - 2025-08-21 19:31:00 --> Método HTTP: POST
+INFO - 2025-08-21 19:31:00 --> Headers: Array
+(
+    [Content-Type] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Content-Type
+            [value:protected] => multipart/form-data; boundary=----WebKitFormBoundaryuLzZ0OuErXBrZ9Mf
+        )
+
+    [Host] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Host
+            [value:protected] => examen.test
+        )
+
+    [Connection] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Connection
+            [value:protected] => close
+        )
+
+    [Sec-Ch-Ua-Platform] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua-Platform
+            [value:protected] => "Windows"
+        )
+
+    [User-Agent] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => User-Agent
+            [value:protected] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
+        )
+
+    [Accept] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept
+            [value:protected] => application/json
+        )
+
+    [Sec-Ch-Ua] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua
+            [value:protected] => "Not;A=Brand";v="99", "Google Chrome";v="139", "Chromium";v="139"
+        )
+
+    [Sec-Ch-Ua-Mobile] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua-Mobile
+            [value:protected] => ?0
+        )
+
+    [Origin] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Origin
+            [value:protected] => http://localhost:4200
+        )
+
+    [Sec-Fetch-Site] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Site
+            [value:protected] => same-origin
+        )
+
+    [Sec-Fetch-Mode] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Mode
+            [value:protected] => cors
+        )
+
+    [Sec-Fetch-Dest] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Dest
+            [value:protected] => empty
+        )
+
+    [Referer] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Referer
+            [value:protected] => http://localhost:4200/admin/preguntas/crear
+        )
+
+    [Accept-Encoding] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept-Encoding
+            [value:protected] => gzip, deflate, br, zstd
+        )
+
+    [Accept-Language] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept-Language
+            [value:protected] => es-AR,es-US;q=0.9,es-419;q=0.8,es;q=0.7
+        )
+
+    [Cookie] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Cookie
+            [value:protected] => __next_hmr_refresh_hash__=64296463a474f93733113720ec11246c633457081244afec
+        )
+
+)
+
+INFO - 2025-08-21 19:31:00 --> FILES: Array
+(
+    [imagen] => Array
+        (
+            [name] => imagen_login_conductor.jpg
+            [full_path] => imagen_login_conductor.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\Users\ysulroca\AppData\Local\Temp\php5DA2.tmp
+            [error] => 0
+            [size] => 76192
+        )
+
+)
+
+INFO - 2025-08-21 19:31:00 --> POST: Array
+(
+)
+
+INFO - 2025-08-21 19:31:00 --> Archivo recibido: SÍ
+INFO - 2025-08-21 19:31:00 --> Archivo subido exitosamente: 1755804660_e31d88828fffd8ea3a8e.jpg
+INFO - 2025-08-21 19:31:00 --> Tamaño: 76192 bytes
+INFO - 2025-08-21 19:31:00 --> Tipo MIME: image/jpeg
+INFO - 2025-08-21 19:31:00 --> === FIN SUBIDA DE IMAGEN ===
+INFO - 2025-08-21 19:31:16 --> === INICIO SUBIDA DE IMAGEN ===
+INFO - 2025-08-21 19:31:16 --> Método HTTP: POST
+INFO - 2025-08-21 19:31:16 --> Headers: Array
+(
+    [Content-Type] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Content-Type
+            [value:protected] => multipart/form-data; boundary=----WebKitFormBoundary62whJuoiCgiRzwzw
+        )
+
+    [Host] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Host
+            [value:protected] => examen.test
+        )
+
+    [Connection] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Connection
+            [value:protected] => close
+        )
+
+    [Sec-Ch-Ua-Platform] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua-Platform
+            [value:protected] => "Windows"
+        )
+
+    [User-Agent] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => User-Agent
+            [value:protected] => Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36
+        )
+
+    [Accept] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept
+            [value:protected] => application/json
+        )
+
+    [Sec-Ch-Ua] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua
+            [value:protected] => "Not;A=Brand";v="99", "Google Chrome";v="139", "Chromium";v="139"
+        )
+
+    [Sec-Ch-Ua-Mobile] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Ch-Ua-Mobile
+            [value:protected] => ?0
+        )
+
+    [Origin] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Origin
+            [value:protected] => http://localhost:4200
+        )
+
+    [Sec-Fetch-Site] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Site
+            [value:protected] => same-origin
+        )
+
+    [Sec-Fetch-Mode] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Mode
+            [value:protected] => cors
+        )
+
+    [Sec-Fetch-Dest] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Sec-Fetch-Dest
+            [value:protected] => empty
+        )
+
+    [Referer] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Referer
+            [value:protected] => http://localhost:4200/admin/preguntas/crear
+        )
+
+    [Accept-Encoding] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept-Encoding
+            [value:protected] => gzip, deflate, br, zstd
+        )
+
+    [Accept-Language] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Accept-Language
+            [value:protected] => es-AR,es-US;q=0.9,es-419;q=0.8,es;q=0.7
+        )
+
+    [Cookie] => CodeIgniter\HTTP\Header Object
+        (
+            [name:protected] => Cookie
+            [value:protected] => __next_hmr_refresh_hash__=64296463a474f93733113720ec11246c633457081244afec
+        )
+
+)
+
+INFO - 2025-08-21 19:31:16 --> FILES: Array
+(
+    [imagen] => Array
+        (
+            [name] => examen_carro.jpg
+            [full_path] => examen_carro.jpg
+            [type] => image/jpeg
+            [tmp_name] => C:\Users\ysulroca\AppData\Local\Temp\php9B86.tmp
+            [error] => 0
+            [size] => 18178
+        )
+
+)
+
+INFO - 2025-08-21 19:31:16 --> POST: Array
+(
+)
+
+INFO - 2025-08-21 19:31:16 --> Archivo recibido: SÍ
+INFO - 2025-08-21 19:31:16 --> Archivo subido exitosamente: 1755804676_05c16b0bc11b6afe7c4f.jpg
+INFO - 2025-08-21 19:31:16 --> Tamaño: 18178 bytes
+INFO - 2025-08-21 19:31:16 --> Tipo MIME: image/jpeg
+INFO - 2025-08-21 19:31:16 --> === FIN SUBIDA DE IMAGEN ===
+INFO - 2025-08-21 19:31:33 --> Datos recibidos en create pregunta: {"enunciado":"la pregunta numro 6","tipo_pregunta":"unica","categoria_id":"5","puntaje":10,"dificultad":"medio","es_critica":false,"respuestas":[{"texto":"A- probando ","es_correcta":true,"uploading":false,"imagen":"1755804660_e31d88828fffd8ea3a8e.jpg"},{"texto":"B-Segunda  e rrrr t","es_correcta":false,"uploading":false,"imagen":"1755804676_05c16b0bc11b6afe7c4f.jpg"}]}
+INFO - 2025-08-21 19:31:33 --> Datos mapeados para pregunta: {"categoria_id":"5","enunciado":"la pregunta numro 6","tipo_pregunta":"multiple","puntaje":10,"dificultad":"medio","es_critica":0}
+INFO - 2025-08-21 19:42:21 --> Datos recibidos en update pregunta: {"pregunta_id":"71","categoria_id":"5","enunciado":"la pregunta numro 6 99","tipo_pregunta":"multiple","dificultad":"medio","puntaje":"10.00","es_critica":false,"created_at":"2025-08-21 19:31:33","updated_at":"2025-08-21 19:31:33","respuestas":[{"respuesta_id":"277","pregunta_id":"71","texto":"A- probando ","imagen":"1755804660_e31d88828fffd8ea3a8e.jpg","es_correcta":true,"created_at":"2025-08-21 19:31:33","updated_at":"2025-08-21 19:31:33"},{"respuesta_id":"278","pregunta_id":"71","texto":"B-Segunda  e rrrr t","imagen":"1755804676_05c16b0bc11b6afe7c4f.jpg","es_correcta":false,"created_at":"2025-08-21 19:31:33","updated_at":"2025-08-21 19:31:33"}],"categoria":{"categoria_id":"5","codigo":"B1","nombre":"Autom\u00f3viles particulares","descripcion":"Licencia para conducir autom\u00f3viles particulares, camionetas y utilitarios de hasta 3500 kg de peso total","requisitos":"Edad m\u00ednima 17 a\u00f1os. Examen te\u00f3rico y pr\u00e1ctico. Certificado m\u00e9dico. No requiere experiencia previa.","estado":"activo","created_at":"2025-08-11 08:48:41","updated_at":"2025-08-11 08:48:41"},"examenes":[]}
+INFO - 2025-08-21 19:42:21 --> Datos mapeados para actualizar pregunta: {"categoria_id":"5","enunciado":"la pregunta numro 6 99","tipo_pregunta":"multiple","puntaje":"10.00","dificultad":"medio","es_critica":0}

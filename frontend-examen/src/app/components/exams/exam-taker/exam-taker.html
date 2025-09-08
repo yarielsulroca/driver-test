@@ -1,0 +1,319 @@
+<div class="exam-taker-container">
+  <!-- Loading State -->
+  <div *ngIf="loading && !examen" class="loading-state">
+    <div class="loading-spinner"></div>
+    <p>Cargando examen...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error && !loading" class="error-state">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+    <h3>Error</h3>
+    <p>{{ error }}</p>
+    <button class="btn-secondary" (click)="cargarExamen(examen?.examen_id?.toString() || '')">Reintentar</button>
+  </div>
+
+  <!-- Exam Intro -->
+  <div *ngIf="examen && !examStarted && !examCompleted" class="exam-intro">
+    <div class="intro-card">
+      <div class="exam-header">
+        <div class="exam-icon">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          </svg>
+        </div>
+        <div class="exam-info">
+          <h1>{{ examen.titulo }}</h1>
+          <p class="exam-description">{{ examen.descripcion }}</p>
+        </div>
+      </div>
+
+      <div class="exam-details">
+        <div class="detail-grid">
+          <div class="detail-item">
+            <div class="detail-icon">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <div class="detail-content">
+              <span class="detail-label">Duración</span>
+              <span class="detail-value">{{ examen.tiempo_limite }} minutos</span>
+            </div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-icon">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <div class="detail-content">
+              <span class="detail-label">Preguntas</span>
+              <span class="detail-value">{{ totalPreguntas }}</span>
+            </div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-icon">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+              </svg>
+            </div>
+            <div class="detail-content">
+              <span class="detail-label">Puntaje mínimo</span>
+              <span class="detail-value">{{ examen.puntaje_minimo }}%</span>
+            </div>
+          </div>
+
+          <div class="detail-item">
+            <div class="detail-icon">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <div class="detail-content">
+              <span class="detail-label">Estado</span>
+              <span class="detail-value" [class]="examen.estado === 'activo' ? 'status-active' : 'status-inactive'">
+                {{ examen.estado === 'activo' ? 'Activo' : 'Inactivo' }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="exam-instructions">
+        <h3>Instrucciones</h3>
+        <ul>
+          <li>Lee cuidadosamente cada pregunta antes de responder</li>
+          <li>Para preguntas múltiples, puedes seleccionar más de una respuesta</li>
+          <li>Las preguntas críticas son de fallo automático si se responden incorrectamente</li>
+          <li>El tiempo se cuenta automáticamente desde que inicies el examen</li>
+          <li>No podrás modificar las respuestas una vez enviado el examen</li>
+        </ul>
+      </div>
+
+      <div class="exam-actions">
+        <button 
+          class="btn-primary btn-large" 
+          (click)="iniciarExamen()"
+          [disabled]="examen.estado !== 'activo'"
+        >
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          Iniciar Examen
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Active Exam -->
+  <div *ngIf="examen && examStarted && !examCompleted" class="active-exam">
+    <!-- Exam Header -->
+    <div class="exam-header-bar">
+      <div class="exam-title">
+        <h2>{{ examen.titulo }}</h2>
+        <span class="question-counter">Pregunta {{ preguntaActual + 1 }} de {{ totalPreguntas }}</span>
+      </div>
+      
+      <div class="exam-controls">
+        <div class="timer">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <span class="time-display" [class.time-warning]="tiempoRestante <= 300" [class.time-danger]="tiempoRestante <= 60">
+            {{ formatearTiempo(tiempoRestante) }}
+          </span>
+        </div>
+        
+        <div class="progress-info">
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="progreso"></div>
+          </div>
+          <span class="progress-text">{{ preguntasRespondidas }}/{{ totalPreguntas }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Question Navigation -->
+    <div class="question-navigation">
+      <div class="nav-buttons">
+        <button 
+          class="btn-nav" 
+          (click)="preguntaAnterior()"
+          [disabled]="preguntaActual === 0"
+        >
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          Anterior
+        </button>
+        
+        <button 
+          class="btn-nav" 
+          (click)="siguientePregunta()"
+          [disabled]="preguntaActual === totalPreguntas - 1"
+        >
+          Siguiente
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </button>
+      </div>
+      
+      <button class="btn-finish" (click)="terminarExamen()">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
+        Finalizar Examen
+      </button>
+    </div>
+
+    <!-- Current Question -->
+    <div *ngIf="preguntas[preguntaActual]" class="question-container">
+      <div class="question-header">
+        <div class="question-meta">
+          <span class="question-number">Pregunta {{ preguntaActual + 1 }}</span>
+          <span class="badge" [class]="getDificultadClass(preguntas[preguntaActual].dificultad)">
+            {{ getDificultadText(preguntas[preguntaActual].dificultad) }}
+          </span>
+                      <span class="badge badge-info">{{ getTipoText(preguntas[preguntaActual].tipo_pregunta) }}</span>
+          <span *ngIf="preguntas[preguntaActual].es_critica" class="badge badge-danger">Crítica</span>
+        </div>
+        <div class="question-score">
+          <span class="score-value">{{ preguntas[preguntaActual].puntaje }}</span>
+          <span class="score-label">puntos</span>
+        </div>
+      </div>
+
+      <div class="question-content">
+        <h3 class="question-text">{{ preguntas[preguntaActual].enunciado }}</h3>
+      </div>
+
+      <div class="answers-container">
+        <div 
+          *ngFor="let respuesta of preguntas[preguntaActual].respuestas" 
+          class="answer-option"
+          [class.selected]="esRespuestaSeleccionada(preguntas[preguntaActual].pregunta_id, respuesta.respuesta_id)"
+                      (click)="seleccionarRespuesta(preguntas[preguntaActual].pregunta_id, respuesta.respuesta_id, preguntas[preguntaActual].tipo_pregunta === 'multiple')"
+        >
+          <div class="answer-checkbox">
+            <div class="checkbox-inner" [class.checked]="esRespuestaSeleccionada(preguntas[preguntaActual].pregunta_id, respuesta.respuesta_id)">
+              <svg *ngIf="esRespuestaSeleccionada(preguntas[preguntaActual].pregunta_id, respuesta.respuesta_id)" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+              </svg>
+            </div>
+          </div>
+          
+          <div class="answer-content">
+            <div class="answer-text" *ngIf="respuesta.texto">{{ respuesta.texto }}</div>
+            <div class="answer-image" *ngIf="respuesta.imagen">
+              <img [src]="respuesta.imagen" alt="Imagen de respuesta" class="answer-img">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Question Grid -->
+    <div class="question-grid">
+      <h4>Navegación de Preguntas</h4>
+      <div class="grid-container">
+        <button 
+          *ngFor="let pregunta of preguntas; let i = index"
+          class="grid-item"
+          [class.current]="i === preguntaActual"
+          [class.answered]="esRespuestaSeleccionada(pregunta.pregunta_id, pregunta.respuestas?.[0]?.respuesta_id || 0)"
+          (click)="irAPregunta(i)"
+        >
+          {{ i + 1 }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exam Results -->
+  <div *ngIf="examen && examCompleted" class="exam-results">
+    <div class="results-card">
+      <div class="results-header">
+        <div class="results-icon" [class]="getResultadoClass()">
+          <svg *ngIf="getResultadoClass() === 'resultado-aprobado'" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+          </svg>
+          <svg *ngIf="getResultadoClass() === 'resultado-reprobado'" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+          </svg>
+        </div>
+        <div class="results-title">
+          <h2>{{ getResultadoText() }}</h2>
+          <p>Examen: {{ examen.titulo }}</p>
+        </div>
+      </div>
+
+      <div class="results-stats">
+        <div class="stat-grid">
+          <div class="stat-item">
+            <div class="stat-value">{{ puntajeObtenido }}/{{ puntajeTotal }}</div>
+            <div class="stat-label">Puntaje Total</div>
+          </div>
+          
+          <div class="stat-item">
+            <div class="stat-value">{{ ((puntajeObtenido / puntajeTotal) * 100).toFixed(1) }}%</div>
+            <div class="stat-label">Porcentaje</div>
+          </div>
+          
+          <div class="stat-item">
+            <div class="stat-value">{{ preguntasCorrectas }}</div>
+            <div class="stat-label">Correctas</div>
+          </div>
+          
+          <div class="stat-item">
+            <div class="stat-value">{{ preguntasIncorrectas }}</div>
+            <div class="stat-label">Incorrectas</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="results-details">
+        <div class="detail-row">
+          <span class="detail-label">Puntaje mínimo requerido:</span>
+          <span class="detail-value">{{ examen.puntaje_minimo }}%</span>
+        </div>
+        
+        <div class="detail-row">
+          <span class="detail-label">Tiempo utilizado:</span>
+          <span class="detail-value">{{ formatearTiempo((examen.duracion_minutos * 60) - tiempoRestante) }}</span>
+        </div>
+        
+        <div class="detail-row" *ngIf="preguntasCriticasFalladas > 0">
+          <span class="detail-label">Preguntas críticas falladas:</span>
+          <span class="detail-value error">{{ preguntasCriticasFalladas }}</span>
+        </div>
+      </div>
+
+      <div class="results-actions">
+        <button 
+          *ngIf="!examSubmitted"
+          class="btn-primary" 
+          (click)="enviarExamen()"
+          [disabled]="loading"
+        >
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          {{ loading ? 'Enviando...' : 'Enviar Resultado' }}
+        </button>
+        
+        <div *ngIf="examSubmitted" class="submission-success">
+          <svg fill="currentColor" viewBox="0 0 24 24">
+            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+          </svg>
+          <p>Resultado enviado exitosamente. Redirigiendo...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

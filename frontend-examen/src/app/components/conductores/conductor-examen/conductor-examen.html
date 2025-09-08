@@ -1,0 +1,261 @@
+<div class="conductor-examen-container">
+  <!-- Header -->
+  <div class="header">
+    <h1>Gestión de Categorías Aprobadas</h1>
+    <p>Administra las categorías de licencias aprobadas para cada conductor</p>
+  </div>
+
+  <!-- Mensajes -->
+  <div *ngIf="error" class="alert alert-error">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+    <span>{{ error }}</span>
+  </div>
+
+  <div *ngIf="success" class="alert alert-success">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+    </svg>
+    <span>{{ success }}</span>
+  </div>
+
+  <!-- Filtros -->
+  <div class="filters-section">
+    <div class="filters-grid">
+      <div class="filter-group">
+        <label for="conductor-filter">Conductor:</label>
+        <select id="conductor-filter" [(ngModel)]="selectedConductor" (change)="aplicarFiltros()">
+          <option value="">Todos los conductores</option>
+          <option *ngFor="let conductor of conductores" [value]="conductor.conductor_id">
+            {{ conductor.usuario?.nombre }} {{ conductor.usuario?.apellido }} ({{ conductor.usuario?.dni }})
+          </option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="categoria-filter">Categoría:</label>
+        <select id="categoria-filter" [(ngModel)]="selectedCategoria" (change)="aplicarFiltros()">
+          <option value="">Todas las categorías</option>
+          <option *ngFor="let categoria of categorias" [value]="categoria.categoria_id">
+            {{ categoria.codigo }} - {{ categoria.nombre }}
+          </option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="estado-filter">Estado:</label>
+        <select id="estado-filter" [(ngModel)]="selectedEstado" (change)="aplicarFiltros()">
+          <option value="">Todos los estados</option>
+          <option value="pendiente">Pendiente</option>
+          <option value="aprobado">Aprobado</option>
+          <option value="rechazado">Rechazado</option>
+        </select>
+      </div>
+
+      <div class="filter-actions">
+        <button class="btn-secondary" (click)="limpiarFiltros()">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+          </svg>
+          Limpiar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Acciones -->
+  <div class="actions-section">
+    <button class="btn-primary" (click)="abrirModal()">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+      </svg>
+      Nueva Categoría Aprobada
+    </button>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-state">
+    <div class="loading-spinner"></div>
+    <p>Cargando categorías aprobadas...</p>
+  </div>
+
+  <!-- Tabla de Categorías Aprobadas -->
+  <div *ngIf="!loading" class="table-container">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Conductor</th>
+          <th>Categoría</th>
+          <th>Examen</th>
+          <th>Estado</th>
+          <th>Puntaje</th>
+          <th>Fecha Aprobación</th>
+          <th>Vencimiento</th>
+          <th>Observaciones</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let categoriaAprobada of categoriasAprobadas" class="table-row">
+          <td>
+            <div class="conductor-info">
+              <strong>{{ getConductorNombre(categoriaAprobada.conductor_id) }}</strong>
+            </div>
+          </td>
+          <td>
+            <div class="categoria-info">
+              <span class="categoria-codigo">{{ getCategoriaNombre(categoriaAprobada.categoria_id) }}</span>
+            </div>
+          </td>
+          <td>
+            <span *ngIf="categoriaAprobada.examen_id; else noExamen">
+              {{ getExamenNombre(categoriaAprobada.examen_id) }}
+            </span>
+            <ng-template #noExamen>
+              <span class="no-examen">Sin examen</span>
+            </ng-template>
+          </td>
+          <td>
+            <span class="estado-badge" [ngClass]="getEstadoClass(categoriaAprobada.estado)">
+              {{ getEstadoText(categoriaAprobada.estado) }}
+            </span>
+          </td>
+          <td>
+            <span class="puntaje">{{ formatearPuntaje(categoriaAprobada.puntaje_obtenido) }}</span>
+          </td>
+          <td>
+            <span class="fecha">{{ formatearFecha(categoriaAprobada.fecha_aprobacion) }}</span>
+          </td>
+          <td>
+            <span class="fecha">{{ formatearFecha(categoriaAprobada.fecha_vencimiento) }}</span>
+          </td>
+          <td>
+            <span class="observaciones" *ngIf="categoriaAprobada.observaciones; else noObservaciones">
+              {{ categoriaAprobada.observaciones }}
+            </span>
+            <ng-template #noObservaciones>
+              <span class="no-observaciones">Sin observaciones</span>
+            </ng-template>
+          </td>
+          <td>
+            <div class="actions">
+              <button class="btn-icon btn-edit" (click)="abrirModal(categoriaAprobada)" title="Editar">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                </svg>
+              </button>
+              <button class="btn-icon btn-delete" (click)="eliminarCategoriaAprobada(categoriaAprobada.categoria_aprobada_id)" title="Eliminar">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                </svg>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Empty State -->
+    <div *ngIf="categoriasAprobadas.length === 0" class="empty-state">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+      </svg>
+      <h3>No hay categorías aprobadas</h3>
+      <p>No se encontraron categorías aprobadas con los filtros aplicados.</p>
+      <button class="btn-primary" (click)="abrirModal()">Crear Primera Categoría</button>
+    </div>
+  </div>
+
+  <!-- Modal para Crear/Editar -->
+  <div *ngIf="showModal" class="modal-overlay" (click)="cerrarModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>{{ modalTitle }}</h2>
+        <button class="btn-icon btn-close" (click)="cerrarModal()">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form (ngSubmit)="guardarCategoriaAprobada()" #form="ngForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="conductor_id">Conductor *</label>
+              <select id="conductor_id" [(ngModel)]="formData.conductor_id" name="conductor_id" required>
+                <option value="">Seleccionar conductor</option>
+                <option *ngFor="let conductor of conductores" [value]="conductor.conductor_id">
+                  {{ conductor.usuario?.nombre }} {{ conductor.usuario?.apellido }} ({{ conductor.usuario?.dni }})
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="categoria_id">Categoría *</label>
+              <select id="categoria_id" [(ngModel)]="formData.categoria_id" name="categoria_id" required>
+                <option value="">Seleccionar categoría</option>
+                <option *ngFor="let categoria of categorias" [value]="categoria.categoria_id">
+                  {{ categoria.codigo }} - {{ categoria.nombre }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="examen_id">Examen (opcional)</label>
+              <select id="examen_id" [(ngModel)]="formData.examen_id" name="examen_id">
+                <option value="0">Sin examen</option>
+                <option *ngFor="let examen of examenes" [value]="examen.examen_id">
+                  {{ examen.nombre }}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="estado">Estado *</label>
+              <select id="estado" [(ngModel)]="formData.estado" name="estado" required>
+                <option value="pendiente">Pendiente</option>
+                <option value="aprobado">Aprobado</option>
+                <option value="rechazado">Rechazado</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="puntaje_obtenido">Puntaje Obtenido</label>
+              <input type="number" id="puntaje_obtenido" [(ngModel)]="formData.puntaje_obtenido" 
+                     name="puntaje_obtenido" min="0" max="100" step="0.01" 
+                     placeholder="0.00">
+            </div>
+
+            <div class="form-group">
+              <label for="fecha_aprobacion">Fecha de Aprobación</label>
+              <input type="datetime-local" id="fecha_aprobacion" [(ngModel)]="formData.fecha_aprobacion" 
+                     name="fecha_aprobacion">
+            </div>
+
+            <div class="form-group">
+              <label for="fecha_vencimiento">Fecha de Vencimiento</label>
+              <input type="datetime-local" id="fecha_vencimiento" [(ngModel)]="formData.fecha_vencimiento" 
+                     name="fecha_vencimiento">
+            </div>
+
+            <div class="form-group full-width">
+              <label for="observaciones">Observaciones</label>
+              <textarea id="observaciones" [(ngModel)]="formData.observaciones" 
+                        name="observaciones" rows="3" 
+                        placeholder="Observaciones adicionales..."></textarea>
+            </div>
+          </div>
+
+          <div class="modal-actions">
+            <button type="button" class="btn-secondary" (click)="cerrarModal()">Cancelar</button>
+            <button type="submit" class="btn-primary" [disabled]="!form.valid">
+              {{ editingCategoriaAprobada ? 'Actualizar' : 'Crear' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

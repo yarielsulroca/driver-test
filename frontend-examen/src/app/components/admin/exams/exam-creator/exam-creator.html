@@ -1,0 +1,462 @@
+<div class="exam-creator-container">
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <button class="btn-back" (click)="cancelar()">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+        </svg>
+        Volver
+      </button>
+      <h1>Crear Nuevo Examen</h1>
+    </div>
+  </div>
+
+  <!-- Stepper Visual -->
+  <div class="stepper-container">
+    <div class="stepper">
+      <div class="step" [class.active]="etapaActual >= 1" [class.completed]="etapaActual > 1">
+        <div class="step-number">1</div>
+        <div class="step-label">Información Básica</div>
+      </div>
+      <div class="step-line" [class.completed]="etapaActual > 1"></div>
+      
+      <div class="step" [class.active]="etapaActual >= 2" [class.completed]="etapaActual > 2">
+        <div class="step-number">2</div>
+        <div class="step-label">Categorías</div>
+      </div>
+      <div class="step-line" [class.completed]="etapaActual > 2"></div>
+      
+      <div class="step" [class.active]="etapaActual >= 3" [class.completed]="etapaActual > 3">
+        <div class="step-number">3</div>
+        <div class="step-label">Preguntas</div>
+      </div>
+      <div class="step-line" [class.completed]="etapaActual > 3"></div>
+      
+      <div class="step" [class.active]="etapaActual >= 4" [class.completed]="etapaActual > 4">
+        <div class="step-number">4</div>
+        <div class="step-label">Revisión</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Message -->
+  <div *ngIf="success" class="message success">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+    </svg>
+    {{ success }}
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="error" class="message error">
+    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+    {{ error }}
+  </div>
+
+  <!-- Etapa 1: Información Básica -->
+  <div *ngIf="etapaActual === 1" class="stage-container">
+    <div class="stage-header">
+      <h2>📋 Información Básica del Examen</h2>
+      <p>Define los datos principales del examen de conducción</p>
+    </div>
+    
+    <div class="form-container">
+      <div class="form-group">
+        <label for="titulo">Título del Examen *</label>
+        <input 
+          type="text" 
+          id="titulo" 
+          name="titulo"
+          [(ngModel)]="examen.titulo" 
+          required
+          maxlength="200"
+          class="form-input"
+          placeholder="Ej: Examen de Conducción Básico"
+          [class.is-invalid]="error && !examen.titulo.trim()"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="descripcion">Descripción</label>
+        <textarea 
+          id="descripcion" 
+          name="descripcion"
+          [(ngModel)]="examen.descripcion" 
+          maxlength="500"
+          rows="3"
+          class="form-textarea"
+          placeholder="Descripción opcional del examen..."
+        ></textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="tiempo_limite">Tiempo Límite (minutos) *</label>
+          <input 
+            type="number" 
+            id="tiempo_limite" 
+            name="tiempo_limite"
+            [(ngModel)]="examen.tiempo_limite" 
+            required
+            min="1"
+            max="480"
+            class="form-input"
+            [class.is-invalid]="error && examen.tiempo_limite <= 0"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="puntaje_minimo">Puntaje Mínimo (%) *</label>
+          <input 
+            type="number" 
+            id="puntaje_minimo" 
+            name="puntaje_minimo"
+            [(ngModel)]="examen.puntaje_minimo" 
+            required
+            min="1"
+            max="100"
+            class="form-input"
+            [class.is-invalid]="error && (examen.puntaje_minimo <= 0 || examen.puntaje_minimo > 100)"
+          >
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="numero_preguntas">Número de Preguntas *</label>
+          <input 
+            type="number" 
+            id="numero_preguntas" 
+            name="numero_preguntas"
+            [(ngModel)]="examen.numero_preguntas" 
+            required
+            min="1"
+            max="100"
+            class="form-input"
+            [class.is-invalid]="error && examen.numero_preguntas <= 0"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="dificultad">Dificultad</label>
+          <select 
+            id="dificultad" 
+            name="dificultad"
+            [(ngModel)]="examen.dificultad" 
+            class="form-select"
+          >
+            <option value="baja">Baja</option>
+            <option value="media">Media</option>
+            <option value="alta">Alta</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fecha_inicio">Fecha de Inicio</label>
+          <input 
+            type="datetime-local" 
+            id="fecha_inicio" 
+            name="fecha_inicio"
+            [(ngModel)]="examen.fecha_inicio" 
+            class="form-input"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="fecha_fin">Fecha de Fin</label>
+          <input 
+            type="datetime-local" 
+            id="fecha_fin" 
+            name="fecha_fin"
+            [(ngModel)]="examen.fecha_fin" 
+            class="form-input"
+          >
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="estado">Estado</label>
+        <select 
+          id="estado" 
+          name="estado"
+          [(ngModel)]="examen.estado" 
+          class="form-select"
+        >
+          <option value="activo">Activo</option>
+          <option value="inactivo">Inactivo</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Etapa 2: Selección de Categorías -->
+  <div *ngIf="etapaActual === 2" class="stage-container">
+    <div class="stage-header">
+      <h2>🏷️ Selección de Categorías</h2>
+      <p>Elige las categorías que formarán parte de este examen</p>
+    </div>
+    
+    <div class="categories-container">
+      <div class="categories-header">
+        <h3>Categorías Disponibles</h3>
+        <div class="search-box">
+          <input 
+            type="text" 
+            placeholder="Buscar categorías..." 
+            [(ngModel)]="filtroCategoria"
+            class="search-input"
+          >
+        </div>
+      </div>
+      
+      <div class="categories-grid">
+        <div 
+          *ngFor="let categoria of categorias | filterCategoria:filtroCategoria" 
+          class="category-card"
+          [class.selected]="isCategoriaSeleccionada(categoria)"
+          (click)="toggleCategoria(categoria)"
+        >
+          <div class="category-header">
+            <h4>{{ categoria.nombre }}</h4>
+            <span class="category-code">{{ categoria.codigo }}</span>
+          </div>
+          <p class="category-description">{{ categoria.descripcion }}</p>
+          <div class="category-status">
+            <span class="status-badge" [class]="categoria.estado">
+              {{ categoria.estado }}
+            </span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="selected-categories">
+        <h3>Categorías Seleccionadas ({{ examen.categorias_seleccionadas.length }})</h3>
+        <div class="selected-list">
+          <div 
+            *ngFor="let categoria of examen.categorias_seleccionadas" 
+            class="selected-item"
+          >
+            <span>{{ categoria.nombre }}</span>
+            <button class="remove-btn" (click)="removeCategoria(categoria)" title="Eliminar categoría">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Etapa 3: Selección de Preguntas -->
+  <div *ngIf="etapaActual === 3" class="stage-container">
+    <div class="stage-header">
+      <h2>❓ Selección de Preguntas</h2>
+      <p>Elige las preguntas que formarán parte del examen</p>
+    </div>
+    
+    <div class="questions-container">
+      <div class="questions-header">
+        <h3>Preguntas Disponibles</h3>
+        <div class="filters-row">
+          <div class="filter-group">
+            <input 
+              type="text" 
+              placeholder="Buscar preguntas..." 
+              [(ngModel)]="filtroPregunta"
+              class="search-input"
+            >
+          </div>
+          <div class="filter-group">
+            <select [(ngModel)]="filtroCategoria" class="filter-select" title="Filtrar por categoría">
+              <option value="">Todas las categorías</option>
+              <option *ngFor="let cat of examen.categorias_seleccionadas" [value]="cat.categoria_id">
+                {{ cat.nombre }}
+              </option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <select [(ngModel)]="filtroDificultad" class="filter-select" title="Filtrar por dificultad">
+              <option value="">Todas las dificultades</option>
+              <option value="baja">Baja</option>
+              <option value="media">Media</option>
+              <option value="alta">Alta</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      <div class="questions-grid">
+        <div 
+          *ngFor="let pregunta of preguntas | filterPreguntas:filtroPregunta:filtroCategoria:filtroDificultad" 
+          class="question-card"
+          [class.selected]="isPreguntaSeleccionada(pregunta)"
+          (click)="togglePregunta(pregunta)"
+        >
+          <div class="question-header">
+            <h4>{{ pregunta.enunciado | slice:0:100 }}{{ pregunta.enunciado.length > 100 ? '...' : '' }}</h4>
+            <span class="question-type">{{ pregunta.tipo_pregunta }}</span>
+          </div>
+          <div class="question-details">
+            <span class="category-tag">{{ pregunta.categoria_nombre }}</span>
+            <span class="difficulty-tag" [class]="pregunta.dificultad">
+              {{ pregunta.dificultad }}
+            </span>
+            <span class="score-tag">{{ pregunta.puntaje }} pts</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="selected-questions">
+        <div class="selected-header">
+          <h3>Preguntas Seleccionadas ({{ examen.preguntas_seleccionadas.length }})</h3>
+          <button 
+            class="btn-secondary" 
+            (click)="ordenarPreguntasAleatoriamente()"
+            [disabled]="examen.preguntas_seleccionadas.length < 2"
+          >
+            🔀 Ordenar Aleatoriamente
+          </button>
+        </div>
+        
+        <div class="questions-list">
+          <div 
+            *ngFor="let pregunta of examen.preguntas_seleccionadas; let i = index" 
+            class="question-item"
+          >
+            <div class="question-order">{{ i + 1 }}</div>
+            <div class="question-content">
+              <h4>{{ pregunta.enunciado | slice:0:80 }}{{ pregunta.enunciado.length > 80 ? '...' : '' }}</h4>
+              <div class="question-meta">
+                <span class="category-tag">{{ pregunta.categoria_nombre }}</span>
+                <span class="difficulty-tag" [class]="pregunta.dificultad">
+                  {{ pregunta.dificultad }}
+                </span>
+                <span class="score-tag">{{ pregunta.puntaje }} pts</span>
+              </div>
+            </div>
+            <button class="remove-btn" (click)="removePregunta(pregunta)" title="Eliminar pregunta">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Etapa 4: Revisión Final -->
+  <div *ngIf="etapaActual === 4" class="stage-container">
+    <div class="stage-header">
+      <h2>✅ Revisión Final</h2>
+      <p>Verifica que toda la información esté correcta antes de crear el examen</p>
+    </div>
+    
+    <div class="review-container">
+      <div class="review-section">
+        <h3>📋 Información del Examen</h3>
+        <div class="review-grid">
+          <div class="review-item">
+            <label>Título:</label>
+            <span>{{ examen.titulo }}</span>
+          </div>
+          <div class="review-item">
+            <label>Descripción:</label>
+            <span>{{ examen.descripcion || 'Sin descripción' }}</span>
+          </div>
+          <div class="review-item">
+            <label>Tiempo límite:</label>
+            <span>{{ examen.tiempo_limite }} minutos</span>
+          </div>
+          <div class="review-item">
+            <label>Puntaje mínimo:</label>
+            <span>{{ examen.puntaje_minimo }}%</span>
+          </div>
+          <div class="review-item">
+            <label>Número de preguntas:</label>
+            <span>{{ examen.numero_preguntas }}</span>
+          </div>
+          <div class="review-item">
+            <label>Dificultad:</label>
+            <span>{{ examen.dificultad | titlecase }}</span>
+          </div>
+          <div class="review-item">
+            <label>Estado:</label>
+            <span>{{ examen.estado | titlecase }}</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="review-section">
+        <h3>🏷️ Categorías Seleccionadas</h3>
+        <div class="review-tags">
+          <span 
+            *ngFor="let categoria of examen.categorias_seleccionadas" 
+            class="review-tag"
+          >
+            {{ categoria.nombre }}
+          </span>
+        </div>
+      </div>
+      
+      <div class="review-section">
+        <h3>❓ Preguntas Seleccionadas</h3>
+        <div class="review-questions">
+          <div 
+            *ngFor="let pregunta of examen.preguntas_seleccionadas; let i = index" 
+            class="review-question"
+          >
+            <span class="question-number">{{ i + 1 }}</span>
+            <span class="question-text">{{ pregunta.enunciado | slice:0:60 }}{{ pregunta.enunciado.length > 60 ? '...' : '' }}</span>
+            <span class="question-score">{{ pregunta.puntaje }} pts</span>
+          </div>
+        </div>
+        <div class="total-score">
+          <strong>Puntaje total: {{ getPuntajeTotal() }} puntos</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navegación entre etapas -->
+  <div class="stage-navigation">
+    <button 
+      *ngIf="etapaActual > 1" 
+      class="btn-secondary" 
+      (click)="etapaAnterior()"
+    >
+      ← Anterior
+    </button>
+    
+    <button 
+      *ngIf="etapaActual < totalEtapas" 
+      class="btn-primary" 
+      (click)="siguienteEtapa()"
+      [disabled]="!puedeAvanzar()"
+    >
+      Siguiente →
+    </button>
+    
+    <button 
+      *ngIf="etapaActual === totalEtapas" 
+      class="btn-success" 
+      (click)="crearExamen()"
+      [disabled]="saving || !puedeCrearExamen()"
+    >
+      <span *ngIf="!saving">✅ Crear Examen</span>
+      <span *ngIf="saving">⏳ Creando...</span>
+    </button>
+  </div>
+
+  <!-- Loading overlay -->
+  <div *ngIf="loading" class="loading-overlay">
+    <div class="loading-spinner"></div>
+    <p>Cargando...</p>
+  </div>
+</div> 

@@ -1,1 +1,35 @@
-<p>login works!</p>
+<div class="login-container">
+  <div class="login-left">
+  <img src="assets/images/Logo.svg" alt="Municipio de Villarino" />
+  <img src="assets/images/imagen_login_conductor.jpg" alt="Ilustración Licencia de Conducir" />
+  
+  
+  </div>
+  <div class="login-right">
+    <div class="login-title">
+      <span class="examen-teorico">EXAMEN TEÓRICO</span>
+      <h1>Licencia<br>de Conducir</h1>
+    </div>
+    <form (ngSubmit)="onSubmit()" class="login-form">
+      <label for="dni">Por favor, ingresá tus datos</label>
+      <input
+        type="text"
+        id="dni"
+        [(ngModel)]="dni"
+        name="dni"
+        placeholder="DNI"
+        required
+        [disabled]="loading"
+        maxlength="10"
+        class="dni-input"
+      />
+      <div *ngIf="error" class="error-message">
+        {{ error }}
+      </div>
+      <button type="submit" class="login-button" [disabled]="loading">
+        <span *ngIf="!loading">Ingresar</span>
+        <span *ngIf="loading">Ingresando...</span>
+      </button>
+    </form>
+  </div>
+</div>

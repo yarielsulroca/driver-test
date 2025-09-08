@@ -1,0 +1,57 @@
+DEBUG - 2025-07-29 17:22:03 --> Raw input: {"nombre":"Oficina Central Rivadavia 375  ","direccion":" Rivadavia 375  Buenos Aires","ciudad":"Buenos Aires","telefono":"0230 15-435-1043","email":"of1@gmail.com","estado":"activo"}
+DEBUG - 2025-07-29 17:22:03 --> JSON decoded: {"nombre":"Oficina Central Rivadavia 375  ","direccion":" Rivadavia 375  Buenos Aires","ciudad":"Buenos Aires","telefono":"0230 15-435-1043","email":"of1@gmail.com","estado":"activo"}
+ERROR - 2025-07-29 17:56:05 --> mysqli_sql_exception: Table 'examen_conductor' already exists in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `e...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `e...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `e...')
+#3 C:\laragon\www\examen\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `e...')
+#4 C:\laragon\www\examen\app\Database\Migrations\2024-04-21-000014_CreateExamenConductorTable.php(74): CodeIgniter\Database\Forge->createTable('examen_conducto...')
+#5 C:\laragon\www\examen\system\Database\MigrationRunner.php(866): App\Database\Migrations\CreateExamenConductorTable->up()
+#6 C:\laragon\www\examen\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\laragon\www\examen\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\laragon\www\examen\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\laragon\www\examen\system\Boot.php(360): CodeIgniter\CLI\Console->run()
+#11 C:\laragon\www\examen\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\laragon\www\examen\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-07-29 17:56:33 --> mysqli_sql_exception: Table 'examen_conductor' already exists in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `e...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `e...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `e...')
+#3 C:\laragon\www\examen\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `e...')
+#4 C:\laragon\www\examen\app\Database\Migrations\2024-04-21-000014_CreateExamenConductorTable.php(74): CodeIgniter\Database\Forge->createTable('examen_conducto...')
+#5 C:\laragon\www\examen\system\Database\MigrationRunner.php(866): App\Database\Migrations\CreateExamenConductorTable->up()
+#6 C:\laragon\www\examen\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\laragon\www\examen\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\laragon\www\examen\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\laragon\www\examen\system\Boot.php(360): CodeIgniter\CLI\Console->run()
+#11 C:\laragon\www\examen\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\laragon\www\examen\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+DEBUG - 2025-07-29 18:07:46 --> Raw input: {"nombre":"Oficina Central Rivadavia 375","direccion":"Rivadavia 375 Buenos Aires","ciudad":"Buenos Aires","telefono":"0230 15-435-1043","email":"of1@gmail.com","estado":"activo"}
+DEBUG - 2025-07-29 18:07:46 --> JSON decoded: {"nombre":"Oficina Central Rivadavia 375","direccion":"Rivadavia 375 Buenos Aires","ciudad":"Buenos Aires","telefono":"0230 15-435-1043","email":"of1@gmail.com","estado":"activo"}
+DEBUG - 2025-07-29 18:08:08 --> Raw input: {"nombre":"Oficina Central Rivadavia 375","direccion":"Rivadavia 375 Buenos Aires","ciudad":"Buenos Aires","telefono":"0230-435-1043","email":"of1@gmail.com","estado":"activo"}
+DEBUG - 2025-07-29 18:08:08 --> JSON decoded: {"nombre":"Oficina Central Rivadavia 375","direccion":"Rivadavia 375 Buenos Aires","ciudad":"Buenos Aires","telefono":"0230-435-1043","email":"of1@gmail.com","estado":"activo"}
+DEBUG - 2025-07-29 18:09:11 --> Raw input: {
+    "nombre": "Oficina Central Rivadavia 375",
+    "direccion": "Rivadavia 375 Buenos Aires", 
+    "ciudad": "Buenos Aires",
+    "telefono": "0230-435-1043",
+    "email": "of1@gmail.com",
+    "estado": "activo"
+}
+DEBUG - 2025-07-29 18:09:11 --> JSON decoded: {"nombre":"Oficina Central Rivadavia 375","direccion":"Rivadavia 375 Buenos Aires","ciudad":"Buenos Aires","telefono":"0230-435-1043","email":"of1@gmail.com","estado":"activo"}
+DEBUG - 2025-07-29 18:09:53 --> Raw input: {
+    "nombre": "Oficina Central Rivadavia 385",
+    "direccion": "Rivadavia 385 Buenos Aires", 
+    "ciudad": "Buenos Aires",
+    "telefono": "0230-435-1048",
+    "email": "of2@gmail.com",
+    "estado": "activo"
+}
+DEBUG - 2025-07-29 18:09:53 --> JSON decoded: {"nombre":"Oficina Central Rivadavia 385","direccion":"Rivadavia 385 Buenos Aires","ciudad":"Buenos Aires","telefono":"0230-435-1048","email":"of2@gmail.com","estado":"activo"}
+INFO - 2025-07-29 20:31:39 --> JSON recibido en update categoría: {"nombre":"Ciclomotor","descripcion":"Veh\u00edculos de dos ruedas con motor de hasta 50cc o hasta 4kW de potencia.","estado":"activo"}

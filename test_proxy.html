@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Proxy Angular</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        .info { background-color: #d1ecf1; border-color: #bee5eb; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 3px; overflow-x: auto; }
+        .loading { color: #007bff; }
+    </style>
+</head>
+<body>
+    <h1>Test de Proxy Angular</h1>
+    
+    <div class="test-section info">
+        <h3>Información del Test</h3>
+        <p>Este test verifica si el proxy de Angular está funcionando correctamente.</p>
+        <p><strong>URL actual:</strong> <span id="currentUrl"></span></p>
+        <p><strong>Puerto esperado:</strong> 4200</p>
+    </div>
+
+    <div class="test-section">
+        <h3>Test 1: Verificar Proxy a /api/categorias</h3>
+        <button onclick="testProxy()">Probar Proxy</button>
+        <div id="resultado1"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>Test 2: Verificar Backend Directo</h3>
+        <button onclick="testBackendDirecto()">Probar Backend Directo</button>
+        <div id="resultado2"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>Test 3: Verificar CORS</h3>
+        <button onclick="testCORS()">Probar CORS</button>
+        <div id="resultado3"></div>
+    </div>
+
+    <script>
+        // Mostrar URL actual
+        document.getElementById('currentUrl').textContent = window.location.href;
+
+        async function testProxy() {
+            const resultado = document.getElementById('resultado1');
+            resultado.innerHTML = '<div class="loading">🔄 Probando proxy...</div>';
+            
+            try {
+                console.log('🔄 Iniciando test de proxy...');
+                const response = await fetch('/api/categorias', {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                console.log('📊 Respuesta del proxy:', {
+                    status: response.status,
+                    statusText: response.statusText,
+                    url: response.url,
+                    headers: Object.fromEntries(response.headers.entries())
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status} - ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                resultado.innerHTML = `
+                    <div class="success">
+                        <h4>✅ Proxy Funcionando</h4>
+                        <p><strong>Status:</strong> ${response.status}</p>
+                        <p><strong>URL:</strong> ${response.url}</p>
+                        <p><strong>Total categorías:</strong> ${data.length}</p>
+                        <p><strong>Primeras 3 categorías:</strong></p>
+                        <pre>${JSON.stringify(data.slice(0, 3), null, 2)}</pre>
+                    </div>
+                `;
+                
+            } catch (error) {
+                resultado.innerHTML = `
+                    <div class="error">
+                        <h4>❌ Error en Proxy</h4>
+                        <p><strong>Error:</strong> ${error.message}</p>
+                        <p><strong>Tipo:</strong> ${error.name}</p>
+                        <p><strong>Stack:</strong></p>
+                        <pre>${error.stack}</pre>
+                    </div>
+                `;
+                console.error('❌ Error en proxy:', error);
+            }
+        }
+
+        async function testBackendDirecto() {
+            const resultado = document.getElementById('resultado2');
+            resultado.innerHTML = '<div class="loading">🔄 Probando backend directo...</div>';
+            
+            try {
+                const response = await fetch('http://examen.test/api/categorias', {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                resultado.innerHTML = `
+                    <div class="success">
+                        <h4>✅ Backend Directo Funcionando</h4>
+                        <p><strong>Status:</strong> ${response.status}</p>
+                        <p><strong>Total categorías:</strong> ${data.length}</p>
+                    </div>
+                `;
+                
+            } catch (error) {
+                resultado.innerHTML = `
+                    <div class="error">
+                        <h4>❌ Error Backend Directo</h4>
+                        <p>${error.message}</p>
+                    </div>
+                `;
+                console.error('❌ Error backend directo:', error);
+            }
+        }
+
+        async function testCORS() {
+            const resultado = document.getElementById('resultado3');
+            resultado.innerHTML = '<div class="loading">🔄 Probando CORS...</div>';
+            
+            try {
+                // Intentar hacer una petición OPTIONS (preflight)
+                const response = await fetch('http://examen.test/api/categorias', {
+                    method: 'OPTIONS',
+                    headers: {
+                        'Origin': window.location.origin,
+                        'Access-Control-Request-Method': 'GET',
+                        'Access-Control-Request-Headers': 'Content-Type, Accept'
+                    }
+                });
+                
+                const corsHeaders = {
+                    'Access-Control-Allow-Origin': response.headers.get('Access-Control-Allow-Origin'),
+                    'Access-Control-Allow-Methods': response.headers.get('Access-Control-Allow-Methods'),
+                    'Access-Control-Allow-Headers': response.headers.get('Access-Control-Allow-Headers')
+                };
+                
+                resultado.innerHTML = `
+                    <div class="success">
+                        <h4>✅ CORS Configurado</h4>
+                        <p><strong>Status:</strong> ${response.status}</p>
+                        <p><strong>Headers CORS:</strong></p>
+                        <pre>${JSON.stringify(corsHeaders, null, 2)}</pre>
+                    </div>
+                `;
+                
+            } catch (error) {
+                resultado.innerHTML = `
+                    <div class="error">
+                        <h4>❌ Error CORS</h4>
+                        <p>${error.message}</p>
+                    </div>
+                `;
+                console.error('❌ Error CORS:', error);
+            }
+        }
+    </script>
+</body>
+</html> 

@@ -3,135 +3,172 @@
 namespace App\Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
-use App\Models\CategoriaModel;
 
 class CategoriasSeeder extends Seeder
 {
     public function run()
     {
         $categorias = [
-            // Categorías de Motocicletas
+            // CATEGORÍAS PARA VEHÍCULOS PARTICULARES
             [
-                'sigla' => 'A1',
-                'nombre' => 'Motocicletas hasta 125cc',
-                'descripcion' => 'Licencia para conducir motocicletas y similares con cilindrada hasta 125cc.',
-                'requisitos' => "1. Tener 18 años cumplidos.\n2. Aprobar examen teórico.\n3. Aprobar examen práctico.\n4. No tener impedimentos físicos o mentales.",
-                'edad_minima' => 18,
-                'experiencia_requerida' => 0
+                'codigo' => 'A1',
+                'nombre' => 'Motos hasta 150cc',
+                'descripcion' => 'Licencia para conducir motocicletas y motovehículos de hasta 150 centímetros cúbicos de cilindrada',
+                'requisitos' => 'Edad mínima 16 años. Examen teórico y práctico. Certificado médico. No requiere experiencia previa.',
+                'estado' => 'activo'
             ],
             [
-                'sigla' => 'A2',
-                'nombre' => 'Motocicletas hasta 35kW',
-                'descripcion' => 'Licencia para conducir motocicletas y similares con potencia hasta 35kW.',
-                'requisitos' => "1. Tener 18 años cumplidos.\n2. Poseer licencia A1 por al menos 2 años.\n3. Aprobar examen teórico.\n4. Aprobar examen práctico.",
-                'edad_minima' => 18,
-                'experiencia_requerida' => 2
+                'codigo' => 'A2',
+                'nombre' => 'Motos hasta 300cc',
+                'descripcion' => 'Licencia para conducir motocicletas y motovehículos de hasta 300 centímetros cúbicos de cilindrada',
+                'requisitos' => 'Edad mínima 17 años. Examen teórico y práctico. Certificado médico. Licencia A1 por al menos 1 año.',
+                'estado' => 'activo'
             ],
             [
-                'sigla' => 'A',
-                'nombre' => 'Motocicletas sin restricción',
-                'descripcion' => 'Licencia para conducir todo tipo de motocicletas sin restricción de potencia.',
-                'requisitos' => "1. Tener 20 años cumplidos.\n2. Poseer licencia A2 por al menos 2 años.\n3. Aprobar examen teórico.\n4. Aprobar examen práctico.",
-                'edad_minima' => 20,
-                'experiencia_requerida' => 2
+                'codigo' => 'A3',
+                'nombre' => 'Motos sin límite de cilindrada',
+                'descripcion' => 'Licencia para conducir motocicletas y motovehículos sin límite de cilindrada',
+                'requisitos' => 'Edad mínima 18 años. Examen teórico y práctico. Certificado médico. Licencia A2 por al menos 1 año.',
+                'estado' => 'activo'
             ],
-            // Categorías de Automóviles
             [
-                'sigla' => 'B1',
+                'codigo' => 'B1',
                 'nombre' => 'Automóviles particulares',
-                'descripcion' => 'Licencia para conducir automóviles y camionetas de uso particular.',
-                'requisitos' => "1. Tener 18 años cumplidos.\n2. Aprobar examen teórico.\n3. Aprobar examen práctico.\n4. No tener impedimentos físicos o mentales.",
-                'edad_minima' => 18,
-                'experiencia_requerida' => 0
+                'descripcion' => 'Licencia para conducir automóviles particulares, camionetas y utilitarios de hasta 3500 kg de peso total',
+                'requisitos' => 'Edad mínima 17 años. Examen teórico y práctico. Certificado médico. No requiere experiencia previa.',
+                'estado' => 'activo'
             ],
             [
-                'sigla' => 'B2',
-                'nombre' => 'Automóviles de servicio público',
-                'descripcion' => 'Licencia para conducir vehículos de servicio público como taxis.',
-                'requisitos' => "1. Tener 21 años cumplidos.\n2. Poseer licencia B1 por al menos 2 años.\n3. Aprobar examen teórico.\n4. Aprobar examen práctico.\n5. Certificado de antecedentes penales.",
-                'edad_minima' => 21,
-                'experiencia_requerida' => 2
+                'codigo' => 'B2',
+                'nombre' => 'Automóviles y camiones livianos',
+                'descripcion' => 'Licencia para conducir automóviles particulares y camiones de hasta 3500 kg de peso total',
+                'requisitos' => 'Edad mínima 18 años. Examen teórico y práctico. Certificado médico. Licencia B1 por al menos 1 año.',
+                'estado' => 'activo'
             ],
-            // Categorías de Vehículos de carga
+
+            // CATEGORÍAS PARA VEHÍCULOS DE CARGA
             [
-                'sigla' => 'C1',
-                'nombre' => 'Camiones ligeros',
-                'descripcion' => 'Licencia para conducir camiones ligeros de hasta 3.5 toneladas.',
-                'requisitos' => "1. Tener 21 años cumplidos.\n2. Poseer licencia B1 por al menos 1 año.\n3. Aprobar examen teórico.\n4. Aprobar examen práctico.",
-                'edad_minima' => 21,
-                'experiencia_requerida' => 1
+                'codigo' => 'C1',
+                'nombre' => 'Camiones medianos',
+                'descripcion' => 'Licencia para conducir camiones de más de 3500 kg hasta 8000 kg de peso total',
+                'requisitos' => 'Edad mínima 21 años. Examen teórico y práctico. Certificado médico. Licencia B2 por al menos 2 años.',
+                'estado' => 'activo'
             ],
             [
-                'sigla' => 'C2',
+                'codigo' => 'C2',
                 'nombre' => 'Camiones pesados',
-                'descripcion' => 'Licencia para conducir camiones rígidos de más de 3.5 toneladas.',
-                'requisitos' => "1. Tener 21 años cumplidos.\n2. Poseer licencia C1 por al menos 1 año.\n3. Aprobar examen teórico.\n4. Aprobar examen práctico.",
-                'edad_minima' => 21,
-                'experiencia_requerida' => 1
+                'descripcion' => 'Licencia para conducir camiones de más de 8000 kg de peso total',
+                'requisitos' => 'Edad mínima 21 años. Examen teórico y práctico. Certificado médico. Licencia C1 por al menos 2 años.',
+                'estado' => 'activo'
             ],
             [
-                'sigla' => 'C3',
-                'nombre' => 'Camiones articulados',
-                'descripcion' => 'Licencia para conducir camiones con remolque o articulados.',
-                'requisitos' => "1. Tener 21 años cumplidos.\n2. Poseer licencia C2 por al menos 1 año.\n3. Aprobar examen teórico.\n4. Aprobar examen práctico.",
-                'edad_minima' => 21,
-                'experiencia_requerida' => 1
+                'codigo' => 'C3',
+                'nombre' => 'Camiones con acoplado',
+                'descripcion' => 'Licencia para conducir camiones con acoplado o semirremolque',
+                'requisitos' => 'Edad mínima 21 años. Examen teórico y práctico. Certificado médico. Licencia C2 por al menos 2 años.',
+                'estado' => 'activo'
             ],
-            // Categorías de Vehículos de pasajeros
+
+            // CATEGORÍAS PARA VEHÍCULOS DE PASAJEROS
             [
-                'sigla' => 'D1',
-                'nombre' => 'Microbuses',
-                'descripcion' => 'Licencia para conducir microbuses de hasta 16 pasajeros.',
-                'requisitos' => "1. Tener 21 años cumplidos.\n2. Poseer licencia B2 por al menos 2 años.\n3. Aprobar examen teórico.\n4. Aprobar examen práctico.\n5. Certificado de antecedentes penales.",
-                'edad_minima' => 21,
-                'experiencia_requerida' => 2
-            ],
-            [
-                'sigla' => 'D2',
-                'nombre' => 'Buses',
-                'descripcion' => 'Licencia para conducir buses de más de 16 pasajeros.',
-                'requisitos' => "1. Tener 23 años cumplidos.\n2. Poseer licencia D1 por al menos 2 años.\n3. Aprobar examen teórico.\n4. Aprobar examen práctico.\n5. Certificado de antecedentes penales.",
-                'edad_minima' => 23,
-                'experiencia_requerida' => 2
+                'codigo' => 'D1',
+                'nombre' => 'Ómnibus medianos',
+                'descripcion' => 'Licencia para conducir ómnibus de hasta 20 asientos para pasajeros',
+                'requisitos' => 'Edad mínima 21 años. Examen teórico y práctico. Certificado médico. Licencia B2 por al menos 2 años.',
+                'estado' => 'activo'
             ],
             [
-                'sigla' => 'D3',
-                'nombre' => 'Buses articulados',
-                'descripcion' => 'Licencia para conducir buses articulados.',
-                'requisitos' => "1. Tener 23 años cumplidos.\n2. Poseer licencia D2 por al menos 2 años.\n3. Aprobar examen teórico.\n4. Aprobar examen práctico.\n5. Certificado de antecedentes penales.",
-                'edad_minima' => 23,
-                'experiencia_requerida' => 2
-            ],
-            // Categorías de Vehículos especiales
-            [
-                'sigla' => 'E1',
-                'nombre' => 'Vehículos con Remolque',
-                'descripcion' => 'Licencia para conducir vehículos de clase C o D con remolque.',
-                'requisitos' => "1. Tener 21 años cumplidos.\n2. Poseer licencia clase C o D.\n3. Aprobar examen teórico específico.\n4. Aprobar examen práctico.\n5. Certificado de aptitud física.",
-                'edad_minima' => 21,
-                'experiencia_requerida' => 1
+                'codigo' => 'D2',
+                'nombre' => 'Ómnibus grandes',
+                'descripcion' => 'Licencia para conducir ómnibus de más de 20 asientos para pasajeros',
+                'requisitos' => 'Edad mínima 21 años. Examen teórico y práctico. Certificado médico. Licencia D1 por al menos 2 años.',
+                'estado' => 'activo'
             ],
             [
-                'sigla' => 'E2',
-                'nombre' => 'Vehículos de emergencia',
-                'descripcion' => 'Licencia para conducir ambulancias, vehículos de bomberos y policía.',
-                'requisitos' => "1. Tener 21 años cumplidos.\n2. Poseer licencia B1 por al menos 2 años.\n3. Aprobar examen teórico.\n4. Aprobar examen práctico.\n5. Certificado de primeros auxilios.\n6. Certificado de antecedentes penales.",
-                'edad_minima' => 21,
-                'experiencia_requerida' => 2
+                'codigo' => 'D3',
+                'nombre' => 'Ómnibus con acoplado',
+                'descripcion' => 'Licencia para conducir ómnibus con acoplado o semirremolque',
+                'requisitos' => 'Edad mínima 21 años. Examen teórico y práctico. Certificado médico. Licencia D2 por al menos 2 años.',
+                'estado' => 'activo'
+            ],
+
+            // CATEGORÍAS ESPECIALES
+            [
+                'codigo' => 'E1',
+                'nombre' => 'Tractores agrícolas',
+                'descripcion' => 'Licencia para conducir tractores agrícolas y maquinaria agrícola',
+                'requisitos' => 'Edad mínima 16 años. Examen teórico y práctico. Certificado médico. No requiere experiencia previa.',
+                'estado' => 'activo'
             ],
             [
-                'sigla' => 'E3',
-                'nombre' => 'Vehículos de transporte especial',
-                'descripcion' => 'Licencia para conducir vehículos de transporte de materiales peligrosos y especiales.',
-                'requisitos' => "1. Tener 23 años cumplidos.\n2. Poseer licencia C2 o D2 por al menos 2 años.\n3. Aprobar examen teórico específico.\n4. Aprobar examen práctico.\n5. Certificado de manejo de materiales peligrosos.\n6. Certificado de antecedentes penales.",
-                'edad_minima' => 23,
-                'experiencia_requerida' => 2
+                'codigo' => 'E2',
+                'nombre' => 'Maquinaria vial',
+                'descripcion' => 'Licencia para conducir maquinaria vial y de construcción',
+                'requisitos' => 'Edad mínima 18 años. Examen teórico y práctico. Certificado médico. Licencia B1 por al menos 1 año.',
+                'estado' => 'activo'
+            ],
+            [
+                'codigo' => 'F',
+                'nombre' => 'Vehículos para discapacitados',
+                'descripcion' => 'Licencia especial para conducir vehículos adaptados para personas con discapacidad',
+                'requisitos' => 'Edad mínima 17 años. Examen teórico y práctico. Certificado médico especializado. Evaluación de capacidades.',
+                'estado' => 'activo'
+            ],
+
+            // CATEGORÍAS PROFESIONALES
+            [
+                'codigo' => 'G1',
+                'nombre' => 'Transporte de carga profesional',
+                'descripcion' => 'Licencia profesional para transporte de carga en general',
+                'requisitos' => 'Edad mínima 21 años. Examen teórico y práctico avanzado. Certificado médico. Licencia C2 por al menos 3 años. Curso de capacitación profesional.',
+                'estado' => 'activo'
+            ],
+            [
+                'codigo' => 'G2',
+                'nombre' => 'Transporte de pasajeros profesional',
+                'descripcion' => 'Licencia profesional para transporte de pasajeros en general',
+                'requisitos' => 'Edad mínima 21 años. Examen teórico y práctico avanzado. Certificado médico. Licencia D2 por al menos 3 años. Curso de capacitación profesional.',
+                'estado' => 'activo'
+            ],
+            [
+                'codigo' => 'G3',
+                'nombre' => 'Transporte de sustancias peligrosas',
+                'descripcion' => 'Licencia especial para transporte de sustancias peligrosas y materiales tóxicos',
+                'requisitos' => 'Edad mínima 23 años. Examen teórico y práctico especializado. Certificado médico. Licencia G1 o G2 por al menos 2 años. Curso de manejo de sustancias peligrosas.',
+                'estado' => 'activo'
+            ],
+
+            // CATEGORÍAS TEMPORARIAS
+            [
+                'codigo' => 'T1',
+                'nombre' => 'Licencia temporal de aprendizaje',
+                'descripcion' => 'Licencia temporal para aprender a conducir vehículos de categoría B1',
+                'requisitos' => 'Edad mínima 16 años. Certificado médico. Debe estar acompañado por un conductor con licencia válida. Válida por 1 año.',
+                'estado' => 'activo'
+            ],
+            [
+                'codigo' => 'T2',
+                'nombre' => 'Licencia temporal de prueba',
+                'descripcion' => 'Licencia temporal otorgada después de aprobar examen teórico, válida para práctica',
+                'requisitos' => 'Examen teórico aprobado. Certificado médico. Debe estar acompañado por un conductor con licencia válida. Válida por 6 meses.',
+                'estado' => 'activo'
             ]
         ];
 
-        $model = new CategoriaModel();
+        // Insertar las categorías
         foreach ($categorias as $categoria) {
-            $model->insert($categoria);
+            $this->db->table('categorias')->insert($categoria);
         }
+
+        echo "✅ Se han insertado " . count($categorias) . " categorías de licencias de conducción\n";
+        echo "📋 Categorías incluidas:\n";
+        echo "   - Motos (A1, A2, A3)\n";
+        echo "   - Automóviles particulares (B1, B2)\n";
+        echo "   - Camiones (C1, C2, C3)\n";
+        echo "   - Ómnibus (D1, D2, D3)\n";
+        echo "   - Maquinaria especial (E1, E2)\n";
+        echo "   - Vehículos para discapacitados (F)\n";
+        echo "   - Transporte profesional (G1, G2, G3)\n";
+        echo "   - Licencias temporales (T1, T2)\n";
     }
 } 

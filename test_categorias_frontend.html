@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Categorías Frontend</title>
+</head>
+<body>
+    <h1>Test de Endpoint Categorías</h1>
+    <button onclick="cargarCategorias()">Cargar Categorías</button>
+    <div id="resultado"></div>
+
+    <script>
+        async function cargarCategorias() {
+            const resultado = document.getElementById('resultado');
+            resultado.innerHTML = 'Cargando...';
+            
+            try {
+                const response = await fetch('http://examen.test/api/categorias', {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                resultado.innerHTML = '<h3>Categorías cargadas exitosamente:</h3><pre>' + JSON.stringify(data, null, 2) + '</pre>';
+                
+            } catch (error) {
+                resultado.innerHTML = '<h3>Error al cargar categorías:</h3><p style="color: red;">' + error.message + '</p>';
+                console.error('Error:', error);
+            }
+        }
+    </script>
+</body>
+</html> 

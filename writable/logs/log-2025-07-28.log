@@ -1,0 +1,138 @@
+WARNING - 2025-07-28 11:56:42 --> [DEPRECATED] Creation of dynamic property App\Controllers\PreguntaController::$db is deprecated in APPPATH\Controllers\PreguntaController.php on line 114.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PreguntaController->create()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreguntaController))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+WARNING - 2025-07-28 12:44:57 --> [DEPRECATED] Creation of dynamic property App\Controllers\PreguntaController::$db is deprecated in APPPATH\Controllers\PreguntaController.php on line 114.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\PreguntaController->create()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreguntaController))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+INFO - 2025-07-28 13:17:37 --> Datos recibidos en create pregunta: {"enunciado":"EL TRANSPORTE PASAJEROS DEBERAN CONTAR ","categoria_id":"10","dificultad":"facil","puntaje":10,"es_critica":false,"tipo":"unica","respuestas":[{"texto":"A- CON SALIDA DE EMERGENCIAS RELACION CANTIDAD PAZA.","es_correcta":true},{"texto":"B- TIKETERA PARA BOLETO.","es_correcta":false},{"texto":"C- PONER PARA BOLETO.","es_correcta":false}]}
+ERROR - 2025-07-28 13:17:37 --> mysqli_sql_exception: Unknown column 'enunciado' in 'field list' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `pr...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `pr...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `pr...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `pr...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\laragon\www\examen\system\BaseModel.php(839): CodeIgniter\Model->doInsert(Array)
+#6 C:\laragon\www\examen\system\Model.php(800): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\laragon\www\examen\app\Controllers\PreguntaController.php(131): CodeIgniter\Model->insert(Array)
+#8 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\PreguntaController->create()
+#9 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreguntaController))
+#10 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-07-28 13:17:37 --> Error al insertar pregunta: []
+INFO - 2025-07-28 13:28:11 --> Datos recibidos en create pregunta: {"enunciado":"\u00bfEL TRANSPORTE PASAJEROS DEBERAN CONTAR?","categoria_id":1,"tipo":"multiple","puntaje":1,"dificultad":"medio","es_critica":false,"respuestas":[{"texto":"A- CON SALIDA DE EMERGENCIAS RELACION CANTIDAD PAZA.","imagen":null,"es_correcta":true},{"texto":"B- TIKETERA PARA BOLETO.","imagen":null,"es_correcta":false},{"texto":"C- PONER PARA BOLETO.","imagen":null,"es_correcta":false}]}
+INFO - 2025-07-28 13:28:11 --> Datos mapeados para pregunta: {"categoria_id":1,"enunciado":"\u00bfEL TRANSPORTE PASAJEROS DEBERAN CONTAR?","tipo_pregunta":"multiple","puntaje":1,"dificultad":"medio","es_critica":0,"examen_id":null}
+ERROR - 2025-07-28 13:28:11 --> mysqli_sql_exception: Unknown column 'enunciado' in 'field list' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `pr...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `pr...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `pr...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `pr...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\laragon\www\examen\system\BaseModel.php(839): CodeIgniter\Model->doInsert(Array)
+#6 C:\laragon\www\examen\system\Model.php(800): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\laragon\www\examen\app\Controllers\PreguntaController.php(134): CodeIgniter\Model->insert(Array)
+#8 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\PreguntaController->create()
+#9 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreguntaController))
+#10 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-07-28 13:28:12 --> Error al insertar pregunta: []
+INFO - 2025-07-28 13:30:17 --> Datos recibidos en create pregunta: {"enunciado":"\u00bfEL TRANSPORTE PASAJEROS DEBERAN CONTAR?","categoria_id":1,"tipo":"multiple","puntaje":1,"dificultad":"medio","es_critica":false,"respuestas":[{"texto":"A- CON SALIDA DE EMERGENCIAS RELACION CANTIDAD PAZA.","imagen":null,"es_correcta":true},{"texto":"B- TIKETERA PARA BOLETO.","imagen":null,"es_correcta":false},{"texto":"C- PONER PARA BOLETO.","imagen":null,"es_correcta":false}]}
+INFO - 2025-07-28 13:30:17 --> Datos mapeados para pregunta: {"categoria_id":1,"enunciado":"\u00bfEL TRANSPORTE PASAJEROS DEBERAN CONTAR?","tipo_pregunta":"multiple","puntaje":1,"dificultad":"medio","es_critica":0,"examen_id":null}
+ERROR - 2025-07-28 13:30:17 --> mysqli_sql_exception: Unknown column 'enunciado' in 'field list' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `pr...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `pr...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `pr...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `pr...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\laragon\www\examen\system\BaseModel.php(839): CodeIgniter\Model->doInsert(Array)
+#6 C:\laragon\www\examen\system\Model.php(800): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\laragon\www\examen\app\Controllers\PreguntaController.php(134): CodeIgniter\Model->insert(Array)
+#8 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\PreguntaController->create()
+#9 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\PreguntaController))
+#10 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+ERROR - 2025-07-28 13:30:17 --> Error al insertar pregunta: []
+ERROR - 2025-07-28 13:32:25 --> mysqli_sql_exception: Table 'examen_conductor' already exists in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `e...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `e...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `e...')
+#3 C:\laragon\www\examen\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `e...')
+#4 C:\laragon\www\examen\app\Database\Migrations\2024-04-21-000014_CreateExamenConductorTable.php(74): CodeIgniter\Database\Forge->createTable('examen_conducto...')
+#5 C:\laragon\www\examen\system\Database\MigrationRunner.php(866): App\Database\Migrations\CreateExamenConductorTable->up()
+#6 C:\laragon\www\examen\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\laragon\www\examen\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\laragon\www\examen\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\laragon\www\examen\system\Boot.php(360): CodeIgniter\CLI\Console->run()
+#11 C:\laragon\www\examen\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\laragon\www\examen\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-07-28 13:36:11 --> mysqli_sql_exception: Table 'examen_conductor' already exists in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `e...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `e...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `e...')
+#3 C:\laragon\www\examen\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `e...')
+#4 C:\laragon\www\examen\app\Database\Migrations\2024-04-21-000014_CreateExamenConductorTable.php(74): CodeIgniter\Database\Forge->createTable('examen_conducto...')
+#5 C:\laragon\www\examen\system\Database\MigrationRunner.php(866): App\Database\Migrations\CreateExamenConductorTable->up()
+#6 C:\laragon\www\examen\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\laragon\www\examen\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\laragon\www\examen\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\laragon\www\examen\system\Boot.php(360): CodeIgniter\CLI\Console->run()
+#11 C:\laragon\www\examen\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\laragon\www\examen\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-07-28 13:36:19 --> mysqli_sql_exception: Table 'examen_conductor' already exists in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('CREATE TABLE `e...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('CREATE TABLE `e...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('CREATE TABLE `e...')
+#3 C:\laragon\www\examen\system\Database\Forge.php(570): CodeIgniter\Database\BaseConnection->query('CREATE TABLE `e...')
+#4 C:\laragon\www\examen\app\Database\Migrations\2024-04-21-000014_CreateExamenConductorTable.php(74): CodeIgniter\Database\Forge->createTable('examen_conducto...')
+#5 C:\laragon\www\examen\system\Database\MigrationRunner.php(866): App\Database\Migrations\CreateExamenConductorTable->up()
+#6 C:\laragon\www\examen\system\Database\MigrationRunner.php(182): CodeIgniter\Database\MigrationRunner->migrate('up', Object(stdClass))
+#7 C:\laragon\www\examen\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#8 C:\laragon\www\examen\system\CLI\Commands.php(70): CodeIgniter\Commands\Database\Migrate->run(Array)
+#9 C:\laragon\www\examen\system\CLI\Console.php(48): CodeIgniter\CLI\Commands->run('migrate', Array)
+#10 C:\laragon\www\examen\system\Boot.php(360): CodeIgniter\CLI\Console->run()
+#11 C:\laragon\www\examen\system\Boot.php(104): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#12 C:\laragon\www\examen\spark(84): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#13 {main}
+INFO - 2025-07-28 13:45:42 --> Datos recibidos en create pregunta: {"enunciado":"\u00bfEL TRANSPORTE PASAJEROS DEBERAN CONTAR?","categoria_id":1,"tipo":"multiple","puntaje":1,"dificultad":"medio","es_critica":false,"respuestas":[{"texto":"A- CON SALIDA DE EMERGENCIAS RELACION CANTIDAD PAZA.","imagen":null,"es_correcta":true},{"texto":"B- TIKETERA PARA BOLETO.","imagen":null,"es_correcta":false},{"texto":"C- PONER PARA BOLETO.","imagen":null,"es_correcta":false}]}
+INFO - 2025-07-28 13:45:42 --> Datos mapeados para pregunta: {"categoria_id":1,"enunciado":"\u00bfEL TRANSPORTE PASAJEROS DEBERAN CONTAR?","tipo_pregunta":"multiple","puntaje":1,"dificultad":"medio","es_critica":0,"examen_id":null}
+INFO - 2025-07-28 14:45:44 --> Datos recibidos en create pregunta: {"enunciado":"\u00bfEL TRANSPORTE PASAJEROS DEBERAN CONTAR?","categoria_id":"10","dificultad":"medio","puntaje":15,"es_critica":false,"tipo":"unica","respuestas":[{"texto":"A- CON SALIDA DE EMERGENCIAS RELACION CANTIDAD PAZA.","es_correcta":true},{"texto":"B- TIKETERA PARA BOLETO.","es_correcta":false},{"texto":"C- PONER PARA BOLETO.","es_correcta":false}]}
+INFO - 2025-07-28 14:45:44 --> Datos mapeados para pregunta: {"categoria_id":"10","enunciado":"\u00bfEL TRANSPORTE PASAJEROS DEBERAN CONTAR?","tipo_pregunta":"unica","puntaje":15,"dificultad":"medio","es_critica":0,"examen_id":null}
+INFO - 2025-07-28 15:07:52 --> Datos recibidos en create pregunta: {"enunciado":"\u00bfCUAL ES EL GRADO ALCOHOLEMIA DEL CONDUCTOR DE UN VEHICULO EMERGENCIA ?","categoria_id":"10","dificultad":"dificil","puntaje":10,"es_critica":true,"tipo":"unica","respuestas":[{"texto":"A- 0,50 GR POR LITRO SANGRE.","es_correcta":false},{"texto":"B- 0,00 GR POR LITRO SANGRE","es_correcta":true},{"texto":"C- 0,20 GR POR LITRO SANGRE","es_correcta":false}]}
+INFO - 2025-07-28 15:07:52 --> Datos mapeados para pregunta: {"categoria_id":"10","enunciado":"\u00bfCUAL ES EL GRADO ALCOHOLEMIA DEL CONDUCTOR DE UN VEHICULO EMERGENCIA ?","tipo_pregunta":"unica","puntaje":10,"dificultad":"dificil","es_critica":1,"examen_id":null}
+INFO - 2025-07-28 16:55:51 --> Datos recibidos en create pregunta: {"enunciado":"\u00bfLUCES ADICIONALES TRANSPORTE PASAJEROS SON?","categoria_id":"10","dificultad":"medio","puntaje":10,"es_critica":false,"tipo":"unica","respuestas":[{"texto":"TRES LUCES PARTE SUPERIOR DELANTERIA (EXLUYENDO ROJO) Y UNA ROJA PART SUP TRASERA","es_correcta":false},{"texto":"TRES LUCES PARTE SUPERIOR DELANTERA (EXLUYENDO ROJO) Y UNA AMARILLA PART SUP TRASERA","es_correcta":true},{"texto":"CUATRO LUCES PARTE SUPERIOR DELANTERIA (EXLUYENDO ROJO) Y UNA ROJA PART SUP TRASERA","es_correcta":false}]}
+INFO - 2025-07-28 16:55:51 --> Datos mapeados para pregunta: {"categoria_id":"10","enunciado":"\u00bfLUCES ADICIONALES TRANSPORTE PASAJEROS SON?","tipo_pregunta":"unica","puntaje":10,"dificultad":"medio","es_critica":0,"examen_id":null}
+CRITICAL - 2025-07-28 18:06:38 --> Error: Class "App\Models\ExamenCategoriaModel" not found
+[Method: GET, Route: api/examenes]
+in APPPATH\Controllers\ExamenController.php on line 34.
+ 1 SYSTEMPATH\CodeIgniter.php(903): App\Controllers\ExamenController->__construct()
+ 2 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

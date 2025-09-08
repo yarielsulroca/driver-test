@@ -1,0 +1,170 @@
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  background: #fff;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 48px 32px 48px 48px;
+  height: 100vh;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+.logo-municipio {
+  width: 180px;
+  margin-bottom: 32px;
+}
+
+.login-illustration-img {
+  width: 420px;
+  max-width: 100%;
+  margin-top: 32px;
+  object-fit: contain;
+}
+
+.login-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0 64px;
+  min-width: 400px;
+}
+
+.login-title {
+  margin-bottom: 32px;
+}
+
+.examen-teorico {
+  color: #43b049;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.login-title h1 {
+  color: #2e7d32;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 8px 0 0 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  max-width: 340px;
+}
+
+.login-form label {
+  color: #444;
+  font-size: 16px;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.dni-input {
+  padding: 14px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 18px;
+  font-family: 'Poppins', sans-serif;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.dni-input:focus {
+  border: 2px solid #43b049;
+}
+
+.login-button {
+  background: #43b049;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 14px 0;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(67, 176, 73, 0.08);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.login-button:hover:not(:disabled) {
+  background: #388e3c;
+  box-shadow: 0 4px 16px rgba(67, 176, 73, 0.15);
+}
+
+.login-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #d32f2f;
+  background: #ffebee;
+  border: 1px solid #ffcdd2;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 15px;
+  margin-bottom: 0;
+}
+
+@media (max-width: 1100px) {
+  .login-left {
+    padding: 32px 16px 32px 16px;
+  }
+  .login-right {
+    padding: 0 24px;
+    min-width: 320px;
+  }
+  .login-illustration-img {
+    width: 320px;
+  }
+}
+
+@media (max-width: 900px) {
+  .login-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .login-left, .login-right {
+    width: 100%;
+    min-width: unset;
+    padding: 24px;
+    height: auto;
+  }
+  .login-illustration-img {
+    width: 220px;
+    margin: 0 auto;
+    display: block;
+  }
+}
+
+@media (max-width: 600px) {
+  .login-title h1 {
+    font-size: 32px;
+  }
+  .examen-teorico {
+    font-size: 16px;
+  }
+  .login-form {
+    max-width: 100%;
+  }
+  .logo-municipio {
+    width: 120px;
+  }
+}

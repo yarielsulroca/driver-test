@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Completo Categorías - Sistema de Exámenes</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 20px; 
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section { 
+            margin: 20px 0; 
+            padding: 20px; 
+            border: 1px solid #ddd; 
+            border-radius: 8px; 
+            background: white;
+        }
+        .success { 
+            background-color: #d4edda; 
+            border-color: #c3e6cb; 
+            color: #155724;
+        }
+        .error { 
+            background-color: #f8d7da; 
+            border-color: #f5c6cb; 
+            color: #721c24;
+        }
+        .info { 
+            background-color: #d1ecf1; 
+            border-color: #bee5eb; 
+            color: #0c5460;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border-color: #ffeaa7;
+            color: #856404;
+        }
+        button { 
+            padding: 12px 24px; 
+            margin: 5px; 
+            cursor: pointer; 
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        button:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+        }
+        pre { 
+            background: #f8f9fa; 
+            padding: 15px; 
+            border-radius: 4px; 
+            overflow-x: auto; 
+            border: 1px solid #e9ecef;
+            font-size: 12px;
+        }
+        .url-info {
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        .status-success { background-color: #28a745; }
+        .status-error { background-color: #dc3545; }
+        .status-warning { background-color: #ffc107; }
+        .status-info { background-color: #17a2b8; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test Completo de Endpoint Categorías</h1>
+        
+        <div class="test-section info">
+            <h3><span class="status-indicator status-info"></span>Información del Test</h3>
+            <p>Este test verifica la conectividad con el endpoint de categorías desde diferentes orígenes y configuraciones.</p>
+            <div class="url-info">
+                <strong>URLs de prueba:</strong><br>
+                • Backend directo: <code>http://examen.test/api/categorias</code><br>
+                • Frontend (proxy): <code>/api/categorias</code><br>
+                • Frontend (directo): <code>http://examen.test/api/categorias</code>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h3><span class="status-indicator status-info"></span>Test 1: GET Categorías (Backend Directo)</h3>
+            <p>Prueba la conexión directa al backend sin proxy.</p>
+            <button onclick="testBackendDirecto()" id="btn1">Probar Backend Directo</button>
+            <div id="resultado1"></div>
+        </div>
+
+        <div class="test-section">
+            <h3><span class="status-indicator status-info"></span>Test 2: GET Categorías (Desde Frontend con Proxy)</h3>
+            <p>Prueba la conexión a través del proxy de Angular.</p>
+            <button onclick="testFrontend()" id="btn2">Probar Frontend (Proxy)</button>
+            <div id="resultado2"></div>
+        </div>
+
+        <div class="test-section">
+            <h3><span class="status-indicator status-info"></span>Test 3: GET Categorías (Frontend Directo)</h3>
+            <p>Prueba la conexión directa desde el frontend al backend.</p>
+            <button onclick="testFrontendDirecto()" id="btn3">Probar Frontend Directo</button>
+            <div id="resultado3"></div>
+        </div>
+
+        <div class="test-section">
+            <h3><span class="status-indicator status-info"></span>Test 4: POST Nueva Categoría</h3>
+            <p>Prueba la creación de una nueva categoría.</p>
+            <button onclick="testCrearCategoria()" id="btn4">Crear Categoría de Prueba</button>
+            <div id="resultado4"></div>
+        </div>
+
+        <div class="test-section">
+            <h3><span class="status-indicator status-info"></span>Test 5: Verificar CORS</h3>
+            <p>Verifica la configuración de CORS del servidor.</p>
+            <button onclick="testCORS()" id="btn5">Verificar CORS</button>
+            <div id="resultado5"></div>
+        </div>
+
+        <div class="test-section">
+            <h3><span class="status-indicator status-info"></span>Test 6: Verificar Estado del Servidor</h3>
+            <p>Verifica si el servidor está respondiendo correctamente.</p>
+            <button onclick="testServidor()" id="btn6">Verificar Servidor</button>
+            <div id="resultado6"></div>
+        </div>
+    </div>
+
+    <script>
+        // Función para deshabilitar botones durante las pruebas
+        function setButtonState(buttonId, disabled) {
+            const button = document.getElementById(buttonId);
+            if (button) {
+                button.disabled = disabled;
+            }
+        }
+
+        // Función para mostrar resultados
+        function mostrarResultado(elementId, tipo, titulo, contenido, datos = null) {
+            const resultado = document.getElementById(elementId);
+            let html = `<div class="${tipo}">`;
+            html += `<h4>${titulo}</h4>`;
+            html += `<p>${contenido}</p>`;
+            if (datos) {
+                html += `<pre>${JSON.stringify(datos, null, 2)}</pre>`;
+            }
+            html += '</div>';
+            resultado.innerHTML = html;
+        }
+
+        async function testBackendDirecto() {
+            setButtonState('btn1', true);
+            const resultado = document.getElementById('resultado1');
+            resultado.innerHTML = '<div class="info">Probando conexión directa al backend...</div>';
+            
+            try {
+                const response = await fetch('http://examen.test/api/categorias', {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    mode: 'cors'
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status} - ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                mostrarResultado('resultado1', 'success', 
+                    '✅ Backend Directo - Exitoso', 
+                    `Status: ${response.status} | Total categorías: ${data.data ? data.data.length : data.length}`, 
+                    data);
+                
+            } catch (error) {
+                mostrarResultado('resultado1', 'error', 
+                    '❌ Backend Directo - Error', 
+                    `Error: ${error.message}`);
+                console.error('Error backend directo:', error);
+            } finally {
+                setButtonState('btn1', false);
+            }
+        }
+
+        async function testFrontend() {
+            setButtonState('btn2', true);
+            const resultado = document.getElementById('resultado2');
+            resultado.innerHTML = '<div class="info">Probando conexión a través del proxy...</div>';
+            
+            try {
+                const response = await fetch('/api/categorias', {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status} - ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                mostrarResultado('resultado2', 'success', 
+                    '✅ Frontend (Proxy) - Exitoso', 
+                    `Status: ${response.status} | Total categorías: ${data.data ? data.data.length : data.length}`, 
+                    data);
+                
+            } catch (error) {
+                mostrarResultado('resultado2', 'error', 
+                    '❌ Frontend (Proxy) - Error', 
+                    `Error: ${error.message}`);
+                console.error('Error frontend proxy:', error);
+            } finally {
+                setButtonState('btn2', false);
+            }
+        }
+
+        async function testFrontendDirecto() {
+            setButtonState('btn3', true);
+            const resultado = document.getElementById('resultado3');
+            resultado.innerHTML = '<div class="info">Probando conexión directa desde frontend...</div>';
+            
+            try {
+                const response = await fetch('http://examen.test/api/categorias', {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    mode: 'cors'
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status} - ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                mostrarResultado('resultado3', 'success', 
+                    '✅ Frontend Directo - Exitoso', 
+                    `Status: ${response.status} | Total categorías: ${data.data ? data.data.length : data.length}`, 
+                    data);
+                
+            } catch (error) {
+                mostrarResultado('resultado3', 'error', 
+                    '❌ Frontend Directo - Error', 
+                    `Error: ${error.message}`);
+                console.error('Error frontend directo:', error);
+            } finally {
+                setButtonState('btn3', false);
+            }
+        }
+
+        async function testCrearCategoria() {
+            setButtonState('btn4', true);
+            const resultado = document.getElementById('resultado4');
+            resultado.innerHTML = '<div class="info">Creando categoría de prueba...</div>';
+            
+            const categoriaTest = {
+                codigo: 'TEST' + Date.now(),
+                nombre: 'Categoría de Prueba ' + Date.now(),
+                descripcion: 'Esta es una categoría de prueba creada automáticamente',
+                requisitos: '["Edad mínima: 18 años", "Licencia previa: B"]',
+                estado: 'activo'
+            };
+            
+            try {
+                const response = await fetch('/api/categorias', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(categoriaTest)
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(`HTTP error! status: ${response.status} - ${JSON.stringify(errorData)}`);
+                }
+                
+                const data = await response.json();
+                mostrarResultado('resultado4', 'success', 
+                    '✅ Categoría Creada - Exitoso', 
+                    `Status: ${response.status} | Categoría creada con código: ${categoriaTest.codigo}`, 
+                    data);
+                
+            } catch (error) {
+                mostrarResultado('resultado4', 'error', 
+                    '❌ Crear Categoría - Error', 
+                    `Error: ${error.message}`);
+                console.error('Error crear categoría:', error);
+            } finally {
+                setButtonState('btn4', false);
+            }
+        }
+
+        async function testCORS() {
+            setButtonState('btn5', true);
+            const resultado = document.getElementById('resultado5');
+            resultado.innerHTML = '<div class="info">Verificando configuración CORS...</div>';
+            
+            try {
+                const response = await fetch('http://examen.test/api/categorias', {
+                    method: 'OPTIONS',
+                    headers: {
+                        'Origin': window.location.origin,
+                        'Access-Control-Request-Method': 'GET',
+                        'Access-Control-Request-Headers': 'Content-Type'
+                    }
+                });
+                
+                const corsHeaders = {
+                    'Access-Control-Allow-Origin': response.headers.get('Access-Control-Allow-Origin'),
+                    'Access-Control-Allow-Methods': response.headers.get('Access-Control-Allow-Methods'),
+                    'Access-Control-Allow-Headers': response.headers.get('Access-Control-Allow-Headers'),
+                    'Access-Control-Max-Age': response.headers.get('Access-Control-Max-Age')
+                };
+                
+                mostrarResultado('resultado5', 'success', 
+                    '✅ CORS - Configuración Verificada', 
+                    `Status: ${response.status} | Headers CORS recibidos`, 
+                    corsHeaders);
+                
+            } catch (error) {
+                mostrarResultado('resultado5', 'error', 
+                    '❌ CORS - Error', 
+                    `Error: ${error.message}`);
+                console.error('Error CORS:', error);
+            } finally {
+                setButtonState('btn5', false);
+            }
+        }
+
+        async function testServidor() {
+            setButtonState('btn6', true);
+            const resultado = document.getElementById('resultado6');
+            resultado.innerHTML = '<div class="info">Verificando estado del servidor...</div>';
+            
+            try {
+                const response = await fetch('http://examen.test/', {
+                    method: 'GET',
+                    mode: 'cors'
+                });
+                
+                mostrarResultado('resultado6', 'success', 
+                    '✅ Servidor - Respondiendo', 
+                    `Status: ${response.status} | El servidor está funcionando correctamente`);
+                
+            } catch (error) {
+                mostrarResultado('resultado6', 'error', 
+                    '❌ Servidor - No Responde', 
+                    `Error: ${error.message} - El servidor puede estar caído o no accesible`);
+                console.error('Error servidor:', error);
+            } finally {
+                setButtonState('btn6', false);
+            }
+        }
+
+        // Auto-ejecutar test del servidor al cargar la página
+        window.addEventListener('load', function() {
+            setTimeout(testServidor, 1000);
+        });
+    </script>
+</body>
+</html> 

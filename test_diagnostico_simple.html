@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Diagnóstico - Endpoints Básicos</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 20px; 
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-section { 
+            margin: 20px 0; 
+            padding: 15px; 
+            border: 1px solid #ddd; 
+            border-radius: 8px; 
+            background: white;
+        }
+        .success { 
+            background-color: #d4edda; 
+            border-color: #c3e6cb; 
+            color: #155724;
+        }
+        .error { 
+            background-color: #f8d7da; 
+            border-color: #f5c6cb; 
+            color: #721c24;
+        }
+        .info { 
+            background-color: #d1ecf1; 
+            border-color: #bee5eb; 
+            color: #0c5460;
+        }
+        button { 
+            padding: 10px 20px; 
+            margin: 5px; 
+            cursor: pointer; 
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        button:hover { background: #0056b3; }
+        button:disabled { background: #6c757d; cursor: not-allowed; }
+        pre { 
+            background: #f8f9fa; 
+            padding: 10px; 
+            border-radius: 4px; 
+            overflow-x: auto; 
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Test de Diagnóstico - Endpoints Básicos</h1>
+        
+        <div class="test-section info">
+            <h3>Información</h3>
+            <p>Este test verifica que los endpoints básicos estén funcionando antes de crear el examen completo.</p>
+        </div>
+
+        <div class="test-section">
+            <h3>Test 1: Verificar Categorías</h3>
+            <button onclick="testCategorias()" id="btn1">Probar GET /api/categorias</button>
+            <div id="resultado1"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>Test 2: Verificar Exámenes</h3>
+            <button onclick="testExamenes()" id="btn2">Probar GET /api/examenes</button>
+            <div id="resultado2"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>Test 3: Verificar Preguntas</h3>
+            <button onclick="testPreguntas()" id="btn3">Probar GET /api/preguntas</button>
+            <div id="resultado3"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>Test 4: Verificar Respuestas</h3>
+            <button onclick="testRespuestas()" id="btn4">Probar GET /api/respuestas</button>
+            <div id="resultado4"></div>
+        </div>
+
+        <div class="test-section">
+            <h3>Test 5: Crear Examen Simple</h3>
+            <button onclick="testCrearExamen()" id="btn5">Probar POST /api/examenes</button>
+            <div id="resultado5"></div>
+        </div>
+    </div>
+
+    <script>
+        function setButtonState(buttonId, disabled) {
+            const button = document.getElementById(buttonId);
+            if (button) button.disabled = disabled;
+        }
+
+        function mostrarResultado(elementId, tipo, titulo, contenido, datos = null) {
+            const resultado = document.getElementById(elementId);
+            let html = `<div class="${tipo}">`;
+            html += `<h4>${titulo}</h4>`;
+            html += `<p>${contenido}</p>`;
+            if (datos) {
+                html += `<pre>${JSON.stringify(datos, null, 2)}</pre>`;
+            }
+            html += '</div>';
+            resultado.innerHTML = html;
+        }
+
+        async function testCategorias() {
+            setButtonState('btn1', true);
+            const resultado = document.getElementById('resultado1');
+            resultado.innerHTML = '<div class="info">Probando endpoint de categorías...</div>';
+            
+            try {
+                const response = await fetch('/api/categorias', {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status} - ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                const categorias = data.data || data;
+                
+                mostrarResultado('resultado1', 'success', 
+                    '✅ Categorías - Exitoso', 
+                    `Status: ${response.status} | Total categorías: ${categorias.length}`, 
+                    categorias.slice(0, 3)); // Mostrar solo las primeras 3
+                
+            } catch (error) {
+                mostrarResultado('resultado1', 'error', 
+                    '❌ Categorías - Error', 
+                    `Error: ${error.message}`);
+                console.error('Error categorías:', error);
+            } finally {
+                setButtonState('btn1', false);
+            }
+        }
+
+        async function testExamenes() {
+            setButtonState('btn2', true);
+            const resultado = document.getElementById('resultado2');
+            resultado.innerHTML = '<div class="info">Probando endpoint de exámenes...</div>';
+            
+            try {
+                const response = await fetch('/api/examenes', {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status} - ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                const examenes = data.data || data;
+                
+                mostrarResultado('resultado2', 'success', 
+                    '✅ Exámenes - Exitoso', 
+                    `Status: ${response.status} | Total exámenes: ${examenes.length}`, 
+                    examenes.slice(0, 2)); // Mostrar solo los primeros 2
+                
+            } catch (error) {
+                mostrarResultado('resultado2', 'error', 
+                    '❌ Exámenes - Error', 
+                    `Error: ${error.message}`);
+                console.error('Error exámenes:', error);
+            } finally {
+                setButtonState('btn2', false);
+            }
+        }
+
+        async function testPreguntas() {
+            setButtonState('btn3', true);
+            const resultado = document.getElementById('resultado3');
+            resultado.innerHTML = '<div class="info">Probando endpoint de preguntas...</div>';
+            
+            try {
+                const response = await fetch('/api/preguntas', {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status} - ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                const preguntas = data.data?.preguntas || data;
+                
+                mostrarResultado('resultado3', 'success', 
+                    '✅ Preguntas - Exitoso', 
+                    `Status: ${response.status} | Total preguntas: ${preguntas.length}`, 
+                    preguntas.slice(0, 2)); // Mostrar solo las primeras 2
+                
+            } catch (error) {
+                mostrarResultado('resultado3', 'error', 
+                    '❌ Preguntas - Error', 
+                    `Error: ${error.message}`);
+                console.error('Error preguntas:', error);
+            } finally {
+                setButtonState('btn3', false);
+            }
+        }
+
+        async function testRespuestas() {
+            setButtonState('btn4', true);
+            const resultado = document.getElementById('resultado4');
+            resultado.innerHTML = '<div class="info">Probando endpoint de respuestas...</div>';
+            
+            try {
+                const response = await fetch('/api/respuestas', {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status} - ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                const respuestas = data.data?.respuestas || data;
+                
+                mostrarResultado('resultado4', 'success', 
+                    '✅ Respuestas - Exitoso', 
+                    `Status: ${response.status} | Total respuestas: ${respuestas.length}`, 
+                    respuestas.slice(0, 3)); // Mostrar solo las primeras 3
+                
+            } catch (error) {
+                mostrarResultado('resultado4', 'error', 
+                    '❌ Respuestas - Error', 
+                    `Error: ${error.message}`);
+                console.error('Error respuestas:', error);
+            } finally {
+                setButtonState('btn4', false);
+            }
+        }
+
+        async function testCrearExamen() {
+            setButtonState('btn5', true);
+            const resultado = document.getElementById('resultado5');
+            resultado.innerHTML = '<div class="info">Probando creación de examen...</div>';
+            
+            const examenData = {
+                titulo: 'Test Examen Diagnóstico',
+                nombre: 'Examen Test',
+                descripcion: 'Examen de prueba para diagnóstico',
+                tiempo_limite: 30,
+                duracion_minutos: 30,
+                puntaje_minimo: 60,
+                fecha_inicio: new Date().toISOString().split('T')[0],
+                fecha_fin: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+                numero_preguntas: 10,
+                estado: 'activo'
+            };
+            
+            try {
+                const response = await fetch('/api/examenes', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(examenData)
+                });
+                
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(`HTTP error! status: ${response.status} - ${JSON.stringify(errorData)}`);
+                }
+                
+                const data = await response.json();
+                
+                mostrarResultado('resultado5', 'success', 
+                    '✅ Crear Examen - Exitoso', 
+                    `Status: ${response.status} | Examen creado con ID: ${data.data?.examen_id || data.examen_id}`, 
+                    data);
+                
+            } catch (error) {
+                mostrarResultado('resultado5', 'error', 
+                    '❌ Crear Examen - Error', 
+                    `Error: ${error.message}`);
+                console.error('Error crear examen:', error);
+            } finally {
+                setButtonState('btn5', false);
+            }
+        }
+
+        // Auto-ejecutar test de categorías al cargar
+        window.addEventListener('load', function() {
+            setTimeout(testCategorias, 1000);
+        });
+    </script>
+</body>
+</html> 

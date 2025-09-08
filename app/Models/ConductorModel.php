@@ -13,16 +13,9 @@ class ConductorModel extends Model
     protected $protectFields = true;
     protected $allowedFields = [
         'usuario_id',
-        'escuela_id',
-        'nombre',
-        'apellido',
-        'dni',
-        'fecha_nacimiento',
-        'direccion',
-        'telefono',
-        'email',
-        'estado_registro',
-        'fecha_registro'
+        'licencia',
+        'fecha_vencimiento',
+        'estado'
     ];
 
     // Dates
@@ -35,58 +28,34 @@ class ConductorModel extends Model
     // Validation
     protected $validationRules = [
         'usuario_id' => 'required|integer|is_not_unique[usuarios.usuario_id]',
-        'escuela_id' => 'permit_empty|integer|is_not_unique[escuelas.escuela_id]',
-        'nombre' => 'required|min_length[3]|max_length[50]',
-        'apellido' => 'permit_empty|min_length[3]|max_length[50]',
-        'dni' => 'required|min_length[8]|max_length[20]|is_unique[conductores.dni,conductor_id,{conductor_id}]',
-        'fecha_nacimiento' => 'permit_empty|valid_date',
-        'direccion' => 'permit_empty|min_length[5]|max_length[200]',
-        'telefono' => 'permit_empty|min_length[8]|max_length[20]',
-        'email' => 'permit_empty|valid_email|is_unique[conductores.email,conductor_id,{conductor_id}]',
-        'estado_registro' => 'required|in_list[pendiente,aprobado,rechazado]'
+        'licencia' => 'required|min_length[3]|max_length[20]',
+        'fecha_vencimiento' => 'required|valid_date',
+        'estado' => 'required|in_list[activo,inactivo]'
     ];
 
     protected $validationMessages = [
         'usuario_id' => [
-            'required' => 'El ID de usuario es requerido',
-            'integer' => 'El ID de usuario debe ser un número entero',
+            'required' => 'El ID del usuario es requerido',
+            'integer' => 'El ID del usuario debe ser un número entero',
             'is_not_unique' => 'El usuario especificado no existe'
         ],
-        'escuela_id' => [
-            'integer' => 'El ID de la escuela debe ser un número entero',
-            'is_not_unique' => 'La escuela especificada no existe'
+        'licencia' => [
+            'required' => 'El número de licencia es requerido',
+            'min_length' => 'La licencia debe tener al menos 3 caracteres',
+            'max_length' => 'La licencia no puede exceder los 20 caracteres'
         ],
-        'nombre' => [
-            'required' => 'El nombre es requerido',
-            'min_length' => 'El nombre debe tener al menos 3 caracteres',
-            'max_length' => 'El nombre no puede tener más de 50 caracteres'
+        'fecha_vencimiento' => [
+            'required' => 'La fecha de vencimiento es requerida',
+            'valid_date' => 'La fecha de vencimiento no es válida'
         ],
-        'dni' => [
-            'required' => 'El DNI es requerido',
-            'min_length' => 'El DNI debe tener al menos 8 caracteres',
-            'max_length' => 'El DNI no puede tener más de 20 caracteres',
-            'is_unique' => 'Este DNI ya está registrado'
-        ],
-        'estado_registro' => [
-            'required' => 'El estado de registro es requerido',
-            'in_list' => 'El estado de registro debe ser: pendiente, aprobado o rechazado'
+        'estado' => [
+            'required' => 'El estado es requerido',
+            'in_list' => 'El estado debe ser activo o inactivo'
         ]
     ];
 
     protected $skipValidation = false;
     protected $cleanValidationRules = true;
-
-    protected $beforeInsert = ['setEstadoRegistro'];
-    protected $beforeUpdate = [];
-
-    protected function setEstadoRegistro(array $data)
-    {
-        if (empty($data['data']['estado_registro'])) {
-            $data['data']['estado_registro'] = 'pendiente';
-        }
-        $data['data']['fecha_registro'] = date('Y-m-d H:i:s');
-        return $data;
-    }
 
     // Relaciones
     public function usuario()
@@ -94,14 +63,37 @@ class ConductorModel extends Model
         return $this->belongsTo('App\Models\UsuarioModel', 'usuario_id', 'usuario_id');
     }
 
-    public function escuela()
+    public function escuelas()
     {
-        return $this->belongsTo('App\Models\EscuelaModel', 'escuela_id', 'escuela_id');
+        return $this->belongsToMany('App\Models\EscuelaModel', 'conductor_escuela', 'conductor_id', 'escuela_id');
+    }
+
+    public function categoriasAprobadas()
+    {
+        return $this->hasMany('App\Models\CategoriaAprobadaModel', 'conductor_id', 'conductor_id');
     }
 
     public function resultados()
     {
         return $this->hasMany('App\Models\ResultadoExamenModel', 'conductor_id', 'conductor_id');
+    }
+
+    /**
+     * Obtener escuelas de un conductor usando el modelo pivote
+     */
+    public function getEscuelas($conductorId)
+    {
+        $conductorEscuelaModel = new \App\Models\ConductorEscuelaModel();
+        return $conductorEscuelaModel->getEscuelasConductor($conductorId);
+    }
+
+    /**
+     * Asignar escuelas a un conductor
+     */
+    public function asignarEscuelas($conductorId, $escuelaIds)
+    {
+        $conductorEscuelaModel = new \App\Models\ConductorEscuelaModel();
+        return $conductorEscuelaModel->asignarEscuelas($conductorId, $escuelaIds);
     }
 
     /**
@@ -152,5 +144,54 @@ class ConductorModel extends Model
             log_message('error', 'Error al obtener información de exámenes: ' . $e->getMessage());
             return [];
         }
+    }
+
+    /**
+     * Obtiene el perfil completo del conductor incluyendo datos del usuario
+     */
+    public function getPerfilCompleto($conductorId)
+    {
+        return $this->select('
+            conductores.*,
+            usuarios.nombre,
+            usuarios.apellido,
+            usuarios.email,
+            usuarios.dni,
+            usuarios.estado as estado_usuario
+        ')
+        ->join('usuarios', 'usuarios.usuario_id = conductores.usuario_id')
+        ->where('conductores.conductor_id', $conductorId)
+        ->first();
+    }
+
+    /**
+     * Obtiene conductores con información de usuario y perfil
+     */
+    public function getConductoresConPerfil($filtros = [])
+    {
+        $query = $this->select('
+            conductores.*,
+            usuarios.nombre,
+            usuarios.apellido,
+            usuarios.email,
+            usuarios.dni,
+            perfiles.telefono,
+            perfiles.direccion,
+            perfiles.fecha_nacimiento,
+            perfiles.genero
+        ')
+        ->join('usuarios', 'usuarios.usuario_id = conductores.usuario_id')
+        ->join('perfiles', 'perfiles.usuario_id = usuarios.usuario_id', 'left');
+        
+        // Aplicar filtros si se especifican
+        if (!empty($filtros['estado'])) {
+            $query->where('conductores.estado', $filtros['estado']);
+        }
+        
+        if (!empty($filtros['estado_usuario'])) {
+            $query->where('usuarios.estado', $filtros['estado_usuario']);
+        }
+        
+        return $query->findAll();
     }
 } 

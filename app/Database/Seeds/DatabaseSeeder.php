@@ -17,6 +17,9 @@ class DatabaseSeeder extends Seeder
         // Usuarios técnicos
         $this->call('UsuariosTecnicosSeeder');
 
+        // Supervisores
+        $this->call('SupervisoresSeeder');
+
         // Después los exámenes
         $this->call('ExamenesE1Seeder');
 

@@ -17,7 +17,10 @@ class CategoriaController extends ResourceController
     public function index()
     {
         $categorias = $this->categoriaModel->findAll();
-        return $this->respond($categorias);
+        return $this->respond([
+            'status' => 'success',
+            'data' => $categorias
+        ]);
     }
 
     public function show($id = null)
@@ -26,11 +29,18 @@ class CategoriaController extends ResourceController
         if (!$categoria) {
             return $this->failNotFound('Categoría no encontrada');
         }
-        return $this->respond($categoria);
+        return $this->respond([
+            'status' => 'success',
+            'data' => $categoria
+        ]);
     }
 
     public function create()
     {
+        // Log del JSON recibido para debugging
+        $jsonInput = $this->request->getJSON(true);
+        log_message('info', 'JSON recibido en create categoría: ' . json_encode($jsonInput));
+        
         $rules = [
             'codigo' => [
                 'rules' => 'required|min_length[1]|max_length[10]|is_unique[categorias.codigo]',
@@ -59,10 +69,9 @@ class CategoriaController extends ResourceController
                 ]
             ],
             'requisitos' => [
-                'rules' => 'required|valid_json',
+                'rules' => 'required',
                 'errors' => [
-                    'required' => 'Los requisitos son obligatorios',
-                    'valid_json' => 'Los requisitos deben ser un JSON válido'
+                    'required' => 'Los requisitos son obligatorios'
                 ]
             ],
             'estado' => [
@@ -84,11 +93,24 @@ class CategoriaController extends ResourceController
             return $this->fail($response);
         }
 
+        // Validar JSON de requisitos manualmente
+        $requisitos = $this->request->getVar('requisitos');
+        if (!json_decode($requisitos)) {
+            $response = [
+                'status' => 400,
+                'error' => true,
+                'messages' => [
+                    'requisitos' => 'Los requisitos deben ser un JSON válido'
+                ]
+            ];
+            return $this->fail($response);
+        }
+
         $data = [
             'codigo' => $this->request->getVar('codigo'),
             'nombre' => $this->request->getVar('nombre'),
             'descripcion' => $this->request->getVar('descripcion'),
-            'requisitos' => $this->request->getVar('requisitos'),
+            'requisitos' => $requisitos,
             'estado' => $this->request->getVar('estado')
         ];
 
@@ -121,16 +143,12 @@ class CategoriaController extends ResourceController
             return $this->failNotFound('Categoría no encontrada');
         }
 
+        // Log del JSON recibido para debugging
+        $jsonInput = $this->request->getJSON(true);
+        log_message('info', 'JSON recibido en update categoría: ' . json_encode($jsonInput));
+
+        // Solo validar los campos que se envían desde el frontend
         $rules = [
-            'codigo' => [
-                'rules' => "required|min_length[1]|max_length[10]|is_unique[categorias.codigo,categoria_id,$id]",
-                'errors' => [
-                    'required' => 'El código es obligatorio',
-                    'min_length' => 'El código debe tener al menos 1 carácter',
-                    'max_length' => 'El código no puede tener más de 10 caracteres',
-                    'is_unique' => 'Ya existe una categoría con este código'
-                ]
-            ],
             'nombre' => [
                 'rules' => "required|min_length[1]|max_length[50]|is_unique[categorias.nombre,categoria_id,$id]",
                 'errors' => [
@@ -146,13 +164,6 @@ class CategoriaController extends ResourceController
                     'required' => 'La descripción es obligatoria',
                     'min_length' => 'La descripción debe tener al menos 1 carácter',
                     'max_length' => 'La descripción no puede tener más de 255 caracteres'
-                ]
-            ],
-            'requisitos' => [
-                'rules' => 'required|valid_json',
-                'errors' => [
-                    'required' => 'Los requisitos son obligatorios',
-                    'valid_json' => 'Los requisitos deben ser un JSON válido'
                 ]
             ],
             'estado' => [
@@ -174,33 +185,25 @@ class CategoriaController extends ResourceController
             return $this->fail($response);
         }
 
+        // Solo actualizar los campos que se envían, manteniendo los existentes
         $data = [
-            'codigo' => $this->request->getVar('codigo'),
             'nombre' => $this->request->getVar('nombre'),
             'descripcion' => $this->request->getVar('descripcion'),
-            'requisitos' => $this->request->getVar('requisitos'),
             'estado' => $this->request->getVar('estado')
         ];
 
         try {
             $this->categoriaModel->update($id, $data);
-            $response = [
-                'status' => 200,
-                'error' => null,
-                'messages' => [
-                    'success' => 'Categoría actualizada exitosamente'
-                ]
-            ];
-            return $this->respond($response);
+            return $this->respond([
+                'status' => 'success',
+                'message' => 'Categoría actualizada exitosamente',
+                'data' => $this->categoriaModel->find($id)
+            ]);
         } catch (\Exception $e) {
-            $response = [
-                'status' => 500,
-                'error' => true,
-                'messages' => [
-                    'error' => 'Error al actualizar la categoría: ' . $e->getMessage()
-                ]
-            ];
-            return $this->fail($response);
+            return $this->fail([
+                'status' => 'error',
+                'message' => 'Error al actualizar la categoría: ' . $e->getMessage()
+            ], 500);
         }
     }
 
@@ -213,23 +216,15 @@ class CategoriaController extends ResourceController
 
         try {
             $this->categoriaModel->delete($id);
-            $response = [
-                'status' => 200,
-                'error' => null,
-                'messages' => [
-                    'success' => 'Categoría eliminada exitosamente'
-                ]
-            ];
-            return $this->respond($response);
+            return $this->respond([
+                'status' => 'success',
+                'message' => 'Categoría eliminada exitosamente'
+            ]);
         } catch (\Exception $e) {
-            $response = [
-                'status' => 500,
-                'error' => true,
-                'messages' => [
-                    'error' => 'Error al eliminar la categoría: ' . $e->getMessage()
-                ]
-            ];
-            return $this->fail($response);
+            return $this->fail([
+                'status' => 'error',
+                'message' => 'Error al eliminar la categoría: ' . $e->getMessage()
+            ], 500);
         }
     }
 } 

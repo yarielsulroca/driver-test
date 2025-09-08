@@ -13,8 +13,9 @@ use CodeIgniter\Filters\PageCache;
 use CodeIgniter\Filters\PerformanceMetrics;
 use CodeIgniter\Filters\SecureHeaders;
 use App\Filters\Cors as AppCors;
-use App\Filters\AuthFilter;
-use App\Filters\AuthTecnicoFilter;
+// use App\Filters\AuthFilter;
+// use App\Filters\AuthTecnicoFilter;
+use App\Filters\TestFilter;
 
 class Filters extends BaseFilters
 {
@@ -37,8 +38,9 @@ class Filters extends BaseFilters
         'forcehttps'    => ForceHTTPS::class,
         'pagecache'     => PageCache::class,
         'performance'   => PerformanceMetrics::class,
-        'auth'          => AuthFilter::class,
-        'auth.tecnico'  => AuthTecnicoFilter::class,
+        // 'auth'          => AuthFilter::class,
+        // 'auth.tecnico'  => AuthTecnicoFilter::class,
+        'test'          => TestFilter::class,
     ];
 
     /**
@@ -74,13 +76,14 @@ class Filters extends BaseFilters
      */
     public array $globals = [
         'before' => [
-            'cors',
+            // TODO DESHABILITADO - NO HAY FILTROS GLOBALES
+            // 'cors',
             // 'honeypot',
             // 'csrf',
             // 'invalidchars',
         ],
         'after' => [
-            'toolbar',
+            // 'toolbar',
             // 'honeypot',
             // 'secureheaders',
         ],
@@ -111,23 +114,12 @@ class Filters extends BaseFilters
      * @var array<string, array<string, list<string>>>
      */
     public array $filters = [
-        // Protege todas las rutas de exámenes y resultados para conductores
-        'auth' => [
-            'before' => [
-                'api/examenes',
-                'api/examenes/*',
-                'api/resultados',
-                'api/resultados/*',
-                'api/historial',
-                'api/historial/*',
-                // Agrega aquí cualquier otra ruta que requiera autenticación de conductor
-            ]
-        ],
-        'auth.tecnico' => [
-            'before' => [
-                'api/examenes/*',
-                'api/preguntas/*'
-            ]
-        ]
+        // TODOS LOS FILTROS DE AUTENTICACIÓN DESHABILITADOS COMPLETAMENTE
+        // 'auth' => [
+        //     'before' => []
+        // ],
+        // 'auth.tecnico' => [
+        //     'before' => []
+        // ]
     ];
 }

@@ -1,0 +1,8 @@
+{
+  "/api": {
+    "target": "https://examen.test",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+} 

@@ -13,14 +13,17 @@ class ExamenModel extends Model
     protected $useSoftDeletes = false;
     protected $protectFields = true;
     protected $allowedFields = [
-        'categoria_id',
+        'titulo',
         'nombre',
         'descripcion',
-        'fecha_inicio',
-        'fecha_fin',
+        'tiempo_limite',
         'duracion_minutos',
         'puntaje_minimo',
-        'numero_preguntas'
+        'fecha_inicio',
+        'fecha_fin',
+        'numero_preguntas',
+        'estado',
+        'dificultad'
     ];
 
     // Dates
@@ -32,60 +35,78 @@ class ExamenModel extends Model
 
     // Validation
     protected $validationRules = [
-        'categoria_id' => 'required|integer',
+        'titulo' => 'required|min_length[3]|max_length[255]',
         'nombre' => 'required|min_length[3]|max_length[255]',
         'descripcion' => 'permit_empty|max_length[1000]',
-        'fecha_inicio' => 'required|valid_date',
-        'fecha_fin' => 'required|valid_date',
+        'tiempo_limite' => 'required|integer|greater_than[0]',
         'duracion_minutos' => 'required|integer|greater_than[0]',
         'puntaje_minimo' => 'required|numeric|greater_than[0]|less_than_equal_to[100]',
-        'numero_preguntas' => 'required|integer|greater_than[0]'
+        'fecha_inicio' => 'required|valid_date',
+        'fecha_fin' => 'required|valid_date',
+        'numero_preguntas' => 'permit_empty|integer|greater_than_equal_to[0]',
+        'estado' => 'required|in_list[activo,inactivo]',
+        'dificultad' => 'permit_empty|in_list[facil,medio,dificil]'
     ];
+
     protected $validationMessages = [
-        'categoria_id' => [
-            'required' => 'La categoría es requerida',
-            'integer' => 'La categoría debe ser un número entero'
+        'titulo' => [
+            'required' => 'El título es obligatorio',
+            'min_length' => 'El título debe tener al menos 3 caracteres',
+            'max_length' => 'El título no puede tener más de 255 caracteres'
         ],
         'nombre' => [
-            'required' => 'El nombre es requerido',
+            'required' => 'El nombre es obligatorio',
             'min_length' => 'El nombre debe tener al menos 3 caracteres',
-            'max_length' => 'El nombre no puede exceder los 255 caracteres'
+            'max_length' => 'El nombre no puede tener más de 255 caracteres'
         ],
-        'fecha_inicio' => [
-            'required' => 'La fecha de inicio es requerida',
-            'valid_date' => 'La fecha de inicio debe ser una fecha válida'
-        ],
-        'fecha_fin' => [
-            'required' => 'La fecha de fin es requerida',
-            'valid_date' => 'La fecha de fin debe ser una fecha válida'
+        'tiempo_limite' => [
+            'required' => 'El tiempo límite es obligatorio',
+            'integer' => 'El tiempo límite debe ser un número entero',
+            'greater_than' => 'El tiempo límite debe ser mayor a 0'
         ],
         'duracion_minutos' => [
-            'required' => 'La duración es requerida',
+            'required' => 'La duración es obligatoria',
             'integer' => 'La duración debe ser un número entero',
             'greater_than' => 'La duración debe ser mayor a 0'
         ],
         'puntaje_minimo' => [
-            'required' => 'El puntaje mínimo es requerido',
+            'required' => 'El puntaje mínimo es obligatorio',
             'numeric' => 'El puntaje mínimo debe ser un número',
             'greater_than' => 'El puntaje mínimo debe ser mayor a 0',
             'less_than_equal_to' => 'El puntaje mínimo no puede ser mayor a 100'
         ],
-        'numero_preguntas' => [
-            'required' => 'El número de preguntas es requerido',
-            'integer' => 'El número de preguntas debe ser un número entero',
-            'greater_than' => 'El número de preguntas debe ser mayor a 0'
+        'fecha_inicio' => [
+            'required' => 'La fecha de inicio es obligatoria',
+            'valid_date' => 'La fecha de inicio debe ser válida'
+        ],
+        'fecha_fin' => [
+            'required' => 'La fecha de fin es obligatoria',
+            'valid_date' => 'La fecha de fin debe ser válida',
+            'valid_date_greater_than' => 'La fecha de fin debe ser posterior a la fecha de inicio'
+        ],
+        'estado' => [
+            'required' => 'El estado es obligatorio',
+            'in_list' => 'El estado debe ser activo o inactivo'
         ]
     ];
+
     protected $skipValidation = false;
     protected $cleanValidationRules = true;
 
+    // Relaciones
     /**
-     * Obtiene la categoría a la que pertenece el examen
-     * @return \CodeIgniter\Database\BaseResult
+     * Obtiene todas las categorías asociadas a un examen específico
+     * @param int $examen_id ID del examen
+     * @return array Lista de categorías
      */
-    public function categoria()
+    public function getCategorias($examen_id)
     {
-        return $this->belongsTo('App\Models\CategoriaModel', 'categoria_id', 'categoria_id');
+        return $this->db->table('examen_categoria')
+            ->select('categorias.*')
+            ->join('categorias', 'categorias.categoria_id = examen_categoria.categoria_id')
+            ->where('examen_categoria.examen_id', $examen_id)
+            ->get()
+            ->getResultArray();
     }
 
     /**
@@ -103,16 +124,27 @@ class ExamenModel extends Model
     }
 
     /**
-     * Obtiene todos los conductores que han presentado el examen
+     * Obtiene todas las preguntas del examen con orden y respuestas
+     * @param int $examen_id ID del examen
+     * @return array Lista de preguntas con respuestas
+     */
+    public function getPreguntasConRespuestas($examen_id)
+    {
+        $examenPreguntaModel = new \App\Models\ExamenPreguntaModel();
+        return $examenPreguntaModel->getPreguntasPorExamen($examen_id);
+    }
+
+    /**
+     * Obtiene todas las escuelas asociadas al examen
      * @return \CodeIgniter\Database\BaseResult
      */
-    public function conductores()
+    public function escuelas()
     {
         return $this->belongsToMany(
-            'App\Models\ConductorModel',
-            'examen_conductor',
+            'App\Models\EscuelaModel',
+            'examen_escuela',
             'examen_id',
-            'conductor_id'
+            'escuela_id'
         );
     }
 
@@ -126,46 +158,97 @@ class ExamenModel extends Model
     }
 
     /**
-     * Obtiene todas las categorías asociadas a un examen específico
-     * @param int $examen_id ID del examen
-     * @return array Lista de categorías
+     * Obtiene exámenes activos
+     * @return array Lista de exámenes activos
      */
-    public function getCategorias($examen_id)
+    public function getActivos()
+    {
+        $fechaActual = date('Y-m-d H:i:s');
+        
+        return $this->where('estado', 'activo')
+                   ->where('fecha_inicio <=', $fechaActual)
+                   ->where('fecha_fin >=', $fechaActual)
+                   ->findAll();
+    }
+
+    /**
+     * Obtiene exámenes por categoría
+     * @param int $categoria_id ID de la categoría
+     * @return array Lista de exámenes
+     */
+    public function getPorCategoria($categoria_id)
     {
         return $this->db->table('examen_categoria')
-            ->select('categorias.*')
-            ->join('categorias', 'categorias.categoria_id = examen_categoria.categoria_id')
-            ->where('examen_categoria.examen_id', $examen_id)
+            ->select('examenes.*')
+            ->join('examenes', 'examenes.examen_id = examen_categoria.examen_id')
+            ->where('examen_categoria.categoria_id', $categoria_id)
+            ->where('examenes.estado', 'activo')
             ->get()
             ->getResultArray();
     }
 
     /**
-     * Asigna categorías a un examen específico
-     * @param int $examen_id ID del examen
-     * @param array $categorias Array de IDs de categorías
-     * @return bool True si la operación fue exitosa
+     * Obtiene exámenes por escuela
+     * @param int $escuela_id ID de la escuela
+     * @return array Lista de exámenes
      */
-    public function asignarCategorias($examen_id, $categorias)
+    public function getPorEscuela($escuela_id)
     {
-        // Primero eliminamos las categorías existentes
-        $this->db->table('examen_categoria')
+        return $this->db->table('examen_escuela')
+            ->select('examenes.*')
+            ->join('examenes', 'examenes.examen_id = examen_escuela.examen_id')
+            ->where('examen_escuela.escuela_id', $escuela_id)
+            ->where('examen_escuela.estado', 'activo')
+            ->where('examenes.estado', 'activo')
+            ->get()
+            ->getResultArray();
+    }
+
+    /**
+     * Verifica si un examen está activo
+     * @param int $examen_id ID del examen
+     * @return bool True si está activo
+     */
+    public function estaActivo($examen_id)
+    {
+        $examen = $this->find($examen_id);
+        if (!$examen) return false;
+
+        $fechaActual = date('Y-m-d H:i:s');
+        
+        return $examen['estado'] === 'activo' &&
+               $examen['fecha_inicio'] <= $fechaActual &&
+               $examen['fecha_fin'] >= $fechaActual;
+    }
+
+    /**
+     * Obtiene estadísticas básicas del examen
+     * @param int $examen_id ID del examen
+     * @return array Estadísticas
+     */
+    public function getEstadisticas($examen_id)
+    {
+        $examen = $this->find($examen_id);
+        if (!$examen) return null;
+
+        // Contar preguntas
+        $totalPreguntas = $this->db->table('preguntas')
             ->where('examen_id', $examen_id)
-            ->delete();
+            ->countAllResults();
 
-        // Insertamos las nuevas categorías
-        $data = [];
-        foreach ($categorias as $categoria_id) {
-            $data[] = [
-                'examen_id' => $examen_id,
-                'categoria_id' => $categoria_id
-            ];
-        }
+        // Contar categorías aprobadas
+        $totalCategoriasAprobadas = $this->db->table('categorias_aprobadas')
+            ->where('examen_id', $examen_id)
+            ->countAllResults();
 
-        if (!empty($data)) {
-            return $this->db->table('examen_categoria')->insertBatch($data);
-        }
-
-        return true;
+        return [
+            'examen_id' => $examen_id,
+            'nombre' => $examen['nombre'],
+            'total_preguntas' => $totalPreguntas,
+            'total_categorias_aprobadas' => $totalCategoriasAprobadas,
+            'estado' => $examen['estado'],
+            'fecha_inicio' => $examen['fecha_inicio'],
+            'fecha_fin' => $examen['fecha_fin']
+        ];
     }
 } 

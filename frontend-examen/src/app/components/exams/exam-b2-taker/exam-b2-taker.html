@@ -1,0 +1,237 @@
+<div class="exam-b2-container">
+  <!-- Loading -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p>Cargando examen B2...</p>
+  </div>
+
+  <!-- Error -->
+  <div *ngIf="error && !loading" class="error-container">
+    <div class="error-message">
+      <h3>❌ Error</h3>
+      <p>{{ error }}</p>
+      <button (click)="cargarExamenB2('1')" class="btn-retry">Reintentar</button>
+    </div>
+  </div>
+
+  <!-- Información del examen antes de empezar -->
+  <div *ngIf="!loading && !error && !examStarted && !examCompleted" class="exam-info">
+    <div class="exam-header">
+      <h1>🚛 Examen B2 - Vehículos de Carga</h1>
+      <div class="exam-details">
+        <div class="detail-item">
+          <span class="label">Categoría:</span>
+          <span class="value">{{ categoria?.nombre || 'B2 - Vehículos de Carga' }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Título:</span>
+          <span class="value">{{ examen?.titulo }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Descripción:</span>
+          <span class="value">{{ examen?.descripcion }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Tiempo límite:</span>
+          <span class="value">{{ examen?.tiempo_limite }} minutos</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Preguntas:</span>
+          <span class="value">{{ examen?.numero_preguntas }}</span>
+        </div>
+        <div class="detail-item">
+          <span class="label">Puntaje mínimo:</span>
+          <span class="value">{{ examen?.puntaje_minimo }}%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exam-instructions">
+      <h3>📋 Instrucciones:</h3>
+      <ul>
+        <li>El examen consta de {{ examen?.numero_preguntas }} preguntas</li>
+        <li>Tienes {{ examen?.tiempo_limite }} minutos para completarlo</li>
+        <li>Necesitas obtener al menos {{ examen?.puntaje_minimo }}% para aprobar</li>
+        <li>Puedes navegar entre preguntas usando los botones</li>
+        <li>Algunas preguntas son críticas y afectan más tu puntaje</li>
+        <li>Una vez iniciado, el tiempo no se puede pausar</li>
+      </ul>
+    </div>
+
+    <div class="exam-actions">
+      <button (click)="iniciarExamen()" class="btn-start">
+        🚀 Iniciar Examen
+      </button>
+      <button (click)="volverAInicio()" class="btn-back">
+        ← Volver al Inicio
+      </button>
+    </div>
+  </div>
+
+  <!-- Examen en progreso -->
+  <div *ngIf="examStarted && !examCompleted" class="exam-progress">
+    <!-- Header con tiempo y progreso -->
+    <div class="exam-header-progress">
+      <div class="progress-info">
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="progreso"></div>
+        </div>
+        <span class="progress-text">{{ preguntasRespondidas }}/{{ totalPreguntas }} preguntas</span>
+      </div>
+      <div class="timer">
+        <span class="timer-label">Tiempo restante:</span>
+        <span class="timer-value" [class.timer-warning]="tiempoRestante < 300">
+          {{ formatearTiempo(tiempoRestante) }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Navegación de preguntas -->
+    <div class="question-navigation">
+      <div class="nav-buttons">
+        <button (click)="preguntaAnterior()" [disabled]="preguntaActual === 0" class="btn-nav">
+          ← Anterior
+        </button>
+        <span class="question-counter">
+          Pregunta {{ preguntaActual + 1 }} de {{ totalPreguntas }}
+        </span>
+        <button (click)="siguientePregunta()" [disabled]="preguntaActual === totalPreguntas - 1" class="btn-nav">
+          Siguiente →
+        </button>
+      </div>
+    </div>
+
+    <!-- Pregunta actual -->
+    <div class="question-container" *ngIf="preguntas[preguntaActual]">
+      <div class="question-header">
+        <div class="question-meta">
+          <span class="question-number">Pregunta {{ preguntaActual + 1 }}</span>
+          <span class="question-difficulty" [class]="getDificultadClass(preguntas[preguntaActual].dificultad)">
+            {{ getDificultadText(preguntas[preguntaActual].dificultad) }}
+          </span>
+          <span class="question-type">{{ getTipoText(preguntas[preguntaActual].tipo_pregunta) }}</span>
+          <span class="question-points">{{ preguntas[preguntaActual].puntaje }} puntos</span>
+          <span *ngIf="preguntas[preguntaActual].es_critica" class="question-critical">⚠️ Crítica</span>
+        </div>
+      </div>
+
+      <div class="question-content">
+        <h3 class="question-text">{{ preguntas[preguntaActual].enunciado }}</h3>
+        
+        <div class="answers-container">
+          <div 
+            *ngFor="let respuesta of preguntas[preguntaActual].respuestas; let i = index"
+            class="answer-option"
+            [class.selected]="esRespuestaSeleccionada(preguntas[preguntaActual].pregunta_id, respuesta.respuesta_id)"
+            (click)="seleccionarRespuesta(preguntas[preguntaActual].pregunta_id, respuesta.respuesta_id, preguntas[preguntaActual].tipo_pregunta === 'multiple')"
+          >
+            <div class="answer-checkbox">
+              <input 
+                type="checkbox" 
+                *ngIf="preguntas[preguntaActual].tipo_pregunta === 'multiple'"
+                [checked]="esRespuestaSeleccionada(preguntas[preguntaActual].pregunta_id, respuesta.respuesta_id)"
+                (change)="seleccionarRespuesta(preguntas[preguntaActual].pregunta_id, respuesta.respuesta_id, true)"
+              >
+              <input 
+                type="radio" 
+                *ngIf="preguntas[preguntaActual].tipo_pregunta === 'unica'"
+                [checked]="esRespuestaSeleccionada(preguntas[preguntaActual].pregunta_id, respuesta.respuesta_id)"
+                (change)="seleccionarRespuesta(preguntas[preguntaActual].pregunta_id, respuesta.respuesta_id, false)"
+                [name]="'pregunta-' + preguntas[preguntaActual].pregunta_id"
+              >
+            </div>
+            <div class="answer-text">
+                             <span class="answer-letter">{{ getAnswerLetter(i) }}.</span>
+              {{ respuesta.texto }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botones de acción -->
+    <div class="exam-actions-progress">
+      <button (click)="terminarExamen()" class="btn-finish">
+        ✅ Finalizar Examen
+      </button>
+    </div>
+  </div>
+
+  <!-- Resultados del examen -->
+  <div *ngIf="examCompleted && !examSubmitted" class="exam-results">
+    <div class="results-header">
+      <h2>📊 Resultados del Examen</h2>
+    </div>
+
+    <div class="results-summary">
+      <div class="result-item">
+        <span class="label">Puntaje obtenido:</span>
+        <span class="value">{{ puntajeObtenido }}/{{ puntajeTotal }}</span>
+      </div>
+      <div class="result-item">
+        <span class="label">Porcentaje:</span>
+        <span class="value">{{ porcentajeAprobacion.toFixed(1) }}%</span>
+      </div>
+      <div class="result-item">
+        <span class="label">Preguntas correctas:</span>
+        <span class="value correct">{{ preguntasCorrectas }}</span>
+      </div>
+      <div class="result-item">
+        <span class="label">Preguntas incorrectas:</span>
+        <span class="value incorrect">{{ preguntasIncorrectas }}</span>
+      </div>
+      <div class="result-item">
+        <span class="label">Preguntas críticas falladas:</span>
+        <span class="value critical">{{ preguntasCriticasFalladas }}</span>
+      </div>
+      <div class="result-item">
+        <span class="label">Resultado:</span>
+        <span class="value" [class]="getResultadoClass()">{{ getResultadoText() }}</span>
+      </div>
+    </div>
+
+    <div class="results-actions">
+      <button (click)="enviarExamen()" class="btn-submit">
+        📤 Enviar Resultados
+      </button>
+      <button (click)="reiniciarExamen()" class="btn-restart">
+        🔄 Reiniciar Examen
+      </button>
+    </div>
+  </div>
+
+  <!-- Confirmación de envío -->
+  <div *ngIf="examSubmitted && examResults" class="exam-confirmation">
+    <div class="confirmation-header">
+      <h2>✅ Examen Enviado Exitosamente</h2>
+    </div>
+
+    <div class="confirmation-details">
+      <div class="detail-item">
+        <span class="label">ID del resultado:</span>
+        <span class="value">{{ examResults.examen_id }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="label">Fecha de examen:</span>
+        <span class="value">{{ examResults.fecha_examen | date:'dd/MM/yyyy HH:mm' }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="label">Tiempo utilizado:</span>
+        <span class="value">{{ formatearTiempo(examResults.tiempo_utilizado) }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="label">Estado:</span>
+        <span class="value" [class]="getResultadoClass()">{{ getResultadoText() }}</span>
+      </div>
+    </div>
+
+    <div class="confirmation-actions">
+      <button (click)="volverAInicio()" class="btn-home">
+        🏠 Volver al Inicio
+      </button>
+      <button (click)="reiniciarExamen()" class="btn-restart">
+        🔄 Tomar Otro Examen
+      </button>
+    </div>
+  </div>
+</div> 

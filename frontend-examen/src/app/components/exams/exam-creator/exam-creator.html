@@ -1,0 +1,471 @@
+<div class="exam-creator-container">
+  <!-- Header con logo y título -->
+  <div class="header-section">
+    <div class="logo-container">
+      <img src="assets/images/Logo_fondo_negro.svg" alt="Logo" class="logo">
+    </div>
+    <div class="header-content">
+      <h1 class="main-title">Crear Nuevo Examen</h1>
+      <p class="subtitle">Configura un nuevo examen con categorías y preguntas</p>
+    </div>
+  </div>
+
+  <!-- Barra de progreso -->
+  <div class="progress-section">
+    <div class="progress-bar">
+      <div class="progress-fill" [style.width.%]="getProgreso()"></div>
+    </div>
+    <div class="progress-steps">
+      <div class="step" [class.active]="pasoActual >= 1" [class.completed]="pasoActual > 1">
+        <div class="step-number">1</div>
+        <span class="step-label">Información Básica</span>
+      </div>
+      <div class="step" [class.active]="pasoActual >= 2" [class.completed]="pasoActual > 2">
+        <div class="step-number">2</div>
+        <span class="step-label">Categorías</span>
+      </div>
+      <div class="step" [class.active]="pasoActual >= 3" [class.completed]="pasoActual > 3">
+        <div class="step-number">3</div>
+        <span class="step-label">Preguntas</span>
+      </div>
+      <div class="step" [class.active]="pasoActual >= 4">
+        <div class="step-number">4</div>
+        <span class="step-label">Revisar</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="main-content">
+    <div class="content-card">
+      <!-- Estados de error y éxito -->
+      <div *ngIf="error" class="error-state">
+        <svg class="error-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <p>{{ error }}</p>
+      </div>
+
+      <div *ngIf="success" class="success-state">
+        <svg class="success-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <p>{{ success }}</p>
+      </div>
+
+      <!-- Paso 1: Información Básica -->
+      <div *ngIf="pasoActual === 1" class="step-content">
+        <div class="step-header">
+          <h2>Información Básica del Examen</h2>
+          <p>Define los datos fundamentales del examen</p>
+        </div>
+
+        <div class="form-section">
+          <div class="form-group">
+            <label for="nombre">Nombre del Examen *</label>
+            <input 
+              type="text" 
+              id="nombre"
+              [(ngModel)]="examen.nombre"
+              placeholder="Ej: Examen de Conducción Básico"
+              class="form-input"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="descripcion">Descripción</label>
+            <textarea 
+              id="descripcion"
+              [(ngModel)]="examen.descripcion"
+              placeholder="Describe el contenido y objetivos del examen..."
+              class="form-textarea"
+              rows="3"
+            ></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fecha_inicio">Fecha de Inicio *</label>
+              <input 
+                type="datetime-local" 
+                id="fecha_inicio"
+                [(ngModel)]="examen.fecha_inicio"
+                class="form-input"
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="fecha_fin">Fecha de Fin *</label>
+              <input 
+                type="datetime-local" 
+                id="fecha_fin"
+                [(ngModel)]="examen.fecha_fin"
+                class="form-input"
+                required
+              >
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="duracion">Duración (minutos) *</label>
+              <input 
+                type="number" 
+                id="duracion"
+                [(ngModel)]="examen.duracion_minutos"
+                min="1"
+                max="480"
+                class="form-input"
+                required
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="puntaje_minimo">Puntaje Mínimo (%) *</label>
+              <input 
+                type="number" 
+                id="puntaje_minimo"
+                [(ngModel)]="examen.puntaje_minimo"
+                min="0"
+                max="100"
+                class="form-input"
+                required
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Paso 2: Categorías -->
+      <div *ngIf="pasoActual === 2" class="step-content">
+        <div class="step-header">
+          <h2>Seleccionar Categorías</h2>
+          <p>Elige las categorías de licencia que aplican para este examen</p>
+        </div>
+
+        <div class="categories-section">
+          <div class="categories-grid">
+            <div 
+              *ngFor="let categoria of categorias" 
+              class="category-card"
+              [class.selected]="examen.categorias.includes(categoria.categoria_id)"
+              (click)="toggleCategoria(categoria.categoria_id)"
+            >
+              <div class="category-header">
+                <div class="category-code">
+                  <span class="code-text">{{ categoria.codigo }}</span>
+                </div>
+                <div class="category-info">
+                  <h3>{{ categoria.nombre }}</h3>
+                  <p *ngIf="categoria.descripcion">{{ categoria.descripcion }}</p>
+                </div>
+              </div>
+              <div class="category-status">
+                <span class="status-badge" [class]="categoria.estado">
+                  {{ categoria.estado }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="categorias.length === 0" class="empty-state">
+            <svg class="empty-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+            <h3>No hay categorías disponibles</h3>
+            <p>Primero debes crear categorías en el sistema</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Paso 3: Preguntas -->
+      <div *ngIf="pasoActual === 3" class="step-content">
+        <div class="step-header">
+          <h2>Seleccionar Preguntas</h2>
+          <p>Elige las preguntas que formarán parte del examen</p>
+        </div>
+
+        <div class="questions-section">
+          <!-- Filtros -->
+          <div class="filters-bar">
+            <div class="filter-group">
+              <label>Categoría:</label>
+              <select [(ngModel)]="filtroCategoria" class="filter-select" title="Filtrar por categoría">
+                <option value="">Todas las categorías</option>
+                <option *ngFor="let categoria of categorias" [value]="categoria.categoria_id">
+                  {{ categoria.codigo }} - {{ categoria.nombre }}
+                </option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label>Dificultad:</label>
+              <select [(ngModel)]="filtroDificultad" class="filter-select" title="Filtrar por dificultad">
+                <option value="">Todas las dificultades</option>
+                <option value="baja">Baja</option>
+                <option value="media">Media</option>
+                <option value="alta">Alta</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label>Tipo:</label>
+              <select [(ngModel)]="filtroTipo" class="filter-select" title="Filtrar por tipo de pregunta">
+                <option value="">Todos los tipos</option>
+                <option value="multiple">Opción múltiple</option>
+                <option value="verdadero_falso">Verdadero/Falso</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <label>Buscar:</label>
+              <input 
+                type="text" 
+                [(ngModel)]="filtroTexto"
+                placeholder="Buscar en el enunciado..."
+                class="filter-input"
+              >
+            </div>
+          </div>
+
+          <!-- Lista de preguntas -->
+          <div class="questions-list">
+            <div 
+              *ngFor="let pregunta of getPreguntasFiltradas()" 
+              class="question-card"
+              [class.selected]="isPreguntaSeleccionada(pregunta)"
+              (click)="togglePregunta(pregunta)"
+            >
+              <div class="question-header">
+                <div class="question-info">
+                  <h4>{{ pregunta.enunciado }}</h4>
+                  <div class="question-meta">
+                    <span class="meta-item">
+                      <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                      </svg>
+                      {{ getCategoriaNombre(pregunta.categoria_id) }}
+                    </span>
+                    <span class="meta-item">
+                      <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                      </svg>
+                      {{ pregunta.puntaje }} pts
+                    </span>
+                    <span class="meta-item">
+                      <svg class="meta-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                      </svg>
+                      {{ pregunta.dificultad }}
+                    </span>
+                    <span class="meta-item" *ngIf="pregunta.es_critica">
+                      <svg class="meta-icon critical" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                      </svg>
+                      Crítica
+                    </span>
+                  </div>
+                </div>
+                <div class="question-actions">
+                  <div class="selection-indicator">
+                    <svg *ngIf="isPreguntaSeleccionada(pregunta)" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Preguntas seleccionadas -->
+          <div class="selected-questions" *ngIf="preguntasSeleccionadas.length > 0">
+            <h3>Preguntas Seleccionadas ({{ preguntasSeleccionadas.length }})</h3>
+            <div class="selected-list">
+              <div 
+                *ngFor="let pregunta of preguntasSeleccionadas; let i = index" 
+                class="selected-question"
+              >
+                <div class="question-order">{{ i + 1 }}</div>
+                <div class="question-content">
+                  <h4>{{ pregunta.enunciado }}</h4>
+                  <div class="question-meta">
+                    <span class="meta-item">{{ getCategoriaNombre(pregunta.categoria_id) }}</span>
+                    <span class="meta-item">{{ pregunta.puntaje }} pts</span>
+                    <span class="meta-item">{{ pregunta.dificultad }}</span>
+                  </div>
+                </div>
+                <div class="question-actions">
+                  <button class="btn-action" (click)="moverPregunta(i, 'arriba')" [disabled]="i === 0" title="Mover arriba">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+                    </svg>
+                  </button>
+                  <button class="btn-action" (click)="moverPregunta(i, 'abajo')" [disabled]="i === preguntasSeleccionadas.length - 1" title="Mover abajo">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                  </button>
+                  <button class="btn-action btn-delete" (click)="eliminarPregunta(i)" title="Eliminar">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Paso 4: Revisar -->
+      <div *ngIf="pasoActual === 4" class="step-content">
+        <div class="step-header">
+          <h2>Revisar Examen</h2>
+          <p>Confirma la configuración antes de crear el examen</p>
+        </div>
+
+        <div class="review-section">
+          <div class="review-card">
+            <h3>Información del Examen</h3>
+            <div class="review-grid">
+              <div class="review-item">
+                <span class="review-label">Nombre:</span>
+                <span class="review-value">{{ examen.nombre }}</span>
+              </div>
+              <div class="review-item" *ngIf="examen.descripcion">
+                <span class="review-label">Descripción:</span>
+                <span class="review-value">{{ examen.descripcion }}</span>
+              </div>
+              <div class="review-item">
+                <span class="review-label">Duración:</span>
+                <span class="review-value">{{ examen.duracion_minutos }} minutos</span>
+              </div>
+              <div class="review-item">
+                <span class="review-label">Puntaje mínimo:</span>
+                <span class="review-value">{{ examen.puntaje_minimo }}%</span>
+              </div>
+              <div class="review-item">
+                <span class="review-label">Fecha de inicio:</span>
+                <span class="review-value">{{ formatDate(examen.fecha_inicio) }}</span>
+              </div>
+              <div class="review-item">
+                <span class="review-label">Fecha de fin:</span>
+                <span class="review-value">{{ formatDate(examen.fecha_fin) }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <h3>Categorías Seleccionadas</h3>
+            <div class="categories-summary">
+              <span 
+                *ngFor="let categoriaId of examen.categorias" 
+                class="category-badge"
+              >
+                {{ getCategoriaNombre(categoriaId) }}
+              </span>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <h3>Resumen de Preguntas</h3>
+            <div class="questions-summary">
+              <div class="summary-stats">
+                <div class="stat-item">
+                  <span class="stat-label">Total de preguntas:</span>
+                  <span class="stat-value">{{ preguntasSeleccionadas.length }}</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Puntaje total:</span>
+                  <span class="stat-value">{{ getPuntajeTotal() }} puntos</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Dificultad promedio:</span>
+                  <span class="stat-value">{{ getDificultadPromedio() }}</span>
+                </div>
+              </div>
+
+              <div class="summary-charts">
+                <div class="chart-section">
+                  <h4>Por Categoría</h4>
+                  <div class="chart-bars">
+                    <div 
+                      *ngFor="let item of getPreguntasPorCategoria()" 
+                      class="chart-bar"
+                    >
+                      <span class="bar-label">{{ item.categoria }}</span>
+                      <div class="bar-container">
+                        <div class="bar-fill" [style.width.%]="(item.count / preguntasSeleccionadas.length) * 100"></div>
+                      </div>
+                      <span class="bar-value">{{ item.count }}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="chart-section">
+                  <h4>Por Dificultad</h4>
+                  <div class="chart-bars">
+                    <div 
+                      *ngFor="let item of getPreguntasPorDificultad()" 
+                      class="chart-bar"
+                    >
+                      <span class="bar-label">{{ item.dificultad }}</span>
+                      <div class="bar-container">
+                        <div class="bar-fill" [style.width.%]="(item.count / preguntasSeleccionadas.length) * 100"></div>
+                      </div>
+                      <span class="bar-value">{{ item.count }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navegación de pasos -->
+      <div class="step-navigation">
+        <button 
+          *ngIf="pasoActual > 1"
+          class="btn-secondary" 
+          (click)="pasoAnterior()"
+        >
+          <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          Anterior
+        </button>
+
+        <div class="navigation-spacer"></div>
+
+        <button 
+          *ngIf="pasoActual < totalPasos"
+          class="btn-primary" 
+          (click)="siguientePaso()"
+        >
+          Siguiente
+          <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </button>
+
+        <button 
+          *ngIf="pasoActual === totalPasos"
+          class="btn-primary" 
+          (click)="crearExamen()"
+          [disabled]="loading"
+        >
+          <svg *ngIf="loading" class="btn-icon spinner" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+          </svg>
+          <svg *ngIf="!loading" class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+          </svg>
+          {{ loading ? 'Creando...' : 'Crear Examen' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div> 
