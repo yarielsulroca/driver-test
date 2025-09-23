@@ -13,9 +13,8 @@ class ConductorModel extends Model
     protected $protectFields = true;
     protected $allowedFields = [
         'usuario_id',
-        'licencia',
-        'fecha_vencimiento',
-        'estado'
+        'estado',
+        'documentos_presentados'
     ];
 
     // Dates
@@ -27,30 +26,21 @@ class ConductorModel extends Model
 
     // Validation
     protected $validationRules = [
-        'usuario_id' => 'required|integer|is_not_unique[usuarios.usuario_id]',
-        'licencia' => 'required|min_length[3]|max_length[20]',
-        'fecha_vencimiento' => 'required|valid_date',
-        'estado' => 'required|in_list[activo,inactivo]'
+        'usuario_id' => 'required|integer',
+        'estado' => 'in_list[p,b]',
+        'documentos_presentados' => 'permit_empty|max_length[200]'
     ];
 
     protected $validationMessages = [
         'usuario_id' => [
             'required' => 'El ID del usuario es requerido',
-            'integer' => 'El ID del usuario debe ser un número entero',
-            'is_not_unique' => 'El usuario especificado no existe'
-        ],
-        'licencia' => [
-            'required' => 'El número de licencia es requerido',
-            'min_length' => 'La licencia debe tener al menos 3 caracteres',
-            'max_length' => 'La licencia no puede exceder los 20 caracteres'
-        ],
-        'fecha_vencimiento' => [
-            'required' => 'La fecha de vencimiento es requerida',
-            'valid_date' => 'La fecha de vencimiento no es válida'
+            'integer' => 'El ID del usuario debe ser un número entero'
         ],
         'estado' => [
-            'required' => 'El estado es requerido',
-            'in_list' => 'El estado debe ser activo o inactivo'
+            'in_list' => 'El estado debe ser p (pendiente) o b (bueno/aprobado)'
+        ],
+        'documentos_presentados' => [
+            'max_length' => 'Los documentos presentados no pueden exceder los 200 caracteres'
         ]
     ];
 
@@ -193,5 +183,55 @@ class ConductorModel extends Model
         }
         
         return $query->findAll();
+    }
+
+
+    /**
+     * Relación con PerfilModel
+     */
+    public function perfil()
+    {
+        return $this->hasOne('App\Models\PerfilModel', 'usuario_id', 'usuario_id');
+    }
+
+    /**
+     * Obtener conductor con información completa del usuario y perfil
+     */
+    public function getConductorCompleto($conductorId)
+    {
+        $conductor = $this->find($conductorId);
+        if (!$conductor) {
+            return null;
+        }
+
+        // Cargar información del usuario
+        $usuarioModel = new UsuarioModel();
+        $conductor['usuario'] = $usuarioModel->find($conductor['usuario_id']);
+
+        // Cargar información del perfil
+        $perfilModel = new PerfilModel();
+        $conductor['perfil'] = $perfilModel->where('usuario_id', $conductor['usuario_id'])->first();
+
+        return $conductor;
+    }
+
+    /**
+     * Obtener todos los conductores con información completa
+     */
+    public function getConductoresCompletos($filtros = [])
+    {
+        $conductores = $this->findAll();
+        
+        foreach ($conductores as &$conductor) {
+            // Cargar información del usuario
+            $usuarioModel = new UsuarioModel();
+            $conductor['usuario'] = $usuarioModel->find($conductor['usuario_id']);
+
+            // Cargar información del perfil
+            $perfilModel = new PerfilModel();
+            $conductor['perfil'] = $perfilModel->where('usuario_id', $conductor['usuario_id'])->first();
+        }
+
+        return $conductores;
     }
 } 

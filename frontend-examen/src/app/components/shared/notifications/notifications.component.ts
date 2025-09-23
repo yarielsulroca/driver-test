@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
@@ -130,12 +130,16 @@ export class NotificationsComponent implements OnInit, OnDestroy {
   notifications: Notification[] = [];
   private subscription = new Subscription();
 
-  constructor(private notificationService: NotificationService) {}
+  constructor(
+    private notificationService: NotificationService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.subscription.add(
       this.notificationService.notifications$.subscribe(notifications => {
         this.notifications = notifications;
+        this.cdr.detectChanges();
       })
     );
   }

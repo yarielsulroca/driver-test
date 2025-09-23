@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -77,7 +77,10 @@ export class LoadingComponent implements OnInit, OnDestroy {
 
   private subscription = new Subscription();
 
-  constructor(private loadingService: LoadingService) {}
+  constructor(
+    private loadingService: LoadingService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.subscription.add(
@@ -85,6 +88,7 @@ export class LoadingComponent implements OnInit, OnDestroy {
         this.isLoading = state.isLoading;
         this.loadingMessage = state.message || 'Cargando...';
         this.progress = state.progress;
+        this.cdr.detectChanges();
       })
     );
   }

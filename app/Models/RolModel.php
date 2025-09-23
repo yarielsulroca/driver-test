@@ -43,11 +43,31 @@ class RolModel extends Model
     protected $cleanValidationRules = true;
 
     /**
-     * Obtiene todos los usuarios con este rol
-     * @return \CodeIgniter\Database\BaseResult
+     * Obtiene todos los usuarios con este rol (relación muchos a muchos)
+     * @return array
      */
-    public function usuarios()
+    public function getUsuarios()
     {
-        return $this->hasMany('App\Models\UsuarioModel', 'rol_id', 'rol_id');
+        $usuarioRolModel = new \App\Models\UsuarioRolModel();
+        return $usuarioRolModel->getUsuariosRol($this->rol_id);
+    }
+
+    /**
+     * Cuenta cuántos usuarios tienen este rol
+     * @return int
+     */
+    public function contarUsuarios()
+    {
+        $usuarioRolModel = new \App\Models\UsuarioRolModel();
+        return $usuarioRolModel->where('rol_id', $this->rol_id)->countAllResults();
+    }
+
+    /**
+     * Verifica si el rol está asignado a algún usuario
+     * @return bool
+     */
+    public function tieneUsuarios()
+    {
+        return $this->contarUsuarios() > 0;
     }
 } 

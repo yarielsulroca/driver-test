@@ -1,0 +1,237 @@
+<div class="conductor-crear-container">
+  <div class="form-header">
+    <div class="header-content">
+      <div class="title-section">
+        <h1 class="page-title">Nuevo Conductor</h1>
+        <p class="page-subtitle">Completa la información del conductor</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-container">
+    <form class="conductor-form" (ngSubmit)="crearConductor()">
+      
+      <!-- Información del Conductor -->
+      <div class="form-section">
+        <h3 class="section-title">Información del Conductor</h3>
+        
+        <div class="form-group">
+          <label for="usuario" class="form-label">
+            Usuario <span class="required">*</span>
+          </label>
+          
+          <!-- Tabla de selección de usuarios -->
+          <div class="user-selection-container">
+            <!-- Barra de búsqueda -->
+            <div class="search-bar">
+              <div class="search-input-wrapper">
+                <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+                <input 
+                  type="text"
+                  name="searchTerm"
+                  [(ngModel)]="searchTerm"
+                  (input)="onSearchChange($event.target.value)"
+                  class="search-input"
+                  placeholder="Buscar por nombre, apellido o DNI..."
+                  autocomplete="off"
+                >
+                <button 
+                  type="button" 
+                  class="clear-search" 
+                  *ngIf="searchTerm"
+                  (click)="clearSearch()"
+                  title="Limpiar búsqueda"
+                >
+                  <svg class="clear-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Usuario seleccionado -->
+            <div class="selected-user" *ngIf="selectedUsuario">
+              <div class="selected-user-info">
+                <div class="selected-user-avatar">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                  </svg>
+                </div>
+                <div class="selected-user-details">
+                  <div class="selected-user-name">{{ getNombreCompleto(selectedUsuario) }}</div>
+                  <div class="selected-user-meta">
+                    <span class="dni">DNI: {{ selectedUsuario.dni }}</span>
+                    <span class="email">{{ selectedUsuario.email }}</span>
+                  </div>
+                </div>
+                <button 
+                  type="button" 
+                  class="remove-selection"
+                  (click)="clearSelection()"
+                  title="Quitar selección"
+                >
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Tabla de usuarios -->
+            <div class="users-table-container" *ngIf="!selectedUsuario">
+              <div class="table-header">
+                <h4 class="table-title">
+                  Usuarios Disponibles 
+                  <span class="count">({{ usuariosFiltrados.length }} de {{ usuarios.length }})</span>
+                </h4>
+              </div>
+              
+              <div class="table-wrapper">
+                <table class="users-table">
+                  <thead>
+                    <tr>
+                      <th>Nombre Completo</th>
+                      <th>DNI</th>
+                      <th>Email</th>
+                      <th>Acción</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr 
+                      *ngFor="let usuario of usuariosFiltrados; trackBy: trackByUsuario"
+                      class="user-row"
+                    >
+                      <td class="user-name-cell">
+                        <div class="user-info">
+                          <div class="user-avatar">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                          </div>
+                          <div class="user-name">{{ getNombreCompleto(usuario) }}</div>
+                        </div>
+                      </td>
+                      <td class="dni-cell">
+                        <span class="dni-badge">{{ usuario.dni }}</span>
+                      </td>
+                      <td class="email-cell">{{ usuario.email }}</td>
+                      <td class="action-cell">
+                        <button 
+                          type="button"
+                          class="select-button"
+                          (click)="selectUsuario(usuario)"
+                        >
+                          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                          </svg>
+                          Seleccionar
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Mensaje cuando no hay resultados -->
+              <div class="no-results" *ngIf="usuariosFiltrados.length === 0 && searchTerm.trim()">
+                <div class="no-results-content">
+                  <svg class="no-results-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                  </svg>
+                  <h4>No se encontraron usuarios</h4>
+                  <p>No hay usuarios que coincidan con "{{ searchTerm }}"</p>
+                  <button 
+                    type="button"
+                    class="clear-search-btn"
+                    (click)="clearSearch()"
+                  >
+                    Limpiar búsqueda
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <small class="form-hint">
+            <span *ngIf="loading">Cargando usuarios...</span>
+            <span *ngIf="!loading">Usuarios disponibles: {{ usuarios.length }}</span>
+          </small>
+          <small class="form-hint">Busca y selecciona el usuario que será asignado como conductor</small>
+        </div>
+
+        <div class="form-group">
+          <label for="documentos" class="form-label">
+            Documentos Presentados <span class="required">*</span>
+          </label>
+          <textarea 
+            id="documentos" 
+            name="documentos"
+            [(ngModel)]="formData.documentos_presentados" 
+            class="form-textarea"
+            placeholder="Describe los documentos que ha presentado el conductor (ej: DNI, licencia de conducir, etc.)"
+            rows="3"
+            required
+          ></textarea>
+          <small class="form-hint">Lista los documentos que ha presentado el conductor</small>
+        </div>
+      </div>
+
+      <!-- Estado del Conductor -->
+      <div class="form-section">
+        <h3 class="section-title">Estado del Conductor</h3>
+        
+        <div class="form-group">
+          <label for="estado" class="form-label">
+            Estado <span class="required">*</span>
+          </label>
+          <select 
+            id="estado" 
+            name="estado"
+            [(ngModel)]="formData.estado" 
+            class="form-select"
+            required
+          >
+            <option value="p">Pendiente</option>
+            <option value="b">Aprobado</option>
+          </select>
+          <small class="form-hint">Estado inicial del conductor</small>
+        </div>
+      </div>
+
+      <!-- Botones de acción -->
+      <div class="form-actions">
+        <button type="button" class="btn btn-secondary" (click)="cancelar()">
+          <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+          Cancelar
+        </button>
+        
+        <button type="submit" class="btn btn-primary" [disabled]="loading">
+          <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+          Crear Conductor
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Estado de carga -->
+  <div *ngIf="loading" class="loading-overlay">
+    <div class="loading-content">
+      <div class="loading-spinner"></div>
+      <p>Cargando usuarios disponibles...</p>
+    </div>
+  </div>
+
+  <!-- Mensaje de error -->
+  <div *ngIf="error" class="error-message">
+    <svg class="error-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+    <p>{{ error }}</p>
+  </div>
+</div>

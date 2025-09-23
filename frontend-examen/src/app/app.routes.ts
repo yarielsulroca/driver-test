@@ -7,7 +7,11 @@ import { ExamB2TakerComponent } from './components/exams/exam-b2-taker/exam-b2-t
 import { ExamTakerComponent } from './components/exams/exam-taker/exam-taker';
 import { ExamCreator } from './components/exams/exam-creator/exam-creator';
 import { Conductores } from './components/conductores/conductores';
+import { ConductoresSimpleComponent } from './components/conductores/conductores-simple';
 import { ConductorExamenComponent } from './components/conductores/conductor-examen/conductor-examen';
+import { ConductorEditor } from './components/conductores/conductor-editor/conductor-editor';
+import { ConductorCrearComponent } from './components/conductores/conductor-crear/conductor-crear';
+import { ConductorExamenesComponent } from './components/conductores/conductor-examenes/conductor-examenes';
 import { Admin } from './components/admin/admin';
 import { PreguntaCreator } from './components/admin/preguntas/pregunta-creator/pregunta-creator';
 import { PreguntaEditor } from './components/admin/preguntas/pregunta-editor/pregunta-editor';
@@ -31,6 +35,10 @@ export const routes: Routes = [
   { path: 'examen', component: ExamList }, // Ruta para lista de exámenes (debe ir después de la ruta con parámetro)
   { path: 'crear-examen', component: ExamCreator },
   { path: 'conductores', component: Conductores },
+  { path: 'conductores-simple', component: ConductoresSimpleComponent },
+  { path: 'conductores/crear', component: ConductorCrearComponent },
+  { path: 'conductores/editar/:id', component: ConductorEditor },
+  { path: 'conductores/examenes', component: ConductorExamenesComponent }, // Nueva ruta para gestión de exámenes por conductor
   { path: 'conductor-examen', component: ConductorExamenComponent }, // Nueva ruta para conductor-examen
   
   // IMPORTANTE: Rutas específicas de admin DEBEN ir ANTES que las rutas generales

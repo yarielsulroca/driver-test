@@ -10,6 +10,9 @@ class SessionService
     private $prefix = 'session:conductor:';
     private $ttl = 3600; // 1 hora
 
+    /**
+     * Constructor: Inicializa la conexión con Redis
+     */
     public function __construct()
     {
         $this->redis = new Client([
@@ -20,7 +23,10 @@ class SessionService
     }
 
     /**
-     * Registra una nueva sesión para un conductor
+     * Registra una nueva sesión para un conductor en Redis
+     * @param string $dni DNI del conductor
+     * @param string $token Token de sesión
+     * @return bool Verdadero si la operación fue exitosa
      */
     public function registrarSesion(string $dni, string $token): bool
     {
@@ -38,7 +44,10 @@ class SessionService
     }
 
     /**
-     * Verifica si un token es válido para un DNI
+     * Verifica si un token es válido para un DNI específico
+     * @param string $dni DNI del conductor
+     * @param string $token Token a verificar
+     * @return bool Verdadero si el token es válido
      */
     public function verificarSesion(string $dni, string $token): bool
     {
@@ -47,7 +56,8 @@ class SessionService
     }
 
     /**
-     * Invalida la sesión anterior de un conductor
+     * Invalida la sesión anterior de un conductor eliminándola de Redis
+     * @param string $dni DNI del conductor
      */
     private function invalidarSesionAnterior(string $dni): void
     {
@@ -55,7 +65,9 @@ class SessionService
     }
 
     /**
-     * Invalida la sesión de un conductor
+     * Cierra la sesión activa de un conductor
+     * @param string $dni DNI del conductor
+     * @return bool Verdadero si se cerró una sesión existente
      */
     public function cerrarSesion(string $dni): bool
     {
@@ -64,6 +76,9 @@ class SessionService
 
     /**
      * Actualiza el token de una sesión existente
+     * @param string $dni DNI del conductor
+     * @param string $nuevoToken Nuevo token de sesión
+     * @return bool Verdadero si la actualización fue exitosa
      */
     public function actualizarToken(string $dni, string $nuevoToken): bool
     {
@@ -75,4 +90,4 @@ class SessionService
         
         return $resultado === 'OK';
     }
-} 
+}

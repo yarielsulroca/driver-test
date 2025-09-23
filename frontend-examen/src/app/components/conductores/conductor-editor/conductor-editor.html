@@ -1,0 +1,164 @@
+<div class="conductor-editor-container">
+  <!-- Header con logo y título -->
+  <div class="header-section">
+    <div class="logo-container">
+      <img src="assets/images/Logo_fondo_negro.svg" alt="Logo" class="logo">
+    </div>
+    <div class="header-content">
+      <h1 class="main-title">{{ getTitulo() }}</h1>
+      <p class="subtitle">Completa la información del conductor</p>
+    </div>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="main-content">
+    <div class="content-card">
+      <!-- Estados de carga y error -->
+      <div *ngIf="loading" class="loading-state">
+        <div class="spinner"></div>
+        <p>Cargando...</p>
+      </div>
+
+      <div *ngIf="error" class="error-state">
+        <svg class="error-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <p>{{ error }}</p>
+      </div>
+
+      <!-- Formulario -->
+      <form *ngIf="!loading" (ngSubmit)="guardarConductor()" #conductorForm="ngForm" class="form">
+        <div class="form-section">
+          <h3>Información del Conductor</h3>
+          <div class="form-group">
+            <label for="usuario_id">Usuario *</label>
+            <select 
+              id="usuario_id" 
+              name="usuario_id" 
+              [(ngModel)]="formData.usuario_id" 
+              required
+              class="form-select"
+              [disabled]="loadingUsuarios"
+            >
+              <option value="">
+                <span *ngIf="loadingUsuarios">Cargando usuarios...</span>
+                <span *ngIf="!loadingUsuarios && usuarios.length === 0">No hay usuarios disponibles</span>
+                <span *ngIf="!loadingUsuarios && usuarios.length > 0">Selecciona un usuario ({{ usuarios.length }} disponibles)</span>
+              </option>
+              <option *ngFor="let usuario of usuarios" [value]="usuario.usuario_id">
+                {{ getUsuarioNombre(usuario) }} - {{ usuario.dni }} ({{ usuario.email }})
+              </option>
+            </select>
+            <small class="form-help" *ngIf="loadingUsuarios">
+              🔄 Cargando usuarios disponibles...
+            </small>
+            <small class="form-help" *ngIf="!loadingUsuarios && usuarios.length > 0">
+              ✅ {{ usuarios.length }} usuarios disponibles para asignar como conductor
+            </small>
+            <small class="form-help error" *ngIf="!loadingUsuarios && usuarios.length === 0">
+              ⚠️ No se encontraron usuarios activos en el sistema
+            </small>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>Información de Licencia</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="licencia">Número de Licencia *</label>
+              <input 
+                type="text" 
+                id="licencia" 
+                name="licencia" 
+                [(ngModel)]="formData.licencia" 
+                required
+                class="form-input"
+                placeholder="Ej: A123456789"
+                maxlength="20"
+              >
+              <small class="form-help">Número único de la licencia de conducir</small>
+            </div>
+            <div class="form-group">
+              <label for="fecha_vencimiento">Fecha de Vencimiento *</label>
+              <input 
+                type="date" 
+                id="fecha_vencimiento" 
+                name="fecha_vencimiento" 
+                [(ngModel)]="formData.fecha_vencimiento" 
+                required
+                class="form-input"
+              >
+              <small class="form-help">Fecha de vencimiento de la licencia</small>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="categoria_principal">Categoría Principal</label>
+              <select 
+                id="categoria_principal" 
+                name="categoria_principal" 
+                [(ngModel)]="formData.categoria_principal" 
+                class="form-select"
+              >
+                <option value="">Selecciona una categoría</option>
+                <option value="A">A - Motocicletas</option>
+                <option value="B">B - Vehículos livianos</option>
+                <option value="C">C - Vehículos medianos</option>
+                <option value="D">D - Vehículos pesados</option>
+                <option value="E">E - Vehículos especiales</option>
+              </select>
+              <small class="form-help">Categoría principal de la licencia</small>
+            </div>
+            <div class="form-group">
+              <label for="fecha_registro">Fecha de Registro</label>
+              <input 
+                type="date" 
+                id="fecha_registro" 
+                name="fecha_registro" 
+                [(ngModel)]="formData.fecha_registro" 
+                class="form-input"
+                [value]="isEditing ? formData.fecha_registro : ''"
+                [disabled]="!isEditing"
+              >
+              <small class="form-help" *ngIf="!isEditing">Se asignará automáticamente la fecha actual</small>
+              <small class="form-help" *ngIf="isEditing">Fecha de registro del conductor</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h3>Estado del Conductor</h3>
+          <div class="form-group">
+            <label for="estado">Estado *</label>
+            <select 
+              id="estado" 
+              name="estado" 
+              [(ngModel)]="formData.estado" 
+              required
+              class="form-select"
+            >
+              <option value="activo">Activo</option>
+              <option value="inactivo">Inactivo</option>
+              <option value="suspendido">Suspendido</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn-secondary" (click)="cancelar()">
+            <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+            Cancelar
+          </button>
+          <button type="submit" class="btn-primary" [disabled]="!conductorForm.form.valid || loading">
+            <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            {{ isEditing ? 'Actualizar' : 'Crear' }} Conductor
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

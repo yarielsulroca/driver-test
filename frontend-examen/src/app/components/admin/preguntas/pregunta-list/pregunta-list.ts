@@ -139,7 +139,7 @@ import { Pregunta, Respuesta, FiltrosPreguntas, PreguntasResponse, CategoriasRes
                      <div class="texto-container">
                        <div class="texto-preview">{{ pregunta.enunciado }}</div>
                        <div class="imagen-preview" *ngIf="pregunta.imagen_url">
-                         <img [src]="pregunta.imagen_url" class="imagen-mini" alt="Imagen">
+                         <img [src]="getImagenRespuestaUrl(pregunta.imagen_url)" class="imagen-mini" alt="Imagen" (error)="onImageError($event)">
                        </div>
                      </div>
                    </td>
@@ -211,14 +211,15 @@ import { Pregunta, Respuesta, FiltrosPreguntas, PreguntasResponse, CategoriasRes
                            <div *ngIf="respuesta.explicacion" class="respuesta-explicacion">
                              <strong>Explicación:</strong> {{ respuesta.explicacion }}
                            </div>
-                           <div *ngIf="respuesta.imagen_url" class="respuesta-imagen">
+                           <div *ngIf="respuesta.imagen_url || respuesta.imagen" class="respuesta-imagen">
                              <span class="imagen-label">📷 Imagen de la respuesta:</span>
                              <img 
-                               [src]="respuesta.imagen_url" 
+                               [src]="getImagenRespuestaUrl(respuesta.imagen_url || respuesta.imagen || '')" 
                                alt="Imagen de respuesta" 
                                class="imagen-respuesta"
-                               (click)="verImagenCompleta(respuesta.imagen_url)"
+                               (click)="verImagenCompleta(getImagenRespuestaUrl(respuesta.imagen_url || respuesta.imagen || ''))"
                                title="Haz clic para ver en tamaño completo"
+                               (error)="onImageError($event)"
                              >
                            </div>
                          </div>
@@ -422,17 +423,26 @@ export class PreguntaList implements OnInit, OnDestroy {
   }
 
   cargarRespuestas(preguntaId: number) {
+    console.log(`🔄 Cargando respuestas para pregunta ${preguntaId}...`);
     this.apiService.get<any>(`/preguntas/${preguntaId}/respuestas`).subscribe({
       next: (response: any) => {
+        console.log(`✅ Respuestas recibidas para pregunta ${preguntaId}:`, response);
         if (response?.status === 'success' && response?.data) {
           const pregunta = this.preguntas.find(p => p.pregunta_id === preguntaId);
           if (pregunta) {
             pregunta.respuestas = response.data;
+            console.log(`📊 Respuestas asignadas a pregunta ${preguntaId}:`, pregunta.respuestas);
+            
+            // Log de imágenes encontradas
+            const respuestasConImagen = pregunta.respuestas.filter((r: any) => r.imagen_url || r.imagen);
+            if (respuestasConImagen.length > 0) {
+              console.log(`🖼️ Respuestas con imágenes encontradas:`, respuestasConImagen);
+            }
           }
         }
       },
       error: (error: any) => {
-        console.error('Error cargando respuestas:', error);
+        console.error(`❌ Error cargando respuestas para pregunta ${preguntaId}:`, error);
       }
     });
   }
@@ -541,6 +551,26 @@ export class PreguntaList implements OnInit, OnDestroy {
    verImagenCompleta(imageUrl: string) {
      // Abrir la imagen en una nueva pestaña para verla en tamaño completo
      window.open(imageUrl, '_blank');
+   }
+
+   getImagenRespuestaUrl(filename: string): string {
+     if (!filename) return '';
+     
+     // Si ya es una URL completa, devolverla tal como está
+     if (filename.startsWith('http://') || filename.startsWith('https://')) {
+       return filename;
+     }
+     
+     // Si es solo el nombre del archivo, construir la URL completa
+     // Usar la URL base del API que está configurada en el environment
+     return `/api/files/image/${filename}`;
+   }
+
+   onImageError(event: any) {
+     console.error('Error cargando imagen:', event.target.src);
+     // Mostrar un placeholder cuando la imagen no se puede cargar
+     event.target.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgdmlld0JveD0iMCAwIDEwMCAxMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0zNSAzNUg2NVY2NUgzNVYzNVoiIHN0cm9rZT0iIzlDQTNBRiIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KPHBhdGggZD0iTTQ1IDQ1TDU1IDU1TDU1IDQ1SDQ1WiIgZmlsbD0iIzlDQTNBRiIvPgo8dGV4dCB4PSI1MCIgeT0iNzUiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMiIgZmlsbD0iIzlDQTNBRiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+SW1hZ2VuIG5vIGVuY29udHJhZGE8L3RleHQ+Cjwvc3ZnPgo=';
+     event.target.title = 'Imagen no encontrada';
    }
 
   // Métodos de acciones

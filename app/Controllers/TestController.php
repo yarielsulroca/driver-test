@@ -2,93 +2,151 @@
 
 namespace App\Controllers;
 
-use CodeIgniter\Controller;
+use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
 
-class TestController extends Controller
+class TestController extends ResourceController
 {
     use ResponseTrait;
 
-    public function testExamen()
+    public function index()
+    {
+        return $this->respond([
+            'status' => 'success',
+            'message' => 'Backend funcionando correctamente',
+            'timestamp' => date('Y-m-d H:i:s'),
+            'data' => [
+                'servidor' => 'CodeIgniter 4',
+                'version' => '4.6.0',
+                'php_version' => PHP_VERSION
+            ]
+        ]);
+    }
+
+    public function usuarios()
     {
         try {
-            // Conectar a la base de datos
+            // Intentar obtener usuarios reales de la base de datos
             $db = \Config\Database::connect();
             
-            // Verificar conexión
-            if (!$db->connect()) {
-                return $this->failServerError('Error de conexión a la base de datos');
+            $usuarios = $db->table('usuarios')
+                ->select('usuario_id, nombre, apellido, dni, email, estado')
+                ->where('estado', 'activo')
+                ->get()
+                ->getResultArray();
+                
+            if (empty($usuarios)) {
+                // Si no hay usuarios en la BD, crear algunos de prueba
+                $usuarios = [
+                    [
+                        'usuario_id' => 1,
+                        'nombre' => 'Juan',
+                        'apellido' => 'Pérez',
+                        'dni' => '12345678',
+                        'email' => 'juan.perez@ejemplo.com',
+                        'estado' => 'activo'
+                    ],
+                    [
+                        'usuario_id' => 2,
+                        'nombre' => 'María',
+                        'apellido' => 'González',
+                        'dni' => '87654321',
+                        'email' => 'maria.gonzalez@ejemplo.com',
+                        'estado' => 'activo'
+                    ],
+                    [
+                        'usuario_id' => 3,
+                        'nombre' => 'Carlos',
+                        'apellido' => 'López',
+                        'dni' => '11223344',
+                        'email' => 'carlos.lopez@ejemplo.com',
+                        'estado' => 'activo'
+                    ]
+                ];
             }
-            
-            // Verificar que la tabla examenes existe
-            $tables = $db->listTables();
-            if (!in_array('examenes', $tables)) {
-                return $this->failServerError('La tabla examenes no existe');
-            }
-            
-            // Verificar que la tabla examen_categoria existe
-            if (!in_array('examen_categoria', $tables)) {
-                return $this->failServerError('La tabla examen_categoria no existe');
-            }
-            
-            // Verificar estructura de la tabla examenes
-            $fields = $db->getFieldNames('examenes');
-            $requiredFields = ['examen_id', 'titulo', 'nombre', 'tiempo_limite', 'duracion_minutos', 'puntaje_minimo', 'estado'];
-            
-            foreach ($requiredFields as $field) {
-                if (!in_array($field, $fields)) {
-                    return $this->failServerError("El campo {$field} no existe en la tabla examenes");
-                }
-            }
-            
-            // Intentar insertar un examen de prueba
-            $examenData = [
-                'titulo' => 'Test Examen',
-                'nombre' => 'Test Examen',
-                'descripcion' => 'Examen de prueba',
-                'tiempo_limite' => 60,
-                'duracion_minutos' => 60,
-                'puntaje_minimo' => 70.00,
-                'fecha_inicio' => date('Y-m-d H:i:s'),
-                'fecha_fin' => date('Y-m-d H:i:s', strtotime('+1 year')),
-                'numero_preguntas' => 1,
-                'estado' => 'activo',
-                'dificultad' => 'medio'
-            ];
-            
-            $result = $db->table('examenes')->insert($examenData);
-            
-            if (!$result) {
-                $error = $db->error();
-                return $this->failServerError('Error al insertar examen: ' . json_encode($error));
-            }
-            
-            $examen_id = $db->insertID();
-            
-            // Intentar insertar en examen_categoria
-            $categoriaData = [
-                'examen_id' => $examen_id,
-                'categoria_id' => 5
-            ];
-            
-            $result2 = $db->table('examen_categoria')->insert($categoriaData);
-            
-            if (!$result2) {
-                $error = $db->error();
-                return $this->failServerError('Error al insertar categoría: ' . json_encode($error));
-            }
-            
-            // Limpiar datos de prueba
-            $db->table('examen_categoria')->where('examen_id', $examen_id)->delete();
-            $db->table('examenes')->where('examen_id', $examen_id)->delete();
-            
+
             return $this->respond([
                 'status' => 'success',
-                'message' => 'Prueba exitosa - Todas las operaciones funcionan correctamente'
+                'message' => 'Usuarios obtenidos exitosamente',
+                'data' => $usuarios
             ]);
             
         } catch (\Exception $e) {
-            return $this->failServerError('Error en la prueba: ' . $e->getMessage());
+            // En caso de error de BD, devolver datos de prueba
+            $usuarios = [
+                [
+                    'usuario_id' => 1,
+                    'nombre' => 'Juan',
+                    'apellido' => 'Pérez',
+                    'dni' => '12345678',
+                    'email' => 'juan.perez@ejemplo.com',
+                    'estado' => 'activo'
+                ],
+                [
+                    'usuario_id' => 2,
+                    'nombre' => 'María',
+                    'apellido' => 'González',
+                    'dni' => '87654321',
+                    'email' => 'maria.gonzalez@ejemplo.com',
+                    'estado' => 'activo'
+                ]
+            ];
+
+            return $this->respond([
+                'status' => 'success',
+                'message' => 'Usuarios de prueba (BD no disponible)',
+                'data' => $usuarios
+            ]);
         }
+    }
+
+    public function conductores()
+    {
+        // Datos de prueba para conductores
+        $conductores = [
+            [
+                'conductor_id' => 1,
+                'usuario_id' => 1,
+                'licencia' => 'LIC001',
+                'fecha_vencimiento' => '2025-12-31',
+                'estado' => 'activo',
+                'categoria_principal' => 'A',
+                'fecha_registro' => '2024-01-15',
+                'created_at' => '2024-01-15 10:00:00',
+                'updated_at' => '2024-01-15 10:00:00'
+            ],
+            [
+                'conductor_id' => 2,
+                'usuario_id' => 2,
+                'licencia' => 'LIC002',
+                'fecha_vencimiento' => '2025-11-30',
+                'estado' => 'activo',
+                'categoria_principal' => 'B',
+                'fecha_registro' => '2024-02-01',
+                'created_at' => '2024-02-01 14:30:00',
+                'updated_at' => '2024-02-01 14:30:00'
+            ]
+        ];
+
+        return $this->respond([
+            'status' => 'success',
+            'message' => 'Conductores de prueba',
+            'data' => $conductores
+        ]);
+    }
+
+    public function crearConductor()
+    {
+        $data = $this->request->getJSON(true);
+        
+        return $this->respondCreated([
+            'status' => 'success',
+            'message' => 'Conductor creado exitosamente (modo prueba)',
+            'data' => array_merge($data, [
+                'conductor_id' => rand(100, 999),
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s')
+            ])
+        ]);
     }
 }

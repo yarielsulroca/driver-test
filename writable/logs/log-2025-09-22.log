@@ -1,0 +1,856 @@
+CRITICAL - 2025-09-22 15:12:54 --> ErrorException: Cannot redeclare App\Models\ConductorModel::usuario()
+[Method: GET, Route: api/conductores]
+in APPPATH\Models\ConductorModel.php on line 203.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-09-22 15:12:54 --> ErrorException: Cannot redeclare App\Models\ConductorModel::usuario()
+[Method: GET, Route: api/conductores]
+in APPPATH\Models\ConductorModel.php on line 203.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-09-22 15:13:00 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:13:02 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:14:39 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:14:41 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:14:48 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:14:50 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:14:55 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:14:58 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:15:05 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:15:07 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:15:09 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:15:11 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:15:15 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:15:17 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:15:21 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:15:24 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:16:19 --> ErrorException: Cannot redeclare App\Models\ConductorModel::usuario()
+[Method: GET, Route: api/conductores]
+in APPPATH\Models\ConductorModel.php on line 203.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-09-22 15:16:20 --> ErrorException: Cannot redeclare App\Models\ConductorModel::usuario()
+[Method: GET, Route: api/conductores]
+in APPPATH\Models\ConductorModel.php on line 203.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-09-22 15:18:21 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:18:24 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:24:16 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:24:19 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:25:46 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:25:47 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:27:23 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:27:26 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:27:39 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:27:41 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:27:49 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:27:52 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:28:46 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:28:48 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:36:40 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:36:43 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:37:17 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:37:20 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:37:29 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:37:32 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:38:02 --> ErrorException: Cannot redeclare App\Models\ConductorModel::usuario()
+[Method: GET, Route: api/conductores]
+in APPPATH\Models\ConductorModel.php on line 203.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-09-22 15:38:03 --> ErrorException: Cannot redeclare App\Models\ConductorModel::usuario()
+[Method: GET, Route: api/conductores]
+in APPPATH\Models\ConductorModel.php on line 203.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-09-22 15:39:09 --> ErrorException: Cannot redeclare App\Models\ConductorModel::usuario()
+[Method: GET, Route: api/conductores]
+in APPPATH\Models\ConductorModel.php on line 203.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-09-22 15:39:10 --> ErrorException: Cannot redeclare App\Models\ConductorModel::usuario()
+[Method: GET, Route: api/conductores]
+in APPPATH\Models\ConductorModel.php on line 203.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-09-22 15:40:12 --> ErrorException: Cannot redeclare App\Models\ConductorModel::usuario()
+[Method: GET, Route: api/conductores]
+in APPPATH\Models\ConductorModel.php on line 203.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-09-22 15:40:12 --> ErrorException: Cannot redeclare App\Models\ConductorModel::usuario()
+[Method: GET, Route: api/conductores]
+in APPPATH\Models\ConductorModel.php on line 203.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-09-22 15:42:15 --> ErrorException: Cannot redeclare App\Models\ConductorModel::usuario()
+[Method: GET, Route: api/conductores]
+in APPPATH\Models\ConductorModel.php on line 203.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-09-22 15:42:16 --> ErrorException: Cannot redeclare App\Models\ConductorModel::usuario()
+[Method: GET, Route: api/conductores]
+in APPPATH\Models\ConductorModel.php on line 203.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-09-22 15:42:22 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:42:24 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:42:36 --> ErrorException: Cannot redeclare App\Models\ConductorModel::usuario()
+[Method: GET, Route: api/conductores]
+in APPPATH\Models\ConductorModel.php on line 203.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-09-22 15:42:36 --> ErrorException: Cannot redeclare App\Models\ConductorModel::usuario()
+[Method: GET, Route: api/conductores]
+in APPPATH\Models\ConductorModel.php on line 203.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-09-22 15:43:08 --> ErrorException: Cannot redeclare App\Models\ConductorModel::usuario()
+[Method: GET, Route: api/conductores]
+in APPPATH\Models\ConductorModel.php on line 203.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-09-22 15:43:08 --> ErrorException: Cannot redeclare App\Models\ConductorModel::usuario()
+[Method: GET, Route: api/conductores]
+in APPPATH\Models\ConductorModel.php on line 203.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-09-22 15:45:37 --> ErrorException: Cannot redeclare App\Models\ConductorModel::usuario()
+[Method: GET, Route: api/conductores]
+in APPPATH\Models\ConductorModel.php on line 203.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-09-22 15:45:39 --> ErrorException: Cannot redeclare App\Models\ConductorModel::usuario()
+[Method: GET, Route: api/conductores]
+in APPPATH\Models\ConductorModel.php on line 203.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-09-22 15:45:46 --> ErrorException: Cannot redeclare App\Models\ConductorModel::usuario()
+[Method: GET, Route: api/conductores]
+in APPPATH\Models\ConductorModel.php on line 203.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-09-22 15:45:48 --> ErrorException: Cannot redeclare App\Models\ConductorModel::usuario()
+[Method: GET, Route: api/conductores]
+in APPPATH\Models\ConductorModel.php on line 203.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-09-22 15:46:01 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:46:03 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:46:21 --> ErrorException: Cannot redeclare App\Models\ConductorModel::usuario()
+[Method: GET, Route: api/conductores]
+in APPPATH\Models\ConductorModel.php on line 203.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-09-22 15:46:21 --> ErrorException: Cannot redeclare App\Models\ConductorModel::usuario()
+[Method: GET, Route: api/conductores]
+in APPPATH\Models\ConductorModel.php on line 203.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-09-22 15:47:48 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:47:50 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:49:55 --> ErrorException: Cannot redeclare App\Models\ConductorModel::usuario()
+[Method: GET, Route: api/conductores]
+in APPPATH\Models\ConductorModel.php on line 203.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2025-09-22 15:50:49 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:50:52 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:50:59 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:51:03 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:51:16 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:51:19 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:51:27 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:51:31 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:52:08 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:52:10 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:56:49 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:56:52 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 15:59:37 --> Error: Call to undefined method CodeIgniter\Database\MySQLi\Connection::select()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Models\UsuarioRolModel.php on line 130.
+ 1 APPPATH\Controllers\UsuarioController.php(37): App\Models\UsuarioRolModel->getRolesUsuario('1')
+ 2 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->index()
+ 3 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-09-22 16:08:00 --> Error: Call to undefined method App\Controllers\UsuariosSimple::respond()
+[Method: GET, Route: api/usuarios]
+in APPPATH\Controllers\UsuariosSimple.php on line 15.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuariosSimple->index()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuariosSimple))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+DEBUG - 2025-09-22 17:14:59 --> Datos recibidos para crear conductor: {"usuario_id":1,"estado":"p","documentos_presentados":"DNI, Licencia de conducir"}
+DEBUG - 2025-09-22 17:14:59 --> Validando usuario_id: 1
+DEBUG - 2025-09-22 17:15:01 --> Usuario encontrado: {"usuario_id":"1","dni":"11340998","nombre":"Yariel","apellido":"Sulroca","email":"sulrca@domain.com","password":"$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm","estado":"activo","created_at":"2025-09-16 15:10:18","updated_at":"2025-09-16 15:10:18"}
+DEBUG - 2025-09-22 17:15:15 --> Datos recibidos para crear conductor: {"usuario_id":2,"estado":"p","documentos_presentados":"DNI, Licencia de conducir"}
+DEBUG - 2025-09-22 17:15:15 --> Validando usuario_id: 2
+DEBUG - 2025-09-22 17:15:17 --> Usuario encontrado: {"usuario_id":"2","dni":"32123445","nombre":"Conructor1","apellido":"ApellidoConductor1","email":"condec1@damon.com","password":"$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm","estado":"activo","created_at":"2025-09-16 15:12:19","updated_at":"2025-09-16 15:12:20"}
+DEBUG - 2025-09-22 17:15:28 --> Datos recibidos para crear conductor: {"usuario_id":3,"estado":"p","documentos_presentados":"DNI, Licencia de conducir"}
+DEBUG - 2025-09-22 17:15:28 --> Validando usuario_id: 3
+DEBUG - 2025-09-22 17:15:30 --> Usuario encontrado: {"usuario_id":"3","dni":"21345334","nombre":"Conductor2","apellido":"ApellidoConducor2","email":"conduc2@domain.com","password":"$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm","estado":"activo","created_at":"2025-09-16 15:13:11","updated_at":"2025-09-16 15:13:12"}
+CRITICAL - 2025-09-22 17:15:44 --> Error: Call to undefined method App\Controllers\UsuarioController::failValidationError()
+[Method: POST, Route: api/usuarios]
+in APPPATH\Controllers\UsuarioController.php on line 89.
+ 1 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\UsuarioController->create()
+ 2 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UsuarioController))
+ 3 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-09-22 19:33:50 --> mysqli_sql_exception: Unknown column 'usuarios.fecha_nacimiento' in 'field list' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `conduct...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `conduct...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `conduct...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `conduct...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\examen\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\examen\app\Controllers\ConductorController.php(37): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\ConductorController->index()
+#8 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ConductorController))
+#9 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-09-22 19:33:50 --> Error al obtener conductores: Unknown column 'usuarios.fecha_nacimiento' in 'field list'
+ERROR - 2025-09-22 19:33:54 --> mysqli_sql_exception: Unknown column 'usuarios.fecha_nacimiento' in 'field list' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `conduct...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `conduct...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `conduct...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `conduct...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\examen\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\examen\app\Controllers\ConductorController.php(37): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\ConductorController->index()
+#8 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ConductorController))
+#9 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-09-22 19:33:54 --> Error al obtener conductores: Unknown column 'usuarios.fecha_nacimiento' in 'field list'
+ERROR - 2025-09-22 19:34:18 --> mysqli_sql_exception: Unknown column 'usuarios.fecha_nacimiento' in 'field list' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `conduct...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `conduct...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `conduct...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `conduct...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\examen\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\examen\app\Controllers\ConductorController.php(37): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\ConductorController->index()
+#8 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ConductorController))
+#9 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-09-22 19:34:18 --> Error al obtener conductores: Unknown column 'usuarios.fecha_nacimiento' in 'field list'
+ERROR - 2025-09-22 19:34:23 --> mysqli_sql_exception: Unknown column 'usuarios.fecha_nacimiento' in 'field list' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `conduct...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `conduct...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `conduct...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `conduct...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\examen\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\examen\app\Controllers\ConductorController.php(37): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\ConductorController->index()
+#8 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ConductorController))
+#9 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-09-22 19:34:23 --> Error al obtener conductores: Unknown column 'usuarios.fecha_nacimiento' in 'field list'
+ERROR - 2025-09-22 19:38:03 --> mysqli_sql_exception: Unknown column 'usuarios.fecha_nacimiento' in 'field list' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `conduct...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `conduct...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `conduct...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `conduct...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\examen\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\examen\app\Controllers\ConductorController.php(37): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\ConductorController->index()
+#8 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ConductorController))
+#9 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-09-22 19:38:03 --> Error al obtener conductores: Unknown column 'usuarios.fecha_nacimiento' in 'field list'
+ERROR - 2025-09-22 19:38:07 --> mysqli_sql_exception: Unknown column 'usuarios.fecha_nacimiento' in 'field list' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `conduct...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `conduct...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `conduct...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `conduct...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\examen\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\examen\app\Controllers\ConductorController.php(37): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\ConductorController->index()
+#8 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ConductorController))
+#9 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-09-22 19:38:07 --> Error al obtener conductores: Unknown column 'usuarios.fecha_nacimiento' in 'field list'
+ERROR - 2025-09-22 19:40:14 --> mysqli_sql_exception: Unknown column 'usuarios.fecha_nacimiento' in 'field list' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `conduct...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `conduct...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `conduct...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `conduct...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\examen\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\examen\app\Controllers\ConductorController.php(37): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\ConductorController->index()
+#8 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ConductorController))
+#9 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-09-22 19:40:14 --> Error al obtener conductores: Unknown column 'usuarios.fecha_nacimiento' in 'field list'
+ERROR - 2025-09-22 19:50:09 --> mysqli_sql_exception: Unknown column 'usuarios.fecha_nacimiento' in 'field list' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `conduct...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `conduct...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `conduct...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `conduct...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\examen\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\examen\app\Controllers\ConductorController.php(37): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\ConductorController->index()
+#8 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ConductorController))
+#9 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-09-22 19:50:09 --> Error al obtener conductores: Unknown column 'usuarios.fecha_nacimiento' in 'field list'
+ERROR - 2025-09-22 19:50:11 --> mysqli_sql_exception: Unknown column 'usuarios.fecha_nacimiento' in 'field list' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `conduct...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `conduct...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `conduct...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `conduct...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\examen\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\examen\app\Controllers\ConductorController.php(37): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\ConductorController->index()
+#8 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ConductorController))
+#9 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-09-22 19:50:11 --> Error al obtener conductores: Unknown column 'usuarios.fecha_nacimiento' in 'field list'
+ERROR - 2025-09-22 19:50:56 --> mysqli_sql_exception: Unknown column 'usuarios.fecha_nacimiento' in 'field list' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `conduct...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `conduct...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `conduct...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `conduct...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\examen\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\examen\app\Controllers\ConductorController.php(37): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\ConductorController->index()
+#8 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ConductorController))
+#9 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-09-22 19:50:56 --> Error al obtener conductores: Unknown column 'usuarios.fecha_nacimiento' in 'field list'
+ERROR - 2025-09-22 19:50:58 --> mysqli_sql_exception: Unknown column 'usuarios.fecha_nacimiento' in 'field list' in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `conduct...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `conduct...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `conduct...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `conduct...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\examen\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\examen\app\Controllers\ConductorController.php(37): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\ConductorController->index()
+#8 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ConductorController))
+#9 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-09-22 19:50:58 --> Error al obtener conductores: Unknown column 'usuarios.fecha_nacimiento' in 'field list'

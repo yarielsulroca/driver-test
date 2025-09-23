@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\ConductorModel;
 use App\Models\UsuarioModel;
+use App\Models\UsuarioRolModel;
 use App\Services\SessionService;
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\API\ResponseTrait;
@@ -16,6 +17,7 @@ class AuthController extends ResourceController
 
     protected $model;
     protected $usuarioModel;
+    protected $usuarioRolModel;
     protected $sessionService;
     protected $format = 'json';
 
@@ -23,6 +25,7 @@ class AuthController extends ResourceController
     {
         $this->model = new ConductorModel();
         $this->usuarioModel = new UsuarioModel();
+        $this->usuarioRolModel = new UsuarioRolModel();
         $this->sessionService = new SessionService();
     }
 
@@ -109,7 +112,6 @@ class AuthController extends ResourceController
 
             // Crear usuario primero
             $usuarioData = [
-                'rol_id' => 3, // ID del rol conductor
                 'dni' => $json['dni'],
                 'nombre' => $json['nombre'],
                 'apellido' => $json['apellido'] ?? '',
@@ -129,6 +131,9 @@ class AuthController extends ResourceController
             }
 
             $usuario_id = $this->usuarioModel->getInsertID();
+            
+            // Asignar rol de conductor (ID 3)
+            $this->usuarioRolModel->asignarRol($usuario_id, 3);
 
             // Preparar datos para inserción del conductor
             $conductorData = [
@@ -170,6 +175,10 @@ class AuthController extends ResourceController
             $examenes = $this->model->getExamenesInfo($conductor_id);
             $tieneExamenes = !empty($examenes);
 
+            // Obtener roles del usuario
+            $usuario = $this->usuarioModel->find($conductor['usuario_id']);
+            $roles = $this->usuarioRolModel->getRolesUsuario($conductor['usuario_id']);
+
             // Generar token JWT
             $key = defined('JWT_SECRET_KEY') ? JWT_SECRET_KEY : null;
             if (empty($key)) {
@@ -188,7 +197,9 @@ class AuthController extends ResourceController
                 'sub' => $conductor['conductor_id'],
                 'iat' => $iat,
                 'exp' => $exp,
-                'rol' => 'conductor',
+                'usuario_id' => $conductor['usuario_id'],
+                'roles' => array_column($roles, 'nombre'), // Array de nombres de roles
+                'rol_principal' => !empty($roles) ? $roles[0]['nombre'] : 'conductor',
                 'dni' => $conductor['dni']
             ];
 
@@ -325,6 +336,10 @@ class AuthController extends ResourceController
             // Obtener exámenes disponibles (simplificado)
             $examenesDisponibles = [];
 
+            // Obtener roles del usuario
+            $usuario = $this->usuarioModel->find($conductor['usuario_id']);
+            $roles = $this->usuarioRolModel->getRolesUsuario($conductor['usuario_id']);
+
             // Generar token JWT
             $key = defined('JWT_SECRET_KEY') ? JWT_SECRET_KEY : null;
             if (empty($key)) {
@@ -343,7 +358,9 @@ class AuthController extends ResourceController
                 'sub' => $conductor['conductor_id'],
                 'iat' => $iat,
                 'exp' => $exp,
-                'rol' => 'conductor',
+                'usuario_id' => $conductor['usuario_id'],
+                'roles' => array_column($roles, 'nombre'), // Array de nombres de roles
+                'rol_principal' => !empty($roles) ? $roles[0]['nombre'] : 'conductor',
                 'dni' => $conductor['dni']
             ];
 

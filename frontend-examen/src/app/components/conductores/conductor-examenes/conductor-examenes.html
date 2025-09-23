@@ -1,0 +1,208 @@
+<div class="conductor-examenes-container">
+  <!-- Header -->
+  <div class="header-section">
+    <div class="title-section">
+      <button class="back-button" (click)="volver()">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+      </button>
+      <h1 class="page-title">Gestión de Exámenes por Conductor</h1>
+    </div>
+    <p class="page-description">
+      Asigna exámenes disponibles a conductores y gestiona su progreso
+    </p>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading-container" *ngIf="loading">
+    <div class="loading-spinner"></div>
+    <p>Cargando datos...</p>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content" *ngIf="!loading">
+    
+    <!-- Selección de Conductor -->
+    <div class="section">
+      <h2 class="section-title">Seleccionar Conductor</h2>
+      
+      <div class="conductores-grid">
+        <div 
+          *ngFor="let conductor of conductores"
+          class="conductor-card"
+          [class.selected]="conductorSeleccionado?.conductor_id === conductor.conductor_id"
+          (click)="seleccionarConductor(conductor)"
+        >
+          <div class="conductor-info">
+            <div class="conductor-avatar">
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+              </svg>
+            </div>
+            <div class="conductor-details">
+              <h3 class="conductor-name">{{ getNombreCompleto(conductor) }}</h3>
+              <p class="conductor-dni">DNI: {{ conductor.usuario?.dni }}</p>
+              <p class="conductor-email">{{ conductor.usuario?.email }}</p>
+            </div>
+          </div>
+          <div class="conductor-status">
+            <span class="status-badge" [ngClass]="getEstadoClass(conductor.estado)">
+              {{ getEstadoTexto(conductor.estado) }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Exámenes del Conductor Seleccionado -->
+    <div class="section" *ngIf="conductorSeleccionado">
+      <div class="section-header">
+        <h2 class="section-title">
+          Exámenes de {{ getNombreCompleto(conductorSeleccionado) }}
+        </h2>
+        <button 
+          class="btn btn-primary"
+          (click)="mostrarFormularioAsignar()"
+        >
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+          </svg>
+          Asignar Examen
+        </button>
+      </div>
+
+      <!-- Exámenes Asignados -->
+      <div class="examenes-list" *ngIf="examenesAsignados.length > 0">
+        <div 
+          *ngFor="let examen of examenesAsignados"
+          class="examen-card"
+        >
+          <div class="examen-header">
+            <h3 class="examen-title">{{ examen.titulo }}</h3>
+            <span class="estado-badge" [ngClass]="getEstadoClass(examen.estado)">
+              {{ getEstadoTexto(examen.estado) }}
+            </span>
+          </div>
+          
+          <div class="examen-details">
+            <p class="examen-description">{{ examen.descripcion }}</p>
+            
+            <div class="examen-info-grid">
+              <div class="info-item">
+                <span class="info-label">Dificultad:</span>
+                <span class="info-value" [ngClass]="getDificultadClass(examen.dificultad)">
+                  {{ getDificultadTexto(examen.dificultad) }}
+                </span>
+              </div>
+              
+              <div class="info-item">
+                <span class="info-label">Duración:</span>
+                <span class="info-value">{{ examen.duracion_minutos }} min</span>
+              </div>
+              
+              <div class="info-item">
+                <span class="info-label">Puntaje Mínimo:</span>
+                <span class="info-value">{{ examen.puntaje_minimo }}%</span>
+              </div>
+              
+              <div class="info-item">
+                <span class="info-label">Intentos Restantes:</span>
+                <span class="info-value intentos">{{ examen.intentos_restantes }}</span>
+              </div>
+            </div>
+
+            <div class="examen-progress" *ngIf="examen.estado !== 'pendiente'">
+              <div class="progress-item">
+                <span class="progress-label">Puntaje Obtenido:</span>
+                <span class="progress-value" [ngClass]="examen.puntaje_obtenido >= examen.puntaje_minimo ? 'aprobado' : 'reprobado'">
+                  {{ examen.puntaje_obtenido || 0 }}%
+                </span>
+              </div>
+              
+              <div class="progress-item" *ngIf="examen.tiempo_utilizado">
+                <span class="progress-label">Tiempo Utilizado:</span>
+                <span class="progress-value">{{ examen.tiempo_utilizado }} min</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="examen-actions">
+            <button 
+              class="btn btn-danger btn-sm"
+              (click)="eliminarAsignacion(examen.examen_conductor_id)"
+            >
+              <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+              </svg>
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sin exámenes asignados -->
+      <div class="no-examenes" *ngIf="examenesAsignados.length === 0">
+        <div class="no-examenes-content">
+          <svg class="no-examenes-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          </svg>
+          <h3>No hay exámenes asignados</h3>
+          <p>Este conductor no tiene exámenes asignados. Asigna uno para comenzar.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Formulario de Asignación -->
+    <div class="section" *ngIf="showAsignarForm">
+      <h2 class="section-title">Asignar Nuevo Examen</h2>
+      
+      <div class="asignar-form">
+        <div class="form-group">
+          <label class="form-label">Examen a Asignar</label>
+          <select 
+            class="form-select"
+            [(ngModel)]="examenSeleccionado"
+          >
+            <option value="">Selecciona un examen</option>
+            <option 
+              *ngFor="let examen of examenes" 
+              [ngValue]="examen"
+            >
+              {{ examen.titulo }} ({{ getDificultadTexto(examen.dificultad) }})
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Intentos Restantes</label>
+          <input 
+            type="number"
+            class="form-input"
+            [(ngModel)]="intentosRestantes"
+            min="1"
+            max="10"
+            placeholder="Número de intentos"
+          >
+          <small class="form-hint">Número de veces que el conductor puede realizar el examen</small>
+        </div>
+
+        <div class="form-actions">
+          <button 
+            class="btn btn-secondary"
+            (click)="cancelarAsignacion()"
+          >
+            Cancelar
+          </button>
+          <button 
+            class="btn btn-primary"
+            (click)="asignarExamen()"
+            [disabled]="!examenSeleccionado || intentosRestantes < 1"
+          >
+            Asignar Examen
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

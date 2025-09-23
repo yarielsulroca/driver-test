@@ -36,6 +36,74 @@ $routes->group('api', function($routes) {
     $routes->post('auth/logout', 'AuthController::logout'); // Cierra sesión de usuario
     $routes->post('auth/refresh-token', 'AuthController::refreshToken'); // Renueva el token de autenticación
 
+    // Rutas de prueba
+    $routes->get('test', 'TestController::index'); // Prueba de backend
+    $routes->get('test/usuarios', 'TestController::usuarios'); // Usuarios de prueba
+    $routes->get('test/conductores', 'TestController::conductores'); // Conductores de prueba
+    $routes->post('test/conductores', 'TestController::crearConductor'); // Crear conductor de prueba
+
+    // Rutas para gestión de usuarios y roles
+    $routes->get('usuarios', 'UsuariosSimple::index'); // Lista todos los usuarios (temporal)
+    $routes->get('usuarios-original', 'UsuarioController::index'); // Lista todos los usuarios (original)
+    $routes->get('usuarios/(:num)', 'UsuarioController::show/$1'); // Obtiene un usuario específico
+    $routes->post('usuarios', 'UsuarioController::create'); // Crea un nuevo usuario
+    $routes->put('usuarios/(:num)', 'UsuarioController::update/$1'); // Actualiza un usuario
+    $routes->delete('usuarios/(:num)', 'UsuarioController::delete/$1'); // Elimina un usuario
+    $routes->post('usuarios/(:num)/roles', 'UsuarioController::asignarRoles/$1'); // Asigna roles a un usuario
+    $routes->get('usuarios/(:num)/roles', 'UsuarioController::getRoles/$1'); // Obtiene roles de un usuario
+    $routes->post('usuarios/(:num)/tiene-rol', 'UsuarioController::tieneRol/$1'); // Verifica si usuario tiene un rol
+    $routes->get('roles/(:num)/usuarios', 'UsuarioController::usuariosConRol/$1'); // Obtiene usuarios con un rol específico
+
+    // Rutas para gestión de roles
+    $routes->get('roles', 'RolController::index'); // Lista todos los roles
+    $routes->get('roles/(:num)', 'RolController::show/$1'); // Obtiene un rol específico
+    $routes->post('roles', 'RolController::create'); // Crea un nuevo rol
+    $routes->put('roles/(:num)', 'RolController::update/$1'); // Actualiza un rol
+    $routes->delete('roles/(:num)', 'RolController::delete/$1'); // Elimina un rol
+
+    // Rutas para gestión de conductores
+    $routes->get('conductores', 'ConductorController::index'); // Lista todos los conductores
+    $routes->get('conductores/(:num)', 'ConductorController::show/$1'); // Obtiene un conductor específico
+    $routes->post('conductores', 'ConductorController::create'); // Crea un nuevo conductor
+    $routes->put('conductores/(:num)', 'ConductorController::update/$1'); // Actualiza un conductor
+    $routes->delete('conductores/(:num)', 'ConductorController::delete/$1'); // Elimina un conductor
+
+    // Rutas para gestión de exámenes
+    $routes->get('examenes/disponibles', 'ExamenController::disponibles'); // Obtiene exámenes disponibles para un conductor
+    $routes->post('examenes/asignar', 'ExamenController::asignar'); // Asigna un examen a un conductor
+
+    // Rutas para gestión de perfiles
+    $routes->get('perfiles', 'PerfilController::index'); // Lista todos los perfiles
+    $routes->get('perfiles/(:num)', 'PerfilController::show/$1'); // Obtiene un perfil específico
+    $routes->post('perfiles', 'PerfilController::create'); // Crea un nuevo perfil
+    $routes->put('perfiles/(:num)', 'PerfilController::update/$1'); // Actualiza un perfil
+    $routes->delete('perfiles/(:num)', 'PerfilController::delete/$1'); // Elimina un perfil
+
+    // Rutas para gestión de supervisores
+    $routes->get('supervisores', 'SupervisorController::index'); // Lista todos los supervisores
+    $routes->get('supervisores/(:num)', 'SupervisorController::show/$1'); // Obtiene un supervisor específico
+    $routes->post('supervisores', 'SupervisorController::create'); // Crea un nuevo supervisor
+    $routes->put('supervisores/(:num)', 'SupervisorController::update/$1'); // Actualiza un supervisor
+    $routes->delete('supervisores/(:num)', 'SupervisorController::delete/$1'); // Elimina un supervisor
+
+    // Rutas para gestión de categorías aprobadas
+    $routes->get('categorias-aprobadas', 'CategoriaAprobadaController::index'); // Lista todas las categorías aprobadas
+    $routes->get('categorias-aprobadas/(:num)', 'CategoriaAprobadaController::show/$1'); // Obtiene una categoría aprobada específica
+    $routes->post('categorias-aprobadas', 'CategoriaAprobadaController::create'); // Crea una nueva categoría aprobada
+    $routes->put('categorias-aprobadas/(:num)', 'CategoriaAprobadaController::update/$1'); // Actualiza una categoría aprobada
+    $routes->delete('categorias-aprobadas/(:num)', 'CategoriaAprobadaController::delete/$1'); // Elimina una categoría aprobada
+
+    // Rutas para usuarios (temporal)
+    $routes->get('usuarios', 'UsuariosSimple::index'); // Lista todos los usuarios
+
+    // Rutas para gestión de exámenes asignados (simplificado)
+    $routes->get('conductores/(:num)/examenes', 'ExamenAsignadoController::getExamenesConductor/$1'); // Exámenes de un conductor
+    $routes->get('examenes/(:num)/conductores', 'ExamenAsignadoController::getConductoresExamen/$1'); // Conductores de un examen
+    $routes->post('examen-asignado/asignar', 'ExamenAsignadoController::asignar'); // Asignar examen a conductor
+    $routes->put('examen-asignado/aprobar', 'ExamenAsignadoController::marcarAprobado'); // Marcar como aprobado
+    $routes->delete('examen-asignado/(:num)', 'ExamenAsignadoController::eliminar/$1'); // Eliminar asignación
+    $routes->get('conductores/(:num)/estadisticas', 'ExamenAsignadoController::getEstadisticasConductor/$1'); // Estadísticas del conductor
+
     // Rutas para la gestión de exámenes (TODAS PÚBLICAS TEMPORALMENTE)
     $routes->get('examenes', 'ExamenController::index'); // Lista todos los exámenes
     $routes->get('examenes/(:num)', 'ExamenController::show/$1'); // Muestra un examen específico (requiere auth)

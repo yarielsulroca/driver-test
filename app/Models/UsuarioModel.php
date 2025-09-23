@@ -13,7 +13,6 @@ class UsuarioModel extends Model
     protected $useSoftDeletes = false;
     protected $protectFields = true;
     protected $allowedFields = [
-        'rol_id',
         'dni',
         'nombre',
         'apellido',
@@ -31,7 +30,6 @@ class UsuarioModel extends Model
 
     // Validation
     protected $validationRules = [
-        'rol_id' => 'required|integer',
         'dni' => 'required|min_length[8]|max_length[20]|is_unique[usuarios.dni,usuario_id,{usuario_id}]',
         'nombre' => 'required|min_length[3]|max_length[50]',
         'apellido' => 'required|min_length[3]|max_length[50]',
@@ -63,12 +61,56 @@ class UsuarioModel extends Model
     }
 
     /**
-     * Obtiene el rol del usuario
-     * @return \CodeIgniter\Database\BaseResult
+     * Obtiene los roles del usuario (relación muchos a muchos)
+     * @return array
      */
-    public function rol()
+    public function getRoles()
     {
-        return $this->belongsTo('App\Models\RolModel', 'rol_id', 'rol_id');
+        $usuarioRolModel = new \App\Models\UsuarioRolModel();
+        return $usuarioRolModel->getRolesUsuario($this->usuario_id);
+    }
+
+    /**
+     * Asigna roles al usuario
+     * @param array $roles_ids
+     * @return bool
+     */
+    public function asignarRoles($roles_ids)
+    {
+        $usuarioRolModel = new \App\Models\UsuarioRolModel();
+        return $usuarioRolModel->actualizarRoles($this->usuario_id, $roles_ids);
+    }
+
+    /**
+     * Verifica si el usuario tiene un rol específico
+     * @param int $rol_id
+     * @return bool
+     */
+    public function tieneRol($rol_id)
+    {
+        $usuarioRolModel = new \App\Models\UsuarioRolModel();
+        return $usuarioRolModel->tieneRol($this->usuario_id, $rol_id);
+    }
+
+    /**
+     * Verifica si el usuario tiene alguno de los roles especificados
+     * @param array $roles_ids
+     * @return bool
+     */
+    public function tieneAlgunRol($roles_ids)
+    {
+        $usuarioRolModel = new \App\Models\UsuarioRolModel();
+        return $usuarioRolModel->tieneAlgunRol($this->usuario_id, $roles_ids);
+    }
+
+    /**
+     * Obtiene el rol principal del usuario (el primero)
+     * @return array|null
+     */
+    public function getRolPrincipal()
+    {
+        $roles = $this->getRoles();
+        return !empty($roles) ? $roles[0] : null;
     }
 
     /**
