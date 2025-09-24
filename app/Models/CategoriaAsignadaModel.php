@@ -10,7 +10,7 @@ class CategoriaAsignadaModel extends Model
     protected $primaryKey = 'categoria_asignada_id';
     protected $useAutoIncrement = true;
     protected $returnType = 'array';
-    protected $useSoftDeletes = true;
+    protected $useSoftDeletes = false;
     protected $allowedFields = [
         'conductor_id',
         'categoria_id',

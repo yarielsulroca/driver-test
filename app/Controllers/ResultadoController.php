@@ -279,6 +279,37 @@ class ResultadoController extends ResourceController
                 ]);
             }
 
+            // Manejar lógica de intentos para examen_asignado
+            $examenAsignadoModel = new \App\Models\ExamenAsignadoModel();
+            $asignacion = $examenAsignadoModel->where('conductor_id', $resultado['conductor_id'])
+                                            ->where('examen_id', $examen['examen_id'])
+                                            ->first();
+
+            if ($asignacion) {
+                if ($aprobado) {
+                    // Si está aprobado, marcar como aprobado
+                    $examenAsignadoModel->update($asignacion['id'], [
+                        'aprobado' => 1,
+                        'puntaje_final' => $porcentajeObtenido,
+                        'fecha_aprobacion' => date('Y-m-d H:i:s')
+                    ]);
+                } else {
+                    // Si no está aprobado, reducir intentos
+                    $intentosRestantes = $asignacion['intentos_disponibles'] - 1;
+                    $examenAsignadoModel->update($asignacion['id'], [
+                        'intentos_disponibles' => $intentosRestantes
+                    ]);
+                    
+                    // Si se agotaron los intentos, marcar como reprobado
+                    if ($intentosRestantes <= 0) {
+                        $examenAsignadoModel->update($asignacion['id'], [
+                            'aprobado' => 0,
+                            'puntaje_final' => $porcentajeObtenido
+                        ]);
+                    }
+                }
+            }
+
             return $this->respond([
                 'status' => 'success',
                 'data' => [

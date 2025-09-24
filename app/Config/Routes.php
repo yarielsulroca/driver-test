@@ -70,6 +70,7 @@ $routes->group('api', function($routes) {
 
     // Rutas para gestión de exámenes
     $routes->get('examenes/disponibles', 'ExamenController::disponibles'); // Obtiene exámenes disponibles para un conductor
+    $routes->get('examenes/reprobados', 'ExamenController::reprobados'); // Obtiene exámenes reprobados por un conductor
     $routes->post('examenes/asignar', 'ExamenController::asignar'); // Asigna un examen a un conductor
 
     // Rutas para gestión de perfiles
@@ -114,6 +115,7 @@ $routes->group('api', function($routes) {
     
     // Ruta de prueba
     $routes->get('test/examen', 'TestController::testExamen');
+    $routes->get('test/categorias', 'ExamenController::testCategorias');
     
     // Ruta para estadísticas del dashboard
     $routes->get('dashboard/stats', 'DashboardController::getStats');

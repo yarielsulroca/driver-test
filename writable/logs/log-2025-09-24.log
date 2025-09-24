@@ -1,0 +1,105 @@
+ERROR - 2025-09-24 12:09:44 --> Error en ExamenController::index: Undefined property: App\Controllers\ExamenController::$db
+ERROR - 2025-09-24 13:12:04 --> Error en ExamenController::update: Failed to parse JSON string. Error: Malformed UTF-8 characters, possibly incorrectly encoded
+ERROR - 2025-09-24 14:20:00 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '`IN` = ('Reprobado','Iniciado')
+AND `categorias_asignadas`.`deleted_at` IS NULL
+' at line 5 in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\examen\system\BaseModel.php(713): CodeIgniter\Model->doFirst()
+#6 C:\laragon\www\examen\app\Controllers\ExamenController.php(454): CodeIgniter\BaseModel->first()
+#7 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\ExamenController->asignar()
+#8 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ExamenController))
+#9 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-09-24 14:20:00 --> Error en ExamenController::asignar: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '`IN` = ('Reprobado','Iniciado')
+AND `categorias_asignadas`.`deleted_at` IS NULL
+' at line 5
+ERROR - 2025-09-24 14:20:25 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '`IN` = ('Reprobado','Iniciado')
+AND `categorias_asignadas`.`deleted_at` IS NULL
+' at line 5 in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\examen\system\BaseModel.php(713): CodeIgniter\Model->doFirst()
+#6 C:\laragon\www\examen\app\Controllers\ExamenController.php(454): CodeIgniter\BaseModel->first()
+#7 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\ExamenController->asignar()
+#8 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ExamenController))
+#9 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-09-24 14:20:25 --> Error en ExamenController::asignar: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '`IN` = ('Reprobado','Iniciado')
+AND `categorias_asignadas`.`deleted_at` IS NULL
+' at line 5
+ERROR - 2025-09-24 14:20:42 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '`IN` = ('Reprobado','Iniciado')
+AND `categorias_asignadas`.`deleted_at` IS NULL
+' at line 5 in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\examen\system\BaseModel.php(713): CodeIgniter\Model->doFirst()
+#6 C:\laragon\www\examen\app\Controllers\ExamenController.php(454): CodeIgniter\BaseModel->first()
+#7 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\ExamenController->asignar()
+#8 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ExamenController))
+#9 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-09-24 14:20:42 --> Error en ExamenController::asignar: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '`IN` = ('Reprobado','Iniciado')
+AND `categorias_asignadas`.`deleted_at` IS NULL
+' at line 5
+ERROR - 2025-09-24 14:20:59 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '`IN` = ('Reprobado','Iniciado')
+AND `categorias_asignadas`.`deleted_at` IS NULL
+' at line 5 in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\examen\system\BaseModel.php(713): CodeIgniter\Model->doFirst()
+#6 C:\laragon\www\examen\app\Controllers\ExamenController.php(454): CodeIgniter\BaseModel->first()
+#7 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\ExamenController->asignar()
+#8 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ExamenController))
+#9 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-09-24 14:20:59 --> Error en ExamenController::asignar: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '`IN` = ('Reprobado','Iniciado')
+AND `categorias_asignadas`.`deleted_at` IS NULL
+' at line 5
+ERROR - 2025-09-24 14:21:19 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '`IN` = ('Reprobado','Iniciado')
+ LIMIT 1' at line 5 in C:\laragon\www\examen\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\laragon\www\examen\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\laragon\www\examen\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\laragon\www\examen\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\laragon\www\examen\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\laragon\www\examen\system\Model.php(330): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\examen\system\BaseModel.php(713): CodeIgniter\Model->doFirst()
+#6 C:\laragon\www\examen\app\Controllers\ExamenController.php(454): CodeIgniter\BaseModel->first()
+#7 C:\laragon\www\examen\system\CodeIgniter.php(933): App\Controllers\ExamenController->asignar()
+#8 C:\laragon\www\examen\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\ExamenController))
+#9 C:\laragon\www\examen\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\examen\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\examen\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#12 C:\laragon\www\examen\public\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#13 {main}
+ERROR - 2025-09-24 14:21:19 --> Error en ExamenController::asignar: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '`IN` = ('Reprobado','Iniciado')
+ LIMIT 1' at line 5

@@ -56,9 +56,9 @@ export class Examenes implements OnInit {
         this.examenes = response.data.map((examen) => {
           console.log(`🔍 Procesando examen ${examen.examen_id}:`, examen);
           
-          // Crear un texto de categorías basado en el array de categorías que viene del backend
-          if (examen.categorias && examen.categorias.length > 0) {
-            examen.categoria_nombres = examen.categorias.map((cat: any) => `${cat.codigo} - ${cat.nombre}`).join(', ');
+          // Usar los campos categoria_codigo y categoria_nombre que vienen del backend
+          if (examen.categoria_codigo && examen.categoria_codigo !== 'Sin categoría') {
+            examen.categoria_nombres = `${examen.categoria_codigo} - ${examen.categoria_nombre}`;
             console.log(`✅ Examen ${examen.examen_id} tiene categorías:`, examen.categoria_nombres);
           } else {
             examen.categoria_nombres = 'Sin categorías asignadas';
@@ -173,10 +173,10 @@ export class Examenes implements OnInit {
     if (examen.categoria_nombres) {
       return examen.categoria_nombres;
     }
-    if (examen.categorias && examen.categorias.length > 0) {
-      return examen.categorias.map((cat: any) => `${cat.codigo} - ${cat.nombre}`).join(', ');
+    if (examen.categoria_codigo && examen.categoria_codigo !== 'Sin categoría') {
+      return `${examen.categoria_codigo} - ${examen.categoria_nombre}`;
     }
-    return 'Sin categorías';
+    return 'Sin categorías asignadas';
   }
 
   getEstadoText(estado: string): string {

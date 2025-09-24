@@ -13,14 +13,28 @@ export interface Examen {
   puntaje_minimo: number;
   tiempo_limite: number;
   duracion_minutos: number;
+  numero_preguntas?: number;
   estado: string;
 }
 
 export interface Conductor {
   conductor_id: number;
+  usuario_id?: number;
+  estado?: string;
+  documentos_presentados?: string;
+  created_at?: string;
+  updated_at?: string;
   nombre: string;
   apellido: string;
+  email?: string;
   dni: string;
+  total_examenes_asignados?: number;
+  examenes_aprobados?: number;
+  examenes_pendientes?: number;
+  categorias_asignadas?: any[];
+  categorias_aprobadas?: any[];
+  categorias_pendientes?: any[];
+  resumen_categorias?: any;
 }
 
 @Component({
@@ -28,318 +42,510 @@ export interface Conductor {
   standalone: true,
   imports: [CommonModule],
   template: `
-    <div class="examen-selector-overlay" *ngIf="isOpen" (click)="closeModal()">
-      <div class="examen-selector-modal" (click)="$event.stopPropagation()">
+    <div class="modal-overlay" *ngIf="isOpen" (click)="closeModal()">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <!-- Header -->
         <div class="modal-header">
-          <h3>Seleccionar Examen para {{ conductor?.nombre }} {{ conductor?.apellido }}</h3>
-          <button class="close-btn" (click)="closeModal()" title="Cerrar">
-            <span>&times;</span>
+          <div class="header-content">
+            <h1 class="modal-title">Seleccionar Examen</h1>
+            <div class="conductor-info" *ngIf="conductor">
+              <div class="conductor-name">{{ conductor.nombre }} {{ conductor.apellido }}</div>
+              <div class="conductor-dni">DNI: {{ conductor.dni }}</div>
+              <div class="conductor-status" *ngIf="getConductorStatus()">
+                {{ getConductorStatus() }}
+              </div>
+            </div>
+          </div>
+          <button class="close-btn" (click)="closeModal()" aria-label="Cerrar">
+            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
           </button>
         </div>
         
-        <div class="modal-content">
-          <div *ngIf="loading" class="loading">
-            <div class="spinner"></div>
-            Cargando exámenes disponibles...
+        <!-- Body -->
+        <div class="modal-body">
+          <!-- Loading State -->
+          <div *ngIf="loading" class="loading-container">
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Cargando exámenes disponibles...</p>
           </div>
           
-          <div *ngIf="error" class="error">
-            <strong>Error:</strong> {{ error }}
-          </div>
-          
-          <div *ngIf="!loading && !error" class="examenes-list">
-            <div *ngIf="examenesDisponibles.length === 0" class="no-examenes">
-              No hay exámenes disponibles para este conductor.
+          <!-- Error State -->
+          <div *ngIf="error && !loading" class="error-container">
+            <div class="error-icon">
+              <svg width="48" height="48" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
             </div>
-            
+            <h3 class="error-title">Error al cargar exámenes</h3>
+            <p class="error-message">{{ error }}</p>
+            <button class="retry-btn" (click)="cargarExamenesDisponibles()">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+              </svg>
+              Reintentar
+            </button>
+          </div>
+          
+          <!-- Exámenes List -->
+          <div *ngIf="!loading && !error && examenesDisponibles.length > 0" class="examenes-grid">
             <div *ngFor="let examen of examenesDisponibles" class="examen-card" (click)="seleccionarExamen(examen)">
-              <div class="examen-header">
-                <h4>{{ examen.titulo }}</h4>
-                <span class="categoria-badge">{{ examen.categoria_codigo }}</span>
+              <div class="card-header">
+                <h3 class="examen-title">{{ examen.titulo }}</h3>
+                <span class="examen-categoria">{{ examen.categoria_nombre }}</span>
               </div>
               
-              <div class="examen-info">
-                <p class="descripcion">{{ examen.descripcion }}</p>
+              <div class="card-body">
+                <p class="examen-descripcion">{{ examen.descripcion || 'Sin descripción' }}</p>
                 
-                <div class="examen-details">
-                  <div class="detail-item">
-                    <strong>Categoría:</strong> {{ examen.categoria_nombre }}
+                <div class="examen-stats">
+                  <div class="stat-item">
+                    <div class="stat-icon">
+                      <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                      </svg>
+                    </div>
+                    <div class="stat-content">
+                      <span class="stat-value">{{ examen.duracion_minutos || examen.tiempo_limite || 0 }}</span>
+                      <span class="stat-label">minutos</span>
+                    </div>
                   </div>
-                  <div class="detail-item">
-                    <strong>Dificultad:</strong> 
-                    <span class="dificultad-badge" [class]="'dificultad-' + examen.dificultad.toLowerCase()">
-                      {{ examen.dificultad }}
-                    </span>
+                  
+                  <div class="stat-item">
+                    <div class="stat-icon">
+                      <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                      </svg>
+                    </div>
+                    <div class="stat-content">
+                      <span class="stat-value">{{ examen.numero_preguntas || 'N/A' }}</span>
+                      <span class="stat-label">preguntas</span>
+                    </div>
                   </div>
-                  <div class="detail-item">
-                    <strong>Puntaje mínimo:</strong> {{ examen.puntaje_minimo }}%
-                  </div>
-                  <div class="detail-item">
-                    <strong>Duración:</strong> {{ examen.duracion_minutos }} minutos
+                  
+                  <div class="stat-item">
+                    <div class="stat-icon">
+                      <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                      </svg>
+                    </div>
+                    <div class="stat-content">
+                      <span class="stat-value">{{ examen.puntaje_minimo || 70 }}%</span>
+                      <span class="stat-label">mínimo</span>
+                    </div>
                   </div>
                 </div>
               </div>
               
-              <div class="examen-actions">
-                <button class="btn btn-primary" (click)="seleccionarExamen(examen)">
-                  Asignar Examen
+              <div class="card-footer">
+                <button class="btn-comenzar">
+                  <span>Comenzar</span>
+                  <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
                 </button>
               </div>
             </div>
+          </div>
+          
+          <!-- Empty State -->
+          <div *ngIf="!loading && !error && examenesDisponibles.length === 0" class="empty-container">
+            <div class="empty-icon">
+              <svg width="64" height="64" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              </svg>
+            </div>
+            <h3 class="empty-title">No hay exámenes disponibles</h3>
+            <p class="empty-message">No se encontraron exámenes disponibles para este conductor en este momento.</p>
           </div>
         </div>
       </div>
     </div>
   `,
   styles: [`
-    .examen-selector-overlay {
+    /* Modal Overlay */
+    .modal-overlay {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: rgba(0, 0, 0, 0.6);
+      background: rgba(0, 0, 0, 0.6);
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       z-index: 1000;
       padding: 20px;
     }
-    
-    .examen-selector-modal {
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+
+    .modal-content {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
       max-width: 800px;
       width: 100%;
-      max-height: 80vh;
+      max-height: 90vh;
       overflow: hidden;
       display: flex;
       flex-direction: column;
     }
-    
+
+    /* Header */
     .modal-header {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 20px 24px;
+      padding: 24px 32px;
+      border-bottom: 1px solid #f1f5f9;
       display: flex;
       justify-content: space-between;
-      align-items: center;
-    }
-    
-    .modal-header h3 {
-      margin: 0;
-      font-size: 1.5rem;
-      font-weight: 600;
-    }
-    
-    .close-btn {
-      background: none;
-      border: none;
+      align-items: flex-start;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
-      font-size: 28px;
-      cursor: pointer;
-      padding: 0;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      transition: background-color 0.2s;
     }
-    
-    .close-btn:hover {
-      background-color: rgba(255, 255, 255, 0.2);
-    }
-    
-    .modal-content {
-      padding: 24px;
-      overflow-y: auto;
+
+    .header-content {
       flex: 1;
     }
-    
-    .loading {
+
+    .modal-title {
+      margin: 0 0 12px 0;
+      color: white;
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .conductor-info {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 12px 16px;
+      border-radius: 8px;
+      backdrop-filter: blur(10px);
+    }
+
+    .conductor-name {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .conductor-dni {
+      font-size: 14px;
+      opacity: 0.9;
+      margin-bottom: 4px;
+    }
+
+    .conductor-status {
+      font-size: 12px;
+      opacity: 0.8;
+      font-style: italic;
+    }
+
+    .close-btn {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      width: 40px;
+      height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 40px;
-      color: #666;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: #64748b;
     }
-    
-    .spinner {
-      width: 24px;
-      height: 24px;
-      border: 3px solid #f3f3f3;
-      border-top: 3px solid #667eea;
+
+    .close-btn:hover {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+      color: #475569;
+    }
+
+    /* Body */
+    .modal-body {
+      padding: 32px;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    /* Loading State */
+    .loading-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid #f1f5f9;
+      border-top: 3px solid #3b82f6;
       border-radius: 50%;
       animation: spin 1s linear infinite;
-      margin-right: 12px;
+      margin-bottom: 16px;
     }
-    
+
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
-    
-    .error {
-      background-color: #f8d7da;
-      color: #721c24;
-      padding: 16px;
-      border-radius: 8px;
-      border: 1px solid #f5c6cb;
-    }
-    
-    .no-examenes {
-      text-align: center;
-      padding: 40px;
-      color: #666;
-      font-style: italic;
-    }
-    
-    .examenes-list {
-      display: grid;
-      gap: 16px;
-    }
-    
-    .examen-card {
-      border: 2px solid #e9ecef;
-      border-radius: 12px;
-      padding: 20px;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      background: #fafafa;
-    }
-    
-    .examen-card:hover {
-      border-color: #667eea;
-      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
-      transform: translateY(-2px);
-    }
-    
-    .examen-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 12px;
-    }
-    
-    .examen-header h4 {
+
+    .loading-text {
+      color: #64748b;
+      font-size: 16px;
       margin: 0;
-      color: #2c3e50;
-      font-size: 1.25rem;
-      font-weight: 600;
-      flex: 1;
-      margin-right: 12px;
     }
-    
-    .categoria-badge {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      white-space: nowrap;
+
+    /* Error State */
+    .error-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      text-align: center;
     }
-    
-    .examen-info {
+
+    .error-icon {
+      color: #ef4444;
       margin-bottom: 16px;
     }
-    
-    .descripcion {
-      color: #666;
-      margin: 0 0 16px 0;
+
+    .error-title {
+      color: #1e293b;
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0 0 8px 0;
+    }
+
+    .error-message {
+      color: #64748b;
+      font-size: 16px;
+      margin: 0 0 24px 0;
       line-height: 1.5;
     }
-    
-    .examen-details {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 8px;
-    }
-    
-    .detail-item {
-      display: flex;
-      align-items: center;
-      font-size: 0.9rem;
-      color: #555;
-    }
-    
-    .detail-item strong {
-      margin-right: 8px;
-      color: #333;
-      min-width: 100px;
-    }
-    
-    .dificultad-badge {
-      padding: 4px 8px;
-      border-radius: 12px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      text-transform: uppercase;
-    }
-    
-    .dificultad-facil {
-      background-color: #d4edda;
-      color: #155724;
-    }
-    
-    .dificultad-medio {
-      background-color: #fff3cd;
-      color: #856404;
-    }
-    
-    .dificultad-dificil {
-      background-color: #f8d7da;
-      color: #721c24;
-    }
-    
-    .examen-actions {
-      display: flex;
-      justify-content: flex-end;
-    }
-    
-    .btn {
-      padding: 10px 20px;
+
+    .retry-btn {
+      background: #3b82f6;
+      color: white;
       border: none;
       border-radius: 8px;
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 500;
       cursor: pointer;
-      font-size: 0.9rem;
-      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
       transition: all 0.2s;
     }
-    
-    .btn-primary {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+    .retry-btn:hover {
+      background: #2563eb;
+    }
+
+    /* Exámenes Grid */
+    .examenes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 24px;
+    }
+
+    .examen-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 24px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .examen-card:hover {
+      border-color: #3b82f6;
+      box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.1), 0 4px 6px -2px rgba(59, 130, 246, 0.05);
+      transform: translateY(-2px);
+    }
+
+    /* Card Header */
+    .card-header {
+      margin-bottom: 16px;
+    }
+
+    .examen-title {
+      color: #1e293b;
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0 0 8px 0;
+      line-height: 1.3;
+    }
+
+    .examen-categoria {
+      background: #dbeafe;
+      color: #1e40af;
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      display: inline-block;
+    }
+
+    /* Card Body */
+    .card-body {
+      flex: 1;
+      margin-bottom: 20px;
+    }
+
+    .examen-descripcion {
+      color: #64748b;
+      font-size: 14px;
+      line-height: 1.5;
+      margin: 0 0 20px 0;
+    }
+
+    .examen-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .stat-icon {
+      width: 32px;
+      height: 32px;
+      background: #f8fafc;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #64748b;
+      flex-shrink: 0;
+    }
+
+    .stat-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .stat-value {
+      color: #1e293b;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .stat-label {
+      color: #64748b;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    /* Card Footer */
+    .card-footer {
+      margin-top: auto;
+    }
+
+    .btn-comenzar {
+      background: #3b82f6;
       color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      transition: all 0.2s;
     }
-    
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+
+    .btn-comenzar:hover {
+      background: #2563eb;
     }
-    
+
+    /* Empty State */
+    .empty-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .empty-icon {
+      color: #cbd5e1;
+      margin-bottom: 16px;
+    }
+
+    .empty-title {
+      color: #1e293b;
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0 0 8px 0;
+    }
+
+    .empty-message {
+      color: #64748b;
+      font-size: 16px;
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* Responsive */
     @media (max-width: 768px) {
-      .examen-selector-modal {
-        margin: 10px;
-        max-height: 90vh;
+      .modal-overlay {
+        padding: 16px;
       }
-      
+
+      .modal-content {
+        max-height: 95vh;
+      }
+
+      .modal-header {
+        padding: 20px 24px;
+      }
+
+      .modal-title {
+        font-size: 20px;
+      }
+
+      .modal-body {
+        padding: 24px;
+      }
+
+      .examenes-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .examen-card {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
       .modal-header {
         padding: 16px 20px;
       }
-      
-      .modal-header h3 {
-        font-size: 1.25rem;
+
+      .modal-body {
+        padding: 20px;
       }
-      
-      .modal-content {
+
+      .examen-card {
         padding: 16px;
-      }
-      
-      .examen-details {
-        grid-template-columns: 1fr;
       }
     }
   `]
@@ -350,33 +556,41 @@ export class ExamenSelectorComponent implements OnInit {
   @Output() close = new EventEmitter<void>();
   @Output() examenSeleccionado = new EventEmitter<Examen>();
 
-  examenesDisponibles: Examen[] = [];
   loading = false;
   error = '';
+  examenesDisponibles: Examen[] = [];
 
   constructor(private apiService: ApiService) {}
 
   ngOnInit() {
+    console.log('ExamenSelectorComponent ngOnInit - isOpen:', this.isOpen, 'conductor:', this.conductor);
     if (this.isOpen && this.conductor) {
       this.cargarExamenesDisponibles();
     }
   }
 
   async cargarExamenesDisponibles() {
-    if (!this.conductor) return;
-
+    console.log('Cargando todos los exámenes disponibles...');
     this.loading = true;
     this.error = '';
 
     try {
-      const response = await this.apiService.get('/examenes/disponibles', {
-        conductor_id: this.conductor.conductor_id
-      }).toPromise();
+      // Cargar todos los exámenes activos
+      const response = await this.apiService.get('/examenes').toPromise();
+
+      console.log('Respuesta del servidor:', response);
 
       if (response && response.status === 'success') {
         this.examenesDisponibles = (response.data as Examen[]) || [];
+        console.log('Exámenes cargados:', this.examenesDisponibles);
+        
+        // Si no hay exámenes y hay un conductor seleccionado, verificar exámenes reprobados
+        if (this.examenesDisponibles.length === 0 && this.conductor) {
+          await this.verificarExamenesReprobados();
+        }
       } else {
         this.error = 'No se pudieron cargar los exámenes disponibles';
+        console.log('Error en respuesta:', response);
       }
     } catch (error: any) {
       console.error('Error al cargar exámenes:', error);
@@ -384,6 +598,53 @@ export class ExamenSelectorComponent implements OnInit {
     } finally {
       this.loading = false;
     }
+  }
+
+  async verificarExamenesReprobados() {
+    if (!this.conductor) return;
+    
+    try {
+      const response = await this.apiService.get('/examenes/reprobados', {
+        conductor_id: this.conductor.conductor_id
+      }).toPromise();
+      
+      if (response && response.status === 'success' && (response.data as any[]).length > 0) {
+        this.error = 'Has reprobado todos los exámenes disponibles. Debes aprobar otro examen para continuar.';
+      } else {
+        this.error = 'No hay exámenes disponibles en este momento.';
+      }
+    } catch (error) {
+      console.error('Error verificando exámenes reprobados:', error);
+      this.error = 'No hay exámenes disponibles en este momento.';
+    }
+  }
+
+  getConductorStatus(): string {
+    if (!this.conductor) return '';
+    
+    const esNuevo = (this.conductor.total_examenes_asignados || 0) === 0;
+    const tieneExamenIniciado = (this.conductor.categorias_pendientes || []).some(
+      cat => cat.estado === 'Iniciado'
+    );
+    const tieneCategoriasReprobadas = (this.conductor.categorias_pendientes || []).some(
+      cat => cat.estado === 'Reprobado' && (cat.intentos_maximos || 0) > (cat.intentos_realizados || 0)
+    );
+    
+    if (esNuevo) {
+      return 'Conductor nuevo - Sin exámenes asignados';
+    } else if (tieneExamenIniciado) {
+      const categoriaIniciada = (this.conductor.categorias_pendientes || []).find(
+        cat => cat.estado === 'Iniciado'
+      );
+      return `Examen iniciado: ${categoriaIniciada?.categoria_codigo || 'Categoría actual'}`;
+    } else if (tieneCategoriasReprobadas) {
+      const categoriasReprobadas = (this.conductor.categorias_pendientes || []).filter(
+        cat => cat.estado === 'Reprobado' && (cat.intentos_maximos || 0) > (cat.intentos_realizados || 0)
+      );
+      return `Categorías con intentos: ${categoriasReprobadas.map(cat => `${cat.categoria_codigo} (${cat.intentos_realizados}/${cat.intentos_maximos})`).join(', ')}`;
+    }
+    
+    return 'Sin exámenes activos';
   }
 
   seleccionarExamen(examen: Examen) {

@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api.service';
 import { ExamenSelectorComponent, Examen } from '../examen-selector/examen-selector.component';
+import { ConductorEditModalComponent } from '../conductor-edit-modal/conductor-edit-modal.component';
 
 interface Conductor {
   conductor_id: number;
@@ -26,7 +27,7 @@ interface Conductor {
 @Component({
   selector: 'app-conductores',
   standalone: true,
-  imports: [CommonModule, ExamenSelectorComponent],
+  imports: [CommonModule, ExamenSelectorComponent, ConductorEditModalComponent],
   template: `
     <div class="container">
       <h2>Gestión de Conductores</h2>
@@ -170,13 +171,11 @@ interface Conductor {
                   </div>
                 </td>
                 
-                <!-- Habilitar Examen -->
+                <!-- Editar Conductor -->
                 <td>
-                  <button class="btn btn-success btn-sm" 
-                          (click)="habilitarExamen(conductor)"
-                          [disabled]="!puedeHabilitarExamen(conductor)"
-                          title="Habilitar Examen">
-                    Habilitar Examen
+                  <button class="btn btn-primary btn-sm" 
+                          (click)="editarConductor(conductor)">
+                    Editar Conductor
                   </button>
                 </td>
               </tr>
@@ -192,6 +191,14 @@ interface Conductor {
         (close)="closeExamenSelector()"
         (examenSeleccionado)="onExamenSeleccionado($event)">
       </app-examen-selector>
+      
+      <!-- Modal de Edición de Conductor -->
+      <app-conductor-edit-modal
+        [isOpen]="showConductorEditModal"
+        [conductor]="selectedConductor"
+        (close)="closeConductorEditModal()"
+        (save)="onConductorSaved($event)">
+      </app-conductor-edit-modal>
     </div>
   `,
   styles: [`
@@ -520,6 +527,19 @@ interface Conductor {
       font-size: 0.85rem;
       line-height: 1.3;
     }
+
+    /* Estilos para motivo deshabilitado */
+    .motivo-deshabilitado {
+      font-size: 0.75rem;
+      color: #dc2626;
+      font-style: italic;
+      margin-top: 4px;
+      text-align: center;
+      background: #fef2f2;
+      padding: 4px 8px;
+      border-radius: 4px;
+      border: 1px solid #fecaca;
+    }
   `]
 })
 export class Conductores implements OnInit {
@@ -527,6 +547,7 @@ export class Conductores implements OnInit {
   loading = false;
   error = '';
   showExamenSelector = false;
+  showConductorEditModal = false;
   selectedConductor: Conductor | null = null;
 
   constructor(private apiService: ApiService, private cdr: ChangeDetectorRef) {}
@@ -603,8 +624,100 @@ export class Conductores implements OnInit {
   }
 
   puedeHabilitarExamen(conductor: Conductor): boolean {
-    // Puede habilitar examen si tiene categorías pendientes (Reprobada o Iniciado)
-    return (conductor.categorias_pendientes || []).length > 0;
+    console.log('🔍 Verificando si puede habilitar examen para conductor:', conductor.conductor_id);
+    
+    // 1. Verificar si es un conductor nuevo (sin exámenes asignados)
+    const esNuevo = (conductor.total_examenes_asignados || 0) === 0;
+    console.log('📝 Es conductor nuevo:', esNuevo);
+    
+    // 2. Verificar si tiene exámenes iniciados (estado "Iniciado")
+    const tieneExamenIniciado = (conductor.categorias_pendientes || []).some(
+      cat => cat.estado === 'Iniciado'
+    );
+    console.log('⏳ Tiene examen iniciado:', tieneExamenIniciado);
+    
+    // 3. Verificar si tiene categorías reprobadas con intentos restantes
+    const tieneCategoriasReprobadasConIntentos = (conductor.categorias_pendientes || []).some(
+      cat => cat.estado === 'Reprobado' && (cat.intentos_maximos || 0) > (cat.intentos_realizados || 0)
+    );
+    console.log('🎯 Tiene categorías reprobadas con intentos:', tieneCategoriasReprobadasConIntentos);
+    
+    // LÓGICA DEL NEGOCIO CORREGIDA:
+    // El botón "Habilitar Examen" SOLO debe estar activo si:
+    // 1. Es conductor nuevo (sin exámenes asignados), O
+    // 2. NO tiene ningún intento activo (ni iniciado, ni reprobado con intentos)
+    
+    let puedeHabilitar = false;
+    
+    if (esNuevo) {
+      // Conductor nuevo: puede habilitar examen
+      puedeHabilitar = true;
+      console.log('✅ Conductor nuevo - puede habilitar');
+    } else if (tieneExamenIniciado || tieneCategoriasReprobadasConIntentos) {
+      // Tiene intentos activos (iniciado o reprobado con intentos): NO puede habilitar
+      puedeHabilitar = false;
+      console.log('❌ Tiene intentos activos - NO puede habilitar');
+    } else {
+      // No tiene intentos activos: puede habilitar
+      puedeHabilitar = true;
+      console.log('✅ Sin intentos activos - puede habilitar');
+    }
+    
+    console.log('✅ Puede habilitar examen:', puedeHabilitar);
+    return puedeHabilitar;
+  }
+
+  getTooltipHabilitarExamen(conductor: Conductor): string {
+    if (this.puedeHabilitarExamen(conductor)) {
+      return 'Habilitar Examen';
+    }
+    
+    const tieneExamenIniciado = (conductor.categorias_pendientes || []).some(
+      cat => cat.estado === 'Iniciado'
+    );
+    
+    const tieneCategoriasReprobadasConIntentos = (conductor.categorias_pendientes || []).some(
+      cat => cat.estado === 'Reprobado' && (cat.intentos_maximos || 0) > (cat.intentos_realizados || 0)
+    );
+    
+    if (tieneExamenIniciado) {
+      return 'No se puede habilitar: Tiene un examen iniciado. Debe completar todos los intentos de la categoría actual.';
+    }
+    
+    if (tieneCategoriasReprobadasConIntentos) {
+      return 'No se puede habilitar: Tiene intentos restantes en categorías reprobadas. Debe agotar todos los intentos antes de asignar un nuevo examen.';
+    }
+    
+    return 'No se puede habilitar examen en este momento';
+  }
+
+  getMotivoDeshabilitado(conductor: Conductor): string {
+    const tieneExamenIniciado = (conductor.categorias_pendientes || []).some(
+      cat => cat.estado === 'Iniciado'
+    );
+    
+    const tieneCategoriasReprobadasConIntentos = (conductor.categorias_pendientes || []).some(
+      cat => cat.estado === 'Reprobado' && (cat.intentos_maximos || 0) > (cat.intentos_realizados || 0)
+    );
+    
+    if (tieneExamenIniciado) {
+      const categoriaIniciada = (conductor.categorias_pendientes || []).find(
+        cat => cat.estado === 'Iniciado'
+      );
+      return `Debe completar ${categoriaIniciada?.categoria_codigo || 'categoría actual'} primero`;
+    }
+    
+    if (tieneCategoriasReprobadasConIntentos) {
+      const categoriasConIntentos = (conductor.categorias_pendientes || []).filter(
+        cat => cat.estado === 'Reprobado' && (cat.intentos_maximos || 0) > (cat.intentos_realizados || 0)
+      );
+      const categoriasTexto = categoriasConIntentos.map(cat => 
+        `${cat.categoria_codigo} (${cat.intentos_realizados}/${cat.intentos_maximos})`
+      ).join(', ');
+      return `Debe agotar intentos: ${categoriasTexto}`;
+    }
+    
+    return 'No disponible';
   }
 
   habilitarExamen(conductor: Conductor) {
@@ -624,18 +737,55 @@ export class Conductores implements OnInit {
     try {
       console.log('Asignando examen:', examen, 'para conductor:', this.selectedConductor);
       
-      // Aquí implementarías la llamada al backend para asignar el examen
+      // Determinar qué categoría asignar basada en la lógica del negocio
+      let categoriaId = examen.categoria_id;
+      
+      // Si el conductor tiene categorías reprobadas con intentos, usar la primera
+      const categoriasReprobadasConIntentos = (this.selectedConductor.categorias_pendientes || []).filter(
+        cat => cat.estado === 'Reprobado' && (cat.intentos_maximos || 0) > (cat.intentos_realizados || 0)
+      );
+      
+      if (categoriasReprobadasConIntentos.length > 0) {
+        // Usar la primera categoría reprobada con intentos
+        categoriaId = categoriasReprobadasConIntentos[0].categoria_id;
+        console.log('Usando categoría reprobada con intentos:', categoriaId);
+      } else {
+        // Si es conductor nuevo o no tiene categorías pendientes, usar la categoría del examen
+        console.log('Usando categoría del examen:', categoriaId);
+      }
+      
+      // Mostrar confirmación antes de asignar
+      const confirmacion = confirm(
+        `¿Asignar examen "${examen.titulo}" (${examen.categoria_codigo}) a ${this.selectedConductor.nombre} ${this.selectedConductor.apellido}?\n\n` +
+        `Categoría: ${examen.categoria_nombre}\n` +
+        `Duración: ${examen.duracion_minutos} minutos\n` +
+        `Preguntas: ${examen.numero_preguntas || 'N/A'}`
+      );
+      
+      if (!confirmacion) {
+        console.log('Asignación cancelada por el usuario');
+        return;
+      }
+      
+      // Llamada al backend para asignar el examen
       const response = await this.apiService.post('/examenes/asignar', {
         conductor_id: this.selectedConductor.conductor_id,
         examen_id: examen.examen_id,
-        categoria_id: examen.categoria_id
+        categoria_id: categoriaId
       }).toPromise();
 
       if (response && response.status === 'success') {
+        console.log('✅ Examen asignado exitosamente:', response);
+        
         // Recargar los conductores para mostrar los cambios
         await this.cargarConductores();
-        alert(`✅ Examen "${examen.titulo}" asignado exitosamente a ${this.selectedConductor.nombre} ${this.selectedConductor.apellido}`);
+        
+        // Mostrar mensaje de éxito
+        alert(`✅ Examen "${examen.titulo}" asignado exitosamente a ${this.selectedConductor.nombre} ${this.selectedConductor.apellido}\n\n` +
+              `Categoría: ${examen.categoria_nombre}\n` +
+              `Estado: Iniciado`);
       } else {
+        console.error('❌ Error en respuesta del servidor:', response);
         alert(`❌ Error al asignar el examen: ${response?.message || 'Error desconocido'}`);
       }
     } catch (error: any) {
@@ -643,6 +793,35 @@ export class Conductores implements OnInit {
       alert(`❌ Error al asignar el examen: ${error.message || 'Error de conexión'}`);
     } finally {
       this.closeExamenSelector();
+    }
+  }
+
+  editarConductor(conductor: Conductor) {
+    console.log('Editando conductor:', conductor);
+    this.selectedConductor = conductor;
+    this.showConductorEditModal = true;
+  }
+
+  closeConductorEditModal() {
+    this.showConductorEditModal = false;
+    this.selectedConductor = null;
+  }
+
+  async onConductorSaved(conductor: Conductor) {
+    console.log('Conductor guardado:', conductor);
+    
+    try {
+      // Aquí se implementará la lógica para guardar los cambios del conductor
+      // Por ahora solo recargamos la lista
+      await this.cargarConductores();
+      
+      // Mostrar mensaje de éxito
+      alert('✅ Conductor actualizado exitosamente');
+    } catch (error) {
+      console.error('Error al guardar conductor:', error);
+      alert('❌ Error al guardar los cambios del conductor');
+    } finally {
+      this.closeConductorEditModal();
     }
   }
 }
