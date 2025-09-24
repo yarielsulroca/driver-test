@@ -9,7 +9,10 @@ import { NotificationsComponent } from './components/shared/notifications/notifi
   imports: [RouterOutlet, CommonModule, LoadingComponent, NotificationsComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss',
-  standalone: true
+  standalone: true,
+  host: {
+    'class': 'municipio-theme'
+  }
 })
 export class App {
   protected title = 'frontend-examen';

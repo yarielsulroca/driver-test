@@ -191,16 +191,16 @@ export interface Conductor {
       flex-direction: column;
     }
 
-    /* Header */
-    .modal-header {
-      padding: 24px 32px;
-      border-bottom: 1px solid #f1f5f9;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-    }
+     /* Header */
+     .modal-header {
+       padding: 24px 32px;
+       border-bottom: 1px solid #E8F5E8;
+       display: flex;
+       justify-content: space-between;
+       align-items: flex-start;
+       background: #4CAF50;
+       color: white;
+     }
 
     .header-content {
       flex: 1;
@@ -214,12 +214,12 @@ export interface Conductor {
       line-height: 1.2;
     }
 
-    .conductor-info {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 12px 16px;
-      border-radius: 8px;
-      backdrop-filter: blur(10px);
-    }
+     .conductor-info {
+       background: rgba(255, 255, 255, 0.15);
+       padding: 12px 16px;
+       border-radius: 8px;
+       backdrop-filter: blur(10px);
+     }
 
     .conductor-name {
       font-size: 18px;
@@ -326,24 +326,24 @@ export interface Conductor {
       line-height: 1.5;
     }
 
-    .retry-btn {
-      background: #3b82f6;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 12px 24px;
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.2s;
-    }
-
-    .retry-btn:hover {
-      background: #2563eb;
-    }
+     .retry-btn {
+       background: #4CAF50;
+       color: white;
+       border: none;
+       border-radius: 8px;
+       padding: 12px 24px;
+       font-size: 14px;
+       font-weight: 500;
+       cursor: pointer;
+       display: flex;
+       align-items: center;
+       gap: 8px;
+       transition: all 0.2s;
+     }
+     
+     .retry-btn:hover {
+       background: #45a049;
+     }
 
     /* Exámenes Grid */
     .examenes-grid {
@@ -364,11 +364,11 @@ export interface Conductor {
       height: 100%;
     }
 
-    .examen-card:hover {
-      border-color: #3b82f6;
-      box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.1), 0 4px 6px -2px rgba(59, 130, 246, 0.05);
-      transform: translateY(-2px);
-    }
+     .examen-card:hover {
+       border-color: #4CAF50;
+       box-shadow: 0 10px 25px -5px rgba(76, 175, 80, 0.1), 0 4px 6px -2px rgba(76, 175, 80, 0.05);
+       transform: translateY(-2px);
+     }
 
     /* Card Header */
     .card-header {
@@ -383,15 +383,15 @@ export interface Conductor {
       line-height: 1.3;
     }
 
-    .examen-categoria {
-      background: #dbeafe;
-      color: #1e40af;
-      padding: 4px 12px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 500;
-      display: inline-block;
-    }
+     .examen-categoria {
+       background: #E8F5E8;
+       color: #2E7D32;
+       padding: 4px 12px;
+       border-radius: 6px;
+       font-size: 12px;
+       font-weight: 500;
+       display: inline-block;
+     }
 
     /* Card Body */
     .card-body {
@@ -453,26 +453,26 @@ export interface Conductor {
       margin-top: auto;
     }
 
-    .btn-comenzar {
-      background: #3b82f6;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 12px 20px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      width: 100%;
-      transition: all 0.2s;
-    }
-
-    .btn-comenzar:hover {
-      background: #2563eb;
-    }
+     .btn-comenzar {
+       background: #4CAF50;
+       color: white;
+       border: none;
+       border-radius: 8px;
+       padding: 12px 20px;
+       font-size: 14px;
+       font-weight: 600;
+       cursor: pointer;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       gap: 8px;
+       width: 100%;
+       transition: all 0.2s;
+     }
+     
+     .btn-comenzar:hover {
+       background: #45a049;
+     }
 
     /* Empty State */
     .empty-container {

@@ -714,6 +714,8 @@ export class ConductorEditModalComponent implements OnInit, OnChanges {
   loadingExams: boolean = false;
   error: string = '';
 
+  constructor(private apiService: ApiService) {}
+
   ngOnInit() {
     if (this.conductor) {
       this.conductorData = { ...this.conductor };
